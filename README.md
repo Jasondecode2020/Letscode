@@ -1,4 +1,4 @@
-# LetsCode·Solving Problems by Pattern
+# LetsCode·Solving Leetcode Problems by Pattern
 
 All questions are solved in Python, including videos, code, pattern and rating.
 
