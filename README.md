@@ -9,11 +9,9 @@ Check my YouTube for all questions (https://www.youtube.com/@letscode1000)
 |Pattern|Question|Video|Code|Rating|
 |---|---|---|---|---|
 |Hash Table|[1. Two Sum](https://leetcode.com/problems/two-sum/)|[Video](https://www.youtube.com/watch?v=aaYirjaK4NA&t=2s)|[Code](https://github.com/Jasondecode2020/Letscode/blob/main/leetcode1-50/1-10.md)|Easy|
-
 |Linked List|[21. Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/)|[Video](https://www.youtube.com/watch?v=QT2bS-6-jfE)|[Code](https://github.com/Jasondecode2020/Letscode/blob/main/leetcode1-50/21-30.md)|Easy|
 ||[2. Add Two Numbers](https://leetcode.com/problems/add-two-numbers/)|[Video](https://www.youtube.com/watch?v=q7LlVHxI3Qg&t=24s)|[Code](https://github.com/Jasondecode2020/Letscode/blob/main/leetcode1-50/1-10.md)|Medium|
 ||[19. Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/)|[Video](https://www.youtube.com/watch?v=ttyJVyYbOc0)|[Code](https://github.com/Jasondecode2020/Letscode/blob/main/leetcode1-50/11-20.md)|Easy|
-
 |Two Pointers|[11. Container With Most Water](https://leetcode.com/problems/container-with-most-water/)|[Video](https://www.youtube.com/watch?v=zKmd0h028sg&t=178s)|[Code](https://github.com/Jasondecode2020/Letscode/blob/main/leetcode1-50/11-20.md)|Medium|
 ||[5. Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/)|[Video](https://www.youtube.com/watch?v=6FB04-PqoKo)|[Code](https://github.com/Jasondecode2020/Letscode/blob/main/leetcode1-50/1-10.md)|Medium|
 ||[15. 3Sum](https://leetcode.com/problems/3sum/)|[Video](https://www.youtube.com/watch?v=hG-evPrGPkI&t=383s)|[Code](https://github.com/Jasondecode2020/Letscode/blob/main/leetcode1-50/11-20.md)|Medium|
