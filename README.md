@@ -15,6 +15,8 @@ Useful books for leetcode problems.
 |Hand-On Data Structures and Algorithms with Python|[reference book](https://heyzine.com/flip-book/26fb1a6afd.html/)|
 |Cookbook Leetcode|[reference book](https://heyzine.com/flip-book/bc0c0e2ba7.html/)|
 
+All Leetcode questions withs Videos
+
 |Pattern|Question|Video|Code|Rating|
 |---|---|---|---|---|
 |Hash Table|[1. Two Sum](https://leetcode.com/problems/two-sum/)|[Video](https://www.youtube.com/watch?v=aaYirjaK4NA&t=2s)|[Code](https://github.com/Jasondecode2020/Letscode/blob/main/leetcode1-50/1-10.md)|Easy|
