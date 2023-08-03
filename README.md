@@ -9,7 +9,11 @@ Check my YouTube for all questions (https://www.youtube.com/@letscode1000)
 Useful books for leetcode problems.
 |Name|Links|
 |---|---|
-|Competitive Programmer's Handbook|[flip book](https://heyzine.com/flip-book/610510faca.html/)|
+|Competitive Programmer's Handbook|[reference book](https://heyzine.com/flip-book/610510faca.html/)|
+|Data Structures & Algorithms in Python|[reference book](https://heyzine.com/flip-book/da293ec9cc.html/)|
+|Python Cookbook|[reference book](https://heyzine.com/flip-book/0fe98b241b.html/)|
+|Hand-On Data Structures and Algorithms with Python|[reference book](https://heyzine.com/flip-book/26fb1a6afd.html/)|
+|Cookbook Leetcode|[reference book](https://heyzine.com/bc0c0e2ba7.html/)|
 
 |Pattern|Question|Video|Code|Rating|
 |---|---|---|---|---|
