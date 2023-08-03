@@ -15,7 +15,7 @@ Useful books for leetcode problems.
 |Python Cookbook|[reference book](https://heyzine.com/flip-book/0fe98b241b.html/)|
 |Hand-On Data Structures and Algorithms with Python|[reference book](https://heyzine.com/flip-book/26fb1a6afd.html/)| -->
 
-All Leetcode questions withs Videos
+Leetcode questions withs Videos
 
 |Pattern|Question|Video|Code|Rating|
 |---|---|---|---|---|
