@@ -6,6 +6,11 @@ All ratings are sorted in increasing order, as the rating is calculated accordin
 
 Check my YouTube for all questions (https://www.youtube.com/@letscode1000)
 
+Useful books for leetcode problems.
+|Name|Links|
+|---|---|
+|Competitive Programmer's Handbook|[flip book](https://heyzine.com/flip-book/610510faca.html/)|
+
 |Pattern|Question|Video|Code|Rating|
 |---|---|---|---|---|
 |Hash Table|[1. Two Sum](https://leetcode.com/problems/two-sum/)|[Video](https://www.youtube.com/watch?v=aaYirjaK4NA&t=2s)|[Code](https://github.com/Jasondecode2020/Letscode/blob/main/leetcode1-50/1-10.md)|Easy|

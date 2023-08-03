@@ -653,6 +653,36 @@ class Solution:
         return False
 ```
 
+method 2:
+
+```python
+class Solution:
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        ROWS = len(board)
+        COLS = len(board[0])
+        visit = set()
+        # B_str = ''.join([''.join(i) for i in board])
+        # # prune the False cases before dfs
+        # if any(B_str.count(i) < word.count(i) for i in word):
+        #     return False
+        def dfs(r, c, i):
+            if i == len(word):
+                return True
+            if 0 <= r < ROWS and 0 <= c < COLS and board[r][c] == word[i] and (r, c) not in visit:
+                visit.add((r, c))
+                res = dfs(r - 1, c, i + 1) or dfs(r + 1, c, i + 1) or \
+                        dfs(r, c + 1, i + 1) or dfs(r, c - 1, i + 1)
+                visit.remove((r, c))
+                return res
+            return False
+        
+        for r in range(ROWS):
+            for c in range(COLS):
+                if board[r][c] == word[0] and dfs(r, c, 0):
+                    return True
+        return False
+```
+
 ### 80. Remove Duplicates from Sorted Array II
 
 - array
