@@ -31,18 +31,17 @@ Check my YouTube for all questions (https://www.youtube.com/@letscode1000)
 ### Top Coding Patterns
 
 * #### 1 Depth First Search
-- ##### Tree DFS
-- ##### Graph DFS
+  - ##### Tree DFS
+  - ##### Graph DFS
 * #### 2 Breadth First Search
-- ##### Tree BFS
-- ##### Graph BFS
-- - [General BFS](https://github.com/wisdompeak/LeetCode/tree/master/Two_Pointers)
-- - [Multi-source BFS](https://github.com/wisdompeak/LeetCode/tree/master/Two_Pointers/011.Container-With-Most-Water)
-- - - [994. Rotting Oranges](https://github.com/wisdompeak/LeetCode/tree/master/Two_Pointers/1763.Longest-Nice-Substring)
-- - - [286. Walls and Gates](https://github.com/wisdompeak/LeetCode/tree/master/Two_Pointers/011.Container-With-Most-Water)
-- - [0-1 BFS](https://github.com/wisdompeak/LeetCode/tree/master/Two_Pointers/011.Container-With-Most-Water)
-- - [Bidirectional BFS](https://github.com/wisdompeak/LeetCode/tree/master/Two_Pointers/011.Container-With-Most-Water)	 
-
+  - ##### Tree BFS
+  - ##### Graph BFS
+    - [General BFS](https://github.com/wisdompeak/LeetCode/tree/master/Two_Pointers)
+    - [Multi-source BFS](https://github.com/wisdompeak/LeetCode/tree/master/Two_Pointers/011.Container-With-Most-Water)
+      - [994. Rotting Oranges](https://github.com/wisdompeak/LeetCode/tree/master/Two_Pointers/1763.Longest-Nice-Substring)
+      - [286. Walls and Gates](https://github.com/wisdompeak/LeetCode/tree/master/Two_Pointers/011.Container-With-Most-Water)
+    - [0-1 BFS](https://github.com/wisdompeak/LeetCode/tree/master/Two_Pointers/011.Container-With-Most-Water)
+    - [Bidirectional BFS](https://github.com/wisdompeak/LeetCode/tree/master/Two_Pointers/011.Container-With-Most-Water)	 
 * #### 3 Binary Search
 * #### 4 Two Pointers
 * #### 5 Sliding Window
