@@ -7,9 +7,9 @@ Check my YouTube for all questions (https://www.youtube.com/@letscode1000)
 ## LeetCode data structure and algorithms
 ### Top Data Structures
 
-#### 1 Array
-#### 2 String
-#### 3 Hash Table
+* #### 1 Array
+* #### 2 String
+* #### 3 Hash Table
 #### 4 Tree
 #### 5 Matrix
 #### 6 Stack
@@ -30,9 +30,9 @@ Check my YouTube for all questions (https://www.youtube.com/@letscode1000)
 
 ### Top Coding Patterns
 
-#### Depth First Search
+* #### Depth First Search
 
-##### Tree DFS
+* ##### Tree DFS
 
 ##### Graph DFS
 
