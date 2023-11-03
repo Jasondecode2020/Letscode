@@ -40,7 +40,8 @@ Check my YouTube for all questions (https://www.youtube.com/@letscode1000)
     - [Multi-source BFS](https://github.com/wisdompeak/LeetCode/tree/master/Two_Pointers/011.Container-With-Most-Water)
       - [994. Rotting Oranges](https://github.com/wisdompeak/LeetCode/tree/master/Two_Pointers/1763.Longest-Nice-Substring)
       - [286. Walls and Gates](https://github.com/wisdompeak/LeetCode/tree/master/Two_Pointers/011.Container-With-Most-Water)
-    - [0-1 BFS](https://github.com/wisdompeak/LeetCode/tree/master/Two_Pointers/011.Container-With-Most-Water)
+    - [0-1 BFS](https://github.com/Jasondecode2020/Letscode/blob/main/template/59. 0-1 BFS.md)
+      - [2290. Minimum Obstacle Removal to Reach Corner](https://github.com/Jasondecode2020/Letscode/blob/main/template/59. 0-1 BFS.md)|Hard|
     - [Bidirectional BFS](https://github.com/wisdompeak/LeetCode/tree/master/Two_Pointers/011.Container-With-Most-Water)	 
 * #### 3 Binary Search
 * #### 4 Two Pointers
