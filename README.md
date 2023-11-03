@@ -1,54 +1,63 @@
 # LetsCode·Solving Leetcode Problems by Pattern
 
-All questions are solved in Python, including videos, code, pattern and rating.
-
-All ratings are sorted in increasing order, as the rating is calculated according to leetcode contest. If there are no ratings, using Easy/Medium/Hard instead.
+All questions are solved by patterns.
 
 Check my YouTube for all questions (https://www.youtube.com/@letscode1000)
 
-Useful books for leetcode problems.
-|Name|Links|
-|---|---|
-|Competitive Programmer's Handbook|[reference book](https://heyzine.com/flip-book/610510faca.html/)|
-|Cookbook Leetcode|[reference book](https://heyzine.com/flip-book/bc0c0e2ba7.html/)|
-<!-- |Data Structures & Algorithms in Python|[reference book](https://heyzine.com/flip-book/da293ec9cc.html/)|
-|Python Cookbook|[reference book](https://heyzine.com/flip-book/0fe98b241b.html/)|
-|Hand-On Data Structures and Algorithms with Python|[reference book](https://heyzine.com/flip-book/26fb1a6afd.html/)| -->
+## LeetCode data structure and algorithms
+### Top Data Structures
 
-Leetcode questions withs Videos
+#### 1 Array
+#### 2 String
+#### 3 Hash Table
+#### 4 Tree
+#### 5 Matrix
+#### 6 Stack
+#### 7 Heap
+#### 8 Graph
+#### 9 Linked List
+#### 10 Trie
 
-|Pattern|Question|Video|Code|Rating|
-|---|---|---|---|---|
-|Hash Table|[1. Two Sum](https://leetcode.com/problems/two-sum/)|[Video](https://www.youtube.com/watch?v=aaYirjaK4NA&t=2s)|[Code](https://github.com/Jasondecode2020/Letscode/blob/main/leetcode1-50/1-10.md)|Easy|
-||[30. Substring with Concatenation of All Words](https://leetcode.com/problems/divide-two-integers/)|[Video](https://www.youtube.com/watch?v=eKIPVXFGpnw&t=64s)|[Code](https://github.com/Jasondecode2020/Letscode/blob/main/leetcode1-50/21-30.md)|Hard|
-|Array|[26. Remove Duplicates from Sorted Array](https://leetcode.com/problems/remove-duplicates-from-sorted-array/)|[Video](https://www.youtube.com/watch?v=Gfiic1qBLtA&t=259s)|[Code](https://github.com/Jasondecode2020/Letscode/blob/main/leetcode1-50/21-30.md)|Easy|
-||[27. Remove Element](https://leetcode.com/problems/remove-element/)|[Video](https://www.youtube.com/watch?v=trREFAD6Z-g&t=405s)|[Code](https://github.com/Jasondecode2020/Letscode/blob/main/leetcode1-50/21-30.md)|Easy|
-|Linked List|[21. Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/)|[Video](https://www.youtube.com/watch?v=QT2bS-6-jfE)|[Code](https://github.com/Jasondecode2020/Letscode/blob/main/leetcode1-50/21-30.md)|Easy|
-||[19. Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/)|[Video](https://www.youtube.com/watch?v=ttyJVyYbOc0)|[Code](https://github.com/Jasondecode2020/Letscode/blob/main/leetcode1-50/11-20.md)|Easy|
-||[2. Add Two Numbers](https://leetcode.com/problems/add-two-numbers/)|[Video](https://www.youtube.com/watch?v=q7LlVHxI3Qg&t=24s)|[Code](https://github.com/Jasondecode2020/Letscode/blob/main/leetcode1-50/1-10.md)|Medium|
-||[24. Swap Nodes in Pairs](https://leetcode.com/problems/swap-nodes-in-pairs/)|[Video](https://www.youtube.com/watch?v=VceO8cNwFe0&t=6s)|[Code](https://github.com/Jasondecode2020/Letscode/blob/main/leetcode1-50/21-30.md)|Medium|
-||[23. Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/)|[Video](https://www.youtube.com/watch?v=4O_CWbIwisU&t=89s)|[Code](https://github.com/Jasondecode2020/Letscode/blob/main/leetcode1-50/21-30.md)|Hard|
-||[25. Reverse Nodes in k-Group](https://leetcode.com/problems/reverse-nodes-in-k-group/)|[Video](https://www.youtube.com/watch?v=xdpMnOVgPPc)|[Code](https://github.com/Jasondecode2020/Letscode/blob/main/leetcode1-50/21-30.md)|Hard|
-|Two Pointers|[11. Container With Most Water](https://leetcode.com/problems/container-with-most-water/)|[Video](https://www.youtube.com/watch?v=zKmd0h028sg&t=178s)|[Code](https://github.com/Jasondecode2020/Letscode/blob/main/leetcode1-50/11-20.md)|Medium|
-||[5. Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/)|[Video](https://www.youtube.com/watch?v=6FB04-PqoKo)|[Code](https://github.com/Jasondecode2020/Letscode/blob/main/leetcode1-50/1-10.md)|Medium|
-||[15. 3Sum](https://leetcode.com/problems/3sum/)|[Video](https://www.youtube.com/watch?v=hG-evPrGPkI&t=383s)|[Code](https://github.com/Jasondecode2020/Letscode/blob/main/leetcode1-50/11-20.md)|Medium|
-||[16. 3Sum Closest](https://leetcode.com/problems/3sum-closest/)|[Video](https://www.youtube.com/watch?v=MfY85hCvubY&t=102s)|[Code](https://github.com/Jasondecode2020/Letscode/blob/main/leetcode1-50/11-20.md)|Medium|
-||[18. 4Sum](https://leetcode.com/problems/4sum/)|[Video](https://www.youtube.com/watch?v=cimvxhgyiE8)|[Code](https://github.com/Jasondecode2020/Letscode/blob/main/leetcode1-50/11-20.md)|Medium|
-|Sliding Window|[3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/)|[Video](https://www.youtube.com/watch?v=iWp99ph1ArM&t=404s)|[Code](https://github.com/Jasondecode2020/Letscode/blob/main/leetcode1-50/1-10.md)|Medium|
-|Binary Search|[4. Median of Two Sorted Arrays](https://leetcode.com/problems/median-of-two-sorted-arrays/)|[Video](https://www.youtube.com/watch?v=42z6p1V7juc)|[Code](https://github.com/Jasondecode2020/Letscode/blob/main/leetcode1-50/1-10.md)|Hard|
-|Bucket Sort|[6. Zigzag Conversion](https://leetcode.com/problems/zigzag-conversion/)|[Video](https://www.youtube.com/watch?v=x11S9MoOTJ0)|[Code](https://github.com/Jasondecode2020/Letscode/blob/main/leetcode1-50/1-10.md)|Medium|
-|Math|[9. Palindrome Number](https://leetcode.com/problems/palindrome-number/)|[Video](https://www.youtube.com/watch?v=1-bVzs5rGfU)|[Code](https://github.com/Jasondecode2020/Letscode/blob/main/leetcode1-50/1-10.md)|Easy|
-||[13. Roman to Integer](https://leetcode.com/problems/roman-to-integer/)|[Video](https://www.youtube.com/watch?v=EWa3LyGybvc&t=14s)|[Code](https://github.com/Jasondecode2020/Letscode/blob/main/leetcode1-50/11-20.md)|Easy|
-||[7. Reverse Integer](https://leetcode.com/problems/reverse-integer/)|[Video](https://www.youtube.com/watch?v=t4Ex38cKBRI)|[Code](https://github.com/Jasondecode2020/Letscode/blob/main/leetcode1-50/1-10.md)|Medium|
-||[12. Integer to Roman](https://leetcode.com/problems/integer-to-roman/)|[Video](https://www.youtube.com/watch?v=MrNkdzB6POs&t=492s)|[Code](https://github.com/Jasondecode2020/Letscode/blob/main/leetcode1-50/11-20.md)|Medium|
-||[29. Divide Two Integers](https://leetcode.com/problems/divide-two-integers/)|[Video](https://www.youtube.com/watch?v=HrxOFuZFvMs)|[Code](https://github.com/Jasondecode2020/Letscode/blob/main/leetcode1-50/21-30.md)|Medium|
-|String|[8. String to Integer (atoi)](https://leetcode.com/problems/string-to-integer-atoi/)|[Video](https://www.youtube.com/watch?v=KEw75_iPntc)|[Code](https://github.com/Jasondecode2020/Letscode/blob/main/leetcode1-50/1-10.md)|Medium|
-|Array|[28. Find the Index of the First Occurrence in a String](https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/)|[Video](https://www.youtube.com/watch?v=d3fv75bSQCU)|[Code](https://github.com/Jasondecode2020/Letscode/blob/main/leetcode1-50/21-30.md)|Easy|
-|Backtracking|[17. Letter Combinations of a Phone Number](https://leetcode.com/problems/letter-combinations-of-a-phone-number/)|[Video](https://www.youtube.com/watch?v=B-VPpRbxE2o&t=247s)|[Code](https://github.com/Jasondecode2020/Letscode/blob/main/leetcode1-50/11-20.md)|Medium|
-||[22. Generate Parentheses](https://leetcode.com/problems/generate-parentheses/)|[Video](https://www.youtube.com/watch?v=jLlNoP8vMAo)|[Code](https://github.com/Jasondecode2020/Letscode/blob/main/leetcode1-50/21-30.md)|Medium|
-|Stack|[20. Valid Parentheses](https://leetcode.com/problems/valid-parentheses/)|[Video](https://www.youtube.com/watch?v=LpdwnEHqvNM&t=47s)|[Code](https://github.com/Jasondecode2020/Letscode/blob/main/leetcode1-50/11-20.md)|Easy|
-|DP|[10. Regular Expression Matching](https://leetcode.com/problems/regular-expression-matching/)|[Video](https://www.youtube.com/watch?v=9LWsj1gh-I0&t=235s)|[Code](https://github.com/Jasondecode2020/Letscode/blob/main/leetcode1-50/1-10.md)|Hard|
-|Trie|[14. Longest Common Prefix](https://leetcode.com/problems/longest-common-prefix/)|[Video](https://www.youtube.com/watch?v=QOLEXxJFqeY&t=53s)|[Code](https://github.com/Jasondecode2020/Letscode/blob/main/leetcode1-50/11-20.md)|Easy|
+### Top Algorithms
+
+#### 1 Dynamic Programming
+#### 2 Sorting
+#### 3 Greedy
+#### 4 Binary Search
+#### 5 Backtracking
+#### 6 Recursion
+#### 7 Divide and Conquer
+
+### Top Coding Patterns
+
+#### Depth First Search
+
+##### Tree DFS
+
+##### Graph DFS
+
+#### Breadth First Search
+
+##### Tree BFS
+##### Graph BFS
+[General BFS](https://github.com/wisdompeak/LeetCode/tree/master/Two_Pointers)
+[Multi-source BFS](https://github.com/wisdompeak/LeetCode/tree/master/Two_Pointers/011.Container-With-Most-Water)
+* [994. Rotting Oranges](https://github.com/wisdompeak/LeetCode/tree/master/Two_Pointers/1763.Longest-Nice-Substring)
+* [286. Walls and Gates](https://github.com/wisdompeak/LeetCode/tree/master/Two_Pointers/011.Container-With-Most-Water)
+[0-1 BFS](https://github.com/wisdompeak/LeetCode/tree/master/Two_Pointers/011.Container-With-Most-Water)
+[Bidirectional BFS](https://github.com/wisdompeak/LeetCode/tree/master/Two_Pointers/011.Container-With-Most-Water)	 
+
+#### Binary Search
+#### Two Pointers
+#### Sliding Window
+#### Monotonic Stack
+#### Monotonic Queue
+#### Union Find
+#### Topological Sort
+#### Segment Tree
+#### Binary Index Tree
+#### Sweep Line
+#### Difference Array
 
 
 
