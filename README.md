@@ -10,6 +10,9 @@ Check my YouTube for all questions (https://www.youtube.com/@letscode1000)
 * #### 1 Array
 * #### 2 String
 * #### 3 Hash Table
+  - ##### Two Sum
+    - [1. Two Sum](https://github.com/Jasondecode2020/Letscode/blob/main/template/61.two-sum.md)
+    - [187. Repeated DNA Sequences](https://github.com/Jasondecode2020/Letscode/blob/main/template/61.two-sum.md)
 * #### 4 Tree
 * #### 5 Matrix
 * #### 6 Stack
