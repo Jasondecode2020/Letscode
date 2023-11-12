@@ -9,9 +9,8 @@
 * [2456. Most Popular Video Creator](#2456-Most-Popular-Video-Creator)
 * [2409. Count Days Spent Together](#2409-Count-Days-Spent-Together)
 * [2512. Reward Top K Students](#2512-Reward-Top-K-Students)
-* [1402. Reducing Dishes](#)
-* [1402. Reducing Dishes](#)
-* [1402. Reducing Dishes](#)
+* [2502. Design Memory Allocator](#2502-Design-Memory-Allocator)
+* [2353. Design a Food Rating System](#2353-Design-a-Food-Rating-System)
 
 
 ### 1402. Reducing Dishes
@@ -154,4 +153,59 @@ class Solution:
             res.append((v, i))
         res.sort(key = lambda x: (-x[0], x[1]))
         return [i for v, i in res][: k]
+```
+
+### 2502. Design Memory Allocator
+
+```python
+class Allocator:
+
+    def __init__(self, n: int):
+        self.res = [0] * n
+
+    def allocate(self, size: int, mID: int) -> int:
+        count = 0
+        for i, id in enumerate(self.res):
+            if id:
+                count = 0
+            else:
+                count += 1
+                if count == size:
+                    self.res[i - size + 1: i + 1] = [mID] * size
+                    return i - size + 1
+        return -1
+
+    def free(self, mID: int) -> int:
+        res = 0
+        for i in range(len(self.res)):
+            if self.res[i] == mID:
+                self.res[i] = 0
+                res += 1
+        return res
+```
+
+### 2353. Design a Food Rating System
+
+```python
+from sortedcontainers import SortedList
+class FoodRatings:
+
+    def __init__(self, foods: List[str], cuisines: List[str], ratings: List[int]):
+        self.d = defaultdict(SortedList)
+        self.food2cuisine = {}
+        self.food2rating = {}
+        for f, c, r in zip(foods, cuisines, ratings):
+            self.d[c].add((-r, f))
+            self.food2cuisine[f] = c
+            self.food2rating[f] = -r
+
+    def changeRating(self, food: str, newRating: int) -> None:
+        c = self.food2cuisine[food]
+        r = self.food2rating[food]
+        self.d[c].remove((r, food))
+        self.d[c].add((-newRating, food))
+        self.food2rating[food] = -newRating
+
+    def highestRated(self, cuisine: str) -> str:
+        return self.d[cuisine][0][1]
 ```
