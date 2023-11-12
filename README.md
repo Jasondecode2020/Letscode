@@ -34,16 +34,20 @@ Check my YouTube for all questions (https://www.youtube.com/@letscode1000)
 * #### 8 Graph
 * #### 9 Linked List
 * #### 10 Trie
+* #### 11 Monotonic Stack
+* #### 12 Monotonic Queue
+* #### 13 Union Find
+* #### 14 Binary Index Tree
+* #### 15 Segment Tree
 
 ### Top Algorithms
 
 * #### 1 Dynamic Programming
 * #### 2 Sorting
 * #### 3 Greedy
-* #### 4 Binary Search
-* #### 5 Backtracking
-* #### 6 Recursion
-* #### 7 Divide and Conquer
+* #### 4 Backtracking
+* #### 5 Recursion
+* #### 6 Divide and Conquer
 
 ### Top Coding Patterns
 
@@ -63,14 +67,16 @@ Check my YouTube for all questions (https://www.youtube.com/@letscode1000)
 * #### 3 Binary Search
 * #### 4 Two Pointers
 * #### 5 Sliding Window
-* #### 6 Monotonic Stack
-* #### 7 Monotonic Queue
-* #### 8 Union Find
-* #### 9 Topological Sort
-* #### 10 Segment Tree
-* #### 11 Binary Index Tree
-* #### 12 Sweep Line
-* #### 13 Difference Array
+* #### 6 Topological Sort
+* #### 7 Sweep Line
+* #### 8 Difference Array
+* #### 9 Simulations
+  - [1402. Reducing Dishes](https://github.com/Jasondecode2020/Letscode/blob/main/template/49-simulation.md#1402-Reducing-Dishes)
+  - [2437. Number of Valid Clock Times](https://github.com/Jasondecode2020/Letscode/blob/main/template/49-simulation.md#2437-Number-of-Valid-Clock-Times)
+  - [2456. Most Popular Video Creator](https://github.com/Jasondecode2020/Letscode/blob/main/template/49-simulation.md#2456-Most-Popular-Video-Creator)
+  - [2409. Count Days Spent Together](https://github.com/Jasondecode2020/Letscode/blob/main/template/49-simulation.md#2409-Count-Days-Spent-Together)
+  - [2512. Reward Top K Students](https://github.com/Jasondecode2020/Letscode/blob/main/template/49-simulation.md#2512-Reward-Top-K-Students)
+* #### 10 Geometry
 
 
 
