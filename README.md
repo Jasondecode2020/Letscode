@@ -76,7 +76,11 @@ Check my YouTube for all questions (https://www.youtube.com/@letscode1000)
   - [2456. Most Popular Video Creator](https://github.com/Jasondecode2020/Letscode/blob/main/template/49-simulation.md#2456-Most-Popular-Video-Creator)
   - [2409. Count Days Spent Together](https://github.com/Jasondecode2020/Letscode/blob/main/template/49-simulation.md#2409-Count-Days-Spent-Together)
   - [2512. Reward Top K Students](https://github.com/Jasondecode2020/Letscode/blob/main/template/49-simulation.md#2512-Reward-Top-K-Students)
-* #### 10 Geometry
+* #### 10 Math
+  - #### Combinations
+    - [357. Count Numbers with Unique Digits](https://github.com/Jasondecode2020/Letscode/blob/main/template/62-combination.md#357-Count-Numbers-with-Unique-Digits)
+  - #### Geometry
+
 
 
 
