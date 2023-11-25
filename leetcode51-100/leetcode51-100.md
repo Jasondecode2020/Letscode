@@ -578,6 +578,27 @@ class Solution:
         return res
 ```
 
+### 76. Minimum Window Substring
+
+```python
+class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+        d_s, d_t = Counter(), Counter(t)
+        l, res = 0, s + '$'
+        count, d_t_length = 0, len(d_t)
+        for r, c in enumerate(s):
+            d_s[c] += 1
+            if d_s[c] == d_t[c]:
+                count += 1
+            while count == d_t_length:
+                res = min(res, s[l: r + 1], key = len)
+                d_s[s[l]] -= 1
+                if d_s[s[l]] < d_t[s[l]]:
+                    count -= 1
+                l += 1
+        return res if res != s + '$' else ''
+```
+
 ### 77. Combinations
 
 - backtracking
