@@ -1,0 +1,88 @@
+## heap
+
+### minHeap
+
+### maxHeap
+
+> same (215, 347, 692)
+
+- * [215. Kth Largest Element in an Array]()
+- * [347. Top K Frequent Elements]()
+- * [692. Top K Frequent Words]()
+
+### 414. Third Maximum Number
+
+```python
+class Solution:
+    def thirdMax(self, nums: List[int]) -> int:
+        pq = []
+        for n in set(nums):
+            heappush(pq, -n)
+        
+        if len(pq) < 3:
+            return -pq[0]
+
+        for i in range(3):
+            res = -heappop(pq)
+        return res
+```
+
+### 215. Kth Largest Element in an Array
+
+```python
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        pq = []
+        for n in nums:
+            heappush(pq, -n)
+        
+        for i in range(k):
+            res = -heappop(pq)
+        return res
+```
+
+#### 347. Top K Frequent Elements
+
+```python
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        d = Counter(nums)
+        pq = []
+        for key, val in d.items():
+            heappush(pq, (-val, key))
+        
+        res = []
+        for i in range(k):
+            res.append(heappop(pq)[1])
+        return res
+```
+
+#### 692. Top K Frequent Words
+
+```python
+class Solution:
+    def topKFrequent(self, words: List[str], k: int) -> List[str]:
+        d = Counter(words)
+        pq = []
+        for key, val in d.items():
+            heappush(pq, (-val, key))
+        
+        res = []
+        for i in range(k):
+            res.append(heappop(pq)[1])
+        return res
+```
+
+### 973. K Closest Points to Origin
+
+```python
+class Solution:
+    def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
+        points.sort(key = lambda x: x[0] ** 2 + x[1] ** 2)
+        return points[:k]
+```
+
+### twoHeaps
+
+### regret heap
+
