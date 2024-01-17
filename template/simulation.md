@@ -209,3 +209,42 @@ class FoodRatings:
     def highestRated(self, cuisine: str) -> str:
         return self.d[cuisine][0][1]
 ```
+
+### 1243. Array Transformation
+
+```python
+class Solution:
+    def transformArray(self, arr: List[int]) -> List[int]:
+        flag, n, res = True, len(arr), []
+        while flag:
+            flag = False
+            for i in range(n):
+                if i == 0 or i == n - 1:
+                    res.append(arr[i])
+                elif arr[i] > arr[i - 1] and arr[i] > arr[i + 1]:
+                    res.append(arr[i] - 1)
+                    flag = True
+                elif arr[i] < arr[i - 1] and arr[i] < arr[i + 1]:
+                    res.append(arr[i] + 1)
+                    flag = True
+                else:
+                    res.append(arr[i])
+            arr = res
+            res = []
+        return arr
+```
+
+### 243. Shortest Word Distance
+
+```python
+class Solution:
+    def shortestDistance(self, wordsDict: List[str], word1: str, word2: str) -> int:
+        res, a, b = inf, -inf, inf
+        for i, w in enumerate(wordsDict):
+            if w == word1:
+                a = i 
+            elif w == word2:
+                b = i 
+            res = min(res, abs(a - b))
+        return res
+```
