@@ -608,3 +608,61 @@ class Solution:
         dfs(0, [])
         return res
 ```
+
+### 491. Non-decreasing Subsequences
+
+```python
+class Solution:
+    def findSubsequences(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        def backtrack(nums, ans):
+            if len(ans) > 1:
+                res.append(ans)
+            s = set()
+            for i, n in enumerate(nums):
+                if n in s:
+                    continue
+                if not ans or n >= ans[-1]:
+                    s.add(n)
+                    backtrack(nums[i + 1:], ans + [n])
+        
+        backtrack(nums, [])
+        return res
+```
+
+### 93. Restore IP Addresses
+
+```python
+class Solution:
+    def restoreIpAddresses(self, s: str) -> List[str]:
+        def backtrack(i, ans):
+            if len(ans) == 4 and i == len(s):
+                res.append('.'.join(ans))
+                return
+            if len(ans) > 4:
+                return 
+            for j in range(i, min(i + 3, len(s))):
+                if int(s[i: j + 1]) < 256 and (s[i] != '0' or i == j):
+                # if int(s[i: j + 1]) < 256 and s[i] != '0' or i == j: # also ok
+                    backtrack(j + 1, ans + [s[i: j + 1]])
+        res = []
+        backtrack(0, [])
+        return res
+```
+
+### 90. Subsets II
+
+```python
+class Solution:
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        def backtrack(i, ans):
+            res.append(ans)
+            for j in range(i, n):
+                if j > i and nums[j] == nums[j - 1]:
+                    continue 
+                backtrack(j + 1, ans + [nums[j]])
+        res, n = [], len(nums)
+        nums.sort()
+        backtrack(0, [])
+        return res
+```

@@ -293,3 +293,20 @@ class Solution:
         h, v = check(hBars) + 1, check(vBars) + 1
         return min(h, v) ** 2
 ```
+
+### Find if Array Can Be Sorted
+
+```python
+class Solution:
+    def canSortArray(self, nums: List[int]) -> bool:
+        i = 0
+        n, res = len(nums), []
+        while i < n:
+            start = i 
+            j = start 
+            while j < n and nums[j].bit_count() == nums[start].bit_count():
+                j += 1
+            res.append(sorted(nums[start: j]))
+            i = j
+        return sum(res, []) == sorted(nums)
+```

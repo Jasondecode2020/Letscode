@@ -99,3 +99,17 @@ class Solution:
 
 ### regret heap
 
+### 264. Ugly Number II
+
+```python
+class Solution:
+    def nthUglyNumber(self, n: int) -> int:
+        pq, s = [1], set([1])
+        for i in range(n - 1):
+            num = heappop(pq)
+            for factor in [2, 3, 5]:
+                if (res := factor * num) not in s:
+                    s.add(res)
+                    heappush(pq, res)
+        return heappop(pq)
+```
