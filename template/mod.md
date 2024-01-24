@@ -21,3 +21,32 @@ class Solution:
                 pos = i
         return s[pos:pos+k]
 ```
+
+### 507. Perfect Number
+
+```python
+class Solution:
+    def checkPerfectNumber(self, num: int) -> bool:
+        if num == 1:
+            return False
+        res = 0
+        for i in range(1, int(sqrt(num)) + 1):
+            if num % i == 0:
+                res += i + num // i
+        return res - num == num
+```
+
+### 1523. Count Odd Numbers in an Interval Range
+
+```python
+class Solution:
+    def countOdds(self, low: int, high: int) -> int:
+        diff = high - low 
+        if diff % 2 == 0:
+            if low % 2 and high % 2:
+                return diff // 2 + 1
+            else:
+                return diff // 2
+        else:
+            return diff // 2 + 1
+```

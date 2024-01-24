@@ -21,3 +21,20 @@ class Solution:
             return res
         return sum(check(i) for i in range(n + 1))
 ```
+
+## math combinations
+
+- use plate to find 
+
+### 2928. Distribute Candies Among Children I
+### 2929. Distribute Candies Among Children II
+### 2927. Distribute Candies Among Children III
+
+```python
+def C2(n):
+    return n * (n - 1) // 2 if n >= 1 else 0
+class Solution:
+    def distributeCandies(self, n: int, limit: int) -> int:
+        return C2(n + 2) - 3 * C2(n + 2 - (limit + 1)) + 3 * C2(n + 2 - 2 * (limit + 1)) - C2(n + 2 - 3 * (limit + 1))
+```
+

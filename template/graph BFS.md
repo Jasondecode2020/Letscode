@@ -51,6 +51,7 @@ def fn(q):
 * `286. Walls and Gates`
 * `1020. Number of Enclaves`
 * `773. Sliding Puzzle`
+* `733. Flood Fill`
 
 ### 815. Bus Routes
 
@@ -276,5 +277,23 @@ class Solution:
         return -1
 ```
 
+### 733. Flood Fill
 
-
+```python
+class Solution:
+    def floodFill(self, image: List[List[int]], sr: int, sc: int, color: int) -> List[List[int]]:
+        directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+        q = deque([(sr, sc)])
+        R, C = len(image), len(image[0])
+        visited = set([(sr, sc)])
+        while q:
+            r, c = q.popleft()
+            for dr, dc in directions:
+                row, col = r + dr, c + dc
+                if 0 <= row < R and 0 <= col < C and (row, col) not in visited and image[row][col] == image[r][c]:
+                    visited.add((row, col))
+                    q.append((row, col))
+        for r, c in visited:
+            image[r][c] = color 
+        return image
+```

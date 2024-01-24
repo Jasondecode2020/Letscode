@@ -75,7 +75,7 @@ def fn(arr):
 
 简单加和：最简单的线性扫描
 1283. 使结果不超过阈值的最小除数
-1300. 转变数组后最接近目标值的数组和
+1300. 转变数组后最接近目标值的数组和 no
 875. 爱吃香蕉的珂珂
 剑指 Offer II 073. 狒狒吃香蕉
 2064. 分配给商店的最多商品的最小值
@@ -256,5 +256,39 @@ class Solution:
                 r = m - 1
             else:
                 l = m + 1
+        return res
+```
+
+### 1898. Maximum Number of Removable Characters
+
+```python
+class Solution:
+    def maximumRemovals(self, s: str, p: str, removable: List[int]) -> int:
+        def isSub(s, p):
+            i, j = 0, 0
+            while i < len(s) and j < len(p):
+                if p[j] == s[i]:
+                    i += 1
+                    j += 1
+                else:
+                    i += 1
+            return j == len(p)
+
+        def check(threshold):
+            res = ''
+            seen = set(removable[:threshold])
+            for i, c in enumerate(s):
+                if i not in seen:
+                    res += c 
+            return isSub(res, p)
+
+        l, r, res = 0, len(removable), 0
+        while l <= r:
+            m = l + (r - l) // 2
+            if check(m):
+                res = m 
+                l = m + 1
+            else:
+                r = m - 1
         return res
 ```

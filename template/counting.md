@@ -131,3 +131,18 @@ class Solution:
                 return True
         return False
 ```
+
+### 447. Number of Boomerangs
+
+```python
+class Solution:
+    def numberOfBoomerangs(self, points: List[List[int]]) -> int:
+        res = 0
+        for x1, y1 in points:
+            c = Counter()
+            for x2, y2 in points:
+                d2 = (x1 - x2) ** 2 + (y1 - y2) ** 2
+                res += c[d2] * 2
+                c[d2] += 1
+        return res
+```

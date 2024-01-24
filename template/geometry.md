@@ -218,3 +218,19 @@ class Solution:
                     prev = cur
         return True
 ```
+
+### 356. Line Reflection
+
+```python
+class Solution:
+    def isReflected(self, points: List[List[int]]) -> bool:
+        mn_x, mx_x = min(p[0] for p in points), max(p[0] for p in points)
+        point = (mn_x + mx_x) / 2
+        c = Counter()
+        for x, y in points:
+            c[(x, y)] += 1
+        for x, y in c:
+            if c[(2 * point - x, y)] == 0:
+                return False
+        return True
+```
