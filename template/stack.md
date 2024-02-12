@@ -132,3 +132,16 @@ class Solution:
                 num = 0
         return sum(stack)
 ```
+
+### 1556. Thousand Separator
+
+```python
+class Solution:
+    def thousandSeparator(self, n: int) -> str:
+        stack = list(str(n))
+        res = ''
+        while len(stack) >= 3:
+            n1, n2, n3 = stack.pop(), stack.pop(), stack.pop()
+            res = '.' + str(n3) + str(n2) + str(n1) + res
+        return ''.join(stack) + res if stack else res[1:]
+```

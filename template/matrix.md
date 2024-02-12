@@ -123,3 +123,26 @@ class Solution:
                 if r in row or c in col:
                     matrix[r][c] = 0
 ```
+
+### 1886. Determine Whether Matrix Can Be Obtained By Rotation
+
+```python
+class Solution:
+    def findRotation(self, mat: List[List[int]], target: List[List[int]]) -> bool:
+        R, C = len(mat), len(mat[0])
+        def rotate():
+            mat.reverse()
+            for r in range(R):
+                for c in range(r + 1, C):
+                    mat[r][c], mat[c][r] = mat[c][r], mat[r][c]
+        def equal():
+            for a, b in zip(mat, target):
+                if a != b:
+                    return False
+            return True
+        for i in range(4):
+            if equal():
+                return True
+            rotate()
+        return False
+```
