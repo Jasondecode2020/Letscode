@@ -44,23 +44,26 @@ def fn(arr):
 * 1898. 可移除字符的最大数目 1913
 * 1482. 制作 m 束花所需的最少天数 1946
 * 1642. 可以到达的最远建筑 1962
-* 2861. 最大合金数 1981
 * 2258. 逃离火灾 2347
 
 ### 最小化最大值
-* 2064. 分配给商店的最多商品的最小值 1886
-* 1760. 袋子里最少数目的球 1940
-* 2439. 最小化数组中的最大值 1965
-* 2560. 打家劫舍 IV 2081
-* 778. 水位上升的泳池中游泳 2097 相当于最小化路径最大值
-* 2616. 最小化数对的最大差值 2155
-* 2513. 最小化两个数组中的最大值 2302
+* 2064. Minimized Maximum of Products Distributed to Any Store 1886
+* 1760. Minimum Limit of Balls in a Bag 1940
+* 2439. Minimize Maximum of Array 1965
+* 2560. House Robber IV 2081
+* 778. Swim in Rising Water 2097 相当于最小化路径最大值
+* 2616. Minimize the Maximum Difference of Pairs 2155
+
+* 2513. 最小化两个数组中的最大值 2302 later
+
 ### 最大化最小值
-* 1552. 两球之间的磁力 1920
+* 1552. Magnetic Force Between Two Balls 1920
 * 2861. 最大合金数 1981
-* 2517. 礼盒的最大甜蜜度 2021
-* 2812. 找出最安全路径 2154
-* 2528. 最大化城市的最小供电站数目 2236
+* 2517. Maximum Tastiness of Candy Basket 2021
+* 2812. Find the Safest Path in a Grid 2154
+
+* 2528. 最大化城市的最小供电站数目 2236 later
+
 ### 第 K 小/大（部分题目也可以用堆解决）
 * 378. 有序矩阵中第 K 小的元素
 * 373. 查找和最小的 K 对数字
@@ -74,26 +77,13 @@ def fn(arr):
 检查函数：检查该值是否复合答案，即定义check()函数
 
 简单加和：最简单的线性扫描
-1283. 使结果不超过阈值的最小除数
 1300. 转变数组后最接近目标值的数组和 no
-875. 爱吃香蕉的珂珂
-剑指 Offer II 073. 狒狒吃香蕉
-2064. 分配给商店的最多商品的最小值
 1891. 割绳子
-1870. 准时到达的列车最小时速
-1760. 袋子里最少数目的球
 历史标记：带有历史标记的线性扫描问题，稍微复杂了点
-1552. 两球之间的磁力
-1482. 制作 m 束花所需的最少天数
-1011. 在 D 天内送达包裹的能力
-滑动窗口：最复杂的扫描形式
-LCP 12. 小张刷题计划
-规律计算：找数学规律求解
 1954. 收集足够苹果的最小花园周长
 1802. 有界数组中指定下标处的最大值
 暴力匹配：字符串问题
 1062. 最长重复子串
-1898. 可移除字符的最大数目
 隐式最值：有的问题没有直接告诉是求边界最值，需要自己转换成最值问题，难度瞬间加大！
 
 287. 寻找重复数
@@ -287,6 +277,423 @@ class Solution:
             m = l + (r - l) // 2
             if check(m):
                 res = m 
+                l = m + 1
+            else:
+                r = m - 1
+        return res
+```
+
+### 1482. Minimum Number of Days to Make m Bouquets
+
+```python
+class Solution:
+    def minDays(self, bloomDay: List[int], m: int, k: int) -> int:
+        def valid(res):
+            i = 0
+            ans = []
+            while i < len(res):
+                start = i 
+                j = start 
+                while j < len(res) and res[j] == res[start]:
+                    j += 1
+                if res[start] == 1:
+                    ans.append(j - i)
+                i = j
+            count = 0
+            for n in ans:
+                count += n // k
+            return count >= m
+                    
+        def check(threshold):
+            n = len(bloomDay)
+            res = [0] * n 
+            for i, b in enumerate(bloomDay):
+                if b <= threshold:
+                    res[i] = 1
+            return valid(res)
+            
+        l, r, res = 1, max(bloomDay), -1
+        while l <= r:
+            mid = l + (r - l) // 2
+            if check(mid):
+                res = mid 
+                r = mid - 1
+            else:
+                l = mid + 1
+        return res
+```
+
+### 1642. Furthest Building You Can Reach
+
+```python
+class Solution:
+    def furthestBuilding(self, heights: List[int], bricks: int, ladders: int) -> int:
+        def check(threshold):
+            res = heights[:threshold + 1]
+            ans = []
+            for i in range(1, len(res)):
+                if res[i] > res[i - 1]:
+                    ans.append(res[i] - res[i - 1])
+            ans.sort(reverse = True)
+            ans = ans[ladders:]
+            return sum(ans) <= bricks
+
+        l, r, res = 0, len(heights) - 1, 0
+        while l <= r:
+            m = l + (r - l) // 2
+            if check(m):
+                res = m 
+                l = m + 1
+            else:
+                r = m - 1
+        return res
+```
+
+### 2258. Escape the Spreading Fire
+
+```python
+class Solution:
+    def maximumMinutes(self, grid: List[List[int]]) -> int:
+        def bfs():
+            q = deque()
+            for r in range(R):
+                for c in range(C):
+                    if grid[r][c] == 1:
+                        q.append((r, c, 0))
+                        fireTime[r][c] = 0
+            
+            while q:
+                r, c, t = q.popleft()
+                for dr, dc in directions:
+                    row, col = r + dr, c + dc
+                    if 0 <= row < R and 0 <= col < C and grid[row][col] != 2 and fireTime[row][col] == inf:
+                        q.append((row, col, t + 1))
+                        fireTime[row][col] = t + 1
+
+        def check(stayTime):
+            visited = set((0, 0))
+            q = deque([(0, 0, stayTime)])
+            while q:
+                r, c, t = q.popleft()
+                for dr, dc in directions:
+                    row, col = r + dr, c + dc
+                    if 0 <= row < R and 0 <= col < C and grid[row][col] != 2 and (row, col) not in visited:
+                        if row == R - 1 and col == C - 1:
+                            return fireTime[row][col] >= t + 1
+                        if fireTime[row][col] > t + 1:
+                            q.append((row, col, t + 1))
+                            visited.add((row, col))
+            return False
+
+        R, C = len(grid), len(grid[0])
+        fireTime = [[inf] * C for r in range(R)]
+        directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+        bfs()
+        l, r, res = 0, R * C, -1
+        while l <= r:
+            mid = l + (r - l) // 2
+            if check(mid):
+                res = mid
+                l = mid + 1
+            else:
+                r = mid - 1
+        return res if res < R * C else 10 ** 9
+```
+
+### 2064. Minimized Maximum of Products Distributed to Any Store
+
+```python
+class Solution:
+    def minimizedMaximum(self, n: int, quantities: List[int]) -> int:
+        def check(threshold):
+            count = 0
+            for q in quantities:
+                count += ceil(q / threshold)
+            return count <= n 
+
+        l, r, res = 1, 10 ** 5, 0
+        while l <= r:
+            m = l + (r - l) // 2
+            if check(m):
+                res = m 
+                r = m - 1
+            else:
+                l = m + 1
+        return res
+```
+
+### 1760. Minimum Limit of Balls in a Bag
+
+```python
+class Solution:
+    def minimumSize(self, nums: List[int], maxOperations: int) -> int:
+        def check(threshold):
+            count = 0
+            for n in nums:
+                count += (n - 1) // threshold
+            return count <= maxOperations
+
+        l, r, res = 1, 10 ** 9, 1
+        while l <= r:
+            m = l + (r - l) // 2
+            if check(m):
+                res = m 
+                r = m - 1
+            else:
+                l = m + 1
+        return res
+```
+
+### 2439. Minimize Maximum of Array
+
+```python
+class Solution:
+    def minimizeArrayValue(self, nums: List[int]) -> int:
+        n = len(nums)
+        def check(threshold):
+            carry = 0
+            for i in range(n - 1, 0, -1):
+                if nums[i] + carry > threshold:
+                    carry += nums[i] - threshold
+                else:
+                    carry = 0
+            return nums[0] + carry <= threshold
+
+        l, r, res = min(nums), max(nums), min(nums)
+        while l <= r:
+            m = l + (r - l) // 2
+            if check(m):
+                res = m 
+                r = m - 1
+            else:
+                l = m + 1
+        return res
+```
+
+### 2560. House Robber IV
+
+```python
+class Solution:
+    def minCapability(self, nums: List[int], k: int) -> int:
+        def check(threshold):
+            count, i = 0, 0
+            while i < len(nums):
+                if nums[i] <= threshold:
+                    count += 1
+                    i += 1
+                i += 1
+            return count >= k
+
+        l, r, res = 0, max(nums), 0
+        while l <= r:
+            m = l + (r - l) // 2
+            if check(m):
+                res = m
+                r = m - 1
+            else:
+                l = m + 1
+        return res
+```
+
+### 778. Swim in Rising Water
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n
+
+    def connected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] > self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2
+            self.rank[p2] += self.rank[p1]
+
+class Solution:
+    def swimInWater(self, grid: List[List[int]]) -> int:
+        def check(threshold):
+            uf = UF(R * C)
+            for r in range(R):
+                for c in range(C):
+                    if r == 0 and c == 0 and grid[r][c] > threshold:
+                        return False # speed up a bit
+                    if grid[r][c] <= threshold:
+                        for dr, dc in [[1, 0], [0, 1]]:
+                            row, col = r + dr, c + dc
+                            if 0 <= row < R and 0 <= col < C and grid[row][col] <= threshold and not uf.connected(row * C + col, r * C + c):
+                                uf.union(row * C + col, r * C + c)
+            return uf.connected(0, (R - 1) * C + C - 1)
+
+        R, C = len(grid), len(grid[0])
+        l, r, res = 0, R * C, 0
+        while l <= r:
+            m = l + (r - l) // 2
+            if check(m):
+                res = m
+                r = m - 1
+            else:
+                l = m + 1
+        return res
+```
+
+### 2616. Minimize the Maximum Difference of Pairs
+
+```python
+class Solution:
+    def minimizeMax(self, nums: List[int], p: int) -> int:
+        def check(threshold):
+            count = i = 0
+            while i < n - 1:
+                if nums[i + 1] - nums[i] <= threshold:
+                    i += 2
+                    count += 1
+                else:
+                    i += 1
+            return count >= p
+
+        nums.sort()
+        n = len(nums)
+        l, r, res = 0, nums[-1] - nums[0], 0
+        while l <= r:
+            m = l + (r - l) // 2
+            if check(m):
+                res = m 
+                r = m - 1
+            else:
+                l = m + 1
+        return res
+```
+
+### 1552. Magnetic Force Between Two Balls
+
+```python
+class Solution:
+    def maxDistance(self, position: List[int], m: int) -> int:
+        def check(threshold):
+            pre = position[0]
+            count = 1
+            for i in range(1, len(position)):
+                if position[i] - pre >= threshold:
+                    pre = position[i]
+                    count += 1
+            return count >= m 
+
+        position.sort()
+        l, r, res = 1, position[-1] - position[0], 1
+        while l <= r:
+            mid = l + (r - l) // 2
+            if check(mid):
+                res = mid
+                l = mid + 1
+            else:
+                r = mid - 1
+        return res
+```
+
+### 2517. Maximum Tastiness of Candy Basket
+
+```python
+class Solution:
+    def maximumTastiness(self, price: List[int], k: int) -> int:
+        def check(threshold):
+            count = 1
+            pre = price[0]
+            for i in range(1, len(price)):
+                if price[i] - pre >= threshold:
+                    count += 1
+                    pre = price[i]
+            return count >= k
+
+        price.sort()
+        l, r, res = 0, price[-1] - price[0], 0
+        while l <= r:
+            m = l + (r - l) // 2
+            if check(m):
+                res = m
+                l = m + 1
+            else:
+                r = m - 1
+        return res
+```
+
+### 2812. Find the Safest Path in a Grid
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n
+
+    def connected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] > self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2
+            self.rank[p2] += self.rank[p1]
+
+class Solution:
+    def maximumSafenessFactor(self, grid: List[List[int]]) -> int:
+        R, C = len(grid), len(grid[0])
+        dist = [[0] * C for r in range(R)]
+        directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+        q, visited = deque(), set()
+        for r in range(R):
+            for c in range(C):
+                if grid[r][c]:
+                    q.append((r, c, 0))
+                    visited.add((r, c))
+        while q:
+            r, c, d = q.popleft()
+            dist[r][c] = d 
+            for dr, dc in  directions:
+                row, col = r + dr, c + dc 
+                if 0 <= row < R and 0 <= col < C and (row, col) not in visited:
+                    visited.add((row, col))
+                    q.append((row, col, d + 1))
+
+        def check(threshold):
+            uf = UF(R * C)
+            for r in range(R):
+                for c in range(C):
+                    if r == 0 and c == 0 and dist[r][c] < threshold:
+                        return False # speed up a bit
+                    if dist[r][c] >= threshold:
+                        for dr, dc in [[1, 0], [0, 1]]:
+                            row, col = r + dr, c + dc
+                            if 0 <= row < R and 0 <= col < C and dist[row][col] >= threshold and not uf.connected(row * C + col, r * C + c):
+                                uf.union(row * C + col, r * C + c)
+            return uf.connected(0, R * C - 1)
+        
+        l, r, res = 0, R * C, 0
+        if R == C == 1 and grid[0][0] == 1:
+            return 0
+        while l <= r:
+            m = l + (r - l) // 2
+            if check(m):
+                res = m
                 l = m + 1
             else:
                 r = m - 1

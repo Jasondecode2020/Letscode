@@ -883,3 +883,81 @@ class Solution:
                 res.append(prefix[i - 1] - prefix[i + k - 1])
         return res
 ```
+
+## Maximum Subarray template
+
+### 53. Maximum Subarray
+
+```python
+'''
+template
+'''
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        n = len(nums)
+        pre = [nums[0]] * n 
+        for i in range(1, n):
+            pre[i] = max(nums[i], pre[i - 1] + nums[i])
+        return max(pre)
+```
+
+### 2606. Find the Substring With Maximum Cost
+
+```python
+'''
+based on 53
+'''
+class Solution:
+    def maximumCostSubstring(self, s: str, chars: str, vals: List[int]) -> int:
+        n = len(s)
+        d = Counter()
+        for c, v in zip(chars, vals):
+            d[c] = v 
+        nums = [0] * n 
+        for i, c in enumerate(s):
+            if c not in d:
+                nums[i] = ord(c) - ord('a') + 1
+            else:
+                nums[i] = d[c]
+        pre = [nums[0]] * n 
+        for i in range(1, n):
+            pre[i] = max(nums[i], pre[i - 1] + nums[i])
+        return max(0, max(pre))
+```
+
+### 918. Maximum Sum Circular Subarray
+
+```python
+'''
+based on 53
+'''
+class Solution:
+    def maxSubarraySumCircular(self, nums: List[int]) -> int:
+        n = len(nums)
+        maxNum, minNum = [nums[0]] * n, [nums[0]] * n
+        for i in range(1, n):
+            maxNum[i] = max(nums[i], nums[i] + maxNum[i - 1])
+        for i in range(1, n):
+            minNum[i] = min(nums[i], nums[i] + minNum[i - 1])
+        if sum(nums) - min(minNum) == 0:
+            return max(maxNum)
+        return max(max(maxNum), sum(nums) - min(minNum))
+```
+
+### 2321. Maximum Score Of Spliced Array
+
+```python
+'''
+based on 53
+'''
+class Solution:
+    def maximumsSplicedArray(self, nums1: List[int], nums2: List[int]) -> int:
+        arr1 = [n1 - n2 for n1, n2 in zip(nums1, nums2)]
+        arr2 = [n2 - n1 for n1, n2 in zip(nums1, nums2)]
+        n = len(arr1)
+        pre1, pre2 = [arr1[0]] * n, [arr2[0]] * n 
+        for i in range(1, n):
+            pre1[i] = max(arr1[i], pre1[i - 1] + arr1[i])
+            pre2[i] = max(arr2[i], pre2[i - 1] + arr2[i])
+        return max(max(pre1) + sum(nums2), max(pre2) + sum(nums1))
+```

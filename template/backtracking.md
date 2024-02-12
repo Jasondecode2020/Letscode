@@ -31,6 +31,7 @@ class Solution:
 * [78. Subsets](#78-Subsets)[M]
 * [90. Subsets II](#90-Subsets-II)[M]
 * [784. Letter Case Permutation](#784-Letter-Case-Permutation)
+* [1239. Maximum Length of a Concatenated String with Unique Characters](#784-Letter-Case-Permutation)
 
 > enumerate pattern (need a for loop to enumerate all conditions)
 
@@ -665,4 +666,42 @@ class Solution:
         nums.sort()
         backtrack(0, [])
         return res
+```
+
+
+### 1239. Maximum Length of a Concatenated String with Unique Characters
+
+```python
+class Solution:
+    def maxLength(self, arr: List[str]) -> int:
+        n = len(arr)
+        self.res = 0
+        def backtrack(i, ans):
+            if len(ans) != len(set(list(ans))):
+                return 
+            if i == n:
+                self.res = max(self.res, len(ans))
+                return 
+            backtrack(i + 1, ans)
+            backtrack(i + 1, ans + arr[i])
+        backtrack(0, '')
+        return self.res
+```
+
+### 923. 3Sum With Multiplicity
+
+```python
+class Solution:
+    def threeSumMulti(self, arr: List[int], target: int) -> int:
+        arr.sort(reverse = True)
+        n = len(arr)
+        mod = 10 ** 9 + 7
+        @cache
+        def dfs(i, total, count):
+            if i >= n:
+                return 1 if total == target and count == 3 else 0
+            if total > target or count > 3:
+                return 0
+            return dfs(i + 1, total, count) + dfs(i + 1, total + arr[i], count + 1)
+        return dfs(0, 0, 0) % mod
 ```

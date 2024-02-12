@@ -230,3 +230,37 @@ class Solution:
             res = max(res, max(dp.values()))
         return res
 ```
+
+### 2770. Maximum Number of Jumps to Reach the Last Index
+
+```python
+class Solution:
+    def maximumJumps(self, nums: List[int], target: int) -> int:
+        n = len(nums)
+        dp = [-inf] * n 
+        dp[0] = 0
+        for j in range(1, n):
+            for i in range(j - 1, -1, -1):
+                if abs(nums[j] - nums[i]) <= target:
+                    dp[j] = max(dp[j], dp[i] + 1)
+        return dp[-1] if dp[-1] >= 0 else -1
+```
+
+### 2826. Sorting Three Groups
+
+```python
+class Solution:
+    def minimumOperations(self, nums: List[int]) -> int:
+        n = len(nums)
+        def LIS(arr): # strictly increasing
+            LIS = []
+            for n in arr:
+                i = bisect_right(LIS, n)
+                if i == len(LIS):
+                    LIS.append(n)
+                else:
+                    LIS[i] = n 
+            return len(LIS)
+        L = LIS(nums)
+        return n - L
+```

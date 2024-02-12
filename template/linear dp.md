@@ -117,3 +117,26 @@ class Solution:
             res.append(lastRow)
         return res[-1]
 ```
+
+### 2826. Sorting Three Groups
+
+```python
+class Solution:
+    def minimumOperations(self, nums: List[int]) -> int:
+        n = len(nums)
+        dp = [[0] * 3 for r in range(n + 1)]
+        for i in range(1, n + 1):
+            if nums[i - 1] == 1:
+                dp[i][0] = dp[i - 1][0]
+                dp[i][1] = min(dp[i - 1][0], dp[i - 1][1]) + 1
+                dp[i][2] = min(dp[i - 1][0], dp[i - 1][1], dp[i - 1][2]) + 1
+            elif nums[i - 1] == 2:
+                dp[i][0] = dp[i - 1][0] + 1
+                dp[i][1] = min(dp[i - 1][0], dp[i - 1][1])
+                dp[i][2] = min(dp[i - 1][0], dp[i - 1][1], dp[i - 1][2]) + 1
+            else:
+                dp[i][0] = dp[i - 1][0] + 1
+                dp[i][1] = min(dp[i - 1][0], dp[i - 1][1]) + 1
+                dp[i][2] = min(dp[i - 1][0], dp[i - 1][1], dp[i - 1][2])
+        return min(dp[-1])
+```

@@ -1,4 +1,4 @@
-## template 1:
+## template 1: with build
 
 ```python
 class SegmentTree: 
@@ -37,6 +37,39 @@ class SegmentTree:
         if L > m:
             return self.query(L, R, o * 2 + 2, m + 1, r)
         return self.query(L, m, o * 2 + 1, l, m) + self.query(m + 1, R, o * 2 + 2, m + 1, r)
+```
+
+### template 2: without build
+
+```python
+'''
+check the max value in a range
+'''
+class SegmentTree: 
+    def __init__(self, n): # index starting from 1
+        self.seg = [0] * (n * 4)
+
+    def update(self, index, val, o, l, r): # index update to val
+        if l == r:
+            self.seg[o] = val
+            return
+        m = l + (r - l) // 2
+        if index <= m:
+            self.update(index, val, o * 2, l, m)
+        else:
+            self.update(index, val, o * 2 + 1, m + 1, r)
+        self.seg[o] = max(self.seg[o * 2], self.seg[o * 2 + 1])
+
+    def query(self, L, R, o, l, r):
+        if L <= l and r <= R: 
+            return self.seg[o]
+        m = l + (r - l) // 2
+        res = 0
+        if L <= m:
+            res = self.query(L, R, o * 2, l, m)
+        if R > m:
+            res = max(res, self.query(L, R, o * 2 + 1, m + 1, r))
+        return res
 ```
 
 ### 307. Range Sum Query - Mutable
@@ -145,4 +178,38 @@ class NumMatrix:
             left, right = r * self.C + col1, r * self.C + col2
             res += self.st.query(left, right, 0, 0, self.st.n - 1)
         return res
+```
+
+### 2407. Longest Increasing Subsequence II
+
+```python
+class Solution:
+    def lengthOfLIS(self, nums: List[int], k: int) -> int:
+        u = max(nums)
+        mx = [0] * (4 * u)
+
+        def modify(o: int, l: int, r: int, i: int, val: int) -> None:
+            if l == r:
+                mx[o] = val
+                return
+            m = (l + r) // 2
+            if i <= m: modify(o * 2, l, m, i, val)
+            else: modify(o * 2 + 1, m + 1, r, i, val)
+            mx[o] = max(mx[o * 2], mx[o * 2 + 1])
+
+        def query(o: int, l: int, r: int, L: int, R: int) -> int:
+            if L <= l and r <= R: return mx[o]
+            res = 0
+            m = (l + r) // 2
+            if L <= m: res = query(o * 2, l, m, L, R)
+            if R > m: res = max(res, query(o * 2 + 1, m + 1, r, L, R))
+            return res
+
+        for x in nums:
+            if x == 1:
+                modify(1, 1, u, 1, 1)
+            else:
+                res = 1 + query(1, 1, u, max(x - k, 1), x - 1)
+                modify(1, 1, u, x, res)
+        return mx[1]
 ```

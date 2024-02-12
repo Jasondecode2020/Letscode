@@ -57,3 +57,19 @@ class Solution:
                 res += dfs(r, c)
         return res % mod
 ```
+
+### 1186. Maximum Subarray Sum with One Deletion
+
+```python
+class Solution:
+    def maximumSum(self, arr: List[int]) -> int:
+        n = len(arr)
+        @cache
+        def dfs(i, sign):
+            if i < 0:
+                return -inf 
+            if sign == 0:
+                return max(dfs(i - 1, 0), 0) + arr[i]
+            return max(dfs(i - 1, 1) + arr[i], dfs(i - 1, 0))
+        return max(max(dfs(i, 0), dfs(i, 1)) for i in range(n))
+```

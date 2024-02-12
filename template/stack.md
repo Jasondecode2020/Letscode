@@ -72,3 +72,63 @@ class MyQueue:
     def empty(self):
         return not self.stack1 and not self.stack2
 ```
+
+### 71. Simplify Path
+
+```python
+class Solution:
+    def simplifyPath(self, path: str) -> str:
+        stack = []
+        path = path.split('/')
+
+        for p in path:
+            if p == '..':
+                if stack:
+                    stack.pop()
+            elif p and p != '.':
+                stack.append(p)
+        return '/' + '/'.join(stack)
+```
+
+### 1006. Clumsy Factorial
+
+```python
+class Solution:
+    def clumsy(self, n: int) -> int:
+        op = 0
+        stack = [n]
+        for i in range(n - 1, 0, -1):
+            if op == 0:
+                stack.append(stack.pop() * i)
+            elif op == 1:
+                stack.append(int(stack.pop() / i))
+            elif op == 2:
+                stack.append(i)
+            elif op == 3:
+                stack.append(-i)
+            op = (op + 1) % 4
+        return sum(stack)
+```
+
+### 227. Basic Calculator II
+
+```python
+class Solution:
+    def calculate(self, s: str) -> int:
+        stack, pre, num = [], '+', 0
+        for i, c in enumerate(s):
+            if c.isdigit():
+                num = num * 10 + int(c)
+            if i == len(s) - 1 or c in '+-*/':
+                if pre == '+':
+                    stack.append(num)
+                elif pre == '-':
+                    stack.append(-num)
+                elif pre == '*':
+                    stack.append(stack.pop() * num)
+                else:
+                    stack.append(int(stack.pop() / num))
+                pre = c
+                num = 0
+        return sum(stack)
+```

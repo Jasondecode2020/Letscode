@@ -202,3 +202,34 @@ class Solution:
                 f[i + K] -= 1 # 右端点+1 位置 -1
         return ans
 ```
+
+### 495. Teemo Attacking
+
+```python
+class Solution:
+    def findPoisonedDuration(self, timeSeries: List[int], duration: int) -> int:
+        mx = max(timeSeries) + duration
+        nums = [0] * (mx + 1)
+        for t in timeSeries:
+            nums[t] += 1
+            nums[t + duration] -= 1
+        nums = list(accumulate(nums))
+        return sum([n > 0 for n in nums])
+```
+
+### 830. Positions of Large Groups
+
+```python
+class Solution:
+    def largeGroupPositions(self, s: str) -> List[List[int]]:
+        i, res = 0, []
+        while i < len(s):
+            start = i 
+            j = start
+            while j < len(s) and s[j] == s[start]:
+                j += 1
+            if j - start >= 3:
+                res.append([start, j - 1])
+            i = j
+        return res
+```

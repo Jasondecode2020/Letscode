@@ -146,3 +146,33 @@ class Solution:
                 c[d2] += 1
         return res
 ```
+
+### 916. Word Subsets
+
+```python
+class Solution:
+    def wordSubsets(self, words1: List[str], words2: List[str]) -> List[str]:
+        c2 = Counter()
+        for w2 in words2:
+            countWord2 = Counter(w2)
+            for c in ascii_lowercase:
+                if c in countWord2:
+                    c2[c] = max(c2[c], countWord2[c])
+        
+        res = []
+        for w1 in words1:
+            c1 = Counter(w1)
+            if c1 >= c2:
+                res.append(w1)
+        return res
+```
+
+### 1347. Minimum Number of Steps to Make Two Strings Anagram
+
+```python
+class Solution:
+    def minSteps(self, s: str, t: str) -> int:
+        s, t = Counter(s), Counter(t)
+        res = s - t
+        return sum(res.values())
+```

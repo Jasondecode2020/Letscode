@@ -38,8 +38,9 @@ def fn(q):
 - 2 prepare q or visited set
 - 3 normal bfs using template 2
 
+### 2146, 1293, 1210, 317, 490, 505
 
-## Vinilla BFS
+## BFS
 
 - 815. Bus Routes
 
@@ -52,6 +53,10 @@ def fn(q):
 * `1020. Number of Enclaves`
 * `773. Sliding Puzzle`
 * `733. Flood Fill`
+* `2684. Maximum Number of Moves in a Grid`
+* `1926. Nearest Exit from Entrance in Maze`
+* `1162. As Far from Land as Possible`
+
 
 ### 815. Bus Routes
 
@@ -296,4 +301,75 @@ class Solution:
         for r, c in visited:
             image[r][c] = color 
         return image
+```
+
+### 2684. Maximum Number of Moves in a Grid
+
+```python
+class Solution:
+    def maxMoves(self, grid: List[List[int]]) -> int:
+        R, C = len(grid), len(grid[0])
+        q = deque([(r, 0, 0) for r in range(R)])
+        visited = set([(r, 0) for r in range(R)])
+        
+        while q:
+            r, c, count = q.popleft()
+            for row, col in [(r - 1, c + 1), (r, c + 1), (r + 1, c + 1)]:
+                if 0 <= row < R and 0 <= col < C and (row, col) not in visited and grid[row][col] > grid[r][c]:
+                    q.append((row, col, count + 1))
+                    visited.add((row, col))
+        return count
+```
+
+### 1926. Nearest Exit from Entrance in Maze
+
+```python
+class Solution:
+    def nearestExit(self, maze: List[List[str]], entrance: List[int]) -> int:
+        R, C = len(maze), len(maze[0])
+        exit = set()
+        for r in range(R):
+            for c in range(C):
+                if (r == 0 or r == R - 1 or c == 0 or c == C - 1) and maze[r][c] == '.':
+                    exit.add((r, c))
+        if tuple(entrance) in exit:
+            exit.remove(tuple(entrance))
+
+        q, visited = deque([(entrance[0], entrance[1], 0)]), set([tuple(entrance)])
+        directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+        while q:
+            r, c, d = q.popleft()
+            if (r, c) in exit:
+                return d 
+            for dr, dc in directions:
+                x, y = r + dr, c + dc 
+                if 0 <= x < R and 0 <= y < C and (x, y) not in visited and maze[x][y] == '.':
+                    visited.add((x, y))
+                    q.append((x, y, d + 1))
+        return -1
+```
+
+### 1162. As Far from Land as Possible
+
+```python
+class Solution:
+    def maxDistance(self, grid: List[List[int]]) -> int:
+        q = deque()
+        directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+        R, C = len(grid), len(grid[0])
+        for r in range(R):
+            for c in range(C):
+                if grid[r][c] == 1:
+                    q.append((r, c, 0))
+
+        res = 0
+        while q:
+            r, c, t = q.popleft()
+            res = max(res, t)
+            for dr, dc in directions:
+                row, col = r + dr, c + dc 
+                if 0 <= row < R and 0 <= col < C and grid[row][col] == 0:
+                    q.append((row, col, t + 1))
+                    grid[row][col] = 2
+        return res if res != 0 else -1
 ```

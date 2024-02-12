@@ -137,12 +137,34 @@ class Solution:
         return res
 ```
 
+### 260. Single Number III
 
 ```python
-
+class Solution:
+    def singleNumber(self, nums: List[int]) -> List[int]:
+        res = nums[0]
+        n = len(nums)
+        for i in range(1, n):
+            res ^= nums[i]
+        lowbit = res & -res
+        ans = [0, 0]
+        for x in nums:
+            if x & lowbit == 0:
+                ans[0] ^= x
+            else:
+                ans[1] ^= x
+        return ans
 ```
 
+### 2917. Find the K-or of an Array
 
 ```python
-
+class Solution:
+    def findKOr(self, nums: List[int], k: int) -> int:
+        count = [0] * 32
+        for n in nums:
+            for i in range(32):
+                if n & (1 << i):
+                    count[i] += 1
+        return sum(2 ** i for i in range(32) if count[i] >= k)
 ```

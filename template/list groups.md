@@ -40,6 +40,10 @@ while i < n or i < n - 1:
 ### 2110. Number of Smooth Descent Periods of a Stock
 ### 2760. Longest Even Odd Subarray With Threshold
 ### 2765. Longest Alternating Subarray
+### 186. Reverse Words in a String II
+### 2943. Maximize Area of Square Hole in Grid
+### 2981. Find Longest Special Substring That Occurs Thrice I
+### 2982. Find Longest Special Substring That Occurs Thrice II
 
 
 ### 228. Summary Ranges
@@ -309,4 +313,52 @@ class Solution:
             res.append(sorted(nums[start: j]))
             i = j
         return sum(res, []) == sorted(nums)
+```
+
+### 186. Reverse Words in a String II
+
+```python
+class Solution:
+    def reverseWords(self, s: List[str]) -> None:
+        """
+        Do not return anything, modify s in-place instead.
+        """
+        def subReverse(l, r):
+            while l < r:
+                s[l], s[r] = s[r], s[l]
+                l += 1
+                r -= 1
+    
+        s.reverse()
+        i = 0
+        while i < len(s):
+            if s[i] != ' ':
+                start = i
+                j = start 
+                while j < len(s) and s[j] != ' ':
+                    j += 1
+                subReverse(start, j - 1)
+                i = j 
+            else:
+                i += 1
+        return s
+```
+
+### 1784. Check if Binary String Has at Most One Segment of Ones
+
+```python
+class Solution:
+    def checkOnesSegment(self, s: str) -> bool:
+        count = 0
+        i = 0
+        while i < len(s):
+            if s[i] == '1':
+                start = i
+                j = start
+                while j < len(s) and s[j] == '1':
+                    j += 1
+                count += 1
+                i = j 
+            i += 1
+        return count <= 1
 ```

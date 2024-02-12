@@ -103,3 +103,23 @@ class Solution:
                 idx, count = i, v 
         return [idx, count]
 ```
+
+### 73. Set Matrix Zeroes
+
+```python
+class Solution:
+    def setZeroes(self, matrix: List[List[int]]) -> None:
+        """
+        Do not return anything, modify matrix in-place instead.
+        """
+        R, C, row, col = len(matrix), len(matrix[0]), set(), set()
+        for r in range(R):
+            for c in range(C):
+                if matrix[r][c] == 0:
+                    row.add(r)
+                    col.add(c)
+        for r in range(R):
+            for c in range(C):
+                if r in row or c in col:
+                    matrix[r][c] = 0
+```

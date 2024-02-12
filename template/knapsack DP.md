@@ -10,16 +10,6 @@ def f(v, w, t, i):
     return max(f(v, w, t, i + 1), f(v, w, t - w[i], i + 1) + v[i])
 ```
 
-## 0-1 knapsack question list
-
-* 494. Target Sum
-* 416. Partition Equal Subset Sum
-* 474. Ones and Zeroes
-* 1049. Last Stone Weight II
-* 879. Profitable Schemes
-* 2915. Length of the Longest Subsequence That Sums to Target
-* 805. Split Array With Same Average
-
 ## unbounded knapsack - template
 
 ```python
@@ -34,7 +24,19 @@ def f(v, w, t, i):
     return max(f(v, w, t, i + 1), f(v, w, t - w[i], i) + v[i]) 
 ```
 
-## unbounded knapsack question list
+### 0-1 knapsack question list
+
+* [494. Target Sum](#494-Target-Sum)
+* [416. Partition Equal Subset Sum](#2915-Length-of-the-Longest-Subsequence-That-Sums-to-Target)
+* [474. Ones and Zeroes](#2915-Length-of-the-Longest-Subsequence-That-Sums-to-Target)
+* [1049. Last Stone Weight II](#2915-Length-of-the-Longest-Subsequence-That-Sums-to-Target)
+* [879. Profitable Schemes](#2915-Length-of-the-Longest-Subsequence-That-Sums-to-Target)
+* [2915. Length of the Longest Subsequence That Sums to Target](#2915-Length-of-the-Longest-Subsequence-That-Sums-to-Target)
+* [805. Split Array With Same Average](#2915-Length-of-the-Longest-Subsequence-That-Sums-to-Target)
+* [2787. Ways to Express an Integer as Sum of Powers](#2915-Length-of-the-Longest-Subsequence-That-Sums-to-Target)
+* [923. 3Sum With Multiplicity](#2915-Length-of-the-Longest-Subsequence-That-Sums-to-Target)
+
+### unbounded knapsack question list
 
 * 279. Perfect Squares
 * 322. Coin Change
@@ -172,6 +174,30 @@ class Solution:
                 return True if t * N == total * n else False
             return f(t, n, i + 1) or f(t + nums[i], n + 1, i + 1)
         return f(0, 0, 0)
+```
+
+### 2787. Ways to Express an Integer as Sum of Powers
+
+```python
+```
+
+### 923. 3Sum With Multiplicity
+
+```python
+class Solution:
+    def threeSumMulti(self, arr: List[int], target: int) -> int:
+        arr.sort(reverse = True)
+        n = len(arr)
+        mod = 10 ** 9 + 7
+        @cache
+        def dfs(i, total, count):
+            if i >= n:
+                return 1 if total == target and count == 3 else 0
+            if total > target or count > 3:
+                return 0
+            return dfs(i + 1, total, count) + dfs(i + 1, total + arr[i], count + 1)
+        return dfs(0, 0, 0) % mod
+
 ```
 
 ### ###################################################################### unbounded knapsack
