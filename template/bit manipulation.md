@@ -168,3 +168,16 @@ class Solution:
                     count[i] += 1
         return sum(2 ** i for i in range(32) if count[i] >= k)
 ```
+
+### 401. Binary Watch
+
+```python
+class Solution:
+    def readBinaryWatch(self, turnedOn: int) -> List[str]:
+        res =[]
+        for i in range(12): # hour
+            for j in range(60): # minute
+                if((bin(i)+bin(j)).count('1')==turnedOn): # light number
+                   res.append((str(i)+":"+str(j).zfill(2))) # fill zero for minutes  
+        return res 
+```

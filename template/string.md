@@ -27,3 +27,19 @@ class Solution:
         res.append(''.join(line))
         return res
 ```
+
+### 1576. Replace All ?'s to Avoid Consecutive Repeating Characters
+
+```python
+class Solution:
+    def modifyString(self, s: str) -> str:
+        s = '#' + s + '#'
+        a = list(s)
+        for i in range(1, len(a) - 1):
+            if s[i] == '?':
+                for c in ascii_lowercase:
+                    if c not in a[i - 1] + a[i + 1]:
+                        a[i] = c
+                        break
+        return ''.join(a[1:-1])
+```

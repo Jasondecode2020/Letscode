@@ -362,3 +362,21 @@ class Solution:
             i += 1
         return count <= 1
 ```
+
+### 551. Student Attendance Record I
+
+```python
+class Solution:
+    def checkRecord(self, s: str) -> bool:
+        i = 0
+        late, absent = 0, s.count('A')
+        while i < len(s):
+            start = i
+            j = start
+            while j < len(s) and s[j] == s[start]:
+                j += 1
+            if s[start] == 'L':
+                late = max(late, j - start)
+            i = j 
+        return absent < 2 and late < 3
+```
