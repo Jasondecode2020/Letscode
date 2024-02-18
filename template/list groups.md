@@ -380,3 +380,162 @@ class Solution:
             i = j 
         return absent < 2 and late < 3
 ```
+
+### 1933. Check if String Is Decomposable Into Value-Equal Substrings
+
+```python
+class Solution:
+    def isDecomposable(self, s: str) -> bool:
+        i = 0
+        res = []
+        while i < len(s):
+            start = i 
+            j = start
+            while j < len(s) and s[start] == s[j]:
+                j += 1
+            if (j - start) % 3 == 1:
+                return False
+            res.append((j - start) % 3)
+            i = j
+        ans = 0
+        for n in res:
+            if n == 2:
+                ans += 1
+        return ans == 1
+```
+
+### 408. Valid Word Abbreviation
+
+```python
+class Solution:
+    def validWordAbbreviation(self, word: str, abbr: str) -> bool:
+        res = ''
+        i = 0
+        count = 0
+        while i < len(abbr):
+            if abbr[i] == '0':
+                return False
+            if abbr[i].isdigit():
+                start = i
+                j = start 
+                while j < len(abbr) and abbr[j].isdigit():
+                    j += 1
+                res += word[count: count + int(abbr[start: j])]
+                i = j 
+                count += int(abbr[start: j])
+                if count > len(res):
+                    return False
+            else:
+                res += abbr[i]
+                count += 1
+                i += 1
+        return res == word
+```
+
+### 758. Bold Words in String
+
+```python
+class Solution:
+    def boldWords(self, words: List[str], s: str) -> str:
+        n = len(s)
+        res = [0] * n 
+        for i in range(n):
+            for w in words:
+                if s[i:].startswith(w):
+                    for j in range(i, i + len(w)):
+                        res[j] = 1
+
+        i, ans = 0, ''
+        while i < n:
+            start = i 
+            j = start
+            while j < n and res[j] == res[start]:
+                j += 1
+            if res[start] == 0:
+                ans += s[start: j]
+            else:
+                ans += '<b>' + s[start: j] + '</b>'
+            i = j
+        return ans
+```
+
+### 1513. Number of Substrings With Only 1s
+
+```python
+class Solution:
+    def numSub(self, s: str) -> int:
+        arr = []
+        i = 0
+        while i < len(s):
+            if s[i] == '1':
+                start = i 
+                j = start 
+                while j < len(s) and s[j] == s[start]:
+                    j += 1
+                arr.append(j - start)
+                i = j
+            else:
+                i += 1
+        res = 0
+        mod = 10 ** 9 + 7
+        for n in arr:
+            res += n * (n + 1) // 2
+        return res % mod
+```
+
+### 2414. Length of the Longest Alphabetical Continuous Substring
+
+```python
+class Solution:
+    def longestContinuousSubstring(self, s: str) -> int:
+        i, res = 0, 0
+        while i < len(s):
+            start = i 
+            j = start + 1
+            while j < len(s) and ord(s[j]) - ord(s[j - 1]) == 1:
+                j += 1
+            res = max(res, j - start)
+            i = j 
+        return res
+```
+
+### 2348. Number of Zero-Filled Subarrays
+
+```python
+class Solution:
+    def zeroFilledSubarray(self, nums: List[int]) -> int:
+        arr = []
+        i = 0
+        while i < len(nums):
+            if nums[i] == 0:
+                start = i 
+                j = start 
+                while j < len(nums) and nums[j] == 0:
+                    j += 1
+                arr.append(j - start)
+                i = j 
+            else:
+                i += 1
+        res = 0
+        for n in arr:
+            res += n * (n + 1) // 2
+        return res
+```
+
+### 2405. Optimal Partition of String
+
+```python
+class Solution:
+    def partitionString(self, s: str) -> int:
+        i = 0
+        res = 0
+        while i < len(s):
+            j = i
+            visited = set()
+            while j < len(s) and s[j] not in visited:
+                visited.add(s[j])
+                j += 1
+            res += 1
+            i = j
+        return res
+```

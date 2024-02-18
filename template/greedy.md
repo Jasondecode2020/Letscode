@@ -252,3 +252,23 @@ class Solution:
             mass += a 
         return True
 ```
+
+### 984. String Without AAA or BBB
+
+```python
+class Solution:
+    def strWithout3a3b(self, a: int, b: int) -> str:
+        res = ''
+        while a or b:
+            if len(res) >= 2 and res[-1] == res[-2]:
+                writeA = res[-1] == 'b'
+            else:
+                writeA = a >= b
+            if writeA:
+                a -= 1
+                res += 'a'
+            else:
+                b -= 1
+                res += 'b'
+        return res
+```

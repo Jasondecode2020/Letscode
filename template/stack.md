@@ -145,3 +145,31 @@ class Solution:
             res = '.' + str(n3) + str(n2) + str(n1) + res
         return ''.join(stack) + res if stack else res[1:]
 ```
+
+### 2390. Removing Stars From a String
+
+```python
+class Solution:
+    def removeStars(self, s: str) -> str:
+        stack = []
+        for c in s:
+            if c != '*':
+                stack.append(c)
+            else:
+                stack and stack.pop()
+        return ''.join(stack)
+```
+
+### 921. Minimum Add to Make Parentheses Valid
+
+```python
+class Solution:
+    def minAddToMakeValid(self, s: str) -> int:
+        stack = []
+        for p in s:
+            if stack and stack[-1] == '(' and p == ')':
+                stack.pop()
+            else:
+                stack.append(p)
+        return len(stack)
+```

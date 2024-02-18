@@ -181,3 +181,23 @@ class Solution:
                    res.append((str(i)+":"+str(j).zfill(2))) # fill zero for minutes  
         return res 
 ```
+
+### 1318. Minimum Flips to Make a OR b Equal to c
+
+```python
+class Solution:
+    def minFlips(self, a: int, b: int, c: int) -> int:
+        res = 0
+        for i in range(32):
+            z = c & (1 << i)
+            x = a & (1 << i)
+            y = b & (1 << i)
+            if z and x == 0 and y == 0:
+                res += 1
+            if not z and (x or y):
+                if x:
+                    res += 1
+                if y:
+                    res += 1
+        return res
+```

@@ -440,3 +440,38 @@ class Solution:
             res += 1
         return res
 ```
+
+### 2486. Append Characters to String to Make Subsequence
+
+```python
+class Solution:
+    def appendCharacters(self, s: str, t: str) -> int:
+        n = len(t)
+        i, j = 0, 0
+        while i < len(s):
+            if j < n and s[i] == t[j]:
+                j += 1
+            i += 1
+        return n - j
+```
+
+### 1679. Max Number of K-Sum Pairs
+
+```python
+class Solution:
+    def maxOperations(self, nums: List[int], k: int) -> int:
+        nums.sort()
+        l, r = 0, len(nums) - 1
+        res = 0
+        while l < r:
+            two = nums[l] + nums[r]
+            if two == k:
+                res += 1
+                l += 1
+                r -= 1
+            elif two > k:
+                r -= 1
+            else:
+                l += 1
+        return res
+```

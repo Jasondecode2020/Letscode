@@ -47,3 +47,15 @@ class Solution:
         nums.sort()   
         return dfs(0, 0)
 ```
+
+### 2433. Find The Original Array of Prefix Xor
+
+```python
+class Solution:
+    def findArray(self, pref: List[int]) -> List[int]:
+        n, prev = len(pref), 0
+        for i in range(1, n):
+            prev ^= pref[i - 1]
+            pref[i] ^= prev
+        return pref
+```

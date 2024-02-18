@@ -105,7 +105,6 @@ class UF:
 ## template 5: dynamic parent
 
 ```python
-```python
 class UF:
     def __init__(self, nums):
         self.parent = {}
@@ -958,3 +957,132 @@ class Solution:
             res += nums[i] * (presum[-1] - presum[i + 1])
         return res
 ```
+
+### 1559. Detect Cycles in 2D Grid
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n
+
+    def connected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] > self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2
+            self.rank[p2] += self.rank[p1]
+
+class Solution:
+    def containsCycle(self, grid: List[List[str]]) -> bool:
+        R, C = len(grid), len(grid[0])
+        directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+        uf = UF(R * C)
+        for r in range(R):
+            for c in range(C):
+                for dr, dc in [[1, 0], [0, 1]]:
+                    row, col = r + dr, c + dc
+                    if 0 <= row < R and 0 <= col < C and grid[row][col] == grid[r][c]:
+                        if uf.connected(row * C + col, r * C + c):
+                            return True
+                        uf.union(row * C + col, r * C + c)
+        return False
+```
+
+- simple template
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+
+    def find(self, n):
+        if n != self.parent[n]:
+            self.parent[n] = self.find(self.parent[n])
+        return self.parent[n]
+    
+    def connected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        self.parent[p1] = p2
+
+class Solution:
+    def containsCycle(self, grid: List[List[str]]) -> bool:
+        R, C = len(grid), len(grid[0])
+        directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+        uf = UF(R * C)
+        for r in range(R):
+            for c in range(C):
+                for dr, dc in [[1, 0], [0, 1]]:
+                    row, col = r + dr, c + dc
+                    if 0 <= row < R and 0 <= col < C and grid[row][col] == grid[r][c]:
+                        if uf.connected(row * C + col, r * C + c):
+                            return True
+                        uf.union(row * C + col, r * C + c)
+        return False
+```
+
+- dfs
+
+```python
+class Solution:
+    def containsCycle(self, grid: List[List[str]]) -> bool:
+        sys.setrecursionlimit(150000)
+        R, C = len(grid), len(grid[0])
+        directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+        visited = set()
+        def dfs(node, p):
+            if node in visited: 
+                return True
+            visited.add(node)
+            r, c = node
+            for dr, dc in directions:
+                row, col = r + dr, c + dc 
+                if 0 <= row < R and 0 <= col < C and (row, col) != p and grid[row][col] == grid[r][c]:
+                    if dfs((row, col), node): 
+                        return True
+            return False
+        
+        for r in range(R):
+            for c in range(C):
+                if (r, c) not in visited and dfs((r, c), None):
+                    return True
+        return False
+```
+
+### 1091. Shortest Path in Binary Matrix
+
+```python
+class Solution:
+    def shortestPathBinaryMatrix(self, grid: List[List[int]]) -> int:
+        R, C = len(grid), len(grid[0])
+        directions = [[0, 1], [0, -1], [1, 0], [-1, 0], [1, 1], [1, -1], [-1, 1], [-1, -1]]
+        if grid[0][0]:
+            return -1
+        q = deque([(0, 0, 0)])
+        visited = set([(0, 0)])
+        while q:
+            r, c, d = q.popleft()
+            if r == R - 1 and c == C - 1:
+                return d + 1
+            for dr, dc in directions:
+                row, col = r + dr, c + dc 
+                if 0 <= row < R and 0 <= col < C and (row, col) not in visited and grid[row][col] == 0:
+                    visited.add((row, col))
+                    q.append((row, col, d + 1))
+        return -1
+```
+

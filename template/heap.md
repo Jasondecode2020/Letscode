@@ -113,3 +113,18 @@ class Solution:
                     heappush(pq, res)
         return heappop(pq)
 ```
+
+### 2530. Maximal Score After Applying K Operations
+
+```python
+class Solution:
+    def maxKelements(self, nums: List[int], k: int) -> int:
+        nums = [-n for n in nums]
+        heapify(nums)
+        res = 0
+        for i in range(k):
+            n = -heappop(nums)
+            res += n 
+            heappush(nums, -ceil(n / 3))
+        return res
+```
