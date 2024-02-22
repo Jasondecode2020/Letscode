@@ -201,3 +201,37 @@ class Solution:
                     res += 1
         return res
 ```
+
+## xor
+
+### 2683. Neighboring Bitwise XOR
+
+```python
+class Solution:
+    def doesValidArrayExist(self, derived: List[int]) -> bool:
+        res = 0
+        for n in derived:
+            res ^= n 
+        return res == 0
+```
+
+### 2429. Minimize XOR
+
+```python
+class Solution:
+    def minimizeXor(self, num1: int, num2: int) -> int:
+        ones = num2.bit_count()
+        a = list(bin(num1)[2:].zfill(32))
+        res = 0
+        for i, c in enumerate(a):
+            if c == '1' and ones:
+                res += 1 << (32 - i - 1)
+                ones -= 1
+        if ones == 0:
+            return res 
+        for i, n in enumerate(a[::-1]):
+            if n == '0' and ones:
+                res += 1 << i
+                ones -= 1 
+        return res
+```

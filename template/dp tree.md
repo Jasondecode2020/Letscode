@@ -227,3 +227,17 @@ class Solution:
         dfs(root)
         return self.res
 ```
+
+### 1372. Longest ZigZag Path in a Binary Tree
+
+```python
+class Solution:
+    def longestZigZag(self, root: Optional[TreeNode]) -> int:
+        def dfs(node, is_left, depth):
+            if not node:
+                return depth
+            if is_left:
+                return max(dfs(node.left, True, 1), dfs(node.right, False, depth + 1))
+            return max(dfs(node.right, False, 1), dfs(node.left, True, depth + 1))
+        return dfs(root, True, 0) - 1
+```

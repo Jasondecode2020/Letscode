@@ -70,3 +70,7 @@ class Solution:
                     res.append(str(i) + '/' + str(j))
         return res
 ```
+
+[8,10,6,12,9,12,2,3,13,19,11,18,10,16]
+
+8
