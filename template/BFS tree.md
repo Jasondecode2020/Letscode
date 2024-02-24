@@ -374,3 +374,24 @@ class Solution:
         n = len(sl)
         return sl[-k] if k <= n else -1
 ```
+
+### 987. Vertical Order Traversal of a Binary Tree
+
+```python
+class Solution:
+    def verticalTraversal(self, root: Optional[TreeNode]) -> List[List[int]]:
+        d = defaultdict(list)
+        q = deque([(root, 0, 0)]) # root, row, col
+        while q:
+            node, row, col = q.popleft()
+            d[col].append((row, node.val))
+            if node.left:
+                q.append((node.left, row + 1, col - 1))
+            if node.right:
+                q.append((node.right, row + 1, col + 1))
+        
+        res = []
+        for k in sorted(d.keys()):
+            res.append([item[1] for item in sorted(d[k])])
+        return res
+```

@@ -48,14 +48,33 @@ class Solution:
         return dfs(0, 0)
 ```
 
-### 2433. Find The Original Array of Prefix Xor
+### 1284. Minimum Number of Flips to Convert Binary Matrix to Zero Matrix
 
 ```python
 class Solution:
-    def findArray(self, pref: List[int]) -> List[int]:
-        n, prev = len(pref), 0
-        for i in range(1, n):
-            prev ^= pref[i - 1]
-            pref[i] ^= prev
-        return pref
+    def minFlips(self, mat: List[List[int]]) -> int:
+        R, C = len(mat), len(mat[0])
+        start = ''
+        for row in mat:
+            for col in row:
+                start += str(col)
+        start = int(start, 2)
+        visited = set([start])
+        q = deque([(start, 0)])
+        directions = [[0, 1], [0, -1], [-1, 0], [1, 0], [0, 0]]
+        while q:
+            state, steps = q.popleft()
+            if state == 0:
+                return steps
+            for r in range(R):
+                for c in range(C):
+                    nxt_state = state
+                    for dr, dc in directions:
+                        row, col = r + dr, c + dc 
+                        if 0 <= row < R and 0 <= col < C:
+                            nxt_state = nxt_state ^ (1 << (R * C - row * C - col - 1))
+                    if nxt_state not in visited:
+                        visited.add(nxt_state)
+                        q.append((nxt_state, steps + 1))
+        return -1
 ```

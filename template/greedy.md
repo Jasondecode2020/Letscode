@@ -272,3 +272,38 @@ class Solution:
                 res += 'b'
         return res
 ```
+
+### 991. Broken Calculator
+
+```python
+class Solution:
+    def brokenCalc(self, x: int, y: int) -> int:
+        res = 0
+        while x < y:
+            if y % 2 == 1:
+                y += 1
+            else:
+                y //= 2
+            res += 1
+        return res + (x - y)
+```
+
+### 987. Vertical Order Traversal of a Binary Tree
+
+```python
+class Solution:
+    def verticalTraversal(self, root: Optional[TreeNode]) -> List[List[int]]:
+        d = defaultdict(list)
+        q = deque([(root, 0, 0)])
+        while q:
+            node, row, val = q.popleft()
+            d[val].append((row, node.val))
+            if node.left:
+                q.append((node.left, row + 1, val - 1))
+            if node.right:
+                q.append((node.right, row + 1, val + 1))
+        res = []
+        for k in sorted(d.keys()):
+            res.append([item[1] for item in sorted(d[k])])
+        return res
+```
