@@ -98,6 +98,31 @@ class Solution:
         return res
 ```
 
+### 694. Number of Distinct Islands
+
+```python
+class Solution:
+    def numDistinctIslands(self, grid: List[List[int]]) -> int:
+        def dfs(r, c):
+            grid[r][c] = 0
+            for i, (dr, dc) in enumerate(directions):
+                row, col = r + dr, c + dc
+                self.s += str(i)
+                if 0 <= row < R and 0 <= col < C and grid[row][col] == 1:
+                    dfs(row, col)
+
+        R, C = len(grid), len(grid[0])
+        directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+        visited = set()
+        for r in range(R):
+            for c in range(C):
+                if grid[r][c] == 1:
+                    self.s = ''
+                    dfs(r, c)
+                    visited.add(self.s)
+        return len(visited)
+```
+
 ### 695. Max Area of Island
 
 ```python
@@ -503,4 +528,27 @@ class Solution:
             return first
         dfs(0, -1)
         return self.res
+```
+
+### 419. Battleships in a Board
+
+```python
+class Solution:
+    def countBattleships(self, board: List[List[str]]) -> int:
+        R, C = len(board), len(board[0])
+        directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+        res = 0
+        def dfs(r, c):
+            board[r][c] = '.'
+            for dr, dc in directions:
+                row, col = r + dr, c + dc 
+                if 0 <= row < R and 0 <= col < C and board[row][col] == 'X':
+                    dfs(row, col)
+    
+        for r in range(R):
+            for c in range(C):
+                if board[r][c] == 'X':
+                    dfs(r, c)
+                    res += 1
+        return res
 ```

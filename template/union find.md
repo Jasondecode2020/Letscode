@@ -132,7 +132,7 @@ class UF:
 - 990. Satisfiability of Equality Equations
 - 200. Number of Islands
 - 128. Longest Consecutive Sequence
-- 1971. Find if Path Exists in Graph
+* [1971. Find if Path Exists in Graph](#1971-Find-if-Path-Exists-in-Graph)
 - 323. Number of Connected Components in an Undirected Graph
 - 827. Making A Large Island
 - 685. Redundant Connection II
@@ -593,6 +593,59 @@ class Solution:
                 r = m - 1
             else:
                 l = m + 1
+        return res
+```
+
+### 1102. Path With Maximum Minimum Value
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n
+
+    def connected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] > self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2
+            self.rank[p2] += self.rank[p1]
+
+class Solution:
+    def maximumMinimumPath(self, grid: List[List[int]]) -> int:
+        def check(threshold):
+            uf = UF(R * C)
+            for r in range(R):
+                for c in range(C):
+                    if r == 0 and c == 0 and grid[r][c] < threshold:
+                        return False # speed up a bit
+                    if grid[r][c] >= threshold:
+                        for dr, dc in [[1, 0], [0, 1]]:
+                            row, col = r + dr, c + dc
+                            if 0 <= row < R and 0 <= col < C and grid[row][col] >= threshold and not uf.connected(row * C + col, r * C + c):
+                                uf.union(row * C + col, r * C + c)
+            return uf.connected(0, (R - 1) * C + C - 1)
+
+        R, C = len(grid), len(grid[0])
+        l, r, res = 0, max(max(item) for item in grid), 0
+        while l <= r:
+            m = l + (r - l) // 2
+            if check(m):
+                res = m
+                l = m + 1
+            else:
+                r = m - 1
         return res
 ```
 

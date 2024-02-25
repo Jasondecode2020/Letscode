@@ -97,23 +97,43 @@ def fn(arr):
 边界未知：定义最大数便可
 2187. 完成旅途的最少时间
 
+### 274. H-Index
+
+```python
+class Solution:
+    def hIndex(self, citations: List[int]) -> int:
+        def check(threshold):
+            count = 0
+            for n in citations:
+                if n >= threshold:
+                    count += 1
+            return count >= threshold
+            
+        l, r, res = 0, max(citations), 0
+        while l <= r:
+            m = l + (r - l) // 2
+            if check(m):
+                res = m 
+                l = m + 1
+            else:
+                r = m - 1
+        return res
+```
+
 ### 275. H-Index II
 
 ```python
 class Solution:
     def hIndex(self, citations: List[int]) -> int:
         def check(threshold):
-            res = 0
-            for c in citations:
-                if c >= threshold:
-                    res += 1
-            return res >= threshold
+            i = bisect_left(citations, threshold)
+            return len(citations) - i >= threshold
             
         l, r, res = 0, 1000, 0
         while l <= r:
             m = l + (r - l) // 2
             if check(m):
-                res = m
+                res = m 
                 l = m + 1
             else:
                 r = m - 1

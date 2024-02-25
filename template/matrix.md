@@ -146,3 +146,22 @@ class Solution:
             rotate()
         return False
 ```
+
+### 750. Number Of Corner Rectangles
+
+```python
+class Solution:
+    def countCornerRectangles(self, grid: List[List[int]]) -> int:
+        R, C = len(grid), len(grid[0])
+        d = Counter()
+        for row in grid:
+            for c1 in range(C):
+                for c2 in range(c1 + 1, C):
+                    if row[c1] and row[c2]:
+                        d[(c1, c2)] += 1
+
+        res = 0
+        for n in d.values():
+            res += n * (n - 1) // 2
+        return res
+```

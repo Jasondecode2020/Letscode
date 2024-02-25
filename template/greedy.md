@@ -307,3 +307,21 @@ class Solution:
             res.append([item[1] for item in sorted(d[k])])
         return res
 ```
+
+### 467. Unique Substrings in Wraparound String
+
+```python
+class Solution:
+    def findSubstringInWraproundString(self, s: str) -> int:
+        i, res = 0, 0
+        d = Counter()
+        while i < len(s):
+            start = i 
+            d[ord(s[start])] = max(d[ord(s[start])], 1)
+            j = start + 1
+            while j < len(s) and (ord(s[j]) - ord(s[j - 1]) == 1 or ord(s[j]) - ord(s[j - 1]) == -25):
+                j += 1
+                d[ord(s[j - 1])] = max(d[ord(s[j - 1])], j - start)
+            i = j 
+        return sum(d.values())
+```

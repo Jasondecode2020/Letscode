@@ -195,3 +195,83 @@ class Solution:
                     q.append((nei, d + 1))
         return res
 ```
+
+### 1345. Jump Game IV
+
+```python
+class Solution:
+    def minJumps(self, arr: List[int]) -> int:
+        d = defaultdict(list)
+        n = len(arr)
+        for i, v in enumerate(arr):
+            d[v].append(i)
+
+        visited = [False] * n 
+        q = deque([(0, 0)]) # idx, steps
+        visited[0] = True
+        while q:
+            idx, steps = q.popleft()
+            if idx == n - 1:
+                return steps 
+            if idx - 1 >= 0 and not visited[idx - 1]:
+                visited[idx - 1] = True
+                q.append((idx - 1, steps + 1))
+            if idx + 1 < n and not visited[idx + 1]:
+                visited[idx + 1] = True
+                q.append((idx + 1, steps + 1))
+            for i in d[arr[idx]]:
+                if not visited[i]:
+                    visited[i] = True
+                    q.append((i, steps + 1))
+            d.pop(arr[idx])
+```
+
+### 1730. Shortest Path to Get Food
+
+```python
+R, C = len(grid), len(grid[0])
+        directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+        for r in range(R):
+            for c in range(C):
+                if grid[r][c] == '*':
+                    q = deque([(r, c, 0)])
+                    visited = set()
+                    visited.add((r, c))
+                    while q:
+                        r, c, steps = q.popleft()
+                        if grid[r][c] == '#':
+                            return steps 
+                        for dr, dc in directions:
+                            row, col = r + dr, c + dc 
+                            if 0 <= row < R and 0 <= col < C and grid[row][col] != 'X' and (row, col) not in visited:
+                                q.append((row, col, steps + 1))
+                                visited.add((row, col))
+        return -1
+```
+
+### 1466. Reorder Routes to Make All Paths Lead to the City Zero
+
+```python
+class Solution:
+    def minReorder(self, n: int, connections: List[List[int]]) -> int:
+        d = defaultdict(bool)
+        g = defaultdict(list)
+        for u, v in connections:
+            d[(u, v)] = True
+            d[(v, u)] = False 
+            g[u].append(v)
+            g[v].append(u)
+        
+        q = deque([0])
+        visited = set([0])
+        res = 0
+        while q:
+            node = q.popleft()
+            for nei in g[node]:
+                if nei not in visited:
+                    visited.add(nei)
+                    q.append(nei)
+                    if d[(node, nei)]:
+                        res += 1
+        return res
+```
