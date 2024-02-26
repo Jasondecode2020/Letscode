@@ -325,3 +325,85 @@ class Solution:
             i = j 
         return sum(d.values())
 ```
+
+### 1665. Minimum Initial Energy to Finish Tasks
+
+```python
+'''math + greedy'''
+class Solution:
+    def minimumEffort(self, tasks: List[List[int]]) -> int:
+        # [3, 7], [5, 8]
+        # 1: [a1, m1], 2: [a2, m2]
+        # T12 = max(m1, a1 + m2), T21 = max(m2, a2 + m1)
+        # if m1 - a1 > m2 - a2 => a1 + m2 < a2 + m1
+        # if m1 > m2:
+        #           T21 = a2 + m1 > a1 + m2
+        #                 a2 + m1 > m1
+        #           => T21 > T12
+        # if m1 < m2:
+        #           T12 = a1 + m2 < a2 + m1
+        #                 a1 + m2 > m2
+        #           => T12 < T21
+        tasks.sort(key = lambda x: x[0] - x[1])
+        res, left = 0, 0
+        for a, m in tasks:
+            if m > left:
+                res += m - left 
+                left = m 
+            left -= a 
+        return res
+```
+
+```python
+'''binary search + greedy'''
+class Solution:
+    def minimumEffort(self, tasks: List[List[int]]) -> int:
+        # [3, 7], [5, 8]
+        # 1: [a1, m1], 2: [a2, m2]
+        # T12 = max(m1, a1 + m2), T21 = max(m2, a2 + m1)
+        # if m1 - a1 > m2 - a2 => a1 + m2 < a2 + m1
+        # if m1 > m2:
+        #           T21 = a2 + m1 > a1 + m2
+        #                 a2 + m1 > m1
+        #           => T21 > T12
+        # if m1 < m2:
+        #           T12 = a1 + m2 < a2 + m1
+        #                 a1 + m2 > m2
+        #           => T12 < T21
+        def check(threshold):
+            for a, m in tasks:
+                if threshold >= m:
+                    threshold -= a 
+                else:
+                    return False
+            return True
+        tasks.sort(key = lambda x: x[0] - x[1])
+        l, r, res = 0, 10 ** 9, 0
+        while l <= r:
+            m = l + (r - l) // 2
+            if check(m):
+                res = m 
+                r = m - 1
+            else:
+                l = m + 1
+        return res
+```
+
+### 1630. Arithmetic Subarrays
+
+```python
+class Solution:
+    def checkArithmeticSubarrays(self, nums: List[int], l: List[int], r: List[int]) -> List[bool]:
+        def check(l, r):
+            res = sorted(nums[l: r + 1])
+            res = [res[i] - res[i - 1] for i in range(1, len(res))]
+            return len(set(res)) == 1
+        
+        res = []
+        for a, b in zip(l, r):
+            if check(a, b):
+                res.append(True)
+            else:
+                res.append(False)
+        return res
+```

@@ -103,3 +103,99 @@ class Solution:
         less = [n for n in nums if n < pivot]
         return self.sortArray(less) + equal + self.sortArray(greater)
 ```
+
+### 436. Find Right Interval
+
+```python
+class Solution:
+    def findRightInterval(self, intervals: List[List[int]]) -> List[int]:
+        res = []
+        for i, (s, e) in enumerate(intervals):
+            res.append([s, e, i])
+        res.sort()
+        n = len(intervals)
+        ans = [-1] * n
+        for s, e, i in res:
+            idx = bisect_left(res, e, key = lambda x: x[0])
+            if idx < n:
+                j = res[idx][2]
+                ans[i] = j 
+        return ans
+```
+
+### 475. Heaters
+
+```python
+class Solution:
+    def findRadius(self, houses: List[int], heaters: List[int]) -> int:
+        ans = -inf
+        heaters = [-inf] + heaters + [inf]
+        heaters.sort()
+        for h in houses:
+            i = bisect_left(heaters, h)
+            res = min(h - heaters[i - 1], heaters[i] - h)
+            ans = max(res, ans)
+        return ans
+```
+
+### 791. Custom Sort String
+
+```python
+class Solution:
+    def customSortString(self, order: str, s: str) -> str:
+        d = defaultdict(int)
+        for i, c in enumerate(order):
+            d[c] = i 
+        res = []
+        for c in s:
+            if c in d:
+                res.append((d[c], c))
+            else:
+                res.append((26, c))
+        res.sort()
+        return ''.join([item[1] for item in res])
+```
+
+### 846. Hand of Straights
+
+```python
+from sortedcontainers import SortedList
+class Solution:
+    def isNStraightHand(self, hand: List[int], groupSize: int) -> bool:
+        n = len(hand)
+        if n % groupSize:
+            return False
+
+        sl = SortedList(hand)
+        while sl:
+            mn = sl[0]
+            for i in range(groupSize):
+                if mn in sl:
+                    sl.remove(mn)
+                    mn += 1
+                else:
+                    return False
+        return True
+```
+
+### 1296. Divide Array in Sets of K Consecutive Numbers
+
+```python
+from sortedcontainers import SortedList
+class Solution:
+    def isPossibleDivide(self, nums: List[int], k: int) -> bool:
+        n = len(nums)
+        if n % k:
+            return False
+
+        sl = SortedList(nums)
+        while sl:
+            mn = sl[0]
+            for i in range(k):
+                if mn in sl:
+                    sl.remove(mn)
+                    mn += 1
+                else:
+                    return False
+        return True
+```

@@ -1,21 +1,8 @@
-## template 1: bfs
-
-- res is depended on the problem, the structure is the same as bfs
-
-* 207. Course Schedule
-* 210. Course Schedule II
-* 269. Alien Dictionary
-* 310. Minimum Height Trees
-* 329. Longest Increasing Path in a Matrix
-* 802. Find Eventual Safe States
-* 1136. Parallel Courses
-* 444. Sequence Reconstruction
-* 1462. Course Schedule IV
-* 2360. Longest Cycle in a Graph
+## template 1: bfs + queue
 
 ```python
 class Solution:
-    def Fn(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         g, indegree = defaultdict(list), [0] * numCourses
         for a, b in prerequisites:
             g[b].append(a)
@@ -31,6 +18,48 @@ class Solution:
                     q.append(nei)
         return PROBLEM_CONDITION
 ```
+
+## template 2: dfs + stack
+
+```python
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        g = defaultdict(list)
+        visited = [0] * numCourses
+        self.valid = True
+
+        for u, v in prerequisites:
+            g[v].append(u)
+        
+        def dfs(u):
+            visited[u] = 1
+            for v in g[u]:
+                if visited[v] == 0:
+                    dfs(v)
+                    if not self.valid:
+                        return
+                elif visited[v] == 1:
+                    self.valid = False
+                    return
+            visited[u] = 2
+        
+        for i in range(numCourses):
+            if self.valid and not visited[i]:
+                dfs(i)
+        
+        return self.valid
+```
+
+* 207. Course Schedule
+* 210. Course Schedule II
+* 269. Alien Dictionary
+* 310. Minimum Height Trees
+* 329. Longest Increasing Path in a Matrix
+* 802. Find Eventual Safe States
+* 1136. Parallel Courses
+* 444. Sequence Reconstruction
+* 1462. Course Schedule IV
+* 2360. Longest Cycle in a Graph
 
 ### 207. Course Schedule
 
@@ -51,6 +80,35 @@ class Solution:
                 if indegree[nei] == 0:
                     q.append(nei)
         return res == numCourses
+```
+
+```python
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        g = defaultdict(list)
+        visited = [0] * numCourses
+        self.valid = True
+
+        for u, v in prerequisites:
+            g[v].append(u)
+        
+        def dfs(u):
+            visited[u] = 1
+            for v in g[u]:
+                if visited[v] == 0:
+                    dfs(v)
+                    if not self.valid:
+                        return
+                elif visited[v] == 1:
+                    self.valid = False
+                    return
+            visited[u] = 2
+        
+        for i in range(numCourses):
+            if self.valid and not visited[i]:
+                dfs(i)
+        
+        return self.valid
 ```
 
 ### 210. Course Schedule II
@@ -74,6 +132,37 @@ class Solution:
                 if indegree[nei] == 0:
                     q.append(nei)
         return res if len(res) == numCourses else []
+```
+
+```python
+class Solution:
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        g = defaultdict(list)
+        visited = [0] * numCourses
+        self.valid = True
+        res = []
+
+        for u, v in prerequisites:
+            g[v].append(u)
+        
+        def dfs(u):
+            visited[u] = 1
+            for v in g[u]:
+                if visited[v] == 0:
+                    dfs(v)
+                    if not self.valid:
+                        return
+                elif visited[v] == 1:
+                    self.valid = False
+                    return
+            visited[u] = 2
+            res.append(u)
+        
+        for i in range(numCourses):
+            if self.valid and not visited[i]:
+                dfs(i)
+        
+        return res[::-1] if self.valid else []
 ```
 
 ### 269. Alien Dictionary
