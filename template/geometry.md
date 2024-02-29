@@ -234,3 +234,28 @@ class Solution:
                 return False
         return True
 ```
+
+### 593. Valid Square
+
+```python
+class Solution:
+    def validSquare(self, p1: List[int], p2: List[int], p3: List[int], p4: List[int]) -> bool:
+        def check(a, b, c, d):
+            x1, y1 = a
+            x2, y2 = b
+            x3, y3 = c 
+            x4, y4 = d 
+            side1 = (x2 - x1) ** 2 + (y2 - y1) ** 2
+            side2 = (x3 - x2) ** 2 + (y3 - y2) ** 2
+            side3 = (x4 - x3) ** 2 + (y4 - y3) ** 2
+            side4 = (x4 - x1) ** 2 + (y4 - y1) ** 2
+            diag1 = (x3 - x1) ** 2 + (y3 - y1) ** 2
+            diag2 = (x2 - x4) ** 2 + (y2 - y4) ** 2
+            if side1 and side1 == side2 == side3 == side4 and diag1 and diag1 == diag2:
+                return True
+            return False
+        for a, b, c, d in permutations([p1, p2, p3, p4]):
+            if check(a, b, c, d):
+                return True
+        return False
+```

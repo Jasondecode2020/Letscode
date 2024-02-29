@@ -63,3 +63,23 @@ class Solution:
             p = p.next 
         return dummy.next 
 ```
+
+### 2058. Find the Minimum and Maximum Number of Nodes Between Critical Points
+
+```python
+class Solution:
+    def nodesBetweenCriticalPoints(self, head: Optional[ListNode]) -> List[int]:
+        res = []
+        while head:
+            res.append(head.val)
+            head = head.next 
+        ans = []
+        for i in range(1, len(res) - 1):
+            if (res[i - 1] < res[i] and res[i] > res[i + 1]) or (res[i - 1] > res[i] and res[i] < res[i + 1]):
+                ans.append(i)
+        if len(ans) < 2:
+            return [-1, -1]
+        mn = min(ans[i] - ans[i - 1] for i in range(1, len(ans)))
+        mx = ans[-1] - ans[0]
+        return [mn, mx]
+```

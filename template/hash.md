@@ -70,3 +70,26 @@ class Solution:
                 seen.add(v)
         return res
 ```
+
+### 890. Find and Replace Pattern
+
+```python
+class Solution:
+    def findAndReplacePattern(self, words: List[str], pattern: str) -> List[str]:
+        def check(w):
+            c1, c2 = Counter(), Counter()
+            for a, b in zip(w, pattern):
+                c1[a] = b 
+                c2[b] = a 
+            res1, res2 = '', ''
+            for c in w:
+                res1 += c1[c]
+            for c in pattern:
+                res2 += c2[c]
+            return res1 == pattern and res2 == w
+        res = []
+        for w in words:
+            if check(w):
+                res.append(w)
+        return res
+```
