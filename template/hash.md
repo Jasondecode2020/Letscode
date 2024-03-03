@@ -93,3 +93,23 @@ class Solution:
                 res.append(w)
         return res
 ```
+
+### 2225. Find Players With Zero or One Losses
+
+```python
+class Solution:
+    def findWinners(self, matches: List[List[int]]) -> List[List[int]]:
+        c_lose = Counter()
+        s = set()
+        for a, b in matches:
+            c_lose[b] += 1
+            s.add(a)
+            s.add(b)
+        res1, res2 = [], []
+        for i in s:
+            if i not in c_lose:
+                res1.append(i)
+            elif c_lose[i] == 1:
+                res2.append(i)
+        return [sorted(res1), sorted(res2)]
+```

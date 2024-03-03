@@ -97,6 +97,8 @@ def fn(arr):
 边界未知：定义最大数便可
 2187. 完成旅途的最少时间
 
+* 2702. Minimum Operations to Make Numbers Non-positive
+
 ### 274. H-Index
 
 ```python
@@ -718,4 +720,154 @@ class Solution:
             else:
                 r = m - 1
         return res
+```
+
+### 2702. Minimum Operations to Make Numbers Non-positive
+
+```python
+class Solution:
+    def minOperations(self, nums: List[int], x: int, y: int) -> int:
+        def check(threshold):
+            arr = [n - threshold * y for n in nums]
+            count = 0
+            for n in arr:
+                if n > 0:
+                    count += ceil(n / (x - y))
+            return count <= threshold
+            
+        l, r, res = 0, 10 ** 9, 0
+        while l <= r:
+            m = l + (r - l) // 2
+            if check(m):
+                res = m 
+                r = m - 1
+            else:
+                l = m + 1
+        return res 
+```
+
+### 1060. Missing Element in Sorted Array
+
+```python
+class Solution:
+    def missingElement(self, nums: List[int], k: int) -> int:
+        def check(threshold):
+            j = bisect_left(nums, threshold)
+            if j < len(nums) and nums[j] == threshold:
+                return threshold - nums[0] - j >= k
+            return threshold - nums[0] - (j - 1) >= k
+            
+        l, r, res = nums[0] + 1, 10 ** 9, nums[0] + 1
+        while l <= r:
+            m = l + (r - l) // 2
+            if check(m):
+                res = m
+                r = m - 1
+            else:
+                l = m + 1
+        return res
+```
+
+### 1300. Sum of Mutated Array Closest to Target
+
+```python
+class Solution:
+    def findBestValue(self, arr: List[int], target: int) -> int:
+        def check1(threshold):
+            res = 0
+            for n in arr:
+                if n > threshold:
+                    res += threshold
+                else:
+                    res += n 
+            if res >= target:
+                self.ans1 = min(self.ans1, res - target)
+            return res >= target
+        
+        def check2(threshold):
+            res = 0
+            for n in arr:
+                if n > threshold:
+                    res += threshold
+                else:
+                    res += n 
+            if res < target:
+                self.ans2 = min(self.ans2, target - res)
+            return res < target
+
+
+        if sum(arr) <= target:
+            return max(arr)
+
+        self.ans1, self.ans2 = inf, inf 
+        l, r, res1 = 0, 10 ** 9, 0
+        while l <= r:
+            m = l + (r - l) // 2
+            if check1(m):
+                res1 = m
+                r = m - 1
+            else:
+                l = m + 1
+        
+        l, r, res2 = 0, 10 ** 9, 0
+        while l <= r:
+            m = l + (r - l) // 2
+            if check2(m):
+                res2 = m
+                l = m + 1
+            else:
+                r = m - 1
+        if self.ans1 < self.ans2:
+            return res1
+        elif self.ans1 > self.ans2:
+            return res2
+        return min(res1, res2)
+```
+
+### 1891. Cutting Ribbons
+
+```python
+class Solution:
+    def maxLength(self, ribbons: List[int], k: int) -> int:
+        def check(threshold):
+            count = 0
+            for r in ribbons:
+                count += r // threshold
+            return count >= k
+
+        l, r, res = 1, 10 ** 5, 0
+        while l <= r:
+            m = l + (r - l) // 2
+            if check(m):
+                res = m 
+                l = m + 1
+            else:
+                r = m - 1
+        return res
+```
+
+### 2137. Pour Water Between Buckets to Make Water Levels Equal
+
+```python
+class Solution:
+    def equalizeWater(self, buckets: List[int], loss: int) -> float:
+        def check(threshold):
+            res = 0
+            for b in buckets:
+                if b > threshold:
+                    res += (b - threshold) * (100 - loss) / 100
+            for b in buckets:
+                if b < threshold:
+                    res -= (threshold - b)
+            return res >= 0
+        l, r, res = 0, 10 ** 5, 0
+        eps = 10 ** -6
+        while l <= r:
+            m = l + (r - l) / 2
+            if check(m):
+                res = m 
+                l = m + eps
+            else:
+                r = m - eps
+        return res 
 ```

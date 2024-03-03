@@ -421,3 +421,51 @@ class Solution:
             heappush(sticks, (a + b))
         return res
 ```
+
+### 969. Pancake Sorting
+
+```python
+class Solution:
+    def pancakeSort(self, arr: List[int]) -> List[int]:
+        n = len(arr)
+        res = []
+        for i in range(n):
+            mx = max(arr[: n - i])
+            idx = arr.index(mx)
+            arr = arr[:idx + 1][::-1] + arr[idx + 1: n - i]
+            arr = arr[::-1]
+            res.extend([idx + 1, n - i])
+        return res
+```
+
+### 870. Advantage Shuffle
+
+```python
+class Solution:
+    def advantageCount(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        nums1.sort()
+        nums2 = [(n, i) for i, n in enumerate(nums2)]
+        nums2.sort()
+        i, j = 0, 0
+        n = len(nums1)
+        res = [-1] * n 
+        visited = [False] * n 
+        while i < n and j < n:
+            if nums1[i] > nums2[j][0]:
+                res[nums2[j][1]] = nums1[i]
+                visited[i] = True
+                i += 1
+                j += 1
+            else:
+                i += 1
+        k = 0
+        ans = []
+        for i, n in enumerate(visited):
+            if n == False:
+                ans.append(i)
+        for i, n in enumerate(res):
+            if n == -1:
+                res[i] = nums1[ans[k]]
+                k += 1
+        return res
+```

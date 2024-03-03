@@ -33,3 +33,32 @@ class Solution:
         change_root(0, -1, self.count)
         return self.res
 ```
+
+### 834. Sum of Distances in Tree
+
+```python
+class Solution:
+    def sumOfDistancesInTree(self, n: int, edges: List[List[int]]) -> List[int]:
+        g = defaultdict(list)
+        for u, v in edges:
+            g[u].append(v)
+            g[v].append(u)
+
+        res = [0] * n 
+        size = [1] * n 
+        def dfs(x, fa, depth):
+            res[0] += depth 
+            for y in g[x]:
+                if y != fa:
+                    dfs(y, x, depth + 1)
+                    size[x] += size[y]
+        dfs(0, -1, 0)
+
+        def shiftroot(x, fa):
+            for y in g[x]:
+                if y != fa:
+                    res[y] = res[x] + n - 2 * size[y]
+                    shiftroot(y, x)
+        shiftroot(0, -1)
+        return res
+```

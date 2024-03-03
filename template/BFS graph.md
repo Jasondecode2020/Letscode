@@ -275,3 +275,28 @@ class Solution:
                         res += 1
         return res
 ```
+
+### 433. Minimum Genetic Mutation
+
+```python
+bank = set(bank)
+        q = deque([(startGene, 0)])
+        s = set([startGene])
+        g = {
+            'A': ['C', 'G', 'T'], 
+            'C': ['A', 'G', 'T'], 
+            'G': ['C', 'A', 'T'], 
+            'T': ['C', 'G', 'A']
+        }
+        while q:
+            gene, steps = q.popleft()
+            if gene == endGene:
+                return steps
+            for i in range(len(gene)):
+                for nei in g[gene[i]]:
+                    nei_gene = gene[:i] + nei + gene[i+1:]
+                    if nei_gene not in s and nei_gene in bank:
+                        s.add(nei_gene)
+                        q.append((nei_gene, steps + 1))
+        return -1
+```

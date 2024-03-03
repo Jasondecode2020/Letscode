@@ -395,3 +395,30 @@ class Solution:
             res.append([item[1] for item in sorted(d[k])])
         return res
 ```
+
+### 2368. Reachable Nodes With Restrictions
+
+```python
+class Solution:
+    def reachableNodes(self, n: int, edges: List[List[int]], restricted: List[int]) -> int:
+        if 0 in restricted:
+            return 0
+        q = deque([0])
+        visited = set([0])
+        for r in restricted:
+            visited.add(r)
+        g = defaultdict(list)
+        for u, v in edges:
+            g[u].append(v)
+            g[v].append(u)
+
+        res = 0
+        while q:
+            node = q.popleft()
+            res += 1
+            for nei in g[node]:
+                if nei not in visited:
+                    visited.add(nei)
+                    q.append(nei)
+        return res
+```

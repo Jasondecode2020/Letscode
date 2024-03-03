@@ -14,6 +14,14 @@ def z_func(s):
         if i + z[i] > r:
             l, r = i, i + z[i]
     return z
+
+def z_function_trivial(s):
+    n = len(s)
+    z = [0] * n
+    for i in range(1, n):
+        while i + z[i] < n and s[z[i]] == s[i + z[i]]:
+            z[i] += 1
+    return z
 ```
 
 ### 28. Find the Index of the First Occurrence in a String
