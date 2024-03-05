@@ -247,3 +247,24 @@ class Solution:
             pref[i] ^= prev
         return pref
 ```
+
+### 2396. Strictly Palindromic Number
+
+```python
+class Solution:
+    def isStrictlyPalindromic(self, n: int) -> bool:
+        def check(i, n):
+            res = []
+            while n:
+                res.append(n % i)
+                n //= i
+            return res
+
+        def reverse(a):
+            return a == a[::-1]
+        for i in range(2, n - 1):
+            a = check(i, n)
+            if not reverse(a):
+                return False
+        return True
+```

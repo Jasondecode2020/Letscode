@@ -248,3 +248,29 @@ class Solution:
             res = min(res, abs(a - b))
         return res
 ```
+
+### 2274. Maximum Consecutive Floors Without Special Floors
+
+```python
+class Solution:
+    def maxConsecutive(self, bottom: int, top: int, special: List[int]) -> int:
+        special.sort()
+        diff = [special[i] - special[i - 1] - 1 for i in range(1, len(special))]
+        return max(*diff, special[0] - bottom, top - special[-1])
+```
+
+### 2161. Partition Array According to Given Pivot
+
+```python
+class Solution:
+    def pivotArray(self, nums: List[int], pivot: int) -> List[int]:
+        res1, res2, res3 = [], [], []
+        for n in nums:
+            if n < pivot:
+                res1.append(n)
+            elif n > pivot:
+                res3.append(n)
+            else:
+                res2.append(n)
+        return res1 + res2 + res3
+```

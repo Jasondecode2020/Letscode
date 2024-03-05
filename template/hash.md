@@ -113,3 +113,43 @@ class Solution:
                 res2.append(i)
         return [sorted(res1), sorted(res2)]
 ```
+
+### 2244. Minimum Rounds to Complete All Tasks
+
+```python
+class Solution:
+    def minimumRounds(self, tasks: List[int]) -> int:
+        c = Counter(tasks)
+        res = 0
+        for v in c.values():
+            if v % 3 == 0:
+                res += v // 3
+            else:
+                if v > 3:
+                    res += v // 3 + 1
+                else:
+                    if v == 1:
+                        return -1
+                    else:
+                        res += 1
+        return res
+```
+
+### 2482. Difference Between Ones and Zeros in Row and Column
+
+```python
+class Solution:
+    def onesMinusZeros(self, grid: List[List[int]]) -> List[List[int]]:
+        R, C = len(grid), len(grid[0])
+        rows, cols = defaultdict(int), defaultdict(int)
+        for r in range(R):
+            for c in range(C):
+                if grid[r][c] == 1:
+                    rows[r] += 1
+                    cols[c] += 1
+        dp = [[0] * C for r in range(R)]
+        for r in range(R):
+            for c in range(C):
+                dp[r][c] = rows[r] + cols[c] - (R + C - (rows[r] + cols[c]))
+        return dp
+```

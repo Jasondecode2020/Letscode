@@ -539,3 +539,24 @@ class Solution:
             i = j
         return res
 ```
+
+### 1529. Minimum Suffix Flips
+
+```python
+class Solution:
+    def minFlips(self, target: str) -> int:
+        i = 0
+        while i < len(target) and target[i] == '0':
+            i += 1
+        s = target[i:]
+        i = 0
+        res = 0
+        while i < len(s):
+            start = i 
+            j = start
+            while j < len(s) and s[j] == s[start]:
+                j += 1
+            res += 1
+            i = j 
+        return res
+```

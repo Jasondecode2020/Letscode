@@ -1,3 +1,8 @@
+## rolling hash
+
+```python
+```
+
 ### 1044. Longest Duplicate Substring
 
 ```python
