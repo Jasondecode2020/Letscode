@@ -1,6 +1,6 @@
 ## template 1: dfs graph - adjacency matrix
 
-- 547. Number of Provinces
+* [547. Number of Provinces](#547-Number-of-Provinces)
 
 ```python
 def findCircleNum(self, isConnected: List[List[int]]) -> int:
@@ -20,7 +20,7 @@ def findCircleNum(self, isConnected: List[List[int]]) -> int:
 
 ## template 2: dfs graph - adjacency list
 
-- 1971. Find if Path Exists in Graph
+* [1971. Find if Path Exists in Graph](#1971-Find-if-Path-Exists-in-Graph)
 
 ```python
 def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
@@ -45,7 +45,7 @@ def validPath(self, n: int, edges: List[List[int]], source: int, destination: in
 
 ## template 3: dfs grid
 
-- 200. Number of Islands
+* [200. Number of Islands](#200-Number-of-Islands)
 
 ```python
 '''
@@ -73,7 +73,7 @@ def numIslands(self, grid: List[List[str]]) -> int:
 
 ## dfs stack (backtracking)
 
-- 797. All Paths From Source to Target
+* [797. All Paths From Source to Target](#797-All-Paths-From-Source-to-Target)
 
 ```python
 def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
