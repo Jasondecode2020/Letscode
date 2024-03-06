@@ -21,15 +21,15 @@ Check my YouTube for all questions (https://www.youtube.com/@letscode1000)
 * ### 11 Graph
   * #### 11.1 DFS
     * [547. Number of Provinces](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/DFS.md#547-Number-of-Provinces)
-    * [1971. Find if Path Exists in Graph](#https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/DFS.md)
-    * [797. All Paths From Source to Target](#797-All-Paths-From-Source-to-Target)
-    * [841. Keys and Rooms](#841-Keys-and-Rooms)
-    * [2316. Count Unreachable Pairs of Nodes in an Undirected Graph](#2316-Count-Unreachable-Pairs-of-Nodes-in-an-Undirected-Graph)
-    * [1319. Number of Operations to Make Network Connected](#1319-Number-of-Operations-to-Make-Network-Connected)
-    * [2492. Minimum Score of a Path Between Two Cities](#2492-Minimum-Score-of-a-Path-Between-Two-Cities)
-    * [2685. Count the Number of Complete Components](#2685-Count-the-Number-of-Complete-Components)
-    * [2192. All Ancestors of a Node in a Directed Acyclic Graph](#924-Minimize-Malware-Spread)
-    * [924. Minimize Malware Spread](#924-Minimize-Malware-Spread)
+    * [1971. Find if Path Exists in Graph](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/DFS.md#1971-Find-if-Path-Exists-in-Graph)
+    * [797. All Paths From Source to Target](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/DFS.md#797-All-Paths-From-Source-to-Target)
+    * [841. Keys and Rooms](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/DFS.md#841-Keys-and-Rooms)
+    * [2316. Count Unreachable Pairs of Nodes in an Undirected Graph](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/DFS.md#2316-Count-Unreachable-Pairs-of-Nodes-in-an-Undirected-Graph)
+    * [1319. Number of Operations to Make Network Connected](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/DFS.md#1319-Number-of-Operations-to-Make-Network-Connected)
+    * [2492. Minimum Score of a Path Between Two Cities](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/DFS.md#2492-Minimum-Score-of-a-Path-Between-Two-Cities)
+    * [2685. Count the Number of Complete Components](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/DFS.md#2685-Count-the-Number-of-Complete-Components)
+    * [2192. All Ancestors of a Node in a Directed Acyclic Graph](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/DFS.md#924-Minimize-Malware-Spread)
+    * [924. Minimize Malware Spread](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/DFS.md#924-Minimize-Malware-Spread)
   * #### 11.2 BFS
   * #### 11.3 Topological Sort
   * #### 11.4 Union Find
