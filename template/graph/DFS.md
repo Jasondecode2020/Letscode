@@ -1,52 +1,58 @@
-## template 1: recursion
+## template 1: dfs graph - adjacency matrix
 
 ```python
-def fn(g): # g: graph
-    def dfs(node):
-        res = 0
-        # some code
-        for neighbor in g[node]:
-            if neighbor not in visited:
-                visited.add(neighbor)
-                ans += dfs(neighbor)
-        return res
+def findCircleNum(self, isConnected: List[List[int]]) -> int:
+    def dfs(i):
+        for j in range(n):
+            if isConnected[i][j] == 1 and j not in visited:
+                visited.add(j)
+                dfs(j)
 
-    visited = {START_NODE}
-    return dfs(START_NODE)
-```
-
-### template 2: iteration
-
-```python
-def fn(g): # g: graph
-    stack = [START_NODE]
-    visited = {START_NODE}
-    res = 0
-    while stack:
-        node = stack.pop()
-        # some code
-        for neighbor in g[node]:
-            if neighbor not in visited:
-                visited.add(neighbor)
-                stack.append(neighbor)
-    
+    res, visited, n = 0, set(), len(isConnected)
+    for i in range(n):
+        if i not in visited:
+            dfs(i)
+            res += 1
     return res
 ```
 
-## template 3: grid
+## template 2: dfs graph - adjacency list
+
+```python
+def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
+        g = defaultdict(list)
+        for u, v in edges:
+            g[u].append(v)
+            g[v].append(u)
+
+        def dfs(source):
+            if source == destination:
+                self.res = True
+            for nei in g[source]:
+                if nei not in visited:
+                    visited.add(nei)
+                    dfs(nei)
+        
+        visited = set([source])
+        self.res = False
+        dfs(source)
+        return self.res
+```
+
+## template 3: dfs grid
 
 ```python
 '''
-directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
-directions = [(1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (-1, 1), (-1, -1), (1, -1)]
-directions = [[1, 0], [0, 1]]
-# grid dfs: 200, 695
+directions = [[0, 1], [0, -1], [1, 0], [-1, 0]] # 4 directions dfs/bfs
+directions = [(1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (-1, 1), (-1, -1), (1, -1)] # 8 directions dfs/bfs
+directions = [[1, 0], [0, 1]] # 2 directions for union find
+# grid dfs: 200
 '''
-def fn(grid): 
+def numIslands(self, grid: List[List[str]]) -> int:
     def dfs(r, c):
         grid[r][c] = '0'
         for dr, dc in directions:
-            row, col = r + dr, c + dc
+            row, col = r + dr, c + dc 
             if 0 <= row < R and 0 <= col < C and grid[row][col] == '1':
                 dfs(row, col)
 
@@ -60,9 +66,42 @@ def fn(grid):
     return res
 ```
 
-### grid DFS/BFS question list
+## graph stack (backtracking)
 
-* 200. Number of Islands
+```python
+def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
+        res, stack, n = [], [0], len(graph)
+        def dfs(i):
+            if i == n - 1:
+                res.append(stack[::])
+                return 
+            for nei in graph[i]:
+                stack.append(nei)
+                dfs(nei)
+                stack.pop()
+        dfs(0)
+        return res
+```
+
+## DFS graph question list
+
+* [547. Number of Provinces](#547-Number-of-Provinces)
+* [1971. Find if Path Exists in Graph](#1971-Find-if-Path-Exists-in-Graph)
+* [797. All Paths From Source to Target](#797-All-Paths-From-Source-to-Target)
+* [841. Keys and Rooms](#841-Keys-and-Rooms)
+* [2316. Count Unreachable Pairs of Nodes in an Undirected Graph](#2316-Count-Unreachable-Pairs-of-Nodes-in-an-Undirected-Graph)
+* [1319. Number of Operations to Make Network Connected](#1319-Number-of-Operations-to-Make-Network-Connected)
+* [2492. Minimum Score of a Path Between Two Cities](#2492-Minimum-Score-of-a-Path-Between-Two-Cities)
+* [2685. Count the Number of Complete Components](#2685-Count-the-Number-of-Complete-Components)
+* [2192. All Ancestors of a Node in a Directed Acyclic Graph](#924-Minimize-Malware-Spread)
+* [924. Minimize Malware Spread](#924-Minimize-Malware-Spread)
+* 529. Minesweeper
+* 827. Making A Large Island
+* 1905. Count Sub Islands
+
+## DFS grid question list
+
+* [200. Number of Islands](#200-Number-of-Islands)
 * 695. Max Area of Island
 * 463. Island Perimeter
 * 2658. Maximum Number of Fish in a Grid
@@ -75,6 +114,287 @@ def fn(grid):
 * 529. Minesweeper
 * 827. Making A Large Island
 * 1905. Count Sub Islands
+
+### 547. Number of Provinces
+
+```python
+class Solution:
+    def findCircleNum(self, isConnected: List[List[int]]) -> int:
+        def dfs(i):
+            for j in range(n):
+                if isConnected[i][j] == 1 and j not in visited:
+                    visited.add(j)
+                    dfs(j)
+
+        res, visited, n = 0, set(), len(isConnected)
+        for i in range(n):
+            if i not in visited:
+                dfs(i)
+                res += 1
+        return res
+```
+
+### 1971. Find if Path Exists in Graph
+
+```python
+class Solution:
+    def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
+        g = defaultdict(list)
+        for u, v in edges:
+            g[u].append(v)
+            g[v].append(u)
+
+        def dfs(source):
+            if source == destination:
+                self.res = True
+            for nei in g[source]:
+                if nei not in visited:
+                    visited.add(nei)
+                    dfs(nei)
+        
+        visited = set([source])
+        self.res = False
+        dfs(source)
+        return self.res
+```
+
+### 797. All Paths From Source to Target
+
+```python
+class Solution:
+    def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
+        res, stack, n = [], [0], len(graph)
+        def dfs(i):
+            if i == n - 1:
+                res.append(stack[::])
+                return 
+            for nei in graph[i]:
+                stack.append(nei)
+                dfs(nei)
+                stack.pop()
+        dfs(0)
+        return res
+```
+
+### 841. Keys and Rooms
+
+```python
+class Solution:
+    def canVisitAllRooms(self, rooms: List[List[int]]) -> bool:
+        def dfs(i):
+            for nei in rooms[i]:
+                if nei not in visited:
+                    visited.add(nei)
+                    dfs(nei)
+        visited = set([0])
+        dfs(0)
+        return len(visited) == len(rooms)
+```
+
+### 2316. Count Unreachable Pairs of Nodes in an Undirected Graph
+
+```python
+class Solution:
+    def countPairs(self, n: int, edges: List[List[int]]) -> int:
+        g = defaultdict(list)
+        for u, v in edges:
+            g[u].append(v)
+            g[v].append(u)
+        
+        def dfs(i):
+            for nei in g[i]:
+                if nei not in visited:
+                    visited.add(nei)
+                    seen.add(nei)
+                    dfs(nei)
+
+        res, seen = 0, set()
+        for i in range(n):
+            if i not in seen:
+                seen.add(i)
+                visited = set([i])
+                dfs(i)
+                res += len(visited) * (n - len(seen))
+        return res
+```
+
+### 1319. Number of Operations to Make Network Connected
+
+```python
+class Solution:
+    def makeConnected(self, n: int, connections: List[List[int]]) -> int:
+        g = defaultdict(list)
+        for u, v in connections:
+            g[u].append(v)
+            g[v].append(u)
+        
+        def dfs(i):
+            for nei in g[i]:
+                if nei not in visited:
+                    visited.add(nei)
+                    edges.add((i, nei))
+                    edges.add((nei, i))
+                    dfs(nei)
+                elif (i, nei) not in edges:
+                    edges.add((i, nei))
+                    edges.add((nei, i))
+                    self.res += 1
+
+        self.res = 0
+        self.count = 0
+        visited = set()
+        edges = set()
+        for i in range(n):
+            if i not in visited:
+                visited.add(i)
+                dfs(i)
+                self.count += 1
+        ans = self.count - 1
+        return ans if ans <= self.res else -1
+
+# math prove
+class Solution:
+    def makeConnected(self, n: int, connections: List[List[int]]) -> int:
+        g = defaultdict(list)
+        for u, v in connections:
+            g[u].append(v)
+            g[v].append(u)
+        
+        def dfs(i):
+            for nei in g[i]:
+                if nei not in visited:
+                    visited.add(nei)
+                    dfs(nei)
+
+        self.res = 0
+        visited = set()
+        for i in range(n):
+            if i not in visited:
+                visited.add(i)
+                dfs(i)
+                self.res += 1
+        return self.res - 1 if len(connections) >= n - 1 else -1
+```
+
+### 2492. Minimum Score of a Path Between Two Cities
+
+```python
+class Solution:
+    def minScore(self, n: int, roads: List[List[int]]) -> int:
+        g = defaultdict(list)
+        for u, v, w in roads:
+            g[u].append((v, w))
+            g[v].append((u, w))
+
+        def dfs(i):
+            for nei, w in g[i]:
+                self.res = min(self.res, w)
+                if nei not in visited:
+                    visited.add(nei)
+                    dfs(nei)
+
+        visited = set([1])
+        self.res = inf
+        dfs(1)
+        return self.res
+```
+
+### 2685. Count the Number of Complete Components
+
+```python
+class Solution:
+    def countCompleteComponents(self, n: int, edges: List[List[int]]) -> int:
+        g = defaultdict(list)
+        for u, v in edges:
+            g[u].append(v)
+            g[v].append(u)
+        
+        def dfs(i):
+            for nei in g[i]:
+                self.sides += 1
+                if nei not in visited:
+                    self.n += 1
+                    visited.add(nei)
+                    dfs(nei)
+
+        self.res = 0
+        visited = set()
+        for i in range(n):
+            if i not in visited:
+                visited.add(i)
+                self.n = 1
+                self.sides = 0
+                dfs(i)
+                self.res += self.sides == self.n * (self.n - 1)
+        return self.res
+```
+
+### 2192. All Ancestors of a Node in a Directed Acyclic Graph
+
+```python
+class Solution:
+    def getAncestors(self, n: int, edges: List[List[int]]) -> List[List[int]]:
+        g = defaultdict(list)
+        for u, v in edges:
+            g[v].append(u)
+        
+        d = {i: [] for i in range(n)}
+        def dfs(x):
+            for y in g[x]:
+                if y not in visited:
+                    visited.add(y)
+                    dfs(y)
+
+        for i in range(n):
+            visited = set()
+            dfs(i)
+            d[i] = sorted(list(visited))
+        return list(d.values())
+```
+
+### 924. Minimize Malware Spread
+
+```python
+class Solution:
+    def minMalwareSpread(self, graph: List[List[int]], initial: List[int]) -> int:
+        def dfs(i):
+            for j in range(n):
+                if graph[i][j] and j not in visited:
+                    if j in initial:
+                        self.count += 1
+                        self.mn = min(self.mn, j)
+                    self.total += 1
+                    visited.add(j)
+                    dfs(j)
+
+        initial = set(initial)
+        c = defaultdict(list)
+        visited = set()
+        n = len(graph)
+        for i in range(n):
+            if i not in visited:
+                self.count = 0
+                self.mn = inf
+                self.total = 0
+                dfs(i)
+                if self.count == 1:
+                    c[1].append([self.total, self.mn])
+                elif self.count > 1:
+                    c[2].append([self.total, self.mn])
+        if 1 not in c:
+            return min(item[1] for item in c[2])
+        res, ans = inf, 0
+        for total, node in c[1]:
+            if total > ans:
+                res = node
+                ans = total
+            if total == ans:
+                ans = total
+                res = min(res, node)
+        return res
+```
+
+### ####################################################################################### graph grid
 
 ### 200. Number of Islands
 
