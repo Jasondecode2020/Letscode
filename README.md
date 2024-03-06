@@ -20,7 +20,7 @@ Check my YouTube for all questions (https://www.youtube.com/@letscode1000)
   * #### 11.2 BFS
 * ### 11 Graph
   * #### 11.1 DFS
-    * [547. Number of Provinces](#https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/DFS.md)
+    * [547. Number of Provinces](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/DFS.md)
     * [1971. Find if Path Exists in Graph](#https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/DFS.md)
     * [797. All Paths From Source to Target](#797-All-Paths-From-Source-to-Target)
     * [841. Keys and Rooms](#841-Keys-and-Rooms)
