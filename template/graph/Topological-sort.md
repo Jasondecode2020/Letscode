@@ -1,5 +1,7 @@
 ## template 1: bfs + queue
 
+* [207. Course Schedule](#207-course-schedule)
+
 ```python
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
@@ -20,6 +22,8 @@ class Solution:
 ```
 
 ## template 2: dfs + stack
+
+* [207. Course Schedule](#207-course-schedule)
 
 ```python
 class Solution:
@@ -50,12 +54,15 @@ class Solution:
         return self.valid
 ```
 
-* 207. Course Schedule
+## topo
+
+* [207. Course Schedule](#207-course-schedule)
 * 210. Course Schedule II
 * 269. Alien Dictionary
 * 310. Minimum Height Trees
-* 329. Longest Increasing Path in a Matrix
-* 802. Find Eventual Safe States
+* [329. Longest Increasing Path in a Matrix](#329-Longest-Increasing-Path-in-a-Matrix)
+* [802. Find Eventual Safe States](#802-Find-Eventual-Safe-States)
+* [200. Number of Islands](#200-Number-of-Islands)
 * 1136. Parallel Courses
 * 444. Sequence Reconstruction
 * 1462. Course Schedule IV

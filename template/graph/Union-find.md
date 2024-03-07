@@ -12,7 +12,7 @@ class UF:
             n = self.parent[n]
         return n
 
-    def connected(self, n1, n2):
+    def isConnected(self, n1, n2):
         return self.find(n1) == self.find(n2)
 
     def union(self, n1, n2):
@@ -127,13 +127,14 @@ class UF:
 
 ### questions
 
+- 261. Graph Valid Tree
 - 684. Redundant Connection
 - 547. Number of Provinces
 - 990. Satisfiability of Equality Equations
 - 200. Number of Islands
 - 128. Longest Consecutive Sequence
 * [1971. Find if Path Exists in Graph](#1971-Find-if-Path-Exists-in-Graph)
-- 323. Number of Connected Components in an Undirected Graph
+* [323. Number of Connected Components in an Undirected Graph](#323-Number-of-Connected-Components-in-an-Undirected-Graph)
 - 827. Making A Large Island
 - 685. Redundant Connection II
 - 778. Swim in Rising Water (union find with binary search)
@@ -144,6 +145,45 @@ class UF:
 - 959. Regions Cut By Slashes (encoding)
 - 1202. Smallest String With Swaps
 - 947. Most Stones Removed with Same Row or Column (dynamic parent)
+- 2092. Find All People With Secret
+
+### 261. Graph Valid Tree
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n
+
+    def isConnected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] > self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2
+            self.rank[p2] += self.rank[p1]
+
+class Solution:
+    def validTree(self, n: int, edges: List[List[int]]) -> bool:
+        if n != (len(edges) + 1):
+            return False
+        uf = UF(n)
+        for u, v in edges:
+            if uf.isConnected(u, v):
+                return False
+            uf.union(u, v)
+        return True
+```
 
 ### 684. Redundant Connection
 
@@ -1139,3 +1179,55 @@ class Solution:
         return -1
 ```
 
+### 2092. Find All People With Secret
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n
+
+    def isConnected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+    def disconnect(self, n):
+        self.parent[n] = n
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] > self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2
+            self.rank[p2] += self.rank[p1]
+
+class Solution:
+    def findAllPeople(self, n: int, meetings: List[List[int]], firstPerson: int) -> List[int]:
+        uf = UF(n)
+        uf.union(0, firstPerson)
+        meetings.sort(key=lambda x: x[2])
+        time = 0
+        p = set()
+        for x, y, t in meetings:
+            if t != time:
+                time = t
+                for people in p:
+                    if not uf.isConnected(people, firstPerson):
+                        uf.disconnect(people)
+                p = set()
+            uf.union(x, y)
+            p.add(x)
+            p.add(y)
+        res = set()
+        for i in range(n):
+            if uf.isConnected(i, firstPerson):
+                res.add(i)
+        return sorted(list(res))
+```

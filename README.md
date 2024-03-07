@@ -31,6 +31,10 @@ Check my YouTube for all questions (https://www.youtube.com/@letscode1000)
     * [2192. All Ancestors of a Node in a Directed Acyclic Graph](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/DFS.md#924-Minimize-Malware-Spread)
     * [924. Minimize Malware Spread](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/DFS.md#924-Minimize-Malware-Spread)
   * #### 11.2 BFS
+    * ##### 11.2.1 BFS [pattern](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/DFS.md)
+    * ##### 11.2.1 Multi-source BFS [pattern](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/DFS.md)
+    * ##### 11.2.1 01 BFS [pattern](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/DFS.md)
+    * ##### 11.2.1 Bi-directional BFS [pattern](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/DFS.md)
   * #### 11.3 Topological Sort
   * #### 11.4 Union Find
   * #### 11.5 Shortest Path

@@ -102,9 +102,8 @@ def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
 * [2685. Count the Number of Complete Components](#2685-Count-the-Number-of-Complete-Components)
 * [2192. All Ancestors of a Node in a Directed Acyclic Graph](#924-Minimize-Malware-Spread)
 * [924. Minimize Malware Spread](#924-Minimize-Malware-Spread)
-* 529. Minesweeper
-* 827. Making A Large Island
-* 1905. Count Sub Islands
+* [802. Find Eventual Safe States](#802-Find-Eventual-Safe-States)
+* [261. Graph Valid Tree](#261-Graph-Valid-Tree)
 
 ## DFS grid question list
 
@@ -399,6 +398,83 @@ class Solution:
                 ans = total
                 res = min(res, node)
         return res
+```
+
+### 2101. Detonate the Maximum Bombs
+
+```python
+class Solution:
+    def maximumDetonation(self, bombs: List[List[int]]) -> int:
+        g = defaultdict(list)
+        n = len(bombs)
+        for i in range(n):
+            x1, y1, r1 = bombs[i]
+            for j in range(n):
+                x2, y2, r2 = bombs[j]
+                if i != j and (x2 - x1) ** 2 + (y2 - y1) ** 2 <= r1 ** 2:
+                    g[i].append(j)
+        
+        def dfs(x):
+            for y in g[x]:
+                if y not in visited:
+                    visited.add(y)
+                    dfs(y)
+                    
+        res = 0
+        for i in range(n):
+            visited = set([i])
+            dfs(i)
+            res = max(res, len(visited))
+        return res
+```
+
+### 802. Find Eventual Safe States
+
+```python
+class Solution:
+    def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:
+        n = len(graph)
+        color = [0] * n # not visited
+        def dfs(i):
+            if color[i] > 0:
+                return color[i] == 2
+            color[i] = 1 # searching node
+            for y in graph[i]:
+                if not dfs(y):
+                    return False
+            color[i] = 2 # safe name, already visited
+            return True
+        return [i for i in range(n) if dfs(i)]
+```
+
+### 261. Graph Valid Tree
+
+```python
+class Solution:
+    def validTree(self, n: int, edges: List[List[int]]) -> bool:
+        if len(edges) != n - 1:
+            return False
+        g = defaultdict(list)
+        for u, v in edges:
+            g[u].append(v)
+            g[v].append(u)
+
+        visited = set()
+    
+        def dfs(i, pa): # cycle checking
+            if i in visited: 
+                return
+            visited.add(i)
+            for y in g[i]:
+                if y == pa:
+                    continue
+                if y in visited:
+                    return False
+                res = dfs(y, i)
+                if not res:
+                    return False
+            return True
+        return dfs(0, -1) and len(visited) == n
 ```
 
 ### ####################################################################################### graph grid
