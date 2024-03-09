@@ -32,6 +32,17 @@ def fn(q):
                 grid[row][col] = 2
 ```
 
+* [1306. Jump Game III](#1306-Jump-Game-III)
+* [317. Shortest Distance from All Buildings](#317-Shortest-Distance-from-All-Buildings)
+* [863. All Nodes Distance K in Binary Tree](#863-All-Nodes-Distance-K-in-Binary-Tree)
+* [1345. Jump Game IV](#1345-Jump-Game-IV)
+* [1730. Shortest Path to Get Food](#1730-Shortest-Path-to-Get-Food)
+* [1466. Reorder Routes to Make All Paths Lead to the City Zero](#1466-Reorder-Routes-to-Make-All-Paths-Lead-to-the-City-Zero)
+* [433. Minimum Genetic Mutation](#433-Minimum-Genetic-Mutation)
+* [1311. Get Watched Videos by Your Friends](#1311-Get-Watched-Videos-by-Your-Friends)
+* [1129. Shortest Path with Alternating Colors](#1129-Shortest-Path-with-Alternating-Colors)
+* [2608. Shortest Cycle in a Graph](#2608-Shortest-Cycle-in-a-Graph)
+* [1298. Maximum Candies You Can Get from Boxes](#1298-Maximum-Candies-You-Can-Get-from-Boxes)
 
 ### 1306. Jump Game III
 
@@ -299,4 +310,120 @@ bank = set(bank)
                         s.add(nei_gene)
                         q.append((nei_gene, steps + 1))
         return -1
+```
+
+### 1311. Get Watched Videos by Your Friends
+
+```python
+class Solution:
+    def watchedVideosByFriends(self, watchedVideos: List[List[str]], friends: List[List[int]], id: int, level: int) -> List[str]:
+        g = defaultdict(list)
+        for i, a in enumerate(friends):
+            for j in a:
+                g[i].append(j)
+                g[j].append(i)
+
+        q = deque([(id, 0)])
+        visited = set([id])
+        c = Counter()
+        while q:
+            idx, depth = q.popleft()
+            if depth == level:
+                for v in watchedVideos[idx]:
+                    c[v] += 1
+            for nei in g[idx]:
+                if nei not in visited:
+                    visited.add(nei)
+                    q.append((nei, depth + 1))
+        res = []
+        for u, v in c.items():
+            res.append((v, u))
+        res.sort()
+        return [item[1] for item in res]
+
+```
+
+### 1129. Shortest Path with Alternating Colors
+
+```python
+class Solution:
+    def shortestAlternatingPaths(self, n: int, redEdges: List[List[int]], blueEdges: List[List[int]]) -> List[int]:
+        g = defaultdict(list)
+        for u, v in redEdges:
+            g[u].append((v, 0))
+        for u, v in blueEdges:
+            g[u].append((v, 1))
+
+        res = [-1] * n
+        visited = set([(0, -1)])
+        q = deque([(0, -1, 0)])
+        while q:
+            node, color, depth = q.popleft()
+            if res[node] != -1:
+                res[node] = min(res[node], depth)
+            else:
+                res[node] = depth 
+            for nei, c in g[node]:
+                if c != color and (nei, c) not in visited:
+                    visited.add((nei, c))
+                    q.append((nei, c, depth + 1))
+        return res
+```
+
+### 2608. Shortest Cycle in a Graph
+
+```python
+class Solution:
+    def findShortestCycle(self, n: int, edges: List[List[int]]) -> int:
+        g = defaultdict(list)
+        for u, v in edges:
+            g[u].append(v)
+            g[v].append(u)
+        
+        def bfs(start):
+            res = inf
+            dist = [-1] * n 
+            dist[start] = 0
+            q = deque([(start, -1)])
+            while q:
+                x, fa = q.popleft()
+                for y in g[x]:
+                    if dist[y] < 0:
+                        dist[y] = dist[x] + 1
+                        q.append((y, x))
+                    elif y != fa:
+                        res = min(res, dist[x] + dist[y] + 1)
+            return res 
+        res = min(bfs(i) for i in range(n))
+        return res if res != inf else -1
+```
+
+### 1298. Maximum Candies You Can Get from Boxes
+
+```python
+class Solution:
+    def maxCandies(self, status: List[int], candies: List[int], keys: List[List[int]], containedBoxes: List[List[int]], initialBoxes: List[int]) -> int:
+        has_box, has_key, visited_box = set(), set(), set()
+        q = deque()
+        for box in initialBoxes:
+            has_box.add(box)
+            if status[box]:
+                visited_box.add(box)
+                q.append(box)
+        res = 0
+        while q:
+            big_box = q.popleft()
+            res += candies[big_box]
+            for key in keys[big_box]:
+                has_key.add(key)
+                if key in has_box and key not in visited_box:
+                    visited_box.add(key)
+                    q.append(key)
+            for box in containedBoxes[big_box]:
+                has_box.add(box)
+                if not box in visited_box:
+                    if status[box] or box in has_key:
+                        visited_box.add(box)
+                        q.append(box)
+        return res
 ```

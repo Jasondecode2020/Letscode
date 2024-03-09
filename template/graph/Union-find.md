@@ -145,7 +145,7 @@ class UF:
 - 959. Regions Cut By Slashes (encoding)
 - 1202. Smallest String With Swaps
 - 947. Most Stones Removed with Same Row or Column (dynamic parent)
-- 2092. Find All People With Secret
+- [2092. Find All People With Secret](#2092-Find-All-People-With-Secret)
 
 ### 261. Graph Valid Tree
 
@@ -1185,49 +1185,44 @@ class Solution:
 class UF:
     def __init__(self, n):
         self.parent = list(range(n))
-        self.rank = [1] * n
 
     def find(self, n):
         while n != self.parent[n]:
             self.parent[n] = self.parent[self.parent[n]]
             n = self.parent[n]
-        return n
+        return n 
+
+    def union(self, n1, n2):
+        n1, n2 = self.find(n1), self.find(n2)
+        self.parent[n1] = n2 
 
     def isConnected(self, n1, n2):
         return self.find(n1) == self.find(n2)
 
     def disconnect(self, n):
-        self.parent[n] = n
-
-    def union(self, n1, n2):
-        p1, p2 = self.find(n1), self.find(n2)
-        if self.rank[p1] > self.rank[p2]:
-            self.parent[p2] = p1
-            self.rank[p1] += self.rank[p2]
-        else:
-            self.parent[p1] = p2
-            self.rank[p2] += self.rank[p1]
+        self.parent[n] = n 
 
 class Solution:
     def findAllPeople(self, n: int, meetings: List[List[int]], firstPerson: int) -> List[int]:
         uf = UF(n)
         uf.union(0, firstPerson)
-        meetings.sort(key=lambda x: x[2])
+        people = set()
+        meetings.sort(key = lambda x: x[2])
         time = 0
-        p = set()
-        for x, y, t in meetings:
+        for u, v, t in meetings:
             if t != time:
                 time = t
-                for people in p:
-                    if not uf.isConnected(people, firstPerson):
-                        uf.disconnect(people)
-                p = set()
-            uf.union(x, y)
-            p.add(x)
-            p.add(y)
+                for p in people:
+                    if not uf.isConnected(p, 0):
+                        uf.disconnect(p)
+                people = set()
+            uf.union(u, v)
+            people.add(u)
+            people.add(v)
+        
         res = set()
         for i in range(n):
-            if uf.isConnected(i, firstPerson):
+            if uf.isConnected(i, 0):
                 res.add(i)
-        return sorted(list(res))
+        return list(res)
 ```
