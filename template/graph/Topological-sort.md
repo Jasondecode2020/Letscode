@@ -54,19 +54,29 @@ class Solution:
         return self.valid
 ```
 
-## topo
+## Topological sort
 
+* [1557]
 * [207. Course Schedule](#207-course-schedule)
-* 210. Course Schedule II
-* 269. Alien Dictionary
-* 310. Minimum Height Trees
+* [210. Course Schedule II](#210-Course-Schedule-II)
+* [1462. Course Schedule IV](#1462-Course-Schedule-IV)
+* [2115]
+* [269. Alien Dictionary](#269-Alien-Dictionary)
+* [310. Minimum Height Trees](#310-Minimum-Height-Trees)
 * [329. Longest Increasing Path in a Matrix](#329-Longest-Increasing-Path-in-a-Matrix)
 * [802. Find Eventual Safe States](#802-Find-Eventual-Safe-States)
-* [200. Number of Islands](#200-Number-of-Islands)
-* 1136. Parallel Courses
-* 444. Sequence Reconstruction
-* 1462. Course Schedule IV
-* 2360. Longest Cycle in a Graph
+* [1203](#)
+* [1136. Parallel Courses](#1136-Parallel-Courses)
+* [1059]
+* [444. Sequence Reconstruction](#444-Sequence-Reconstruction)
+* [2360. Longest Cycle in a Graph](#2360-Longest-Cycle-in-a-Graph)
+* [2603]
+
+## Topological sort + dp
+
+* [2050]
+* [1857](#207-course-schedule)
+
 
 ### 207. Course Schedule
 
@@ -170,6 +180,30 @@ class Solution:
                 dfs(i)
         
         return res[::-1] if self.valid else []
+```
+
+### 1462. Course Schedule IV
+
+```python
+class Solution:
+    def checkIfPrerequisite(self, numCourses: int, prerequisites: List[List[int]], queries: List[List[int]]) -> List[bool]:
+        g, indegree = defaultdict(list), [0] * numCourses
+        for a, b in prerequisites:
+            g[a].append(b)
+            indegree[b] += 1
+
+        searchTable = [[False] * numCourses for r in range(numCourses)]
+        q = deque([i for i, v in enumerate(indegree) if v == 0])
+        while q:
+            node = q.popleft()
+            for nei in g[node]:
+                searchTable[node][nei] = True
+                for i in range(numCourses):
+                    searchTable[i][nei] |= searchTable[i][node]
+                indegree[nei] -= 1
+                if indegree[nei] == 0:
+                    q.append(nei)
+        return [searchTable[i][j] for i, j in queries]
 ```
 
 ### 269. Alien Dictionary
@@ -405,30 +439,6 @@ class Solution:
                 if indegree[nei] == 0:
                     q.append(nei)
         return res == nums
-```
-
-### 1462. Course Schedule IV
-
-```python
-class Solution:
-    def checkIfPrerequisite(self, numCourses: int, prerequisites: List[List[int]], queries: List[List[int]]) -> List[bool]:
-        g, indegree = defaultdict(list), [0] * numCourses
-        for a, b in prerequisites:
-            g[a].append(b)
-            indegree[b] += 1
-
-        searchTable = [[False] * numCourses for r in range(numCourses)]
-        q = deque([i for i, v in enumerate(indegree) if v == 0])
-        while q:
-            node = q.popleft()
-            for nei in g[node]:
-                searchTable[node][nei] = True
-                for i in range(numCourses):
-                    searchTable[i][nei] |= searchTable[i][node]
-                indegree[nei] -= 1
-                if indegree[nei] == 0:
-                    q.append(nei)
-        return [searchTable[i][j] for i, j in queries]
 ```
 
 ### 2360. Longest Cycle in a Graph

@@ -1,9 +1,23 @@
-## 1 Simplified Dijkstra PQ
+## 1 PQ
 
-* 743. Network Delay Time
-* 2737. Find the Closest Marked Node
+* [743. Network Delay Time](#743-Network-Delay-Time)
+* [2737. Find the Closest Marked Node](#2737. Find the Closest Marked Node)
 
-### 743. Network Delay Time
+## 2 Floyd
+* [743. Network Delay Time](#743-Network-Delay-Time)
+* [1334. Find the City With the Smallest Number of Neighbors at a Threshold Distance](#1334-Find-the-City-With-the-Smallest-Number-of-Neighbors-at-a-Threshold-Distance)
+
+
+## 3 Bellman-Ford
+
+* [787. Cheapest Flights Within K Stops](#787-Cheapest-Flights-Within-K-Stops)
+* [743. Network Delay Time](#743-Network-Delay-Time)
+
+## 4 Dijkstra template
+
+* [2473. Minimum Cost to Buy Apples](#2473-Minimum-Cost-to-Buy-Apples)
+* [1976. Number of Ways to Arrive at Destination](#1976-Number-of-Ways-to-Arrive-at-Destination)
+* [505. The Maze II](#505-The-Maze-II)
 
 ```python
 class Solution:

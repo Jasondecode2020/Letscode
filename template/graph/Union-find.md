@@ -125,26 +125,26 @@ class UF:
         self.parent[p1] = p2
 ```
 
-### questions
+### Questions list
 
-- 261. Graph Valid Tree
-- 684. Redundant Connection
-- 547. Number of Provinces
-- 990. Satisfiability of Equality Equations
-- 200. Number of Islands
-- 128. Longest Consecutive Sequence
+- [261. Graph Valid Tree]
+- [684. Redundant Connection]
+- [547. Number of Provinces]
+- [990. Satisfiability of Equality Equations]
+- [200. Number of Islands]
+- [128. Longest Consecutive Sequence]
 * [1971. Find if Path Exists in Graph](#1971-Find-if-Path-Exists-in-Graph)
 * [323. Number of Connected Components in an Undirected Graph](#323-Number-of-Connected-Components-in-an-Undirected-Graph)
-- 827. Making A Large Island
-- 685. Redundant Connection II
-- 778. Swim in Rising Water (union find with binary search)
-- 765. Couples Holding Hands
-- 399. Evaluate Division (union find with weight)
-- 1319. Number of Operations to Make Network Connected
-- 1631. Path With Minimum Effort (union find with binary search)
-- 959. Regions Cut By Slashes (encoding)
-- 1202. Smallest String With Swaps
-- 947. Most Stones Removed with Same Row or Column (dynamic parent)
+- [827. Making A Large Island]
+- [685. Redundant Connection II]
+- [778. Swim in Rising Water (union find with binary search)]
+- [765. Couples Holding Hands]
+- [399. Evaluate Division (union find with weight)]
+- [1319. Number of Operations to Make Network Connected]
+- [1631. Path With Minimum Effort (union find with binary search)]
+- [959. Regions Cut By Slashes (encoding)]
+- [1202. Smallest String With Swaps]
+- [947. Most Stones Removed with Same Row or Column (dynamic parent)]
 - [2092. Find All People With Secret](#2092-Find-All-People-With-Secret)
 
 ### 261. Graph Valid Tree
