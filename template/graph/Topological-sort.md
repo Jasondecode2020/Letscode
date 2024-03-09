@@ -56,27 +56,37 @@ class Solution:
 
 ## Topological sort
 
-* [1557]
+* [1557. Minimum Number of Vertices to Reach All Nodes](#1557-Minimum-Number-of-Vertices-to-Reach-All-Nodes)
 * [207. Course Schedule](#207-course-schedule)
 * [210. Course Schedule II](#210-Course-Schedule-II)
 * [1462. Course Schedule IV](#1462-Course-Schedule-IV)
-* [2115]
+* [2115. Find All Possible Recipes from Given Supplies](#2115-Find-All-Possible-Recipes-from-Given-Supplies)
 * [269. Alien Dictionary](#269-Alien-Dictionary)
 * [310. Minimum Height Trees](#310-Minimum-Height-Trees)
 * [329. Longest Increasing Path in a Matrix](#329-Longest-Increasing-Path-in-a-Matrix)
 * [802. Find Eventual Safe States](#802-Find-Eventual-Safe-States)
 * [1203](#)
 * [1136. Parallel Courses](#1136-Parallel-Courses)
-* [1059]
+* [1059. All Paths from Source Lead to Destination](#1059-All-Paths-from-Source-Lead-to-Destination)
 * [444. Sequence Reconstruction](#444-Sequence-Reconstruction)
 * [2360. Longest Cycle in a Graph](#2360-Longest-Cycle-in-a-Graph)
-* [2603]
+* [2603](#)
 
 ## Topological sort + dp
 
-* [2050]
+* [2050. Parallel Courses III](#2050. Parallel Courses III)
 * [1857](#207-course-schedule)
 
+### 1557. Minimum Number of Vertices to Reach All Nodes
+
+```python
+class Solution:
+    def findSmallestSetOfVertices(self, n: int, edges: List[List[int]]) -> List[int]:
+        indegree = [0] * n 
+        for u, v in edges:
+            indegree[v] += 1
+        return [i for i, v in enumerate(indegree) if v == 0]
+```
 
 ### 207. Course Schedule
 
@@ -204,6 +214,30 @@ class Solution:
                 if indegree[nei] == 0:
                     q.append(nei)
         return [searchTable[i][j] for i, j in queries]
+```
+
+### 2115. Find All Possible Recipes from Given Supplies
+
+```python
+class Solution:
+    def findAllRecipes(self, recipes: List[str], ingredients: List[List[str]], supplies: List[str]) -> List[str]:
+        g = defaultdict(list)
+        indegree = defaultdict(int)
+        for recipe, ingredient in zip(recipes, ingredients):
+            for item in ingredient:
+                g[item].append(recipe)
+                indegree[recipe] += 1
+                
+        res = []
+        q = deque(supplies)
+        while q:
+            ingredient = q.popleft()
+            for recipe in g[ingredient]:
+                indegree[recipe] -= 1
+                if indegree[recipe] == 0:
+                    q.append(recipe)
+                    res.append(recipe)
+        return res
 ```
 
 ### 269. Alien Dictionary
@@ -414,6 +448,29 @@ class Solution:
         return res if res > 0 and count == n else -1
 ```
 
+### 1059. All Paths from Source Lead to Destination
+
+```python
+class Solution:
+    def leadsToDestination(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
+        g, indegree = defaultdict(list), [0] * n
+        for u, v in edges:
+            g[v].append(u)
+            indegree[u] += 1
+        if indegree[destination]:
+            return False
+        q = deque([destination])
+        while q:
+            node = q.popleft()
+            if node == source:
+                return True
+            for nei in g[node]:
+                indegree[nei] -= 1
+                if indegree[nei] == 0:
+                    q.append(nei)
+        return False
+```
+
 ### 444. Sequence Reconstruction
 
 ```python
@@ -497,4 +554,30 @@ class Solution:
                 if indegree[nei] == 0:
                     q.append(nei)
         return False
+```
+
+### 2050. Parallel Courses III
+
+```python
+class Solution:
+    def minimumTime(self, n: int, relations: List[List[int]], time: List[int]) -> int:
+        g, indegree = defaultdict(list), [0] * n
+        for u, v in relations:
+            g[u - 1].append(v - 1)
+            indegree[v - 1] += 1
+        q = deque([i for i, d in enumerate(indegree) if d == 0])
+        t = [0] * n
+        for node in q:
+            t[node] = time[node]
+
+        res = 0
+        while q:
+            node = q.popleft()
+            res = max(res, t[node])
+            for nei in g[node]:
+                t[nei] = max(t[nei], t[node] + time[nei])
+                indegree[nei] -= 1
+                if indegree[nei] == 0:
+                    q.append(nei)
+        return res
 ```

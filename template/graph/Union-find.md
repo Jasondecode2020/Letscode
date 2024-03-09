@@ -127,9 +127,9 @@ class UF:
 
 ### Questions list
 
-- [261. Graph Valid Tree]
-- [684. Redundant Connection]
-- [547. Number of Provinces]
+- [261. Graph Valid Tree](#261-Graph-Valid-Tree)
+- [684. Redundant Connection](#684-Redundant-Connection)
+- [547. Number of Provinces](#547-Number-of-Provinces)
 - [990. Satisfiability of Equality Equations]
 - [200. Number of Islands]
 - [128. Longest Consecutive Sequence]

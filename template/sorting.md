@@ -199,3 +199,18 @@ class Solution:
                     return False
         return True
 ```
+
+### 1366. Rank Teams by Votes
+
+```python
+class Solution:
+    def rankTeams(self, votes: List[str]) -> str:
+        n = len(votes[0])
+        ranking = collections.defaultdict(lambda: [0] * n)
+        for vote in votes:
+            for i, c in enumerate(vote):
+                ranking[c][i] += 1
+        result = list(ranking.items())
+        result.sort(key=lambda x: (x[1], -ord(x[0])), reverse=True)
+        return "".join([c for c, rank in result])
+```

@@ -274,3 +274,32 @@ class Solution:
                 res2.append(n)
         return res1 + res2 + res3
 ```
+
+### 1138. Alphabet Board Path
+
+```python
+class Solution:
+    def alphabetBoardPath(self, target: str) -> str:
+        board = ["abcde", "fghij", "klmno", "pqrst", "uvwxy", "z"]
+        d = {}
+        for i, b in enumerate(board):
+            for j, c in enumerate(b):
+                d[c] = (j, i)
+        
+        x1, y1 = (0, 0)
+        res = ''
+        for c in target:
+            x2, y2 = d[c]
+            dx, dy = x2 - x1, y2 - y1
+            if dx <= 0:
+                res += 'L' * abs(dx)
+            if dy > 0:
+                res += 'D' * dy 
+            else:
+                res += 'U' * abs(dy)
+            if dx > 0:
+                res += 'R' * dx
+            res += '!'
+            x1, y1 = x2, y2
+        return res
+```
