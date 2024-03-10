@@ -153,3 +153,34 @@ class Solution:
                 dp[r][c] = rows[r] + cols[c] - (R + C - (rows[r] + cols[c]))
         return dp
 ```
+
+### 1224. Maximum Equal Frequency
+
+```python
+class Solution:
+    def maxEqualFreq(self, nums: List[int]) -> int:
+        n = len(nums)
+        count = Counter(nums)
+        countFreq = Counter(count.values())
+        for i in range(n - 1, -1, -1):
+            if len(countFreq) == 1:
+                freq, num = list(countFreq.items())[0]
+                if freq == 1 or num == 1:
+                    return i + 1
+            elif len(countFreq) == 2:
+                lst = list(sorted(countFreq.items()))  
+                freq1, num1 = lst[0]
+                freq2,num2 = lst[1]
+                if (freq1 == 1 and num1 == 1) or (num2 == 1 and freq2 == freq1 + 1):
+                    return i + 1
+            f = count[nums[i]]
+            count[nums[i]] -= 1
+            if count[nums[i]] == 0:
+                del count[nums[i]]
+            countFreq[f] -= 1
+            if countFreq[f] == 0:
+                del countFreq[f]
+            if f - 1 > 0:
+                countFreq[f - 1] += 1
+        return 2
+```
