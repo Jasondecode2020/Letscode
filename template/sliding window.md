@@ -1281,3 +1281,27 @@ class Solution:
         return res
 ```
 
+### 3034. Number of Subarrays That Match a Pattern I
+
+```python
+class Solution:
+    def countMatchingSubarrays(self, nums: List[int], pattern: List[int]) -> int:
+        def check(arr):
+            i, j = 0, 0
+            while j < len(pattern):
+                if pattern[j] == 1 and arr[i] >= arr[i + 1]:
+                    return False
+                elif pattern[j] == 0 and arr[i] != arr[i + 1]:
+                    return False
+                elif pattern[j] == -1 and arr[i] <= arr[i + 1]:
+                    return False
+                j += 1
+                i += 1
+            return True
+        n, m = len(nums), len(pattern)
+        res = 0
+        for i in range(n - m):
+            if check(nums[i: i + m + 1]):
+                res += 1
+        return res
+```

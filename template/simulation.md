@@ -303,3 +303,17 @@ class Solution:
             x1, y1 = x2, y2
         return res
 ```
+
+### 1409. Queries on a Permutation With Key
+
+```python
+class Solution:
+    def processQueries(self, queries: List[int], m: int) -> List[int]:
+        a = list(range(1, m + 1))
+        res = []
+        for q in queries:
+            i = a.index(q)
+            res.append(i)
+            a = [a[i]] + a[: i] + a[i + 1:]
+        return res
+```

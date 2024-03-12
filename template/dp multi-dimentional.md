@@ -94,3 +94,30 @@ class Solution:
         res = dfs(0, 1)
         return res if res != -inf else -1
 ```
+
+### 1575. Count All Possible Routes
+
+```python
+class Solution:
+    def countRoutes(self, locations: List[int], start: int, finish: int, fuel: int) -> int:
+        @cache
+        def dfs(i, f):
+            if i == finish:
+                if f <= fuel:
+                    ans = 0
+                    for j in range(n):
+                        if j != i:
+                            ans += dfs(j, f + abs(locations[i] - locations[j]))
+                    return 1 + ans
+                return 0
+            if f > fuel:
+                return 0
+            res = 0
+            for j in range(n):
+                if j != i:
+                    res += dfs(j, f + abs(locations[i] - locations[j]))
+            return res
+        n = len(locations)
+        mod = 10 ** 9 + 7
+        return dfs(start, 0) % mod
+```
