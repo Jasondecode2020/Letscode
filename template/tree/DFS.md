@@ -26,7 +26,8 @@ def dfs(root):
             stack.append(node.right)
     return res
 ```
-### Tree Traversal
+
+## Tree Traversal
 
 * `404. Sum of Left Leaves`
 * `129. Sum Root to Leaf Numbers`
@@ -37,23 +38,23 @@ def dfs(root):
 * `226. Invert Binary Tree`
 * `590. N-ary Tree Postorder Traversal`
 
-### Construct Binary Tree
+## Construct Binary Tree
 
 * `105. Construct Binary Tree from Preorder and Inorder Traversal`
 * `106. Construct Binary Tree from Inorder and Postorder Traversal`
 * `889. Construct Binary Tree from Preorder and Postorder Traversal`
 
-### Convert to BST
+## Convert to BST
 
 * `108. Convert Sorted Array to Binary Search Tree`
 * `109. Convert Sorted List to Binary Search Tree`
 * `1008. Construct Binary Search Tree from Preorder Traversal`
 
-### Balanced Binary Tree
+## Balanced Binary Tree
 
 * `110. Balanced Binary Tree`
 
-### BST
+## BST
 
 * `222. Count Complete Tree Nodes`
 * `333. Largest BST Subtree`
@@ -1349,4 +1350,40 @@ class Solution:
         if not root.left and not root.right and root.val == 0:
             return None
         return root
+```
+
+### 1120. Maximum Average Subtree
+
+```python
+class Solution:
+    def maximumAverageSubtree(self, root: Optional[TreeNode]) -> float:
+        def dfs(node):
+            if not node:
+                return 0, 0
+            left, leftVal = dfs(node.left)
+            right, rightVal = dfs(node.right)
+            self.res = max(self.res, (leftVal + rightVal + node.val) / (left + right + 1))
+            return left + right + 1, leftVal + rightVal + node.val 
+        self.res = 0
+        dfs(root)
+        return self.res
+```
+
+### 652. Find Duplicate Subtrees
+
+```python
+class Solution:
+    def findDuplicateSubtrees(self, root: Optional[TreeNode]) -> List[Optional[TreeNode]]:
+        def dfs(node):
+            if not node:
+                return 'N'
+            s = ','.join([str(node.val), dfs(node.left), dfs(node.right)])
+            if len(d[s]) == 1:
+                res.append(node)
+            d[s].append(node)
+            return s 
+        d = defaultdict(list)
+        res = []
+        dfs(root)
+        return res
 ```

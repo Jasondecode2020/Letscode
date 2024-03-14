@@ -317,3 +317,53 @@ class Solution:
             a = [a[i]] + a[: i] + a[i + 1:]
         return res
 ```
+
+### 1860. Incremental Memory Leak
+
+```python
+class Solution:
+    def memLeak(self, memory1: int, memory2: int) -> List[int]:
+        t = 1
+        while memory1 >= 0 and memory2 >= 0:
+            if memory1 >= memory2:
+                if memory1 - t >= 0:
+                    memory1 -= t 
+                else:
+                    break
+            else:
+                if memory2 - t >= 0:
+                    memory2 -= t
+                else:
+                    break
+            t += 1
+        return [t, memory1, memory2]
+```
+
+### 2120. Execution of All Suffix Instructions Staying in a Grid
+
+```python
+class Solution:
+    def executeInstructions(self, n: int, startPos: List[int], s: str) -> List[int]:
+        m = len(s)
+        res = [0] * m 
+        for i in range(m):
+            count = 0
+            r, c = startPos
+            for j in range(i, m):
+                if s[j] == 'L' and c - 1 >= 0:
+                    c -= 1
+                    count += 1
+                elif s[j] == 'R' and c + 1 < n:
+                    c += 1
+                    count += 1
+                elif s[j] == 'U' and r - 1 >= 0:
+                    r -= 1
+                    count += 1
+                elif s[j] == 'D' and r + 1 < n:
+                    r += 1
+                    count += 1
+                else:
+                    break
+            res[i] = count
+        return res
+```

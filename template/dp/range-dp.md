@@ -147,3 +147,85 @@ class Solution:
             d[x] = d[x - 1] + 1
         return max(d.values())
 ```
+
+## range dp
+
+- 3 loops of i, j, k
+- dp[i][j] from 1 to i numbers choose j split and get the result
+- dp[i][j] = max(dp[i][j], dp[k - 1][j - 1] + from j to i)
+
+### 813. Largest Sum of Averages
+
+```python
+class Solution:
+    def largestSumOfAverages(self, nums: List[int], m: int) -> float:
+        n = len(nums)
+        nums = list(accumulate(nums, initial = 0))
+        dp = [[0] * (m + 1) for c in range(n + 1)]
+        for i in range(1, n + 1):
+            for j in range(1, min(i, m) + 1):
+                if j == 1:
+                    dp[i][j] = nums[i] / i 
+                else:
+                    for k in range(2, i + 1):
+                        dp[i][j] = max(dp[i][j], dp[k - 1][j - 1] + (nums[i] - nums[k - 1]) / (i - k + 1))
+        return dp[n][m]
+```
+
+### 410. Split Array Largest Sum
+
+```python
+class Solution:
+    def splitArray(self, nums: List[int], m: int) -> int:
+        n = len(nums)
+        nums = list(accumulate(nums, initial = 0))
+        dp = [[inf] * (m + 1) for c in range(n + 1)]
+        for i in range(1, n + 1):
+            for j in range(1, min(i, m) + 1):
+                if j == 1:
+                    dp[i][j] = nums[i]
+                else:
+                    for k in range(2, i + 1):
+                        t = dp[k - 1][j - 1]
+                        if t < nums[i] - nums[k - 1]:
+                            t = nums[i] - nums[k - 1]
+                        if t < dp[i][j]:
+                            dp[i][j] = t
+                        # dp[i][j] = min(dp[i][j], max(dp[k - 1][j - 1], (nums[i] - nums[k - 1])))
+        return dp[n][m]
+```
+
+### 664. Strange Printer
+
+```python
+class Solution:
+    def strangePrinter(self, s: str) -> int:
+        @cache
+        def dfs(i, j):
+            if i == j:
+                return 1
+            if s[i] == s[j]:
+                return dfs(i, j - 1)
+            return min(dfs(i, k) + dfs(k + 1, j) for k in range(i, j))
+        n = len(s)
+        return dfs(0, n - 1)
+```
+
+### 87. Scramble String
+
+```python
+class Solution:
+    def isScramble(self, s1: str, s2: str) -> bool:
+        @cache
+        def dfs(s1, s2):
+            if s1 == s2:
+                return True
+            L = len(s1)
+            for i in range(1, L):
+                if dfs(s1[:i], s2[:i]) and dfs(s1[i:], s2[i:]):
+                    return True
+                if dfs(s1[:i], s2[L-i:]) and dfs(s1[i:], s2[:L-i]):
+                    return True
+            return False
+        return dfs(s1, s2)
+```

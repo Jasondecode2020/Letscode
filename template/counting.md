@@ -176,3 +176,38 @@ class Solution:
         res = s - t
         return sum(res.values())
 ```
+
+### 811. Subdomain Visit Count
+
+```python
+class Solution:
+    def subdomainVisits(self, cpdomains: List[str]) -> List[str]:
+        d = Counter()
+        for cp in cpdomains:
+            n, s = cp.split(' ')
+            i = 0
+            s = '.' + s
+            while i < len(s):
+                if s[i] == '.':
+                    d[s[i+1:]] += int(n)
+                i += 1
+        return [str(v) + ' ' + k for k, v in d.items()]
+```
+
+### 1476. Subrectangle Queries
+
+```python
+class SubrectangleQueries:
+
+    def __init__(self, rectangle: List[List[int]]):
+        self.rect = rectangle
+
+    def updateSubrectangle(self, row1: int, col1: int, row2: int, col2: int, newValue: int) -> None:
+        R, C = len(self.rect), len(self.rect[0])
+        for r in range(row1, row2 + 1):
+            for c in range(col1, col2 + 1):
+                self.rect[r][c] = newValue
+
+    def getValue(self, row: int, col: int) -> int:
+        return self.rect[row][col]
+```
