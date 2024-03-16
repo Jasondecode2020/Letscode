@@ -43,3 +43,19 @@ class Solution:
             return first or second 
         return dfs(0)
 ```
+
+### 139. Word Break
+
+- prefix idea: dp[i] means if dp[:i] is combined by the wordDict or not
+
+```python
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        n, wordDict = len(s), set(wordDict)
+        dp = [True] + [False] * n
+        for i in range(n + 1):
+            for j in range(i + 1, n + 1):
+                if dp[i] and s[i:j] in wordDict:
+                    dp[j] = True
+        return dp[-1]
+```

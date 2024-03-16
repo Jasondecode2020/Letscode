@@ -121,3 +121,28 @@ class Solution:
         mod = 10 ** 9 + 7
         return dfs(start, 0) % mod
 ```
+
+### 1639. Number of Ways to Form a Target String Given a Dictionary
+
+```python
+class Solution:
+    def numWays(self, words: List[str], target: str) -> int:
+        n = len(words[0])
+        m = len(target)
+        mod = 10 ** 9 + 7
+        dp = [[0] * 26 for i in range(n)]
+        for i, w in enumerate(words):
+            for j, c in enumerate(w):
+                dp[j][ord(words[i][j]) - ord('a')] += 1
+        @cache
+        def dfs(i, k):
+            if k == m:
+                return 1
+            if i == n or k > m:
+                return 0
+            res = 0
+            res += dp[i][ord(target[k]) - ord('a')] * dfs(i + 1, k + 1)
+            res += dfs(i + 1, k)
+            return res 
+        return dfs(0, 0) % mod
+```

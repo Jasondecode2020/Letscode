@@ -43,3 +43,26 @@ class Solution:
                         break
         return ''.join(a[1:-1])
 ```
+
+### 8. String to Integer (atoi)
+
+```python
+class Solution:
+    def myAtoi(self, s: str) -> int:
+        s = s.strip()
+        sign = ['+', '-']
+        res = ''
+        for i, c in enumerate(s):
+            if i == 0 and c in sign:
+                res += c
+                continue
+            if c.isdigit():
+                res += c 
+            else:
+                break
+        if not res or res in sign:
+            return 0
+        n = int(res)
+        return max(-2 ** 31, min(n, 2 ** 31 - 1))
+```
+

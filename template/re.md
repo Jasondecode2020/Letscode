@@ -14,3 +14,14 @@ class Solution:
                 res += 1
         return res
 ```
+
+### 65. Valid Number
+
+```python
+class Solution:
+    def isNumber(self, s: str) -> bool:
+        reg = '^[+-]?((\d+\.?)|(\d*\.\d+))([eE][+-]?\d+)?$'
+        if re.match(reg, s):
+            return True
+        return False
+```
