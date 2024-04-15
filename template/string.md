@@ -66,3 +66,25 @@ class Solution:
         return max(-2 ** 31, min(n, 2 ** 31 - 1))
 ```
 
+### 831. Masking Personal Information
+
+```python
+class Solution:
+    def maskPII(self, s: str) -> str:
+        if '@' in s:
+            s = s.lower()
+            s1, s2 = s.split('@')
+            return s1[0] + '*****' + s1[-1] + '@' + s2 
+        else:
+            res = ''.join([c for c in s if c.isdigit()])
+            cur = ''
+            if len(res) == 10:
+                cur = "***-***-"
+            elif len(res) == 11:
+                cur = "+*-***-***-"
+            elif len(res) == 12:
+                cur = "+**-***-***-"
+            else:
+                cur = "+***-***-***-"
+            return cur + res[-4:]
+```

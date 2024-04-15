@@ -1,5 +1,7 @@
 ## template 1: Array + ranking
 
+- continous uf
+
 ```python
 class UF:
     def __init__(self, n):
@@ -25,7 +27,9 @@ class UF:
             self.rank[p2] += self.rank[p1]
 ```
 
-## template 2: hash table
+## template 2: hash table: leetcode 128
+
+- discrete uf
 
 ```python
 class UF:
@@ -37,7 +41,7 @@ class UF:
             self.parent[n] = self.find(self.parent[n])
         return self.parent[n]
     
-    def connected(self, n1, n2):
+    def isConnected(self, n1, n2):
         return self.find(n1) == self.find(n2)
 
     def union(self, n1, n2):
@@ -45,33 +49,7 @@ class UF:
         self.parent[p1] = p2
 ```
 
-## template 3: Array + path compression
-
-```python
-class UF:
-    def __init__(self, n):
-        self.parent = list(range(n))
-
-    def find(self, root):
-        n = root # use n for path compression
-        while self.parent[root] != root:
-            root = self.parent[root] # find root first
-
-        while n != root: # start path compression
-            nxt = self.parent[n]
-            self.parent[n] = root
-            n = nxt
-        return root # get root
-
-    def connected(self, n1, n2):
-        return self.find(n1) == self.find(n2)
-
-    def union(self, n1, n2):
-        p1, p2 = self.find(n1), self.find(n2)
-        self.parent[p2] = p1
-```
-
-## template 4: with weight
+## template 3: with weight
 
 ```python
 class UF:
@@ -102,7 +80,7 @@ class UF:
             return -1
 ```
 
-## template 5: dynamic parent
+## template 4: dynamic parent
 
 ```python
 class UF:
@@ -127,14 +105,18 @@ class UF:
 
 ### Questions list
 
-- [261. Graph Valid Tree](#261-Graph-Valid-Tree)
-- [684. Redundant Connection](#684-Redundant-Connection)
-- [547. Number of Provinces](#547-Number-of-Provinces)
-- [990. Satisfiability of Equality Equations]
-- [200. Number of Islands]
-- [128. Longest Consecutive Sequence]
-* [1971. Find if Path Exists in Graph](#1971-Find-if-Path-Exists-in-Graph)
+* [128. Longest Consecutive Sequence](#128-Longest-Consecutive-Sequence)
+* [130. Surrounded Regions](#130-Surrounded-Regions)
+* [200. Number of Islands](#200-Number-of-Islands)
+* [261. Graph Valid Tree](#261-Graph-Valid-Tree)
+* [305. Number of Islands II](#305-Number-of-Islands-II)
 * [323. Number of Connected Components in an Undirected Graph](#323-Number-of-Connected-Components-in-an-Undirected-Graph)
+* [547. Number of Provinces](#547-Number-of-Provinces)
+* [684. Redundant Connection](#684-Redundant-Connection)
+
+* [990. Satisfiability of Equality Equations](#990-Satisfiability-of-Equality-Equations)
+* [1971. Find if Path Exists in Graph](#1971-Find-if-Path-Exists-in-Graph)
+
 - [827. Making A Large Island]
 - [685. Redundant Connection II]
 - [778. Swim in Rising Water (union find with binary search)]
@@ -147,13 +129,168 @@ class UF:
 - [947. Most Stones Removed with Same Row or Column (dynamic parent)]
 - [2092. Find All People With Secret](#2092-Find-All-People-With-Secret)
 
-### 261. Graph Valid Tree
+### 128. Longest Consecutive Sequence
+
+- hash set
+
+```python
+class Solution:
+    def longestConsecutive(self, nums: List[int]) -> int:
+        nums = set(nums)
+        res = 0
+        for n in nums:
+            if n - 1 not in nums:
+                ans = 1
+                while n + 1 in nums:
+                    ans += 1
+                    n += 1
+                res = max(res, ans)
+        return res
+```
+
+- discrete mathematics
+
+```python
+class UF:
+    def __init__(self, nums):
+        self.parent = {n: n for n in nums}
+    
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n 
+
+    def union(self, n1, n2):
+        p1, p2 = self.parent[n1], self.parent[n2]
+        self.parent[p1] = p2
+
+class Solution:
+    def longestConsecutive(self, nums: List[int]) -> int:
+        uf = UF(nums)
+        nums = set(nums)
+        for n in nums:
+            if n + 1 in nums:
+                uf.union(n, n + 1)
+
+        d = Counter()
+        for n in uf.parent:
+            d[uf.find(n)] += 1
+        res = list(d.values()) + [0]
+        return max(res)
+```
+
+- with rank
+
+```python
+class UF:
+    def __init__(self, nums):
+        self.parent = {n: n for n in nums}
+        self.rank = {n: 1 for n in nums}
+    
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n 
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] > self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2 
+            self.rank[p2] += self.rank[p1]
+
+class Solution:
+    def longestConsecutive(self, nums: List[int]) -> int:
+        uf = UF(nums)
+        nums = set(nums)
+        for n in nums:
+            if n + 1 in nums:
+                uf.union(n, n + 1)
+
+        d = Counter()
+        for n in uf.parent:
+            d[uf.find(n)] += 1
+        res = list(d.values()) + [0]
+        return max(res)
+```
+
+### 130. Surrounded Regions
+
+- DFS
+
+```python
+class Solution:
+    def solve(self, board: List[List[str]]) -> None:
+        """
+        Do not return anything, modify board in-place instead.
+        """
+        R, C = len(board), len(board[0])
+        directions = [[0, 1], [1, 0], [0, -1], [-1, 0]]
+        def dfs(r, c):
+            board[r][c] = '#'
+            for dr, dc in directions:
+                row, col = r + dr, c + dc 
+                if 0 <= row < R and 0 <= col < C and board[row][col] == 'O':
+                    dfs(row, col)
+        for r in range(R):
+            for c in range(C):
+                if (r == 0 or r == R - 1 or c == 0 or c == C - 1) and board[r][c] == 'O':
+                    dfs(r, c)
+        for r in range(R):
+            for c in range(C):
+                if board[r][c] == 'O':
+                    board[r][c] = 'X'
+        for r in range(R):
+            for c in range(C):
+                if board[r][c] == '#':
+                    board[r][c] = 'O'
+```
+
+- BFS
+
+```python
+class Solution:
+    def solve(self, board: List[List[str]]) -> None:
+        """
+        Do not return anything, modify board in-place instead.
+        """
+        R, C = len(board), len(board[0])
+        directions = [[0, 1], [1, 0], [0, -1], [-1, 0]]
+        def bfs():
+            q = deque()
+            for r in range(R):
+                for c in range(C):
+                    if (r == 0 or r == R - 1 or c == 0 or c == C - 1) and board[r][c] == 'O':
+                        q.append((r, c))
+            while q:
+                r, c = q.popleft()
+                board[r][c] = '#'
+                for dr, dc in directions:
+                    row, col = r + dr, c + dc 
+                    if 0 <= row < R and 0 <= col < C and board[row][col] == 'O':
+                        q.append((row, col))
+        bfs()
+        for r in range(R):
+            for c in range(C):
+                if board[r][c] == 'O':
+                    board[r][c] = 'X'
+        for r in range(R):
+            for c in range(C):
+                if board[r][c] == '#':
+                    board[r][c] = 'O'
+```
+
+- Union Find + dummy point in grid
 
 ```python
 class UF:
     def __init__(self, n):
         self.parent = list(range(n))
-        self.rank = [1] * n
+        self.rank = [1] * n 
 
     def find(self, n):
         while n != self.parent[n]:
@@ -174,18 +311,56 @@ class UF:
             self.rank[p2] += self.rank[p1]
 
 class Solution:
-    def validTree(self, n: int, edges: List[List[int]]) -> bool:
-        if n != (len(edges) + 1):
-            return False
-        uf = UF(n)
-        for u, v in edges:
-            if uf.isConnected(u, v):
-                return False
-            uf.union(u, v)
-        return True
+    def solve(self, board: List[List[str]]) -> None:
+        """
+        Do not return anything, modify board in-place instead.
+        """
+        R, C = len(board), len(board[0])
+        directions = [(0,1),(1,0)]
+        uf = UF(R * C + 1)
+        dummy = R * C # dummy point
+        for r in range(R):
+            for c in range(C):
+                if (r == 0 or r == R - 1 or c == 0 or c == C - 1) and board[r][c] == 'O':
+                    uf.union(r * C + c, dummy)
+        for r in range(R):
+            for c in range(C):
+                if board[r][c] == 'O':
+                    for dr, dc in directions:
+                        row, col = r + dr, c + dc 
+                        if 0 <= row < R and 0 <= col < C and board[row][col] == 'O':
+                            uf.union(r * C + c, row * C + col)
+        for r in range(R):
+            for c in range(C):
+                if not uf.isConnected(r * C + c, dummy):
+                    board[r][c] = 'X'
 ```
 
-### 684. Redundant Connection
+### 200. Number of Islands
+
+- DFS
+
+```python
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        def dfs(r, c):
+            grid[r][c] = '0'
+            for dr, dc in directions:
+                row, col = r + dr, c + dc 
+                if 0 <= row < R and 0 <= col < C and grid[row][col] == '1':
+                    dfs(row, col)
+
+        R, C, res = len(grid), len(grid[0]), 0
+        directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+        for r in range(R):
+            for c in range(C):
+                if grid[r][c] == '1':
+                    dfs(r, c)
+                    res += 1
+        return res
+```
+
+- union find in grid
 
 ```python
 class UF:
@@ -198,10 +373,7 @@ class UF:
             self.parent[n] = self.parent[self.parent[n]]
             n = self.parent[n]
         return n
-
-    def connected(self, n1, n2):
-        return self.find(n1) == self.find(n2)
-
+    
     def union(self, n1, n2):
         p1, p2 = self.find(n1), self.find(n2)
         if self.rank[p1] > self.rank[p2]:
@@ -211,17 +383,153 @@ class UF:
             self.parent[p1] = p2
             self.rank[p2] += self.rank[p1]
 
+    def isConnected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
 class Solution:
-    def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
-        n = len(edges)
+    def numIslands(self, grid: List[List[str]]) -> int:
+        R, C = len(grid), len(grid[0])
+        directions = [[1, 0], [0, 1]]
+        uf = UF(R * C)
+        res = 0
+        for r in range(R):
+            for c in range(C):
+                if grid[r][c] == "1":
+                    res += 1
+                    for dr, dc in directions:
+                        row, col = r + dr, c + dc
+                        if 0 <= row < R and 0 <= col < C and grid[row][col] == "1" and not uf.isConnected(row * C + col, r * C + c):
+                            uf.union(row * C + col, r * C + c)
+                            res -= 1
+        return res
+```
+
+### 261. Graph Valid Tree
+
+- union find + tree and graph
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n 
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        self.parent[p1] = p2
+
+    def isConnected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+class Solution:
+    def validTree(self, n: int, edges: List[List[int]]) -> bool:
+        if n != len(edges) + 1:
+            return False
         uf = UF(n)
         for u, v in edges:
-            if uf.connected(u - 1, v - 1):
-                return [u, v]
-            uf.union(u - 1, v - 1)
+            if uf.isConnected(u, v):
+                return False
+            uf.union(u, v)
+        return True
+```
+
+### 305. Number of Islands II
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n 
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        self.parent[p1] = p2
+
+    def isConnected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+class Solution:
+    def numIslands2(self, m: int, n: int, positions: List[List[int]]) -> List[int]:
+        uf = UF(m * n)
+        directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+        s = set()
+        res = 0
+        ans = []
+        for r, c in positions:
+            if (r, c) not in s:
+                s.add((r, c))
+                res += 1
+                for dr, dc in directions:
+                    row, col = r + dr, c + dc 
+                    if 0 <= row < m and 0 <= col < n and (row, col) in s and not uf.isConnected(r * n + c, row * n + col):
+                        uf.union(r * n + c, row * n + col)
+                        res -= 1
+            ans.append(res)
+        return ans
+```
+
+### 323. Number of Connected Components in an Undirected Graph
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n
+
+    def connected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        self.parent[p2] = p1
+
+class Solution:
+    def countComponents(self, n: int, edges: List[List[int]]) -> int:
+        uf = UF(n)
+        for u, v in edges:
+            if not uf.connected(u, v):
+                uf.union(u, v)
+                n -= 1
+        return n
 ```
 
 ### 547. Number of Provinces
+
+- DFS
+
+``` python
+class Solution:
+    def findCircleNum(self, isConnected: List[List[int]]) -> int:
+        def dfs(i):
+            for j in range(n):
+                if isConnected[i][j] and j not in visited:
+                    visited.add(j)
+                    dfs(j)
+                    
+        res, visited, n = 0, set(), len(isConnected)
+        for i in range(n):
+            if i not in visited:
+                dfs(i)
+                res += 1
+        return res
+```
+
+- union find 
 
 ```python
 class UF:
@@ -258,6 +566,42 @@ class Solution:
                     uf.union(i, j)
                     count -= 1
         return count
+```
+
+### 684. Redundant Connection
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n
+
+    def connected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] > self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2
+            self.rank[p2] += self.rank[p1]
+
+class Solution:
+    def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
+        n = len(edges)
+        uf = UF(n)
+        for u, v in edges:
+            if uf.connected(u - 1, v - 1):
+                return [u, v]
+            uf.union(u - 1, v - 1)
 ```
 
 ### 990. Satisfiability of Equality Equations
@@ -333,78 +677,6 @@ class Solution:
         return True
 ```
 
-### 200. Number of Islands
-
-```python
-class UF:
-    def __init__(self, n):
-        self.parent = list(range(n))
-        self.rank = [1] * n
-
-    def find(self, n):
-        while n != self.parent[n]:
-            self.parent[n] = self.parent[self.parent[n]]
-            n = self.parent[n]
-        return n
-    
-    def union(self, n1, n2):
-        p1, p2 = self.find(n1), self.find(n2)
-        if self.rank[p1] > self.rank[p2]:
-            self.parent[p2] = p1
-            self.rank[p1] += self.rank[p2]
-        else:
-            self.parent[p1] = p2
-            self.rank[p2] += self.rank[p1]
-
-class Solution:
-    def numIslands(self, grid: List[List[str]]) -> int:
-        R, C = len(grid), len(grid[0])
-        uf = UF(R * C)
-        res = 0
-        for r in range(R):
-            for c in range(C):
-                if grid[r][c] == "1":
-                    res += 1
-                    for dr, dc in [[1, 0], [0, 1]]:
-                        row, col = r + dr, c + dc
-                        if 0 <= row < R and 0 <= col < C and grid[row][col] == "1" and uf.find(row * C + col) != uf.find(r * C + c):
-                            uf.union(row * C + col, r * C + c)
-                            res -= 1
-        return res
-```
-
-### 128. Longest Consecutive Sequence
-
-```python
-class UF:
-    def __init__(self, nums):
-        self.parent = {n: n for n in nums}
-
-    def find(self, n):
-        if n != self.parent[n]:
-            self.parent[n] = self.find(self.parent[n])
-        return self.parent[n]
-    
-    def connected(self, n1, n2):
-        return self.find(n1) == self.find(n2)
-
-    def union(self, n1, n2):
-        p1, p2 = self.find(n1), self.find(n2)
-        self.parent[p1] = p2
-
-class Solution:
-    def longestConsecutive(self, nums: List[int]) -> int:
-        uf, nums = UF(nums), set(nums)
-        for n in nums:
-            if n + 1 in nums and not uf.connected(n, n + 1):
-                uf.union(n, n + 1)
-
-        d = defaultdict(int)
-        for n in nums:
-            d[uf.find(n)] += 1
-        return max(d.values()) if d.values() else 0
-```
-
 ### 1971. Find if Path Exists in Graph
 
 ```python
@@ -438,41 +710,6 @@ class Solution:
             if not uf.connected(u, v):
                 uf.union(u, v)
         return uf.connected(source, destination)
-```
-
-### 323. Number of Connected Components in an Undirected Graph
-
-```python
-class UF:
-    def __init__(self, n):
-        self.parent = list(range(n))
-
-    def find(self, root):
-        n = root # use n for path compression
-        while self.parent[root] != root:
-            root = self.parent[root] # find root first
-
-        while n != root: # start path compression
-            nxt = self.parent[n]
-            self.parent[n] = root
-            n = nxt
-        return root # get root
-
-    def connected(self, n1, n2):
-        return self.find(n1) == self.find(n2)
-
-    def union(self, n1, n2):
-        p1, p2 = self.find(n1), self.find(n2)
-        self.parent[p2] = p1
-
-class Solution:
-    def countComponents(self, n: int, edges: List[List[int]]) -> int:
-        uf = UF(n)
-        for u, v in edges:
-            if not uf.connected(u, v):
-                uf.union(u, v)
-                n -= 1
-        return n
 ```
 
 ### 827. Making A Large Island

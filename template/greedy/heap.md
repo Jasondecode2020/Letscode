@@ -128,3 +128,23 @@ class Solution:
             heappush(nums, -ceil(n / 3))
         return res
 ```
+
+### 2208. Minimum Operations to Halve Array Sum
+
+```python
+class Solution:
+    def halveArray(self, nums: List[int]) -> int:
+        total = sum(nums)
+        pq = [-n for n in nums]
+        heapify(pq)
+        res, ans = 0, 0
+        while pq:
+            n = -heappop(pq)
+            if ans < total / 2:
+                ans += n / 2
+                res += 1
+                heappush(pq, -n/2)
+            else:
+                break
+        return res
+```
