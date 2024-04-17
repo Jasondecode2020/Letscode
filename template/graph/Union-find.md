@@ -1,6 +1,6 @@
 ## template 1: Array + ranking
 
-- continous uf
+- continous uf with rank
 
 ```python
 class UF:
@@ -29,24 +29,31 @@ class UF:
 
 ## template 2: hash table: leetcode 128
 
-- discrete uf
+- discrete uf with rank
 
 ```python
 class UF:
     def __init__(self, nums):
         self.parent = {n: n for n in nums}
-
-    def find(self, n):
-        if n != self.parent[n]:
-            self.parent[n] = self.find(self.parent[n])
-        return self.parent[n]
+        self.rank = {n: 1 for n in nums}
     
-    def isConnected(self, n1, n2):
-        return self.find(n1) == self.find(n2)
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n 
 
     def union(self, n1, n2):
         p1, p2 = self.find(n1), self.find(n2)
-        self.parent[p1] = p2
+        if self.rank[p1] > self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2 
+            self.rank[p2] += self.rank[p1]
+
+    def isConnected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
 ```
 
 ## template 3: with weight
@@ -105,29 +112,56 @@ class UF:
 
 ### Questions list
 
-* [128. Longest Consecutive Sequence](#128-Longest-Consecutive-Sequence)
-* [130. Surrounded Regions](#130-Surrounded-Regions)
-* [200. Number of Islands](#200-Number-of-Islands)
-* [261. Graph Valid Tree](#261-Graph-Valid-Tree)
-* [305. Number of Islands II](#305-Number-of-Islands-II)
-* [323. Number of Connected Components in an Undirected Graph](#323-Number-of-Connected-Components-in-an-Undirected-Graph)
-* [547. Number of Provinces](#547-Number-of-Provinces)
-* [684. Redundant Connection](#684-Redundant-Connection)
+* 1 [128. Longest Consecutive Sequence](#128-Longest-Consecutive-Sequence)
+* 2 [130. Surrounded Regions](#130-Surrounded-Regions)
+* 3 [200. Number of Islands](#200-Number-of-Islands)
+* 4 [261. Graph Valid Tree](#261-Graph-Valid-Tree)
+* 5 [305. Number of Islands II](#305-Number-of-Islands-II)
 
-* [990. Satisfiability of Equality Equations](#990-Satisfiability-of-Equality-Equations)
-* [1971. Find if Path Exists in Graph](#1971-Find-if-Path-Exists-in-Graph)
+* 6 [323. Number of Connected Components in an Undirected Graph](#323-Number-of-Connected-Components-in-an-Undirected-Graph)
+* 7 [399. Evaluate Division](#399-Evaluate-Division)
+* 8 [547. Number of Provinces](#547-Number-of-Provinces)
+* 9 [684. Redundant Connection](#684-Redundant-Connection)
+* 10 [685. Redundant Connection II](#685-Redundant-Connection-II)
 
-- [827. Making A Large Island]
-- [685. Redundant Connection II]
-- [778. Swim in Rising Water (union find with binary search)]
-- [765. Couples Holding Hands]
-- [399. Evaluate Division (union find with weight)]
-- [1319. Number of Operations to Make Network Connected]
-- [1631. Path With Minimum Effort (union find with binary search)]
-- [959. Regions Cut By Slashes (encoding)]
-- [1202. Smallest String With Swaps]
-- [947. Most Stones Removed with Same Row or Column (dynamic parent)]
-- [2092. Find All People With Secret](#2092-Find-All-People-With-Secret)
+* 11 [694. Number of Distinct Islands](#694-Number-of-Distinct-Islands)
+* 12 [695. Max Area of Island](#695-Max-Area-of-Island)
+* 13 [711. Number of Distinct Islands II](#711-Number-of-Distinct-Islands-II)
+* 14 [721. Accounts Merge](#721-Accounts-Merge)
+* 15 [737. Sentence Similarity II](#737-Sentence-Similarity-II)
+
+
+* 16 [765. Couples Holding Hands](#765-Couples-Holding-Hands)
+* 17 [778. Swim in Rising Water](#778-Swim-in-Rising-Water)
+* 18 [785. Is Graph Bipartite?](#785-Is-Graph-Bipartite?)
+* 19 [827. Making A Large Island](#827-Making-A-Large-Island)
+* 20 [839. Similar String Groups](#839-Similar-String-Groups)
+
+* [886. Possible Bipartition](#886-Possible-Bipartition)
+
+* 21 [947. Most Stones Removed with Same Row or Column](#947-Most-Stones-Removed-with-Same-Row-or-Column)
+* 22 [959. Regions Cut By Slashes](#959-Regions-Cut-By-Slashes)
+* 23 [990. Satisfiability of Equality Equations](#990-Satisfiability-of-Equality-Equations)
+* 24 [1061. Lexicographically Smallest Equivalent String](#1061-Lexicographically-Smallest-Equivalent-String)
+* 25 [1101. The Earliest Moment When Everyone Become Friends](#1101-The-Earliest-Moment-When-Everyone-Become-Friends)
+
+* 21 [1722. Minimize Hamming Distance After Swap Operations](#1722-Minimize-Hamming-Distance-After-Swap-Operations)
+* 22 [1202. Smallest String With Swaps](#1202-Smallest-String-With-Swaps)
+* 23 [1319. Number of Operations to Make Network Connected](#1319-Number-of-Operations-to-Make-Network-Connected)
+* 24 [1631. Path With Minimum Effort](#1631-Path-With-Minimum-Effort)
+* 25 [1970. Last Day Where You Can Still Cross](#1970-Last-Day-Where-You-Can-Still-Cross)
+
+* 26 [1971. Find if Path Exists in Graph](#1971-Find-if-Path-Exists-in-Graph)
+* 27 [2092. Find All People With Secret](#2092-Find-All-People-With-Secret)
+
+
+
+
+
+
+
+
+
 
 ### 128. Longest Consecutive Sequence
 
@@ -508,6 +542,86 @@ class Solution:
         return n
 ```
 
+### 399. Evaluate Division
+
+- BFS
+
+```python
+class Solution:
+    def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
+        g = defaultdict(list)
+        for (a, b), v in zip(equations, values):
+            g[a].append((b, v))
+            g[b].append((a, 1.0 / v))
+
+        def bfs(start, end):
+            if start not in g or end not in g:
+                return -1.0
+            q, visited = deque([(start, 1.0)]), set([start])
+            while q:
+                node, v = q.popleft()
+                if node == end:
+                    return v 
+                for nei, cost in g[node]:
+                    if nei not in visited:
+                        visited.add(nei)
+                        q.append((nei, v * cost))
+            return -1
+        return [bfs(s, e) for s, e in queries]
+```
+
+- union find with weight
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = [i for i in range(n)]
+        self.weight = [1 for i in range(n)]
+    
+    def find(self, n):
+        if n != self.parent[n]:
+            origin = self.parent[n]
+            self.parent[n] = self.find(self.parent[n])
+            self.weight[n] = self.weight[n] * self.weight[origin]
+        return self.parent[n]
+
+    def union(self, n1, n2, val):
+        p1 = self.find(n1)
+        p2 = self.find(n2)
+        if p1 != p2:
+            self.parent[p1] = p2
+            self.weight[p1] = val * self.weight[n2] / self.weight[n1]
+
+    def isConnected(self, n1, n2):
+        p1 = self.find(n1)
+        p2 = self.find(n2)
+        if p1 == p2:
+            return self.weight[n1] / self.weight[n2]
+        else:
+            return -1
+
+class Solution:
+    def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
+        n = len(equations)
+        uf, d, id = UF(2 * n), {}, 0
+        for (v1, v2), val in zip(equations, values):
+            if v1 not in d:
+                d[v1] = id
+                id += 1
+            if v2 not in d:
+                d[v2] = id
+                id += 1
+            uf.union(d[v1], d[v2], val)
+
+        res = [0] * len(queries) 
+        for i, (v1, v2) in enumerate(queries):
+            if v1 not in d or v2 not in d:
+                res[i] = -1
+            else:
+                res[i] = uf.isConnected(d[v1], d[v2])
+        return res
+```
+
 ### 547. Number of Provinces
 
 - DFS
@@ -604,9 +718,399 @@ class Solution:
             uf.union(u - 1, v - 1)
 ```
 
+### 685. Redundant Connection II
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n
+
+    def connected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] > self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2
+            self.rank[p2] += self.rank[p1]
+
+class Solution:
+    def findRedundantDirectedConnection(self, edges: List[List[int]]) -> List[int]:
+        def check(edges, remove):
+            edges = [[u, v] for u, v in edges if [u, v] != remove]
+            for u, v in edges:
+                if uf.connected(u, v):
+                    return False
+                uf.union(u, v)
+            return True
+
+        n = len(edges)
+        uf = UF(n + 1)
+        indegree = [0] * (n + 1)
+        res = []
+        for u, v in edges:
+            indegree[v] += 1
+            if indegree[v] == 2:
+                res = [u, v]
+        mx = max(indegree)
+        if mx < 2: # cycle
+            for u, v in edges:
+                if uf.connected(u, v):
+                    return [u, v]
+                uf.union(u, v)
+        else: # indegree == 2
+            if check(edges, res):
+                return res # second edge
+            else:
+                for e in edges:
+                    if e[1] == res[1]:
+                        return e # first edge  
+```
+
+### 694. Number of Distinct Islands
+
+```python
+class Solution:
+    def numDistinctIslands(self, grid: List[List[int]]) -> int:
+        def dfs(r, c):
+            grid[r][c] = 0
+            for i, (dr, dc) in enumerate(directions):
+                row, col = r + dr, c + dc
+                self.s += str(i)
+                if 0 <= row < R and 0 <= col < C and grid[row][col] == 1:
+                    dfs(row, col)
+
+        R, C = len(grid), len(grid[0])
+        directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+        visited = set()
+        for r in range(R):
+            for c in range(C):
+                if grid[r][c] == 1:
+                    self.s = ''
+                    dfs(r, c)
+                    visited.add(self.s)
+        return len(visited)
+```
+
+### 695. Max Area of Island
+
+-DFS
+
+```python
+class Solution:
+    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+        def dfs(r, c):
+            grid[r][c] = 0
+            res = 1
+            for dr, dc in directions:
+                row, col = r + dr, c + dc
+                if 0 <= row < R and 0 <= col < C and grid[row][col] == 1:
+                    res += dfs(row, col)
+            return res
+
+        R, C, res = len(grid), len(grid[0]), 0
+        directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+        for r in range(R):
+            for c in range(C):
+                if grid[r][c] == 1:
+                    res = max(res, dfs(r, c))
+        return res
+```
+
+- union find use rank
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n
+
+    def connected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] > self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2
+            self.rank[p2] += self.rank[p1]
+
+class Solution:
+    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+        R, C = len(grid), len(grid[0])
+        directions = [[0, 1], [1, 0]]
+        uf = UF(R * C)
+        hasIsland = False
+        for r in range(R):
+            for c in range(C):
+                if grid[r][c] == 1:
+                    hasIsland = True
+                    for dr, dc in directions:
+                        row, col = r + dr, c + dc 
+                        if 0 <= row < R and 0 <= col < C and grid[row][col] == 1 and not uf.connected(r * C + c, row * C + col):
+                            uf.union(r * C + c, row * C + col)
+        
+        if not hasIsland:
+            return 0
+        return max(uf.rank)
+```
+
+### 711. Number of Distinct Islands II
+
+```python
+class Solution:
+    def numDistinctIslands2(self, grid: List[List[int]]) -> int:
+        def dfs(r, c):
+            seen.add((r, c))
+            grid[r][c] = 0
+            for dr, dc in directions:
+                row, col = r + dr, c + dc
+                if 0 <= row < R and 0 <= col < C and grid[row][col] == 1:
+                    dfs(row, col)
+
+        def check():
+            arr = list(seen)
+            n = len(arr)
+            dist = 0
+            for i in range(n):
+                x1, y1 = arr[i]
+                for j in range(i + 1, n):
+                    x2, y2 = arr[j]
+                    dist += ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5
+            for v in visited:
+                if abs(dist - v) < 1e-5:
+                    break
+            else:
+                visited.add(dist)
+
+        R, C = len(grid), len(grid[0])
+        directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+        visited = set()
+        for r in range(R):
+            for c in range(C):
+                if grid[r][c] == 1:
+                    seen = set()
+                    dfs(r, c)
+                    check()
+        return len(visited)
+```
+
+### 721. Accounts Merge
+
+- dict to union find 
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n
+
+    def isConnected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] > self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2
+            self.rank[p2] += self.rank[p1]
+
+class Solution:
+    def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
+        emailToIndex, emailToName = {}, {}
+        for account in accounts:
+            name = account[0]
+            for email in account[1:]:
+                if email not in emailToIndex:
+                    emailToIndex[email] = len(emailToIndex)
+                    emailToName[email] = name 
+        
+        uf = UF(len(emailToIndex))
+        for account in accounts:
+            firstIndex = emailToIndex[account[1]]
+            for email in account[2:]:
+                uf.union(firstIndex, emailToIndex[email])
+        
+        d = defaultdict(list)
+        for e, i in emailToIndex.items():
+            d[uf.find(i)].append(e)
+        
+        res = []
+        for emails in d.values():
+            res.append([emailToName[emails[0]]] + sorted(emails))
+        return res
+```
+
+### 737. Sentence Similarity II
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n
+
+    def isConnected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] > self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2
+            self.rank[p2] += self.rank[p1]
+
+class Solution:
+    def areSentencesSimilarTwo(self, sentence1: List[str], sentence2: List[str], similarPairs: List[List[str]]) -> bool:
+        wordToIndex = {}
+        for a, b in similarPairs:
+            if a not in wordToIndex:
+                wordToIndex[a] = len(wordToIndex)
+            if b not in wordToIndex:
+                wordToIndex[b] = len(wordToIndex)
+        for s1 in sentence1:
+            if s1 not in wordToIndex:
+                wordToIndex[s1] = len(wordToIndex)
+        for s2 in sentence2:
+            if s2 not in wordToIndex:
+                wordToIndex[s2] = len(wordToIndex)
+
+        uf = UF(len(wordToIndex))
+        for a, b in similarPairs:
+            index1, index2 = wordToIndex[a], wordToIndex[b]
+            uf.union(index1, index2)
+        
+        if len(sentence1) != len(sentence2):
+            return False
+        for s1, s2 in zip(sentence1, sentence2):
+            index1, index2 = wordToIndex[s1], wordToIndex[s2]
+            if not uf.isConnected(index1, index2):
+                return False
+        return True
+```
+
+### 839. Similar String Groups
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+
+    def find(self, n):
+        while n != self.parent[n]:
+            print(n)
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n
+    
+    def isConnected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        self.parent[p1] = p2
+
+class Solution:
+    def numSimilarGroups(self, strs: List[str]) -> int:
+        def check(s1, s2):
+            count = 0
+            for a, b in zip(s1, s2):
+                if a != b:
+                    count += 1
+                    if count > 2:
+                        return False
+            return True
+            
+        n = len(strs)
+        uf = UF(n)
+        for i in range(n):
+            for j in range(i + 1, n):
+                if check(strs[i], strs[j]):
+                    uf.union(i, j)
+        d = Counter()
+        for s in uf.parent:
+            d[uf.find(s)] += 1
+        return len(d)
+```
+
+### 886. Possible Bipartition
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n
+
+    def connected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] > self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2
+            self.rank[p2] += self.rank[p1]
+
+class Solution:
+    def possibleBipartition(self, n: int, dislikes: List[List[int]]) -> bool:
+        g = defaultdict(list)
+        for u, v in dislikes:
+            g[u - 1].append(v - 1)
+            g[v - 1].append(u - 1)
+
+        uf = UF(n)
+        for x, nodes in g.items():
+            for y in nodes:
+                uf.union(nodes[0], y)
+                if uf.connected(x, y):
+                    return False
+        return True
+```
+
 ### 990. Satisfiability of Equality Equations
 
-- hash table
+- discrete union find
 
 ```python
 class UF:
@@ -627,7 +1131,7 @@ class UF:
 
 class Solution:
     def equationsPossible(self, equations: List[str]) -> bool:
-        uf = UF(string.ascii_lowercase)
+        uf = UF(ascii_lowercase)
         for s in equations:
             if s[1] == '=':
                 uf.union(s[0], s[-1])
@@ -677,7 +1181,80 @@ class Solution:
         return True
 ```
 
+### 1722. Minimize Hamming Distance After Swap Operations
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+
+    def find(self, n):
+        while n != self.parent[n]:
+            print(n)
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n
+    
+    def isConnected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        self.parent[p1] = p2
+
+class Solution:
+    def minimumHammingDistance(self, source: List[int], target: List[int], allowedSwaps: List[List[int]]) -> int:
+        uf = UF(len(source))
+        for u, v in allowedSwaps:
+            if not uf.isConnected(u, v):
+                uf.union(u, v)
+        d = defaultdict(list)
+        for n in range(len(source)):
+            d[uf.find(n)].append(n)
+        res = 0
+        for v in d.values():
+            c1, c2 = Counter(), Counter()
+            count = 0
+            for i in v:
+                c1[source[i]] += 1
+                c2[target[i]] += 1
+            for n in c1:
+                if n not in c2:
+                    count += c1[n]
+                elif c2[n] < c1[n]:
+                    count += c1[n] - c2[n]
+            res += count
+        return res
+```
+
 ### 1971. Find if Path Exists in Graph
+
+- DFS
+
+```python
+class Solution:
+    def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
+        g = defaultdict(list)
+        for u, v in edges:
+            g[u].append(v)
+            g[v].append(u)
+
+        def dfs(source):
+            if source == destination:
+                self.res = True
+                return 
+            for nei in g[source]:
+                if nei not in visited:
+                    visited.add(nei)
+                    dfs(nei)
+
+        visited = set([source])
+        self.res = False
+        dfs(source)
+        return self.res
+```
+
+- union find 
 
 ```python
 class UF:
@@ -766,60 +1343,6 @@ class Solution:
         return res
 ```
 
-### 685. Redundant Connection II
-
-```python
-class UF:
-    def __init__(self, n):
-        self.parent = list(range(n))
-        self.rank = [1] * n
-
-    def find(self, n):
-        while n != self.parent[n]:
-            self.parent[n] = self.parent[self.parent[n]]
-            n = self.parent[n]
-        return n
-
-    def connected(self, n1, n2):
-        return self.find(n1) == self.find(n2)
-
-    def union(self, n1, n2):
-        p1, p2 = self.find(n1), self.find(n2)
-        if self.rank[p1] > self.rank[p2]:
-            self.parent[p2] = p1
-            self.rank[p1] += self.rank[p2]
-        else:
-            self.parent[p1] = p2
-            self.rank[p2] += self.rank[p1]
-
-class Solution:
-    def findRedundantDirectedConnection(self, edges: List[List[int]]) -> List[int]:
-        n = len(edges)
-        uf = UF(n + 1)
-        parent = uf.parent[::]
-
-        conflict, cycle = -1, -1
-        for i, (node1, node2) in enumerate(edges):
-            if parent[node2] != node2: # conflict
-                conflict = i # conflict edge not connected
-            else:
-                parent[node2] = node1
-                # after produce cycle, conflict edge connected
-                if uf.find(node1) == uf.find(node2):
-                    cycle = i                   
-                else:
-                    uf.union(node1, node2) 
-
-        if conflict == -1:                                            
-            return [edges[cycle][0], edges[cycle][1]]
-        else:               
-            conflictEdge = edges[conflict]
-            if cycle != -1:
-                return [parent[conflictEdge[1]], conflictEdge[1]]
-            else:
-                return [conflictEdge[0], conflictEdge[1]]     
-```
-
 ### 778. Swim in Rising Water
 
 ```python
@@ -871,6 +1394,43 @@ class Solution:
             else:
                 l = m + 1
         return res
+```
+
+### 785. Is Graph Bipartite?
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n
+
+    def connected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] > self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2
+            self.rank[p2] += self.rank[p1]
+
+class Solution:
+    def isBipartite(self, graph: List[List[int]]) -> bool:
+        uf = UF(len(graph))
+        for x, nodes in enumerate(graph):
+            for y in nodes:
+                uf.union(nodes[0], y)
+                if uf.connected(x, y):
+                    return False
+        return True
 ```
 
 ### 1102. Path With Maximum Minimum Value
@@ -955,65 +1515,12 @@ class UF:
 class Solution:
     def minSwapsCouples(self, row: List[int]) -> int:
         n = len(row)
-        uf = UF(n // 2) # use couple as single connected node
+        uf = UF(n // 2)
         for i in range(0, n, 2):
-            # couple no. for i and i + 1 are the same
-            c1, c2 = row[i] // 2, row[i + 1] // 2
-            if c1 != c2:
-                uf.union(c1, c2)
-        return sum(uf.parent[i] != i for i in range(n // 2))
-```
-
-### 399. Evaluate Division
-
-```python
-class UF:
-    def __init__(self, n):
-        self.parent = [i for i in range(n)]
-        self.weight = [1 for i in range(n)]
-    
-    def find(self, n):
-        if n != self.parent[n]:
-            origin = self.parent[n]
-            self.parent[n] = self.find(self.parent[n])
-            self.weight[n] = self.weight[n] * self.weight[origin]
-        return self.parent[n]
-
-    def union(self, n1, n2, val):
-        p1 = self.find(n1)
-        p2 = self.find(n2)
-        if p1 != p2:
-            self.parent[p1] = p2
-            self.weight[p1] = val * self.weight[n2] / self.weight[n1]
-
-    def isConnected(self, n1, n2):
-        p1 = self.find(n1)
-        p2 = self.find(n2)
-        if p1 == p2:
-            return self.weight[n1] / self.weight[n2]
-        else:
-            return -1
-
-class Solution:
-    def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
-        n = len(equations)
-        uf, d, id = UF(2 * n), {}, 0
-        for (v1, v2), val in zip(equations, values):
-            if v1 not in d:
-                d[v1] = id
-                id += 1
-            if v2 not in d:
-                d[v2] = id
-                id += 1
-            uf.union(d[v1], d[v2], val)
-
-        res = [0] * len(queries) 
-        for i, (v1, v2) in enumerate(queries):
-            if v1 not in d or v2 not in d:
-                res[i] = -1
-            else:
-                res[i] = uf.isConnected(d[v1], d[v2])
-        return res
+            a, b = row[i] // 2, row[i + 1] // 2
+            if a != b:
+                uf.union(a, b)
+        return sum(uf.find(i) != i for i in range(n // 2))
 ```
 
 1319. Number of Operations to Make Network Connected
@@ -1462,4 +1969,174 @@ class Solution:
             if uf.isConnected(i, 0):
                 res.add(i)
         return list(res)
+```
+
+### 1361. Validate Binary Tree Nodes
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n
+
+    def isConnected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] > self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2
+            self.rank[p2] += self.rank[p1]
+
+class Solution:
+    def validateBinaryTreeNodes(self, n: int, leftChild: List[int], rightChild: List[int]) -> bool:
+        edges = 0
+        indegree = [0 for i in range(n)]
+        uf = UF(n)
+        for i, (l, r) in enumerate(zip(leftChild, rightChild)):
+            if l != -1:
+                edges += 1
+                indegree[l] += 1
+                uf.union(i, l)
+            if r != -1:
+                edges += 1
+                indegree[r] += 1
+                uf.union(i, r)
+        d = Counter()
+        for v in uf.parent:
+            d[uf.find(v)] += 1
+        return edges == n - 1 and max(indegree) < 2 and len(d) == 1
+```
+
+### 1970. Last Day Where You Can Still Cross
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [1] * n 
+
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n
+
+    def isConnected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] > self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2
+            self.rank[p2] += self.rank[p1]
+
+class Solution:
+    def latestDayToCross(self, row: int, col: int, cells: List[List[int]]) -> int:
+        R, C = row, col 
+        directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+        cells = [(u - 1, v - 1) for u, v in cells]
+        uf = UF(R * C + 2)
+        n = len(cells)
+        set_cells = set(cells)
+        ceil, floor = R * C, R * C + 1
+        for i in range(n - 1, -1, -1):
+            r, c = cells[i]
+            set_cells.remove((r, c))
+            for dr, dc in directions:
+                row, col = r + dr, c + dc 
+                if 0 <= row < R and 0 <= col < C and (row, col) not in set_cells and not uf.isConnected(r * C + c, row * C + col):
+                    uf.union(r * C + c, row * C + col)
+            if r + 1 == R:
+                uf.union(r * C + c, floor)
+            if r == 0:
+                uf.union(r * C + c, ceil)
+            if uf.isConnected(floor, ceil):
+                return i
+```
+
+### 1061. Lexicographically Smallest Equivalent String
+
+```python
+class UF:
+    def __init__(self, nums):
+        self.parent = {c: c for c in nums}
+
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n
+
+    def isConnected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        self.parent[p1] = p2  
+
+class Solution:
+    def smallestEquivalentString(self, s1: str, s2: str, baseStr: str) -> str:
+        uf = UF(ascii_lowercase)
+        for a, b in zip(s1, s2):
+            if not uf.isConnected(a, b):
+                uf.union(a, b)
+
+        res = ''
+        for c in baseStr:
+            for l in ascii_lowercase:
+                if uf.isConnected(c, l):
+                    res += l 
+                    break
+        return res
+```
+
+### 1101. The Earliest Moment When Everyone Become Friends
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n
+
+    def isConnected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] > self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2
+            self.rank[p2] += self.rank[p1]
+
+class Solution:
+    def earliestAcq(self, logs: List[List[int]], n: int) -> int:
+        uf = UF(n)
+        logs.sort()
+        for t, u, v in logs:
+            if not uf.isConnected(u, v):
+                uf.union(u, v)
+            if max(uf.rank) == n:
+                return t 
+        return -1
 ```
