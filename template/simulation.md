@@ -367,3 +367,74 @@ class Solution:
             res[i] = count
         return res
 ```
+
+### 2452. Words Within Two Edits of Dictionary
+
+```python
+class Solution:
+    def twoEditWords(self, queries: List[str], dictionary: List[str]) -> List[str]:
+        def check(word1, word2):
+            res = 0
+            for a, b in zip(word1, word2):
+                if a != b:
+                    res += 1
+            return res <= 2 
+        res = []
+        for q in queries:
+            for word in dictionary:
+                if check(q, word):
+                    res.append(q)
+                    break 
+        return res
+```
+
+### 1535. Find the Winner of an Array Game
+
+```python
+class Solution:
+    def getWinner(self, arr: List[int], k: int) -> int:
+        mx = arr[0]
+        count = 0
+        for i in range(1, len(arr)):
+            if arr[i] > mx:
+                count = 1
+                mx = arr[i]
+            else:
+                count += 1
+            if count == k:
+                return mx
+        return mx
+```
+
+### 2294. Partition Array Such That Maximum Difference Is K
+
+```python
+class Solution:
+    def partitionArray(self, nums: List[int], k: int) -> int:
+        n = len(nums)
+        nums.sort()
+        # [1, 2, 3, 5, 6]
+        nums = nums + [inf]
+        l = 0
+        res = 0
+        for r, v in enumerate(nums):
+            if v - nums[l] > k:
+                res += 1
+                l = r 
+        return res
+```
+
+### 2526. Find Consecutive Integers from a Data Stream
+
+```python
+class DataStream:
+
+    def __init__(self, value: int, k: int):
+        self.value = value
+        self.k = k
+        self.cnt = 0
+
+    def consec(self, num: int) -> bool:
+        self.cnt = 0 if num != self.value else self.cnt + 1
+        return self.cnt >= self.k
+```

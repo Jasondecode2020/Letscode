@@ -165,3 +165,28 @@ class Solution:
             res += n * (n - 1) // 2
         return res
 ```
+
+### 835. Image Overlap
+
+```python
+class Solution:
+    def largestOverlap(self, img1: List[List[int]], img2: List[List[int]]) -> int:
+        R, C = len(img1), len(img1[0])
+        def check(img):
+            arr = []
+            for r in range(R):
+                for c in range(C):
+                    if img[r][c] == 1:
+                        arr.append((r, c))
+            return arr
+
+        arr1, arr2 = check(img1), check(img2)
+        d = defaultdict(int)
+        res = 0
+        for x1, y1 in arr1:
+            for x2, y2 in arr2:
+                translation = (x2 - x1, y2 - y1)
+                d[translation] += 1
+                res = max(res, d[translation])
+        return res
+```

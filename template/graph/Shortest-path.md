@@ -1,130 +1,59 @@
-## 1 PQ
+## 1 Dijkstra template
 
-* [743. Network Delay Time](#743-Network-Delay-Time)
-* [2737. Find the Closest Marked Node](#2737. Find the Closest Marked Node)
-
-## 2 Floyd
-* [743. Network Delay Time](#743-Network-Delay-Time)
-* [1334. Find the City With the Smallest Number of Neighbors at a Threshold Distance](#1334-Find-the-City-With-the-Smallest-Number-of-Neighbors-at-a-Threshold-Distance)
-
-
-## 3 Bellman-Ford
-
-* [787. Cheapest Flights Within K Stops](#787-Cheapest-Flights-Within-K-Stops)
-* [743. Network Delay Time](#743-Network-Delay-Time)
-
-## 4 Dijkstra template
-
-* [2473. Minimum Cost to Buy Apples](#2473-Minimum-Cost-to-Buy-Apples)
-* [1976. Number of Ways to Arrive at Destination](#1976-Number-of-Ways-to-Arrive-at-Destination)
-* [505. The Maze II](#505-The-Maze-II)
+- with node from 1 to n
 
 ```python
 class Solution:
     def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
-        pq, d, g = [(0, k)], defaultdict(int), defaultdict(list)
+        g = defaultdict(list)
         for u, v, w in times:
-            g[u].append((v, w))
-        
-        while pq:
-            time, node = heappop(pq)
-            if node not in d:
-                d[node] = time
-                for nei, t in g[node]:
-                    heappush(pq, (time + t, nei))
-        return max(d.values()) if len(d) == n else -1
-```
+            g[u - 1].append((v - 1, w))
 
-### 2737. Find the Closest Marked Node
-
-```python
-class Solution:
-    def minimumDistance(self, n: int, edges: List[List[int]], s: int, marked: List[int]) -> int:
-        pq, d, g = [(0, s)], defaultdict(int), defaultdict(list)
-        for u, v, w in edges:
-            g[u].append((v, w))
-        
-        marked = set(marked)
+        dist = [inf] * n 
+        dist[k - 1] = 0
+        pq = [(0, k - 1)]
         while pq:
-            cost, node = heappop(pq)
-            if node not in d:
-                d[node] = cost
-                for nei, c in g[node]:
-                    heappush(pq, (cost + c, nei))
-        res = inf
-        for k, v in d.items():
-            if k in marked:
-                res = min(res, v)
+            c, x = heappop(pq)
+            if c > dist[x]:
+                continue
+            for y, cost in g[x]:
+                d = dist[x] + cost 
+                if d < dist[y]:
+                    dist[y] = d 
+                    heappush(pq, (d, y))
+        res = max(dist)
         return res if res != inf else -1
 ```
 
-## 2 Floyd
+* [743. Network Delay Time](#743-Network-Delay-Time) 1800
+* [2473. Minimum Cost to Buy Apples](#2473-Minimum-Cost-to-Buy-Apples)
+* [1976. Number of Ways to Arrive at Destination](#1976-Number-of-Ways-to-Arrive-at-Destination)
+* [505. The Maze II](#505-The-Maze-II)
 
 ### 743. Network Delay Time
 
 ```python
 class Solution:
     def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
-        g = [[inf] * (n + 1) for r in range(n + 1)]
+        g = defaultdict(list)
         for u, v, w in times:
-            g[u][v] = w
-        for i in range(1, n + 1):
-            g[i][i] = 0
+            g[u - 1].append((v - 1, w))
 
-        for m in range(1, n + 1):
-            for i in range(1, n + 1):
-                for j in range(1, n + 1):
-                    g[i][j] = min(g[i][j], g[i][m] + g[m][j])
-        res = max(g[k][i] for i in range(1, n + 1))
+        dist = [inf] * n 
+        dist[k - 1] = 0
+        pq = [(0, k - 1)]
+        while pq:
+            c, x = heappop(pq)
+            if c > dist[x]:
+                continue
+            for y, cost in g[x]:
+                d = dist[x] + cost 
+                if d < dist[y]:
+                    dist[y] = d 
+                    heappush(pq, (d, y))
+        res = max(dist)
         return res if res != inf else -1
 ```
-
-### 1334. Find the City With the Smallest Number of Neighbors at a Threshold Distance
-
-```python
-class Solution:
-    def findTheCity(self, n: int, edges: List[List[int]], distanceThreshold: int) -> int:
-        g = [[inf] * n for r in range(n)]
-        for u, v, w in edges:
-            g[u][v] = w
-            g[v][u] = w
-        for i in range(0, n):
-            g[i][i] = 0
-        for m in range(0, n):
-            for i in range(0, n):
-                for j in range(0, n):
-                    g[i][j] = min(g[i][j], g[i][m] + g[m][j])
-
-        res, ans = 0, inf
-        for r in range(n):
-            count = 0
-            for c in range(n):
-                if g[r][c] <= distanceThreshold:
-                    count += 1
-            if count <= ans:
-                ans = count
-                res = r
-        return res
-```
-
-## 3 Bellman-Ford
-
-### 787. Cheapest Flights Within K Stops
-
-```python
-class Solution:
-    def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
-        bf = [inf] * n
-        bf[src] = 0
-        for i in range(k + 1):
-            temp = bf[::]
-            for s, d, p in flights:
-                temp[d] = min(temp[d], bf[s] + p)
-            bf = temp
-        return bf[dst] if bf[dst] != inf else -1
-```
-
-## 4 Dijkstra template
 
 ### 2473. Minimum Cost to Buy Apples
 
@@ -232,3 +161,125 @@ class Solution:
                     heappush(pq, (d + dist, row, col))
         return -1
 ```
+
+## 1 PQ
+
+* [743. Network Delay Time](#743-Network-Delay-Time)
+* [2737. Find the Closest Marked Node](#2737. Find the Closest Marked Node)
+
+## 2 Floyd
+* [743. Network Delay Time](#743-Network-Delay-Time)
+* [1334. Find the City With the Smallest Number of Neighbors at a Threshold Distance](#1334-Find-the-City-With-the-Smallest-Number-of-Neighbors-at-a-Threshold-Distance)
+
+
+## 3 Bellman-Ford
+
+* [787. Cheapest Flights Within K Stops](#787-Cheapest-Flights-Within-K-Stops)
+* [743. Network Delay Time](#743-Network-Delay-Time)
+
+
+```python
+class Solution:
+    def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
+        pq, d, g = [(0, k)], defaultdict(int), defaultdict(list)
+        for u, v, w in times:
+            g[u].append((v, w))
+        
+        while pq:
+            time, node = heappop(pq)
+            if node not in d:
+                d[node] = time
+                for nei, t in g[node]:
+                    heappush(pq, (time + t, nei))
+        return max(d.values()) if len(d) == n else -1
+```
+
+### 2737. Find the Closest Marked Node
+
+```python
+class Solution:
+    def minimumDistance(self, n: int, edges: List[List[int]], s: int, marked: List[int]) -> int:
+        pq, d, g = [(0, s)], defaultdict(int), defaultdict(list)
+        for u, v, w in edges:
+            g[u].append((v, w))
+        
+        marked = set(marked)
+        while pq:
+            cost, node = heappop(pq)
+            if node not in d:
+                d[node] = cost
+                for nei, c in g[node]:
+                    heappush(pq, (cost + c, nei))
+        res = inf
+        for k, v in d.items():
+            if k in marked:
+                res = min(res, v)
+        return res if res != inf else -1
+```
+
+## 2 Floyd
+
+### 743. Network Delay Time
+
+```python
+class Solution:
+    def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
+        g = [[inf] * (n + 1) for r in range(n + 1)]
+        for u, v, w in times:
+            g[u][v] = w
+        for i in range(1, n + 1):
+            g[i][i] = 0
+
+        for m in range(1, n + 1):
+            for i in range(1, n + 1):
+                for j in range(1, n + 1):
+                    g[i][j] = min(g[i][j], g[i][m] + g[m][j])
+        res = max(g[k][i] for i in range(1, n + 1))
+        return res if res != inf else -1
+```
+
+### 1334. Find the City With the Smallest Number of Neighbors at a Threshold Distance
+
+```python
+class Solution:
+    def findTheCity(self, n: int, edges: List[List[int]], distanceThreshold: int) -> int:
+        g = [[inf] * n for r in range(n)]
+        for u, v, w in edges:
+            g[u][v] = w
+            g[v][u] = w
+        for i in range(0, n):
+            g[i][i] = 0
+        for m in range(0, n):
+            for i in range(0, n):
+                for j in range(0, n):
+                    g[i][j] = min(g[i][j], g[i][m] + g[m][j])
+
+        res, ans = 0, inf
+        for r in range(n):
+            count = 0
+            for c in range(n):
+                if g[r][c] <= distanceThreshold:
+                    count += 1
+            if count <= ans:
+                ans = count
+                res = r
+        return res
+```
+
+## 3 Bellman-Ford
+
+### 787. Cheapest Flights Within K Stops
+
+```python
+class Solution:
+    def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
+        bf = [inf] * n
+        bf[src] = 0
+        for i in range(k + 1):
+            temp = bf[::]
+            for s, d, p in flights:
+                temp[d] = min(temp[d], bf[s] + p)
+            bf = temp
+        return bf[dst] if bf[dst] != inf else -1
+```
+

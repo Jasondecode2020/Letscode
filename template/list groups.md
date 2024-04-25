@@ -560,3 +560,60 @@ class Solution:
             i = j 
         return res
 ```
+
+### 2419. Longest Subarray With Maximum Bitwise AND
+
+```python
+class Solution:
+    def longestSubarray(self, nums: List[int]) -> int:
+        mx = max(nums)
+        i = 0
+        res = 0
+        n = len(nums)
+        while i < n:
+            if nums[i] == mx:
+                j = i
+                while j < n and nums[j] == mx:
+                    j += 1
+                res = max(res, j - i)
+                i = j 
+            else:
+                i += 1
+        return res
+```
+
+### 2645. Minimum Additions to Make Valid String
+
+```python
+class Solution:
+    def addMinimum(self, word: str) -> int:
+        i, n = 0, len(word)
+        res = 0
+        while i < n:
+            j = i + 1
+            while j < n and ord(word[j]) - ord(word[j - 1]) in [1, 2]:
+                j += 1
+            res += 3 - (j - i)
+            i = j 
+        return res
+```
+
+### 1759. Count Number of Homogenous Substrings
+
+```python
+class Solution:
+    def countHomogenous(self, s: str) -> int:
+        res = 0
+        i = 0
+        n = len(s)
+        mod = 10 ** 9 + 7
+        while i < n:
+            start = i 
+            j = start 
+            while j < n and s[j] == s[start]:
+                j += 1
+            m = j - i
+            res += m * (m + 1) // 2
+            i = j 
+        return res % mod
+```

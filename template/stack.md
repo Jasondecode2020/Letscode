@@ -173,3 +173,48 @@ class Solution:
                 stack.append(p)
         return len(stack)
 ```
+
+### 1190. Reverse Substrings Between Each Pair of Parentheses
+
+```python
+class Solution:
+    def reverseParentheses(self, s: str) -> str:
+        stack = ['']
+        for c in s:
+            if c == '(':
+                stack.append('')
+            elif c == ')':
+                last = stack.pop()
+                stack[-1] += last[::-1]
+            else:
+                stack[-1] += c 
+        return stack[0]
+```
+
+### 946. Validate Stack Sequences
+
+```python
+class Solution:
+    def validateStackSequences(self, pushed: List[int], popped: List[int]) -> bool:
+        stack, i = [], 0
+        for n in pushed:
+            stack.append(n)
+            while stack and stack[-1] == popped[i]:
+                stack.pop()
+                i += 1
+        return not stack
+```
+
+### 1003. Check If Word Is Valid After Substitutions
+
+```python
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack = []
+        for c in s:
+            stack.append(c)
+            if len(stack) > 2 and ''.join(stack[-3:]) == 'abc':
+                for i in range(3):
+                    stack.pop()
+        return not stack
+```

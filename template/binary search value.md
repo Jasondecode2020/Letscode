@@ -871,3 +871,26 @@ class Solution:
                 r = m - eps
         return res 
 ```
+
+### 774. Minimize Max Distance to Gas Station
+
+```python
+class Solution:
+    def minmaxGasDist(self, stations: List[int], k: int) -> float:
+        def check(threshold):
+            count = 0
+            for d in dist:
+                count += int(d / threshold)
+            return count <= k
+
+        dist = [stations[i] - stations[i - 1] for i in range(1, len(stations))]
+        l, r, res = 0, max(dist), 0
+        while abs(r - l) > 10 ** -6:
+            m = l + (r - l) / 2
+            if check(m):
+                res = m
+                r = m
+            else:
+                l = m
+        return res
+```

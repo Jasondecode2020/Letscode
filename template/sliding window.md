@@ -1305,3 +1305,21 @@ class Solution:
                 res += 1
         return res
 ```
+
+### 3090. Maximum Length Substring With Two Occurrences
+
+```python
+class Solution:
+    def maximumLengthSubstring(self, s: str) -> int:
+        res = 0
+        l = 0
+        d = defaultdict(int)
+        for r, c in enumerate(s):
+            d[c] += 1
+            while d[c] > 2:
+                d[s[l]] -= 1
+                l += 1
+            res = max(res, r - l + 1)
+        return res 
+```
+

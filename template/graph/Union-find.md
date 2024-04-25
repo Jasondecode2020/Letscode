@@ -130,38 +130,45 @@ class UF:
 * 14 [721. Accounts Merge](#721-Accounts-Merge)
 * 15 [737. Sentence Similarity II](#737-Sentence-Similarity-II)
 
-
 * 16 [765. Couples Holding Hands](#765-Couples-Holding-Hands)
 * 17 [778. Swim in Rising Water](#778-Swim-in-Rising-Water)
 * 18 [785. Is Graph Bipartite?](#785-Is-Graph-Bipartite?)
 * 19 [827. Making A Large Island](#827-Making-A-Large-Island)
 * 20 [839. Similar String Groups](#839-Similar-String-Groups)
 
-* [886. Possible Bipartition](#886-Possible-Bipartition)
+* 21 [886. Possible Bipartition](#886-Possible-Bipartition)
+* 22 [924. Minimize Malware Spread](#924-Minimize-Malware-Spread)
+* 23 [928. Minimize Malware Spread II](#928-Minimize-Malware-Spread-II)
+* 24 [947. Most Stones Removed with Same Row or Column](#947-Most-Stones-Removed-with-Same-Row-or-Column)
+* 25 [952. Largest Component Size by Common Factor](#952-Largest-Component-Size-by-Common-Factor)
 
-* 21 [947. Most Stones Removed with Same Row or Column](#947-Most-Stones-Removed-with-Same-Row-or-Column)
-* 22 [959. Regions Cut By Slashes](#959-Regions-Cut-By-Slashes)
-* 23 [990. Satisfiability of Equality Equations](#990-Satisfiability-of-Equality-Equations)
-* 24 [1061. Lexicographically Smallest Equivalent String](#1061-Lexicographically-Smallest-Equivalent-String)
-* 25 [1101. The Earliest Moment When Everyone Become Friends](#1101-The-Earliest-Moment-When-Everyone-Become-Friends)
+* 26 [959. Regions Cut By Slashes](#959-Regions-Cut-By-Slashes)
+* 27 [990. Satisfiability of Equality Equations](#990-Satisfiability-of-Equality-Equations)
+* 28 [1020. Number of Enclaves](#1020-Number-of-Enclaves)
+* 29 [1061. Lexicographically Smallest Equivalent String](#1061-Lexicographically-Smallest-Equivalent-String)
+* 30 [1101. The Earliest Moment When Everyone Become Friends](#1101-The-Earliest-Moment-When-Everyone-Become-Friends)
 
-* 21 [1722. Minimize Hamming Distance After Swap Operations](#1722-Minimize-Hamming-Distance-After-Swap-Operations)
-* 22 [1202. Smallest String With Swaps](#1202-Smallest-String-With-Swaps)
-* 23 [1319. Number of Operations to Make Network Connected](#1319-Number-of-Operations-to-Make-Network-Connected)
-* 24 [1631. Path With Minimum Effort](#1631-Path-With-Minimum-Effort)
-* 25 [1970. Last Day Where You Can Still Cross](#1970-Last-Day-Where-You-Can-Still-Cross)
+* 31 [1102. Path With Maximum Minimum Value](#1102-Path-With-Maximum-Minimum-Value)
+* 32 [1135. Connecting Cities With Minimum Cost](#1135-Connecting-Cities-With-Minimum-Cost)
+* 33 [1168. Optimize Water Distribution in a Village](#1168-Optimize-Water-Distribution-in-a-Village)
+* 34 [1254. Number of Closed Islands](#1254-Number-of-Closed-Islands)
+* 35 [1258. Synonymous Sentences](#1258-Synonymous-Sentences)
 
-* 26 [1971. Find if Path Exists in Graph](#1971-Find-if-Path-Exists-in-Graph)
-* 27 [2092. Find All People With Secret](#2092-Find-All-People-With-Secret)
+* 36 [1267. Count Servers that Communicate](#1267-Count-Servers-that-Communicate)
+* 37 [1319. Number of Operations to Make Network Connected](#1319-Number-of-Operations-to-Make-Network-Connected)
+* 38 [1361. Validate Binary Tree Nodes](#1361-Validate-Binary-Tree-Nodes)
+* 39 [1627. Graph Connectivity With Threshold](#1627-Graph-Connectivity-With-Threshold)
+* 40 [1722. Minimize Hamming Distance After Swap Operations](#1722-Minimize-Hamming-Distance-After-Swap-Operations)
 
+* 41 [1202. Smallest String With Swaps](#1202-Smallest-String-With-Swaps)
+* 42 [1631. Path With Minimum Effort](#1631-Path-With-Minimum-Effort)
+* 43 [1970. Last Day Where You Can Still Cross](#1970-Last-Day-Where-You-Can-Still-Cross)
+* 44 [1971. Find if Path Exists in Graph](#1971-Find-if-Path-Exists-in-Graph)
+* 45 [1998. GCD Sort of an Array](#1998-GCD-Sort-of-an-Array)
 
-
-
-
-
-
-
-
+* 46 [2092. Find All People With Secret](#2092-Find-All-People-With-Secret)
+* 47 [2709. Greatest Common Divisor Traversal](#2709-Greatest-Common-Divisor-Traversal)
+* [1579. Remove Max Number of Edges to Keep Graph Fully Traversable](#1579-Remove-Max-Number-of-Edges-to-Keep-Graph-Fully-Traversable)
 
 ### 128. Longest Consecutive Sequence
 
@@ -180,6 +187,23 @@ class Solution:
                     n += 1
                 res = max(res, ans)
         return res
+```
+
+### 2501. Longest Square Streak in an Array
+
+```python
+class Solution:
+    def longestSquareStreak(self, nums: List[int]) -> int:
+        s = set(nums)
+        res = -1
+        for n in nums:
+            if n ** (1 / 2) not in s:
+                ans = 1
+                while n * n in s:
+                    ans += 1
+                    n = n * n 
+                res = max(res, ans)
+        return res if res > 1 else -1
 ```
 
 - discrete mathematics
@@ -1022,6 +1046,59 @@ class Solution:
         return True
 ```
 
+### 778. Swim in Rising Water
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n
+
+    def connected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] > self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2
+            self.rank[p2] += self.rank[p1]
+
+class Solution:
+    def swimInWater(self, grid: List[List[int]]) -> int:
+        def check(threshold):
+            uf = UF(R * C)
+            for r in range(R):
+                for c in range(C):
+                    if r == 0 and c == 0 and grid[r][c] > threshold:
+                        return False # speed up a bit
+                    if grid[r][c] <= threshold:
+                        for dr, dc in [[1, 0], [0, 1]]:
+                            row, col = r + dr, c + dc
+                            if 0 <= row < R and 0 <= col < C and grid[row][col] <= threshold and not uf.connected(row * C + col, r * C + c):
+                                uf.union(row * C + col, r * C + c)
+            return uf.connected(0, (R - 1) * C + C - 1)
+
+        R, C = len(grid), len(grid[0])
+        l, r, res = 0, R * C, 0
+        while l <= r:
+            m = l + (r - l) // 2
+            if check(m):
+                res = m
+                r = m - 1
+            else:
+                l = m + 1
+        return res
+```
+
 ### 839. Similar String Groups
 
 ```python
@@ -1106,6 +1183,200 @@ class Solution:
                 if uf.connected(x, y):
                     return False
         return True
+```
+
+### 924. Minimize Malware Spread
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n
+
+    def isConnected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] >= self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2
+            self.rank[p2] += self.rank[p1]
+
+class Solution:
+    def minMalwareSpread(self, graph: List[List[int]], initial: List[int]) -> int:
+        n = len(graph)
+        uf = UF(n)
+        R, C = len(graph), len(graph[0])
+        for i in range(n):
+            for j in range(n):
+                if graph[i][j] and not uf.isConnected(i, j):
+                    uf.union(i, j)
+        
+        infected = defaultdict(int)
+        for i in initial:
+            infected[uf.find(i)] += 1
+        
+        max_size, res = 0, min(initial)
+        for i in initial:
+            infection_count = infected[uf.find(i)]
+            if infection_count != 1:
+                continue
+            size = uf.rank[uf.find(i)]
+            if size > max_size:
+                max_size = size 
+                res = i 
+            elif size == max_size and i < res:
+                res = i
+        return res
+```
+
+### 928. Minimize Malware Spread II
+
+```python
+class UF:
+    def __init__(self, n: int):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+    
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n
+    
+    def isConnected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] >= self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2
+            self.rank[p2] += self.rank[p1]
+
+class Solution:
+    def minMalwareSpread(self, graph: List[List[int]], initial: List[int]) -> int:
+        n = len(graph)
+        initial.sort()
+        minsize = inf
+        res = -1
+        for i in initial:
+            uf = UF(n + 1) # n is dummy node
+            for r in range(n):
+                for c in range(n):
+                    if r != i and c != i and graph[r][c] and not uf.isConnected(r, c):
+                        uf.union(r, c)
+            for j in initial:
+                if j != i and not uf.isConnected(j, n):
+                    uf.union(j, n)
+            size = uf.rank[uf.find(n)]
+            if size < minsize:
+                minsize = size
+                res = i
+        return res
+```
+
+### 952. Largest Component Size by Common Factor
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+    
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n 
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] > self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2 
+            self.rank[p2] += self.rank[p1]
+
+    def isConnected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+class Solution:
+    def largestComponentSize(self, nums: List[int]) -> int:
+        uf = UF(max(nums) + 1)
+        for n in nums:
+            up_bound = int(sqrt(n))
+            for i in range(2, up_bound + 1):
+                if n % i == 0:
+                    uf.union(n, i)
+                    uf.union(n, n // i)
+        d = Counter()
+        for n in nums:
+            d[uf.find(n)] += 1
+        return max(d.values())
+```
+
+- divisors
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+    
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n 
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] > self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2 
+            self.rank[p2] += self.rank[p1]
+
+    def isConnected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+divisors = defaultdict(list)
+def ePrime(n): # include n
+    primes = [False] * 2 + [True] * (n - 1)
+    for i in range(2, n + 1):
+        if primes[i]:
+            for j in range(i, n + 1, i):
+                divisors[j].append(i)
+                primes[j] = False
+ePrime(100001)
+
+class Solution:
+    def largestComponentSize(self, nums: List[int]) -> int:
+        uf = UF(max(nums) + 1)
+        for i in nums:
+            for j, k in pairwise(divisors[i]):
+                uf.union(k, j)
+        d = defaultdict(int)
+        for i in nums:
+            if i == 1:
+                continue
+            res = uf.find(divisors[i][0])
+            d[res] += 1
+        return max(d.values())
 ```
 
 ### 990. Satisfiability of Equality Equations
@@ -1340,59 +1611,6 @@ class Solution:
                                 ans += cur_uf.rank[root]
                                 visited.add(root)
                 res = max(res, ans, cur_uf.rank[cur_uf.find(r * C + c)])
-        return res
-```
-
-### 778. Swim in Rising Water
-
-```python
-class UF:
-    def __init__(self, n):
-        self.parent = list(range(n))
-        self.rank = [1] * n
-
-    def find(self, n):
-        while n != self.parent[n]:
-            self.parent[n] = self.parent[self.parent[n]]
-            n = self.parent[n]
-        return n
-
-    def connected(self, n1, n2):
-        return self.find(n1) == self.find(n2)
-
-    def union(self, n1, n2):
-        p1, p2 = self.find(n1), self.find(n2)
-        if self.rank[p1] > self.rank[p2]:
-            self.parent[p2] = p1
-            self.rank[p1] += self.rank[p2]
-        else:
-            self.parent[p1] = p2
-            self.rank[p2] += self.rank[p1]
-
-class Solution:
-    def swimInWater(self, grid: List[List[int]]) -> int:
-        def check(threshold):
-            uf = UF(R * C)
-            for r in range(R):
-                for c in range(C):
-                    if r == 0 and c == 0 and grid[r][c] > threshold:
-                        return False # speed up a bit
-                    if grid[r][c] <= threshold:
-                        for dr, dc in [[1, 0], [0, 1]]:
-                            row, col = r + dr, c + dc
-                            if 0 <= row < R and 0 <= col < C and grid[row][col] <= threshold and not uf.connected(row * C + col, r * C + c):
-                                uf.union(row * C + col, r * C + c)
-            return uf.connected(0, (R - 1) * C + C - 1)
-
-        R, C = len(grid), len(grid[0])
-        l, r, res = 0, R * C, 0
-        while l <= r:
-            m = l + (r - l) // 2
-            if check(m):
-                res = m
-                r = m - 1
-            else:
-                l = m + 1
         return res
 ```
 
@@ -2128,6 +2346,8 @@ class UF:
         else:
             self.parent[p1] = p2
             self.rank[p2] += self.rank[p1]
+            
+# method 2:
 
 class Solution:
     def earliestAcq(self, logs: List[List[int]], n: int) -> int:
@@ -2138,5 +2358,445 @@ class Solution:
                 uf.union(u, v)
             if max(uf.rank) == n:
                 return t 
+        return -1
+
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+        self.n = 1
+
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n 
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] > self.rank[p2]:
+            self.parent[p2] = self.parent[p1]
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = self.parent[p2]
+            self.rank[p2] += self.rank[p1]
+        self.n += 1
+
+    def isConnected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+class Solution:
+    def earliestAcq(self, logs: List[List[int]], n: int) -> int:
+        uf = UF(n)
+        logs.sort()
+        for t, s, e in logs:
+            if not uf.isConnected(s, e):
+                uf.union(s, e)
+            if uf.n == n:
+                return t 
+        return -1
+```
+
+### 1998. GCD Sort of an Array
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+    
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n 
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] > self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2 
+            self.rank[p2] += self.rank[p1]
+
+    def isConnected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+divisors = defaultdict(list)
+def ePrime(n):
+    primes = [False] * 2 + [True] * (n - 1)
+    for i in range(n + 1):
+        if primes[i]:
+            for j in range(i, n + 1, i):
+                divisors[j].append(i)
+                primes[j] = False
+ePrime(100001)  
+       
+class Solution:
+    def gcdSort(self, nums: List[int]) -> bool:
+        uf = UF(max(nums) + 1)
+        for n in nums:
+            for a, b in pairwise(divisors[n]):
+                uf.union(a, b)
+
+        d = defaultdict(list)
+        for i, n in enumerate(nums):
+            res = uf.find(divisors[n][0])
+            d[res].append((n, i))
+        res = [0] * len(nums)
+        for k, v in d.items():
+            for (a, i), j in zip(sorted(v), sorted(b for a, b in v)):
+                res[j] = a
+        return res == sorted(nums)
+```
+
+### 1627. Graph Connectivity With Threshold
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+    
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n 
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] > self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2 
+            self.rank[p2] += self.rank[p1]
+
+    def isConnected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+class Solution:
+    def areConnected(self, n: int, threshold: int, queries: List[List[int]]) -> List[bool]:
+        uf = UF(n + 1)
+        res = []
+        for i in range(threshold + 1, n + 1, 1): 
+            for j in range(i, n + 1, i):
+                uf.union(i, j)
+        for x, y in queries:                       
+            res.append(uf.isConnected(x, y))
+        return res
+```
+
+### 1020. Number of Enclaves
+
+```python
+class Solution:
+    def numEnclaves(self, grid: List[List[int]]) -> int:
+        q = deque()
+        R, C = len(grid), len(grid[0])
+        direction = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+        for r in range(R):
+            for c in range(C):
+                if (r == 0 or r == R - 1 or c == 0 or c == C - 1) and grid[r][c] == 1:
+                    q.append((r, c))
+                    grid[r][c] = 0
+        
+        while q:
+            r, c = q.popleft()
+            for dr, dc in direction:
+                row, col = r + dr, c + dc
+                if 0 <= row < R and 0 <= col < C and grid[row][col] == 1:
+                    grid[row][col] = 0
+                    q.append((row, col))
+        return sum(grid[r][c] for r in range(R) for c in range(C))
+```
+
+### 1135. Connecting Cities With Minimum Cost
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n
+    
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] > self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2
+            self.rank[p2] += self.rank[p1]
+
+class Solution:
+    def minimumCost(self, n: int, connections: List[List[int]]) -> int:
+        connections.sort(key = lambda x: x[2])
+        uf, res, edge = UF(n), 0, 0
+        for u, v, c in connections:
+            if uf.find(u - 1) != uf.find(v - 1):
+                uf.union(u - 1, v - 1)
+                res += c
+                edge += 1
+            if edge == n - 1:
+                return res
+        return -1
+```
+
+### 1168. Optimize Water Distribution in a Village
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n
+    
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] > self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2
+            self.rank[p2] += self.rank[p1]
+
+class Solution:
+    def minCostToSupplyWater(self, n: int, wells: List[int], pipes: List[List[int]]) -> int:
+        for v in range(1, n + 1):
+            pipes.append([0, v, wells[v - 1]])
+        
+        pipes.sort(key = lambda x: x[2])
+        uf, res, edge = UF(n + 1), 0, 0
+        for u, v, c in pipes:
+            if uf.find(u) != uf.find(v):
+                uf.union(u, v)
+                edge += 1
+                res += c
+            if edge == n:
+                break
+        return res
+```
+
+### 1254. Number of Closed Islands
+
+```python
+class Solution:
+    def closedIsland(self, grid: List[List[int]]) -> int:
+        def dfs(i, j):
+            if grid[i][j] == 1:
+                return True
+            elif i == 0 or i == R - 1 or j == 0 or j == C - 1:
+                return False
+            grid[i][j] = 1
+            res = True
+            for dr, dc in directions:
+                row, col = i + dr, j + dc
+                res &= dfs(row, col)
+            return res
+
+        res, R, C = 0, len(grid),len(grid[0])
+        directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+        for i in range(1, R - 1):
+            for j in range(1, C - 1):
+                if not grid[i][j]:
+                    res += dfs(i, j)
+        return res
+```
+
+### 1267. Count Servers that Communicate
+
+```python
+class Solution:
+    def countServers(self, grid: List[List[int]]) -> int:
+        R, C = len(grid), len(grid[0])
+        rows, cols = [0] * R, [0] * C 
+        for r in range(R):
+            for c in range(C):
+                if grid[r][c]:
+                    rows[r] += 1
+                    cols[c] += 1
+        res = 0
+        for r in range(R):
+            for c in range(C):
+                if grid[r][c] and (rows[r] + cols[c] > 2):
+                    res += 1
+        return res
+```
+
+### 1258. Synonymous Sentences
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n
+
+    def isConnected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] > self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2
+            self.rank[p2] += self.rank[p1]
+
+class Solution:
+    def generateSentences(self, synonyms: List[List[str]], text: str) -> List[str]:
+        words = []
+        for a, b in synonyms:
+            words.append(a)
+            words.append(b)
+        uf = UF(len(words))
+        d = {word: i for i, word in enumerate(words)}
+
+        for a, b in synonyms:
+            if not uf.isConnected(d[a], d[b]):
+                uf.union(d[a], d[b])
+
+        d2 = defaultdict(set)
+        for w in words:
+            d2[words[uf.find(d[w])]].add(w)
+        
+        text = text.split(' ')
+        for i, word in enumerate(text):
+            for word2 in d2.values():
+                if word in word2:
+                    d2[word] = word2
+                    break
+        def bt(cur: int, path: List[str]):
+            if cur == len(words):
+                res.add(' '.join(path))
+                return
+
+            for s in d2[words[cur]] | {words[cur]}:
+                path.append(s)
+                bt(cur + 1, path)
+                path.pop()
+        res = set()
+        words = text
+        bt(0, [])
+        return sorted(res)
+```
+
+### 2709. Greatest Common Divisor Traversal
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+    
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n 
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] > self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2 
+            self.rank[p2] += self.rank[p1]
+
+    def isConnected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+divisors = defaultdict(list)
+def ePrime(n):
+    primes = [False] * 2 + [True] * (n - 1)
+    for i in range(n + 1):
+        if primes[i]:
+            for j in range(i, n + 1, i):
+                divisors[j].append(i)
+                primes[j] = False
+ePrime(100001)  
+
+class Solution:
+    def canTraverseAllPairs(self, nums: List[int]) -> bool:
+        uf = UF(max(nums) + 1)
+        for n in nums:
+            for a, b in pairwise(divisors[n]):
+                uf.union(a, b)
+        d = Counter()
+        for n in nums:
+            if n == 1:
+                continue
+            res = uf.find(divisors[n][0])
+            d[res] += 1
+        return max(list(d.values()) + [1]) == len(nums)
+```
+
+### 1579. Remove Max Number of Edges to Keep Graph Fully Traversable
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+        self.n = n
+
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n
+
+    def isConnected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] > self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2
+            self.rank[p2] += self.rank[p1]
+        self.n -= 1
+
+class Solution:
+    def maxNumEdgesToRemove(self, n: int, edges: List[List[int]]) -> int:
+        alice, bob = UF(n), UF(n)
+        count = 0
+        for t, u, v in edges:
+            if t == 3 and not alice.isConnected(u-1, v-1):
+                alice.union(u-1, v-1)
+                bob.union(u-1, v-1)
+                count += 1
+                
+        for t, u, v in edges:
+            if t == 1 and not alice.isConnected(u-1, v-1):
+                alice.union(u-1, v-1)
+                count += 1
+            elif t == 2 and not bob.isConnected(u-1, v-1):
+                bob.union(u-1, v-1)
+                count += 1
+        if alice.n == 1 and bob.n == 1:
+            return len(edges) - count
         return -1
 ```

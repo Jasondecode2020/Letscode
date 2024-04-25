@@ -12,6 +12,19 @@ def primeFactors(n):
     return sum(res)
 ```
 
+## template: divisors
+
+```python
+divisors = defaultdict(list)
+def ePrime(n): # include n
+    primes = [False] * 2 + [True] * (n - 1)
+    for i in range(2, n + 1):
+        if primes[i]:
+            for j in range(i, n + 1, i):
+                divisors[j].append(i)
+                primes[j] = False
+```
+
 ### 2521. Distinct Prime Factors of Product of Array
 
 ```python
