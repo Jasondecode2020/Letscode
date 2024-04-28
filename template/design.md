@@ -67,3 +67,38 @@ class Bank:
 # param_2 = obj.deposit(account,money)
 # param_3 = obj.withdraw(account,money)
 ```
+
+### 1429. First Unique Number
+
+```python
+class FirstUnique:
+
+    def __init__(self, nums: List[int]):
+        self.q = deque([])
+        self.d = Counter(nums)
+        for n in nums:
+            if self.d[n] == 1:
+                self.q.append(n)
+
+    def showFirstUnique(self) -> int:
+        while self.q:
+            n = self.q[0]
+            if self.d[n] == 1:
+                return n 
+            else:
+                self.q.popleft()
+        return -1
+
+    def add(self, value: int) -> None:
+        if value not in self.d:
+            self.d[value] = 1
+            self.q.append(value)
+        else:
+            self.d[value] += 1
+
+
+# Your FirstUnique object will be instantiated and called as such:
+# obj = FirstUnique(nums)
+# param_1 = obj.showFirstUnique()
+# obj.add(value)
+```

@@ -218,3 +218,24 @@ class Solution:
                     stack.pop()
         return not stack
 ```
+
+### 1249. Minimum Remove to Make Valid Parentheses
+
+```python
+class Solution:
+    def minRemoveToMakeValid(self, s: str) -> str:
+        stack = []
+        for i, c in enumerate(s):
+            if not c.islower():
+                if stack and stack[-1][0] == '(' and c == ')':
+                    stack.pop()
+                else:
+                    stack.append((c, i))
+        
+        seen = set([i for c, i in stack])
+        res = ''
+        for i, c in enumerate(s):
+            if i not in seen:
+                res += c
+        return res
+```

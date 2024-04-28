@@ -438,3 +438,105 @@ class DataStream:
         self.cnt = 0 if num != self.value else self.cnt + 1
         return self.cnt >= self.k
 ```
+
+### 2971. Find Polygon With the Largest Perimeter
+
+```python
+class Solution:
+    def largestPerimeter(self, nums: List[int]) -> int:
+        # [1,12,1,2,5,50,3]
+        # [1, 1, 2, 3, 5, 12, 50]
+        # [1, 2, 4, 7, 12, 24, 74]
+        nums.sort()
+        pre = list(accumulate(nums))
+        res = -1
+        n = len(nums)
+        for i in range(n - 1, 1, -1):
+            if nums[i] < pre[i - 1]:
+                return pre[i]
+        return -1
+```
+
+### 2918. Minimum Equal Sum of Two Arrays After Replacing Zeros
+
+```python
+class Solution:
+    def minSum(self, nums1: List[int], nums2: List[int]) -> int:
+        s1, s2 = sum(nums1), sum(nums2)
+        zero1, zero2 = nums1.count(0), nums2.count(0)
+        p1, p2 = s1 + zero1, s2 + zero2
+        if (p1 > s2 and zero2 == 0) or (p2 > s1 and zero1 == 0):
+            return -1
+        return max(p1, p2)
+```
+
+### 2711. Difference of Number of Distinct Values on Diagonals
+
+```python
+class Solution:
+    def differenceOfDistinctValues(self, grid: List[List[int]]) -> List[List[int]]:
+        R, C = len(grid), len(grid[0])
+        res = [[0] * C for r in range(R)]
+        for r in range(R):
+            for c in range(C):
+                topLeft = set()
+                x, y = r - 1, c - 1
+                while x >= 0 and y >= 0:
+                    topLeft.add(grid[x][y])
+                    x -= 1
+                    y -= 1
+                bottomRight = set()
+                x, y = r + 1, c + 1
+                while x < R and y < C:
+                    bottomRight.add(grid[x][y])
+                    x += 1
+                    y += 1
+                res[r][c] = abs(len(topLeft) - len(bottomRight))
+        return res
+```
+
+### 1387. Sort Integers by The Power Value
+
+```python
+class Solution:
+    def getKth(self, lo: int, hi: int, k: int) -> int:
+        def check(n):
+            res = 0
+            while n != 1:
+                if n % 2 == 0:
+                    n //= 2
+                else:
+                    n = n * 3 + 1
+                res += 1
+            return res
+        res = []
+        for i in range(lo, hi + 1):
+            res.append((check(i), i))
+        res.sort()
+        return res[k - 1][1]
+```
+
+### 2380. Time Needed to Rearrange a Binary String
+
+- O(n^2)
+
+```python
+class Solution:
+    def secondsToRemoveOccurrences(self, s: str) -> int:
+        a = list(s)
+        res = 0
+        while True:
+            flag = False
+            i = 0
+            while i < len(s) - 1:
+                if a[i] == '0' and a[i + 1] == '1':
+                    a[i], a[i + 1] = '1', '0'
+                    i += 2
+                    flag = True
+                else:
+                    i += 1
+            if not flag:
+                break
+            res += 1
+        return res
+```

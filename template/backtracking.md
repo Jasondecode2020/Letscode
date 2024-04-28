@@ -705,3 +705,46 @@ class Solution:
             return dfs(i + 1, total, count) + dfs(i + 1, total + arr[i], count + 1)
         return dfs(0, 0, 0) % mod
 ```
+
+### 1415. The k-th Lexicographical String of All Happy Strings of Length n
+
+```python
+class Solution:
+    def getHappyString(self, n: int, k: int) -> str:
+        res = []
+        def backtrack(ans):
+            if len(ans) == n:
+                res.append(ans)
+                return 
+            if len(ans) > n:
+                return 
+            for c in 'abc':
+                if ans and ans[-1] != c:
+                    backtrack(ans + c)
+                if not ans:
+                    backtrack(c)
+        backtrack('')
+        res.sort()
+        return res[k - 1] if k <= len(res) else ''
+```
+
+### 967. Numbers With Same Consecutive Differences
+
+```python
+class Solution:
+    def numsSameConsecDiff(self, n: int, k: int) -> List[int]:
+        res = []
+        def backtrack(ans):
+            if len(ans) == n:
+                res.append(int(ans))
+                return
+            if len(ans) > n:
+                return 
+            for c in '0123456789':
+                if not ans and c != '0':
+                    backtrack(c)
+                if ans and abs(ord(ans[-1]) - ord(c)) == k:
+                    backtrack(ans + c)
+        backtrack('')
+        return res 
+```

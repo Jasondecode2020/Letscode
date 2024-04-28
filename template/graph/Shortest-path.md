@@ -26,9 +26,27 @@ class Solution:
 ```
 
 * [743. Network Delay Time](#743-Network-Delay-Time) 1800
+* [2642. Design Graph With Shortest Path Calculator](#2642-Design-Graph-With-Shortest-Path-Calculator) 1811
+* [1514. Path with Maximum Probability](#1514-Path-with-Maximum-Probability) 1846
+* [3123. Find Edges in Shortest Paths](#3123-Find-Edges-in-Shortest-Paths)
 * [2473. Minimum Cost to Buy Apples](#2473-Minimum-Cost-to-Buy-Apples)
 * [1976. Number of Ways to Arrive at Destination](#1976-Number-of-Ways-to-Arrive-at-Destination)
 * [505. The Maze II](#505-The-Maze-II)
+
+1631. 最小体力消耗路径 1948 做法不止一种
+1368. 使网格图至少有一条有效路径的最小代价 2069 也可以 0-1 BFS
+1786. 从第一个节点出发到最后一个节点的受限路径数 2079
+1976. 到达目的地的方案数 2095
+2662. 前往目标的最小代价 2154
+2045. 到达目的地的第二短时间 2202 也可以 BFS
+882. 细分图中的可到达节点 2328
+2203. 得到要求路径的最小带权子图 2364
+2577. 在网格图中访问一个格子的最少时间 2382
+2699. 修改图中的边权 2874
+2093. 前往目标城市的最小费用（会员题）
+2473. 购买苹果的最低成本（会员题）
+2714. 找到最短路径的 K 次跨越（会员题）
+2737. 找到最近的标记节点（会员题）
 
 ### 743. Network Delay Time
 
@@ -36,12 +54,12 @@ class Solution:
 class Solution:
     def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
         g = defaultdict(list)
-        for u, v, w in times:
-            g[u - 1].append((v - 1, w))
+        for u, v, c in times:
+            g[u - 1].append((v - 1, c))
 
+        pq = [(0, k - 1)]
         dist = [inf] * n 
         dist[k - 1] = 0
-        pq = [(0, k - 1)]
         while pq:
             c, x = heappop(pq)
             if c > dist[x]:
@@ -53,6 +71,134 @@ class Solution:
                     heappush(pq, (d, y))
         res = max(dist)
         return res if res != inf else -1
+```
+
+### 2642. Design Graph With Shortest Path Calculator
+
+```python
+class Graph:
+
+    def __init__(self, n: int, edges: List[List[int]]):
+        self.g = defaultdict(list)
+        self.n = n 
+        for u, v, c in edges:
+            self.g[u].append((v, c))
+
+    def addEdge(self, edge: List[int]) -> None:
+        u, v, c = edge 
+        self.g[u].append((v, c))
+
+    def shortestPath(self, node1: int, node2: int) -> int:
+        pq = [(0, node1)]
+        dist = [inf] * self.n 
+        dist[node1] = 0
+        while pq:
+            c, x = heappop(pq)
+            if x == node2:
+                return c 
+            if c > dist[x]:
+                continue
+            for y, cost in self.g[x]:
+                d = dist[x] + cost 
+                if d < dist[y]:
+                    dist[y] = d 
+                    heappush(pq, (d, y))
+        return -1
+```
+
+### 1514. Path with Maximum Probability
+
+```python
+class Solution:
+    def maxProbability(self, n: int, edges: List[List[int]], succProb: List[float], start_node: int, end_node: int) -> float:
+        g = defaultdict(list)
+        for (u, v), c in zip(edges, succProb):
+            g[u].append((v, c))
+            g[v].append((u, c))
+
+        pq = [(0, start_node)]
+        dist = [inf] * n 
+        dist[start_node] = -1
+        while pq:
+            c, x = heappop(pq)
+            if x == end_node:
+                return -c
+            if c < dist[x]:
+                continue
+            for y, cost in g[x]:
+                d = dist[x] * cost 
+                if d < dist[y]:
+                    dist[y] = d 
+                    heappush(pq, (d, y))
+        return 0
+```
+
+### 3112. Minimum Time to Visit Disappearing Nodes
+
+```python
+class Solution:
+    def minimumTime(self, n: int, edges: List[List[int]], disappear: List[int]) -> List[int]:
+        g = defaultdict(list)
+        for a, b, cost in edges:
+            if a != b:
+                g[a].append([b, cost])
+                g[b].append([a, cost])
+        
+        dist = [inf] * n
+        dist[0], q = 0, [(0, 0)]
+        while q:
+            cost, node = heapq.heappop(q)
+            if cost > dist[node]:
+                continue
+            for nei, cost in g[node]:
+                d = dist[node] + cost
+                if d < dist[nei] and d < disappear[nei]:
+                    dist[nei] = d
+                    heapq.heappush(q, (d, nei))
+
+        ans = [-1] * n
+        for i, v in enumerate(dist):
+            if v != inf:
+                ans[i] = v
+        return ans
+```
+
+### 3123. Find Edges in Shortest Paths
+
+```python
+class Solution:
+    def findAnswer(self, n: int, edges: List[List[int]]) -> List[bool]:
+        g = defaultdict(list)
+        for i, (u, v, w) in enumerate(edges):
+            g[u].append((v, w, i))
+            g[v].append((u, w, i))
+            
+        dist = [inf] * n 
+        dist[0] = 0
+        pq = [(0, 0)]
+        while pq:
+            c, x = heappop(pq)
+            if c > dist[x]:
+                continue
+            for y, cost, i in g[x]:
+                d = dist[x] + cost
+                if d < dist[y]:
+                    dist[y] = d
+                    heappush(pq, (cost, y))
+                    
+        ans = [False] * len(edges)
+        if dist[n - 1] == inf:
+            return ans
+        visited = set([n - 1])
+        def dfs(x):
+            for y, cost, i in g[x]:
+                if dist[y] + cost == dist[x]:
+                    ans[i] = True
+                    if y not in visited:
+                        visited.add(y)
+                        dfs(y)
+        dfs(n - 1)
+        return ans
 ```
 
 ### 2473. Minimum Cost to Buy Apples

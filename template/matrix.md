@@ -190,3 +190,92 @@ class Solution:
                 res = max(res, d[translation])
         return res
 ```
+
+### 59. Spiral Matrix II
+
+```python
+class Solution:
+    def generateMatrix(self, n: int) -> List[List[int]]:
+        m, n = n, n 
+        matrix = [[-1] * n for r in range(m)]
+        direction = 'left'
+        r, c = 0, 0
+        top, down, left, right = 0, m, 0, n
+        val = 1
+        while val < n * n + 1:
+            matrix[r][c] = val 
+            if direction == 'left':
+                if c + 1 < right:
+                    c += 1
+                else:
+                    r += 1
+                    top += 1
+                    direction = 'down'
+            elif direction == 'down':
+                if r + 1 < down:
+                    r += 1
+                else:
+                    c -= 1
+                    right -= 1
+                    direction = 'right'
+            elif direction == 'right':
+                if c - 1 >= left:
+                    c -= 1
+                else:
+                    r -= 1
+                    down -= 1
+                    direction = 'top'
+            elif direction == 'top':
+                if r - 1 >= top:
+                    r -= 1
+                else:
+                    c += 1
+                    left += 1
+                    direction = 'left'
+            val += 1
+        return matrix
+```
+
+### 2326. Spiral Matrix IV
+
+```python
+class Solution:
+    def spiralMatrix(self, m: int, n: int, head: Optional[ListNode]) -> List[List[int]]:
+        matrix = [[-1] * n for r in range(m)]
+        direction = 'left'
+        r, c = 0, 0
+        top, down, left, right = 0, m, 0, n
+        while head:
+            val = head.val
+            head = head.next 
+            matrix[r][c] = val 
+            if direction == 'left':
+                if c + 1 < right:
+                    c += 1
+                else:
+                    r += 1
+                    top += 1
+                    direction = 'down'
+            elif direction == 'down':
+                if r + 1 < down:
+                    r += 1
+                else:
+                    c -= 1
+                    right -= 1
+                    direction = 'right'
+            elif direction == 'right':
+                if c - 1 >= left:
+                    c -= 1
+                else:
+                    r -= 1
+                    down -= 1
+                    direction = 'top'
+            elif direction == 'top':
+                if r - 1 >= top:
+                    r -= 1
+                else:
+                    c += 1
+                    left += 1
+                    direction = 'left'
+        return matrix
+```

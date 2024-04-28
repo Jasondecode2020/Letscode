@@ -34,6 +34,8 @@ def fn(arr):
             r = m - 1
     return r
 ```
+
+* [1631. Path With Minimum Effort](#1631-Path-With-Minimum-Effort)
 * 275. H 指数 II
 * 1283. 使结果不超过阈值的最小除数 1542
 * 2187. 完成旅途的最少时间 1641
@@ -892,5 +894,55 @@ class Solution:
                 r = m
             else:
                 l = m
+        return res
+```
+
+### 1631. Path With Minimum Effort
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n
+
+    def connected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] > self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2
+            self.rank[p2] += self.rank[p1]
+
+class Solution:
+    def minimumEffortPath(self, grid: List[List[int]]) -> int:
+        def check(threshold):
+            uf = UF(R * C)
+            for r in range(R):
+                for c in range(C):
+                    for dr, dc in [[1, 0], [0, 1]]:
+                        row, col = r + dr, c + dc
+                        if 0 <= row < R and 0 <= col < C and abs(grid[row][col] - grid[r][c]) <= threshold and not uf.connected(row * C + col, r * C + c):
+                            uf.union(row * C + col, r * C + c)
+            return uf.connected(0, (R - 1) * C + C - 1)
+
+        R, C = len(grid), len(grid[0])
+        l, r, res = 0, 10 ** 6, 0
+        while l <= r:
+            m = l + (r - l) // 2
+            if check(m):
+                res = m
+                r = m - 1
+            else:
+                l = m + 1
         return res
 ```

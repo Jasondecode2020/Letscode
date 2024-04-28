@@ -44,7 +44,7 @@ while i < n or i < n - 1:
 ### 2943. Maximize Area of Square Hole in Grid
 ### 2981. Find Longest Special Substring That Occurs Thrice I
 ### 2982. Find Longest Special Substring That Occurs Thrice II
-
+### 2110. Number of Smooth Descent Periods of a Stock
 
 ### 228. Summary Ranges
 
@@ -616,4 +616,23 @@ class Solution:
             res += m * (m + 1) // 2
             i = j 
         return res % mod
+```
+
+### 2110. Number of Smooth Descent Periods of a Stock
+
+```python
+class Solution:
+    def getDescentPeriods(self, prices: List[int]) -> int:
+        res = 0
+        i = 0
+        n = len(prices)
+        while i < n:
+            start = i 
+            j = start + 1
+            while j < n and prices[j] + 1 == prices[j - 1]:
+                j += 1
+            m = j - i 
+            res += m * (m + 1) // 2
+            i = j 
+        return res 
 ```

@@ -490,3 +490,19 @@ class Solution:
             r -= 1
         return res
 ```
+
+### 1561. Maximum Number of Coins You Can Get
+
+```python
+class Solution:
+    def maxCoins(self, piles: List[int]) -> int:
+        # [1, 2, 2, 4, ,7. 8]
+        piles.sort()
+        l, r = 0, len(piles) - 1
+        res = 0
+        while l < r:
+            res += piles[r - 1]
+            l += 1
+            r -= 2
+        return res
+```
