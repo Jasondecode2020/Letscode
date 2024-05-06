@@ -37,6 +37,64 @@ def dfs(root):
 * `272. Closest Binary Search Tree Value II`
 * `226. Invert Binary Tree`
 * `590. N-ary Tree Postorder Traversal`
+* [285. Inorder Successor in BST](#285-Inorder-Successor-in-BST)
+* [510. Inorder Successor in BST II](#510-Inorder-Successor-in-BST-II)
+
+### 285. Inorder Successor in BST
+
+```python
+class Solution:
+    def inorderSuccessor(self, root: TreeNode, p: TreeNode) -> Optional[TreeNode]:
+        res = []
+        def dfs(node):
+            if node:
+                dfs(node.left)
+                res.append(node)
+                dfs(node.right)
+        dfs(root)
+        n = len(res)
+        for i in range(n - 1):
+            if res[i] == p:
+                return res[i + 1]
+        return None
+```
+
+### 510. Inorder Successor in BST II
+
+```python
+class Solution:
+    def inorderSuccessor(self, node: 'Node') -> 'Optional[Node]':
+        rightChild = node.right 
+        while rightChild and rightChild.left:
+            rightChild = rightChild.left 
+        if rightChild:
+            return rightChild
+        while node.parent:
+            if node.parent.val > node.val:
+                return node.parent
+            else:
+                node = node.parent
+        return None
+        
+class Solution:
+    def inorderSuccessor(self, node: 'Node') -> 'Optional[Node]':
+        p = node 
+        while p.parent:
+            p = p.parent
+        def dfs(node, res):
+            if node:
+                dfs(node.left, res)
+                res.append(node)     
+                dfs(node.right, res)
+            return res 
+
+        res = dfs(p, [])
+        n = len(res)
+        for i in range(n - 1):
+            if res[i] == node:
+                return res[i + 1]
+        return None
+```
 
 ## Construct Binary Tree
 
@@ -1387,3 +1445,4 @@ class Solution:
         dfs(root)
         return res
 ```
+
