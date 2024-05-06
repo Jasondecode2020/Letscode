@@ -1,5 +1,7 @@
 # Top 100 likes
 
+## Note: 114, 394
+
 ## Hash table (3)
 
 * [1. Two Sum](#1-Two-Sum) 1500
@@ -463,6 +465,160 @@ class Solution:
         res = []
         backtrack(0, [])
         return res 
+```
+
+## Heap (3)
+
+* [215. Kth Largest Element in an Array](#215-Kth-Largest-Element-in-an-Array) 1500
+* [347. Top K Frequent Elements](#347-Top-K-Frequent-Elements) 1600
+* [295. Find Median from Data Stream](#295-Find-Median-from-Data-Stream) 1700
+
+### 215. Kth Largest Element in an Array
+
+```python
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        pq = []
+        for n in nums:
+            heappush(pq, -n)
+        
+        for i in range(k):
+            res = -heappop(pq)
+        return res
+```
+
+### 347. Top K Frequent Elements
+
+```python
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        pq = []
+        for key, v in Counter(nums).items():
+            heappush(pq, (-v, key))
+        res = []
+        for i in range(k):
+            v, key = heappop(pq)
+            res.append(key)
+        return res
+```
+
+### 295. Find Median from Data Stream
+
+```python
+class MedianFinder:
+
+    def __init__(self):
+        self.a = []
+        self.b = []
+
+    def addNum(self, num: int) -> None:
+        if len(self.a) != len(self.b):
+            heappush(self.b, -heappushpop(self.a, num))
+        else:
+            heappush(self.a, -heappushpop(self.b, -num))
+
+    def findMedian(self) -> float:
+        return self.a[0] if len(self.a) != len(self.b) else (self.a[0] - self.b[0]) / 2.0
+```
+
+## stack (3)
+
+* [20. Valid Parentheses](#20-Valid-Parentheses) 1300
+* [155. Min Stack](#155-Min-Stack) 1500
+* [394. Decode String](#394-Decode-String) 1700
+
+### 20. Valid Parentheses
+
+```python
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack = []
+        for c in s:
+            if stack and ((stack[-1] == '(' and c == ')') or (stack[-1] == '[' and c == ']') or (stack[-1] == '{' and c == '}')):
+                stack.pop()
+            else:
+                stack.append(c)
+        return not stack
+```
+
+### 155. Min Stack
+
+```python
+class MinStack:
+
+    def __init__(self):
+        self.stack = []
+        self.mn = [inf]
+
+    def push(self, val: int) -> None:
+        self.stack.append(val)
+        self.mn.append(min(self.mn[-1], val))
+
+    def pop(self) -> None:
+        self.stack.pop()
+        self.mn.pop()
+    def top(self) -> int:
+        return self.stack[-1]
+
+    def getMin(self) -> int:
+        return self.mn[-1]
+```
+
+### 394. Decode String
+
+```python
+class Solution:
+    def decodeString(self, s: str) -> str:
+        stack = []
+        for c in s:
+            if c != ']':
+                stack.append(c)
+            else:
+                s = ''
+                while stack[-1].isalpha():
+                    c = stack.pop()
+                    s = c + s
+                stack.pop()
+                d = ''
+                while stack and stack[-1].isdigit():
+                    c = stack.pop()
+                    d = c + d 
+                stack.append(s * int(d))
+        return ''.join(stack)
+```
+
+## Monotonic stack (2)
+
+* [739. Daily Temperatures](#739-Daily-Temperatures) 1700
+* [84. Largest Rectangle in Histogram](#84-Largest-Rectangle-in-Histogram) 1900
+
+### 739. Daily Temperatures
+
+```python
+class Solution:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        n = len(temperatures)
+        res, stack = [0] * n, []
+        for i, t in enumerate(temperatures):
+            while stack and t > temperatures[stack[-1]]:
+                j = stack.pop()
+                res[j] = i - j
+            stack.append(i)
+        return res
+```
+
+### 84. Largest Rectangle in Histogram
+
+```python
+class Solution:
+    def largestRectangleArea(self, heights: List[int]) -> int:
+        res, stack, heights = 0, [-1], heights + [0]
+        for i, h in enumerate(heights):
+            while len(stack) > 1 and h < heights[stack[-1]]:
+                j = stack.pop()
+                res = max(res, (i - 1 - stack[-1]) * heights[j])
+            stack.append(i)
+        return res
 ```
 
 ## Linked list
@@ -1040,59 +1196,5 @@ class Solution:
         res = f(0, 0)
         f.cache_clear()
         return res
-```
-
-## Heap (3)
-
-* [215. Kth Largest Element in an Array](#215-Kth-Largest-Element-in-an-Array) 1500
-* [347. Top K Frequent Elements](#347-Top-K-Frequent-Elements) 1600
-* [295. Find Median from Data Stream](#295-Find-Median-from-Data-Stream) 1700
-
-### 215. Kth Largest Element in an Array
-
-```python
-class Solution:
-    def findKthLargest(self, nums: List[int], k: int) -> int:
-        pq = []
-        for n in nums:
-            heappush(pq, -n)
-        
-        for i in range(k):
-            res = -heappop(pq)
-        return res
-```
-
-### 347. Top K Frequent Elements
-
-```python
-class Solution:
-    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        pq = []
-        for key, v in Counter(nums).items():
-            heappush(pq, (-v, key))
-        res = []
-        for i in range(k):
-            v, key = heappop(pq)
-            res.append(key)
-        return res
-```
-
-### 295. Find Median from Data Stream
-
-```python
-class MedianFinder:
-
-    def __init__(self):
-        self.a = []
-        self.b = []
-
-    def addNum(self, num: int) -> None:
-        if len(self.a) != len(self.b):
-            heappush(self.b, -heappushpop(self.a, num))
-        else:
-            heappush(self.a, -heappushpop(self.b, -num))
-
-    def findMedian(self) -> float:
-        return self.a[0] if len(self.a) != len(self.b) else (self.a[0] - self.b[0]) / 2.0
 ```
 

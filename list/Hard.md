@@ -1,4 +1,4 @@
-## Note: 131, 114, 394, 155
+
 
 ### 41. First Missing Positive
 
