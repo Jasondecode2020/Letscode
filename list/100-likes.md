@@ -1,12 +1,13 @@
 # Top 100 likes
 
-## Note: 114, 394
+- Question list 100 likes
 
-## Hash table (3)
+## Hash table (4)
 
 * [1. Two Sum](#1-Two-Sum) 1500
-* [149. Group Anagrams](#49-Group-Anagrams) 1600
+* [49. Group Anagrams](#49-Group-Anagrams) 1600
 * [128. Longest Consecutive Sequence](#128-Longest-Consecutive-Sequence) 1700
+* [560. Subarray Sum Equals K](#560-Subarray-Sum-Equals-K) 1750
 
 ## Two pointers (4)
 
@@ -15,19 +16,174 @@
 * [283. Move Zeroes](#283-Move-Zeroes) 1500
 * [42. Trapping Rain Water](#42-Trapping-Rain-Water) 1800
 
-- Question list
-
-## Hash table (3)
-
-* [1. Two Sum](#1-Two-Sum) 1500
-* [149. Group Anagrams](#49-Group-Anagrams) 1600
-* [128. Longest Consecutive Sequence](#128-Longest-Consecutive-Sequence) 1700
-
-## Sliding window (2)
+## Sliding window (3)
 
 * [3. Longest Substring Without Repeating Characters](#3-Longest-Substring-Without-Repeating-Characters) 1600
 * [438. Find All Anagrams in a String](#438-Find-All-Anagrams-in-a-String) 1700
+* [76. Minimum Window Substring](#76-Minimum-Window-Substring)
 
+## Monotonic queue (1)
+
+* [239. Sliding Window Maximum](#239-Sliding-Window-Maximum) 1900
+
+## Sweep line (1)
+
+* [56. Merge Intervals](#56-Merge-Intervals])
+
+## Prefix sum (1)
+
+* [238. Product of Array Except Self](#238-Product-of-Array-Except-Self)
+
+## Array Hash (2)
+
+* [287. Find the Duplicate Number](#287-Find-the-Duplicate-Number)
+* [41. First Missing Positive](#41-First-Missing-Positive)
+
+## Matrix (4)
+
+* [73. Set Matrix Zeroes](#73-Set-Matrix-Zeroes)
+* [54. Spiral Matrix](#54-Spiral-Matrix)
+* [48. Rotate Image](#48-Rotate-Image)
+* [240. Search a 2D Matrix II](#240-Search-a-2D-Matrix-II)
+
+## Backtracking (8)
+
+* [46. Permutations](#46-Permutations) 1600
+* [78. Subsets](#78-Subsets) 1700
+* [17. Letter Combinations of a Phone Number](#17-Letter-Combinations-of-a-Phone-Number) 1700
+* [39. Combination Sum](#39-Combination-Sum) 1700
+* [22. Generate Parentheses](#22-Generate-Parentheses) 1700
+
+* [131. Palindrome Partitioning](#131-Palindrome-Partitioning) 1700
+* [79. Word Search](#79-Word-Search) 1800
+* [51. N-Queens](#51-N-Queens) 1800
+
+## Graph (3)
+
+* [200. Number of Islands](#200-Number-of-Islands) 1500
+* [994. Rotting Oranges](#994-Rotting-Oranges) 1432
+* [207. Course Schedule](#207-Course-Schedule) 1700
+
+## Trie (1)
+
+* [208. Implement Trie (Prefix Tree)](#208-Implement-Trie) 1700
+
+## Heap (3)
+
+* [215. Kth Largest Element in an Array](#215-Kth-Largest-Element-in-an-Array) 1500
+* [347. Top K Frequent Elements](#347-Top-K-Frequent-Elements) 1600
+* [295. Find Median from Data Stream](#295-Find-Median-from-Data-Stream) 1700
+
+## stack (4)
+
+* [20. Valid Parentheses](#20-Valid-Parentheses) 1300
+* [155. Min Stack](#155-Min-Stack) 1500
+* [394. Decode String](#394-Decode-String) 1700
+* [32. Longest Valid Parentheses](#32-Longest-Valid-Parentheses)
+
+## Monotonic stack (2)
+
+* [739. Daily Temperatures](#739-Daily-Temperatures) 1700
+* [84. Largest Rectangle in Histogram](#84-Largest-Rectangle-in-Histogram) 1900
+
+## Linked list (14)
+
+* [160. Intersection of Two Linked Lists](#160-Intersection-of-Two-Linked-Lists)
+* [206. Reverse Linked List](#206-Reverse-Linked-List)
+* [234. Palindrome Linked List](#234-Palindrome-Linked-List)
+* [141. Linked List Cycle](#141-Linked-List-Cycle)
+* [142. Linked List Cycle II](#142-Linked-List-Cycle-II)
+
+* [21. Merge Two Sorted Lists](#21-Merge-Two-Sorted-Lists)
+* [2. Add Two Numbers](#2-Add-Two-Numbers)
+* [19. Remove Nth Node From End of List](#19-Remove-Nth-Node-From-End-of-List)
+* [24. Swap Nodes in Pairs](#24-Swap-Nodes-in-Pairs)
+* [25. Reverse Nodes in k-Group](#25-Reverse-Nodes-in-k-Group)
+
+* [23. Merge k Sorted Lists](#23-Merge-k-Sorted-Lists)
+* [138. Copy List with Random Pointer](#138-Copy-List-with-Random-Pointer)
+* [148. Sort List](#148-Sort-List)
+* [146. LRU Cache](#146-LRU-Cache)
+
+## Tree (15)
+
+* [94. Binary Tree Inorder Traversal](#94-Binary-Tree-Inorder-Traversal)
+* [104. Maximum Depth of Binary Tree](#104-Maximum-Depth-of-Binary-Tree)
+* [226. Invert Binary Tree](#226-Invert-Binary-Tree)
+* [101. Symmetric Tree](#101-Symmetric-Tree)
+* [543. Diameter of Binary Tree](#543-Diameter-of-Binary-Tree)
+
+* [102. Binary Tree Level Order Traversal](#102-Binary-Tree-Level-Order-Traversal)
+* [108. Convert Sorted Array to Binary Search Tree](#108-Convert-Sorted-Array-to-Binary-Search-Tree)
+* [98. Validate Binary Search Tree](#98-Validate-Binary-Search-Tree)
+* [230. Kth Smallest Element in a BST](#230-Kth-Smallest-Element-in-a-BST)
+* [199. Binary Tree Right Side View](#199-Binary-Tree-Right-Side-View)
+
+* [105. Construct Binary Tree from Preorder and Inorder Traversal](#105-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal)
+* [437. Path Sum III](#437-Path-Sum-III)
+* [236. Lowest Common Ancestor of a Binary Tree](#236-Lowest-Common-Ancestor-of-a-Binary-Tree)
+* [114. Flatten Binary Tree to Linked List](#114-Flatten-Binary-Tree-to-Linked-List)
+* [124. Binary Tree Maximum Path Sum](#124-Binary-Tree-Maximum-Path-Sum)
+
+## Binary Search (6)
+
+* [35. Search Insert Position](#35-Search-Insert-Position)
+* [74. Search a 2D Matrix](#74-Search-a-2D-Matrix)
+* [34. Find First and Last Position of Element in Sorted Array](#34-Find-First-and-Last-Position-of-Element-in-Sorted-Array)
+* [33. Search in Rotated Sorted Array](#33-Search-in-Rotated-Sorted-Array)
+* [153. Find Minimum in Rotated Sorted Array](#153-Find-Minimum-in-Rotated-Sorted-Array)
+* [4. Median of Two Sorted Arrays](#4-Median-of-Two-Sorted-Arrays)
+
+## DP
+
+### DP 1D (5)
+
+* [70. Climbing Stairs](#70-Climbing-Stairs)
+* [118. Pascal's Triangle](#118-Pascal's-Triangle)
+* [53. Maximum Subarray](#53-Maximum-Subarray)
+* [198. House Robber](#198-House-Robber)
+* [152. Maximum Product Subarray](#152-Maximum-Product-Subarray)
+
+### DP knapsack
+
+* [322. Coin Change](#322-Coin-Change)
+* [279. Perfect Squares](#279-Perfect-Squares)
+* [53. Maximum Subarray](#53-Maximum-Subarray)
+
+### Dp 2D (6)
+
+* [62. Unique Paths](#62-Unique-Paths)
+* [64. Minimum Path Sum](#64-Minimum-Path-Sum)
+* [1143. Longest Common Subsequence](#1143-Longest-Common-Subsequence)
+* [5. Longest Palindromic Substring](#5-Longest-Palindromic-Substring)
+* [72. Edit Distance](#72-Edit-Distance)
+* [139. Word Break](#139-Word-Break)
+
+## greedy (4)
+
+* [121. Best Time to Buy and Sell Stock](#121-Best-Time-to-Buy-and-Sell-Stock)
+* [55. Jump Game](#55-Jump-Game)
+* [45. Jump Game II](#45-Jump-Game-II)
+* [763. Partition Labels](#763-Partition-Labels)
+
+## Tricks (5)
+
+* [136. Single Number](#136-Single-Number)
+* [189. Rotate Array](#189-Rotate-Array)
+* [169. Majority Element](#169-Majority-Element)
+* [31. Next Permutation](#31-Next-Permutation)
+* [75. Sort Colors](#75-Sort-Colors)
+
+# #########################################################################################################
+# Question tags                                                                                           #
+# #########################################################################################################
+
+## Hash table (4)
+
+* [1. Two Sum](#1-Two-Sum) 1500
+* [49. Group Anagrams](#49-Group-Anagrams) 1600
+* [128. Longest Consecutive Sequence](#128-Longest-Consecutive-Sequence) 1700
+* [560. Subarray Sum Equals K](#560-Subarray-Sum-Equals-K) 1750
 
 ### 1. Two Sum
 
@@ -66,6 +222,23 @@ class Solution:
                 while j in nums:
                     j += 1
                 res = max(res, j - n)
+        return res
+```
+
+### 560. Subarray Sum Equals K
+
+```python
+class Solution:
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        # [1,1,1], k = 2
+        # [0, 1, 2, 3] n - x = k => n - k = x
+        d, res = Counter(), 0
+        pre = list(accumulate(nums, initial = 0))
+        for n in pre:
+            ans = n - k
+            if ans in d:
+                res += d[ans]
+            d[n] += 1
         return res
 ```
 
@@ -151,10 +324,11 @@ class Solution:
             nums[i] = 0
 ```
 
-## Sliding window (2)
+## Sliding window (3)
 
 * [3. Longest Substring Without Repeating Characters](#3-Longest-Substring-Without-Repeating-Characters) 1600
 * [438. Find All Anagrams in a String](#438-Find-All-Anagrams-in-a-String) 1700
+* [76. Minimum Window Substring](#76-Minimum-Window-Substring) 1800
 
 ### 3. Longest Substring Without Repeating Characters
 
@@ -191,7 +365,238 @@ class Solution:
         return res 
 ```
 
-## Backtracking
+### 76. Minimum Window Substring
+
+```python
+class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+        d, d_t = Counter(), Counter(t)
+        res, l = s + '#', 0
+        have, need = 0, len(d_t)
+        for r, c in enumerate(s):
+            d[c] += 1
+            if d[c] == d_t[c]:
+                have += 1
+            while have == need:
+                res = min(res, s[l: r + 1], key = len)
+                d[s[l]] -= 1
+                if s[l] in d_t and d[s[l]] < d_t[s[l]]:
+                    have -= 1
+                l += 1
+        return res if res != s + '#' else ''
+```
+
+## monotonic queue (1)
+
+* [239. Sliding Window Maximum](#239-Sliding-Window-Maximum) 1900
+
+### 239. Sliding Window Maximum
+
+```python
+class Solution:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        res, q = [], deque()
+        for r, n in enumerate(nums):
+            while q and n > nums[q[-1]]:
+                q.pop()
+            q.append(r)
+            if r - q[0] + 1 > k:
+                q.popleft()
+            if r >= k - 1:
+                res.append(nums[q[0]])
+        return res
+```
+
+## sweep line
+
+* [56. Merge Intervals](#56-Merge-Intervals)
+
+### 56. Merge Intervals
+
+```python
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        events = []
+        for s, e in intervals:
+            events.append((s, -1))
+            events.append((e, 1))
+        events.sort()
+
+        res = []
+        start = inf
+        count = 0
+        for t, sign in events:
+            if sign == -1:
+                count += 1
+                start = min(start, t)
+            else:
+                count -= 1
+                if count == 0:
+                    res.append([start, t])
+                    start = inf
+        return res
+```
+
+## Prefix sum
+
+* [238. Product of Array Except Self](#238-Product-of-Array-Except-Self)
+
+### 238. Product of Array Except Self
+
+```python
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        n = len(nums)
+        res, tmp = [1] * n, 1
+        for i in range(1, n):
+            res[i] = res[i - 1] * nums[i - 1]
+        for i in range(n - 2, -1, -1):
+            tmp *= nums[i + 1]
+            res[i] *= tmp
+        return res
+```
+
+## Array Hash (2)
+
+* [287. Find the Duplicate Number](#287-Find-the-Duplicate-Number)
+* [41. First Missing Positive](#41-First-Missing-Positive)
+
+### 287. Find the Duplicate Number
+
+```python
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        for i, n in enumerate(nums):
+            n = abs(n)
+            if nums[n - 1] == -abs(nums[n - 1]):
+                return n 
+            else:
+                nums[n - 1] = -abs(nums[n - 1])
+```
+
+### 41. First Missing Positive
+
+```python
+class Solution:
+    def firstMissingPositive(self, nums: List[int]) -> int:
+        n = len(nums)
+        # set inf 
+        for i in range(n):
+            if nums[i] <= 0 or nums[i] > n:
+                nums[i] = inf 
+        # set negative
+        for i in range(n):
+            if abs(nums[i]) != inf:
+                v = abs(nums[i])
+                nums[v - 1] = -abs(nums[v - 1])
+        # find out
+        for i in range(n):
+            if nums[i] > 0:
+                return i + 1
+        return n + 1
+```
+
+## Matrix (4)
+
+* [73. Set Matrix Zeroes](#73-Set-Matrix-Zeroes)
+* [54. Spiral Matrix](#54-Spiral-Matrix)
+* [48. Rotate Image](#48-Rotate-Image)
+* [240. Search a 2D Matrix II](#240-Search-a-2D-Matrix-II)
+
+### 73. Set Matrix Zeroes
+
+```python
+class Solution:
+    def setZeroes(self, matrix: List[List[int]]) -> None:
+        """
+        Do not return anything, modify matrix in-place instead.
+        """
+        R, C = len(matrix), len(matrix[0])
+        for r in range(1, R):
+            for c in range(1, C):
+                if matrix[r][c] == 0:
+                    matrix[0][c] = -matrix[0][c]
+                    matrix[r][0] = -matrix[r][0]
+
+        for r in range(1, R):
+            for c in range(1, C):
+                if matrix[r][0] < 0 or matrix[0][c] < 0:
+                    matrix[r][c] = 0
+
+        for r in range(R):
+            if matrix[r][0] == 0:
+                for r in range(R):
+                    matrix[r][0] = 0
+                break
+        for c in range(C):
+            if matrix[0][c] == 0:
+                for c in range(C):
+                    matrix[0][c] = 0
+                break
+        for r in range(R):
+            for c in range(C):
+                matrix[r][c] = abs(matrix[r][c])
+```
+
+### 54. Spiral Matrix
+
+```python
+class Solution:
+    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+        R, C = len(matrix), len(matrix[0])
+        top, bottom, left, right = 0, R - 1, 0, C - 1
+        res = []
+        while top <= bottom and left <= right:
+            # top
+            for c in range(left, right + 1):
+                res.append(matrix[top][c])
+            top += 1
+            # right
+            for r in range(top, bottom + 1):
+                res.append(matrix[r][right])
+            right -= 1
+            if left > right or top > bottom:
+                continue
+            # bottom
+            for c in range(right, left - 1, -1):
+                res.append(matrix[bottom][c])
+            bottom -= 1
+            # left
+            for r in range(bottom, top - 1, -1):
+                res.append(matrix[r][left])
+            left += 1
+        return res 
+```
+
+### 48. Rotate Image
+
+```python
+class Solution:
+    def rotate(self, matrix: List[List[int]]) -> None:
+        """
+        Do not return anything, modify matrix in-place instead.
+        """
+        matrix.reverse()
+        R, C = len(matrix), len(matrix[0])
+        for r in range(R):
+            for c in range(r):
+                matrix[r][c], matrix[c][r] = matrix[c][r], matrix[r][c]
+        return matrix
+```
+
+### 240. Search a 2D Matrix II
+
+```python
+class Solution:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        for m in matrix:
+            i = bisect_left(m, target)
+            if i < len(m) and m[i] == target:
+                return True
+        return False
+```
+
+## Backtracking (8)
 
 * [46. Permutations](#46-Permutations) 1600
 * [78. Subsets](#78-Subsets) 1700
@@ -445,6 +850,10 @@ class Solution:
         return res == numCourses
 ```
 
+## Trie (1)
+
+* [208. Implement Trie (Prefix Tree)](#208-Implement-Trie) 1700
+
 ### 208. Implement Trie
 
 ```python
@@ -521,11 +930,12 @@ class MedianFinder:
         return self.a[0] if len(self.a) != len(self.b) else (self.a[0] - self.b[0]) / 2.0
 ```
 
-## stack (3)
+## stack (4)
 
 * [20. Valid Parentheses](#20-Valid-Parentheses) 1300
 * [155. Min Stack](#155-Min-Stack) 1500
 * [394. Decode String](#394-Decode-String) 1700
+* [32. Longest Valid Parentheses](#32-Longest-Valid-Parentheses) 2500
 
 ### 20. Valid Parentheses
 
@@ -587,6 +997,24 @@ class Solution:
         return ''.join(stack)
 ```
 
+### 32. Longest Valid Parentheses
+
+```python
+class Solution:
+    def longestValidParentheses(self, s: str) -> int:
+        stack, res = [-1], 0
+        for i, c in enumerate(s):
+            if c == '(':
+                stack.append(i)
+            else:
+                stack.pop()
+                if not stack:
+                    stack.append(i)
+                else:
+                    res = max(res, i - stack[-1])
+        return res 
+```
+
 ## Monotonic stack (2)
 
 * [739. Daily Temperatures](#739-Daily-Temperatures) 1700
@@ -621,277 +1049,48 @@ class Solution:
         return res
 ```
 
-## Linked list
+## Linked list (14)
 
+* [160. Intersection of Two Linked Lists](#160-Intersection-of-Two-Linked-Lists)
+* [206. Reverse Linked List](#206-Reverse-Linked-List)
+* [234. Palindrome Linked List](#234-Palindrome-Linked-List)
+* [141. Linked List Cycle](#141-Linked-List-Cycle)
+* [142. Linked List Cycle II](#142-Linked-List-Cycle-II)
+
+* [21. Merge Two Sorted Lists](#21-Merge-Two-Sorted-Lists)
 * [2. Add Two Numbers](#2-Add-Two-Numbers)
+* [19. Remove Nth Node From End of List](#19-Remove-Nth-Node-From-End-of-List)
+* [24. Swap Nodes in Pairs](#24-Swap-Nodes-in-Pairs)
+* [25. Reverse Nodes in k-Group](#25-Reverse-Nodes-in-k-Group)
 
-### 2. Add Two Numbers
+* [23. Merge k Sorted Lists](#23-Merge-k-Sorted-Lists)
+* [138. Copy List with Random Pointer](#138-Copy-List-with-Random-Pointer)
+* [148. Sort List](#148-Sort-List)
+* [146. LRU Cache](#146-LRU-Cache)
+
+### 160. Intersection of Two Linked Lists
 
 ```python
 class Solution:
-    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
-        p = dummy = ListNode()
-        carry = 0
-        while l1 or l2:
-            val = (l1.val if l1 else 0) + (l2.val if l2 else 0) + carry
-            p.next = ListNode(val % 10)
-            if l1: l1 = l1.next
-            if l2: l2 = l2.next
-            p = p.next
-            carry = val // 10
-        if carry: p.next = ListNode(carry)
-        return dummy.next
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
+        h1, h2 = headA, headB
+        while h1 is not h2:
+            h1 = h1.next if h1 else headB
+            h2 = h2.next if h2 else headA
+        return h1
 ```
 
-
-
-### 4. Median of Two Sorted Arrays
-
-- binary search
-- https://www.youtube.com/watch?v=LPFhl65R7ww&t=1224s
-- https://www.youtube.com/watch?v=q6IEA26hvXc
+### 206. Reverse Linked List
 
 ```python
 class Solution:
-    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
-        A, B, total = nums1, nums2, len(nums1) + len(nums2)
-        half = total // 2
-        if len(A) > len(B): A, B = B, A
-        lengthA, lengthB = len(A), len(B)
-        l, r = 0, lengthA - 1
-        while True:
-            i = (l + r) // 2
-            j = half - i - 2
-            leftA = A[i] if i >= 0 else -inf
-            rightA = A[i + 1] if i + 1 < lengthA else inf
-            leftB = B[j] if j >= 0 else -inf
-            rightB = B[j + 1] if j + 1 < lengthB else inf
-            if leftA <= rightB and leftB <= rightA:
-                if total % 2:
-                    return min(rightA, rightB)
-                return (max(leftA, leftB) + min(rightA, rightB)) / 2
-            elif leftA > rightB:
-                r = i - 1
-            else:
-                l = i + 1
-```
-
-### 5. Longest Palindromic Substring
-
-- two pointers spread
-
-```python
-class Solution:
-    def longestPalindrome(self, s: str) -> str:
-        def subLongestPalindrome(l, r):
-            while l >= 0 and r < len(s) and s[l] == s[r]:
-                l -= 1
-                r += 1
-            return s[l + 1: r]
-
-        res = ''
-        for i in range(len(s)):
-            res = max(res, subLongestPalindrome(i, i), subLongestPalindrome(i, i + 1), key = len)
-        return res
-```
-
-- dp
-
-```python
-class Solution:
-    def longestPalindrome(self, s: str) -> str:
-        n = len(s)
-        dp = [[False] * n for c in range(n)]
-        res = s[0]
-        for c in range(1, n):
-            for r in range(c):
-                if s[r] == s[c] and (c - r <= 2 or dp[r + 1][c - 1]):
-                    dp[r][c] = True
-                    if c - r + 1 > len(res):
-                        res = s[r: c + 1]
-        return res
-```
-### 6. Zigzag Conversion
-
-- bucket sort
-
-```python
-class Solution:
-    def convert(self, s: str, numRows: int) -> str:
-        if numRows ==  1 or numRows >= len(s):
-            return s
-        bucket, flip, row = [[] for i in range(numRows)], -1, 0
-        for c in s:
-            bucket[row].append(c)
-            if row == numRows - 1 or row == 0:
-                flip *= -1
-            row += flip
-        for i, arr in enumerate(bucket):
-            bucket[i] = ''.join(arr)
-        return ''.join(bucket)
-```
-
-### 7. Reverse Integer
-
-- math
-
-```python
-class Solution:
-    def reverse(self, x: int) -> int:
-        def reversePositiveNum(x):
-            res = 0
-            while x:
-                res = res * 10 + x % 10
-                x //= 10
-            return res
-        res = reversePositiveNum(x) if x > 0 else -reversePositiveNum(-x)
-        return res if -2 ** 31 <= res <= 2 ** 31 + 1 else 0
-```
-
-### 8. String to Integer (atoi)
-
-- string
-
-```python
-class Solution:
-    def myAtoi(self, s: str) -> int:
-        res, sign, s = '', ['+', '-'], s.strip()
-        for i, c in enumerate(s):
-            if i == 0 and c in sign or c.isnumeric():
-                res += c
-            else:
-                break
-        if not res or res in sign:
-            return 0
-        return min(max(int(res), -2 ** 31), 2 ** 31 - 1)
-```
-
-### 9. Palindrome Number
-
-- math
-
-```python
-class Solution:
-    def isPalindrome(self, x: int) -> bool:
-        if x < 0:
-            return False
-        def reversePositiveNum(x):
-            res = 0
-            while x:
-                res = res * 10 + x % 10
-                x //= 10
-            return res
-        return reversePositiveNum(x) == x
-```
-
-### 10. Regular Expression Matching
-
-- https://www.youtube.com/watch?v=HAA8mgxlov8
-- dp
-
-```python
-class Solution:
-    def isMatch(self, s: str, p: str) -> bool:
-        lengthS, lengthP = len(s), len(p)
-        @lru_cache(None)
-        def dfs(i, j):
-            if i >= lengthS and j >= lengthP:
-                return True
-            if j >= lengthP:
-                return False
-            match = i < lengthS and (s[i] == p[j] or p[j] == '.')
-            if j + 1 < lengthP and p[j + 1] == '*': # check *, 0 or more
-                return dfs(i, j + 2) or (match and dfs(i + 1, j))
-            return dfs(i + 1, j + 1) if match else False # check match or not if no *
-        return dfs(0, 0)
-```
-
-## sweep line
-
-### 56. Merge Intervals
-
-```python
-class Solution:
-    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
-        events = []
-        for s, e in intervals:
-            events.append((s, -1))
-            events.append((e, 1))
-        events.sort()
-
-        res = []
-        start = inf
-        count = 0
-        for t, sign in events:
-            if sign == -1:
-                count += 1
-                start = min(start, t)
-            else:
-                count -= 1
-                if count == 0:
-                    res.append([start, t])
-                    start = inf
-        return res
-```
-
-
-## monotonic queue
-
-### 239. Sliding Window Maximum
-
-```python
-class Solution:
-    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
-        res, q = [], deque()
-        for r, n in enumerate(nums):
-            while q and n > nums[q[-1]]:
-                q.pop()
-            q.append(r)
-            if r - q[0] + 1 > k:
-                q.popleft()
-            if r >= k - 1:
-                res.append(nums[q[0]])
-        return res
-```
-
-### 189. Rotate Array
-
-- need to prepare the video
-
-```python
-class Solution:
-    def rotate(self, nums: List[int], k: int) -> None:
-        """
-        Do not return anything, modify nums in-place instead.
-        """
-        n = len(nums)
-        k = k % n 
-        nums.reverse()
-        l, r = 0, k - 1
-        while l < r:
-            nums[l], nums[r] = nums[r], nums[l]
-            l += 1
-            r -= 1
-        l, r = k, n - 1
-        while l < r:
-            nums[l], nums[r] = nums[r], nums[l]
-            l += 1
-            r -= 1
-```
-
-### 238. Product of Array Except Self
-
-```python
-class Solution:
-    def productExceptSelf(self, nums: List[int]) -> List[int]:
-        n = len(nums)
-        res, tmp = [1] * n, 1
-        for i in range(1, n):
-            res[i] = res[i - 1] * nums[i - 1]
-        for i in range(n - 2, -1, -1):
-            tmp *= nums[i + 1]
-            res[i] *= tmp
-        return res
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        prev, cur = None, head
+        while cur:
+            nxt = cur.next 
+            cur.next = prev 
+            prev, cur = cur, nxt 
+        return prev
 ```
 
 ### 234. Palindrome Linked List
@@ -939,92 +1138,161 @@ class Solution:
         return True
 ```
 
-### 148. Sort List
+### 141. Linked List Cycle
 
 ```python
 class Solution:
-    def sortList(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        res = []
-        while head:
-            res.append(head.val)
-            head = head.next 
-        res.sort()
-        dummy = p = ListNode()
-        for n in res:
-            p.next = ListNode(n)
+    def hasCycle(self, head: Optional[ListNode]) -> bool:
+        slow, fast = head, head 
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next 
+            if slow == fast:
+                return True
+        return False
+```
+
+### 142. Linked List Cycle II
+
+```python
+class Solution:
+    def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        slow, fast = head, head 
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next 
+            if slow == fast:
+                while slow != head:
+                    head = head.next 
+                    slow = slow.next 
+                return head
+        return None
+```
+
+### 21. Merge Two Sorted Lists
+
+```python
+class Solution:
+    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+        p = dummy = ListNode()
+        while list1 and list2:
+            if list1.val > list2.val:
+                p.next = ListNode(list2.val)
+                list2 = list2.next 
+            else:
+                p.next = ListNode(list1.val)
+                list1 = list1.next 
             p = p.next 
+        p.next = list1 if list1 else list2
         return dummy.next 
 ```
 
-### 160. Intersection of Two Linked Lists
+### 2. Add Two Numbers
 
 ```python
 class Solution:
-    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
-        h1, h2 = headA, headB
-        while h1 is not h2:
-            h1 = h1.next if h1 else headB
-            h2 = h2.next if h2 else headA
-        return h1
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        p = dummy = ListNode()
+        carry = 0
+        while l1 or l2:
+            val = (l1.val if l1 else 0) + (l2.val if l2 else 0) + carry
+            p.next = ListNode(val % 10)
+            if l1: l1 = l1.next
+            if l2: l2 = l2.next
+            p = p.next
+            carry = val // 10
+        if carry: p.next = ListNode(carry)
+        return dummy.next
 ```
 
-## Moore Voting
-
-### 169. Majority Element
+### 19. Remove Nth Node From End of List
 
 ```python
 class Solution:
-    def majorityElement(self, nums: List[int]) -> int:
-        count = 0
-        for n in nums:
-            if count == 0:
-                major = n 
-                count = 1
-            elif n == major:
-                count += 1
-            else:
-                count -= 1
-        return major
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        dummy = ListNode()
+        dummy.next = head 
+        slow = fast = dummy
+        for i in range(n + 1):
+            fast = fast.next 
+        while fast:
+            fast = fast.next
+            slow = slow.next 
+        slow.next = slow.next.next 
+        return dummy.next 
 ```
 
-## greedy
-
-### 55. Jump Game
+### 24. Swap Nodes in Pairs
 
 ```python
 class Solution:
-    def canJump(self, nums: List[int]) -> bool:
-        n = len(nums)
-        furthest = 0
-        for i in range(n):
-            if i <= furthest:
-                furthest = max(i + nums[i], furthest)
-        return furthest >= n - 1
+    def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        # prev -> 1 -> 2 -> 3 -> 4
+        dummy = ListNode()
+        dummy.next = head
+        prev, cur = dummy, head
+
+        total = 0
+        while head:
+            total += 1
+            head = head.next 
+
+        def swapOnePair():
+            nxt = cur.next
+            cur.next = nxt.next 
+            nxt.next = prev.next
+            prev.next = nxt 
+
+        for i in range(total // 2):
+            swapOnePair()
+            prev, cur = cur, cur.next 
+        return dummy.next
 ```
 
-### 102. Binary Tree Level Order Traversal
+### 25. Reverse Nodes in k-Group
 
 ```python
 class Solution:
-    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
-        if not root:
-            return []
-        q = deque([root])
-        res = []
-        while q:
-            a = []
-            for i in range(len(q)):
-                node = q.popleft()
-                a.append(node.val)
-                if node.left:
-                    q.append(node.left)
-                if node.right:
-                    q.append(node.right)
-            res.append(a)
-        return res
+    def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        dummy = ListNode()
+        dummy.next = head
+        prev, cur = dummy, head
+
+        total = 0
+        while head:
+            total += 1
+            head = head.next 
+
+        def swapOnePair():
+            nxt = cur.next
+            cur.next = nxt.next 
+            nxt.next = prev.next
+            prev.next = nxt 
+
+        for i in range(total // k):
+            for j in range(k - 1):
+                swapOnePair()
+            prev, cur = cur, cur.next 
+        return dummy.next
 ```
 
-## clone 
+### 23. Merge k Sorted Lists
+
+```python
+class Solution:
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        p = dummy = ListNode()
+        pq = []
+        for l in lists:
+            while l:
+                heappush(pq, l.val)
+                l = l.next 
+        while pq:
+            val = heappop(pq)
+            p.next = ListNode(val)
+            p = p.next
+        return dummy.next
+```
 
 ### 138. Copy List with Random Pointer
 
@@ -1043,6 +1311,23 @@ class Solution:
             d[p].random = d.get(p.random)
             p = p.next 
         return d[head] if head else None
+```
+
+### 148. Sort List
+
+```python
+class Solution:
+    def sortList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        res = []
+        while head:
+            res.append(head.val)
+            head = head.next 
+        res.sort()
+        dummy = p = ListNode()
+        for n in res:
+            p.next = ListNode(n)
+            p = p.next 
+        return dummy.next 
 ```
 
 ### 146. LRU Cache
@@ -1102,6 +1387,116 @@ class LRUCache:
         return node
 ```
 
+## Tree (15)
+
+* [94. Binary Tree Inorder Traversal](#94-Binary-Tree-Inorder-Traversal)
+* [104. Maximum Depth of Binary Tree](#104-Maximum-Depth-of-Binary-Tree)
+* [226. Invert Binary Tree](#226-Invert-Binary-Tree)
+* [101. Symmetric Tree](#101-Symmetric-Tree)
+* [543. Diameter of Binary Tree](#543-Diameter-of-Binary-Tree)
+
+* [102. Binary Tree Level Order Traversal](#102-Binary-Tree-Level-Order-Traversal)
+* [108. Convert Sorted Array to Binary Search Tree](#108-Convert-Sorted-Array-to-Binary-Search-Tree)
+* [98. Validate Binary Search Tree](#98-Validate-Binary-Search-Tree)
+* [230. Kth Smallest Element in a BST](#230-Kth-Smallest-Element-in-a-BST)
+* [199. Binary Tree Right Side View](#199-Binary-Tree-Right-Side-View)
+
+* [105. Construct Binary Tree from Preorder and Inorder Traversal](#105-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal)
+* [437. Path Sum III](#437-Path-Sum-III)
+* [236. Lowest Common Ancestor of a Binary Tree](#236-Lowest-Common-Ancestor-of-a-Binary-Tree)
+* [114. Flatten Binary Tree to Linked List](#114-Flatten-Binary-Tree-to-Linked-List)
+* [124. Binary Tree Maximum Path Sum](#124-Binary-Tree-Maximum-Path-Sum)
+
+### 94. Binary Tree Inorder Traversal
+
+```python
+class Solution:
+    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        def dfs(node, res):
+            if node:
+                dfs(node.left, res)
+                res.append(node.val)
+                dfs(node.right, res)
+            return res 
+        return dfs(root, [])
+```
+
+### 104. Maximum Depth of Binary Tree
+
+```python
+class Solution:
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        def dfs(node):
+            if not node:
+                return 0
+            return max(dfs(node.left), dfs(node.right)) + 1
+        return dfs(root)
+```
+
+### 226. Invert Binary Tree
+
+```python
+class Solution:
+    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root:
+            return None
+        root.left, root.right = self.invertTree(root.right), self.invertTree(root.left)
+        return root
+```
+
+### 101. Symmetric Tree
+
+```python
+class Solution:
+    def isSymmetric(self, root: Optional[TreeNode]) -> bool:
+      def symmetric(p, q):
+        if not p and not q:
+          return True
+        if p and not q or q and not p or p.val != q.val:
+          return False
+        return symmetric(p.left, q.right) and symmetric(p.right, q.left)
+      return symmetric(root.left, root.right)
+```
+
+### 543. Diameter of Binary Tree
+
+```python
+class Solution:
+    def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
+        self.res = 0
+        def dfs(node):
+            if not node:
+                return 0
+            l, r = dfs(node.left), dfs(node.right)
+            self.res = max(self.res, l + r)
+            return max(l, r) + 1
+        dfs(root)
+        return self.res
+```
+
+
+### 102. Binary Tree Level Order Traversal
+
+```python
+class Solution:
+    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        if not root:
+            return []
+        q = deque([root])
+        res = []
+        while q:
+            a = []
+            for i in range(len(q)):
+                node = q.popleft()
+                a.append(node.val)
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+            res.append(a)
+        return res
+```
+
 ### 108. Convert Sorted Array to Binary Search Tree
 
 ```python
@@ -1152,6 +1547,410 @@ class Solution:
         return self.isValidBST(root.left, l, v) and self.isValidBST(root.right, v, r)
 ```
 
+### 230. Kth Smallest Element in a BST
+
+```python
+class Solution:
+    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+        def inorder(root, res):
+            if root:
+                inorder(root.left, res)
+                res.append(root.val)
+                inorder(root.right, res)
+            return res
+        res = inorder(root, [])
+        return res[k - 1]
+```
+
+### 199. Binary Tree Right Side View
+
+```python
+class Solution:
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+        if not root:
+            return []
+        res, q = [], deque([root])
+        while q:
+            n = len(q)
+            for i in range(n):
+                node = q.popleft()
+                if i == n - 1:
+                    res.append(node.val)
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+        return res
+```
+
+### 105. Construct Binary Tree from Preorder and Inorder Traversal
+
+```python
+class Solution:
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
+        def dfs(preorder, inorder):
+            if not preorder:
+                return None 
+            node = TreeNode(preorder[0])
+            m = inorder.index(preorder[0])
+            node.left = dfs(preorder[1:m+1], inorder[:m])
+            node.right = dfs(preorder[m+1:], inorder[m+1:])
+            return node 
+        return dfs(preorder, inorder)
+```
+
+### 437. Path Sum III
+
+```python
+class Solution:
+    def pathSum(self, root: Optional[TreeNode], targetSum: int) -> int:
+        def dfs(node, presum):
+            if node: 
+                if node.val + presum == targetSum:
+                    self.res += 1
+                dfs(node.left, presum + node.val)
+                dfs(node.right, presum + node.val)
+        
+        self.res = 0
+        def preorder(node):
+            if node:
+                dfs(node, 0)
+                preorder(node.left)
+                preorder(node.right)
+        preorder(root)
+        return self.res
+# O(n)
+class Solution:
+    def pathSum(self, root: Optional[TreeNode], targetSum: int) -> int:
+        def dfs(node, presum):
+            if not node:
+                return 
+            curr =  node.val + presum
+            self.res += prefix[curr - targetSum]
+            prefix[curr] += 1
+            dfs(node.left, presum + node.val)
+            dfs(node.right, presum + node.val)
+            prefix[curr] -= 1
+        
+        self.res = 0
+        prefix = defaultdict(int)
+        prefix[0] = 1
+        dfs(root, 0)
+        return self.res
+```
+
+### 236. Lowest Common Ancestor of a Binary Tree
+
+```python
+class Solution:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        def dfs(node):
+            if not node or node in [p, q]:
+                return node 
+            left, right = dfs(node.left), dfs(node.right)
+            if left and right:
+                return node 
+            elif left:
+                return left 
+            else:
+                return right 
+        return dfs(root)
+```
+
+### 114. Flatten Binary Tree to Linked List
+
+```python
+class Solution:
+    def flatten(self, root: Optional[TreeNode]) -> None:
+        """
+        Do not return anything, modify root in-place instead.
+        """
+        def dfs(node, p):
+            if node:
+                node.left = None
+                dfs(node.left, p)
+                dfs(node.right, p)
+        p = temp = root
+        dfs(root, p)
+        return temp
+```
+
+### 124. Binary Tree Maximum Path Sum
+
+```python
+class Solution:
+    def maxPathSum(self, root: Optional[TreeNode]) -> int:
+        def dfs(node):
+            if not node:
+                return 0
+            l, r = max(dfs(node.left), 0), max(dfs(node.right), 0)
+            self.res = max(self.res, node.val + l + r)
+            return node.val + max(l, r)
+        self.res = -inf
+        dfs(root)
+        return self.res 
+```
+
+## Binary Search (6)
+
+* [35. Search Insert Position](#35-Search-Insert-Position)
+* [74. Search a 2D Matrix](#74-Search-a-2D-Matrix)
+* [34. Find First and Last Position of Element in Sorted Array](#34-Find-First-and-Last-Position-of-Element-in-Sorted-Array)
+* [33. Search in Rotated Sorted Array](#33-Search-in-Rotated-Sorted-Array)
+* [153. Find Minimum in Rotated Sorted Array](#153-Find-Minimum-in-Rotated-Sorted-Array)
+* [4. Median of Two Sorted Arrays](#4-Median-of-Two-Sorted-Arrays)
+
+### 35. Search Insert Position
+
+```python
+class Solution:
+    def searchInsert(self, nums: List[int], target: int) -> int:
+        l, r = 0, len(nums) - 1
+        while l <= r:
+            m = l + (r - l) // 2
+            if nums[m] > target:
+                r = m - 1
+            elif nums[m] < target:
+                l = m + 1
+            else:
+                return m
+        return l
+```
+
+### 74. Search a 2D Matrix
+
+```python
+class Solution:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        nums = sum(matrix, [])
+        i = bisect_left(nums, target)
+        return i < len(nums) and nums[i] == target
+```
+
+### 34. Find First and Last Position of Element in Sorted Array
+
+```python
+class Solution:
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        # return [bisect_left(nums, target), bisect_right(nums, target) - 1]
+        n = len(nums)
+        def binary_right(nums, target):
+            l, r = 0, n - 1
+            while l <= r:
+                m = l + (r - l) // 2
+                if nums[m] > target:
+                    r = m - 1
+                else:
+                    l = m + 1
+            return r if r >= 0 and nums[r] == target else -1
+        def binary_left(nums, target):
+            l, r = 0, n - 1
+            while l <= r:
+                m = l + (r - l) // 2
+                if nums[m] < target:
+                    l = m + 1
+                else:
+                    r = m - 1
+            return l if l < n and nums[l] == target else -1
+        return [binary_left(nums, target), binary_right(nums, target)]
+```
+
+
+### 153. Find Minimum in Rotated Sorted Array
+
+```python
+class Solution:
+    def findMin(self, nums: List[int]) -> int:
+        l, r = 0, len(nums) - 1
+        while l < r:
+            m = l + (r - l) // 2
+            if nums[m] > nums[r]:
+                l = m + 1
+            else:
+                r = m  
+        return nums[l]
+```
+
+### 33. Search in Rotated Sorted Array
+
+```python
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        l, r = 0, len(nums) - 1
+        while l <= r:
+            m = l + (r - l) // 2
+            if nums[m] == target:
+                return m 
+            if nums[m] >= nums[l]:
+                if nums[l] <= target < nums[m]:
+                    r = m - 1
+                else:
+                    l = m + 1
+            else:
+                if nums[m] < target <= nums[r]:
+                    l = m + 1
+                else:
+                    r = m - 1
+        return -1
+```
+
+### 4. Median of Two Sorted Arrays
+
+```python
+class Solution:
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        nums1 = [-inf] + nums1 + [inf]
+        nums2 = [-inf] + nums2 + [inf]
+        A, B, total = nums1, nums2, len(nums1) + len(nums2)
+        if len(A) > len(B):
+            A, B = B, A 
+        half = total // 2
+
+        l, r = 0, len(A) - 1
+        while True:
+            m1 = l + (r - l) // 2
+            m2 = half - m1 - 2
+            leftA = A[m1]
+            rightA = A[m1 + 1]
+            leftB = B[m2]
+            rightB = B[m2 + 1]
+            if leftA <= rightB and leftB <= rightA:
+                if total % 2:
+                    return min(rightA, rightB)
+                return (max(leftA, leftB) + min(rightA, rightB)) / 2
+            elif leftA > rightB:
+                r = m1 - 1
+            else:
+                l = m1 + 1
+```
+
+## greedy
+
+### 121. Best Time to Buy and Sell Stock
+
+```python
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        lowest, profit = prices[0], 0
+        for p in prices:
+            lowest = min(lowest, p)
+            profit = max(profit, p - lowest)
+        return profit
+```
+
+### 55. Jump Game
+
+```python
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        n = len(nums)
+        furthest = 0
+        for i in range(n):
+            if i <= furthest:
+                furthest = max(i + nums[i], furthest)
+        return furthest >= n - 1
+```
+
+### 45. Jump Game II
+
+```python
+class Solution:
+    def jump(self, nums: List[int]) -> int:
+        # method 1: dp
+        dp = [0] * len(nums) # last number of dp is the value
+        for i in range(1, len(nums)):
+            res = inf
+            for j in range(i):
+                if j + nums[j] >= i:
+                    res = min(res, dp[j] + 1)    
+                    dp[i] = res
+        return dp[-1] # time too long
+        
+        # method 2: greedy
+        # res = 0
+        # l, r = 0, 0 # window of indexes
+        # while r < len(nums) - 1:
+        #     farthest = 0
+        #     for i in range(l, r + 1):
+        #         farthest = max(farthest, i + nums[i])
+        #     l = r + 1
+        #     r = farthest
+        #     res += 1
+        # return res
+```
+
+### 763. Partition Labels
+
+```python
+class Solution:
+    def partitionLabels(self, s: str) -> List[int]:
+        d = defaultdict(list)
+        for i, c in enumerate(s):
+            d[c].append(i)
+
+        furthest = 0
+        n = len(s)
+        i = 0
+        res = []
+        while i < n:
+            furthest = d[s[i]][-1]
+            j = i 
+            while j < furthest:
+                furthest = max(furthest, d[s[j]][-1])
+                j += 1
+            res.append(furthest - i + 1)
+            i = furthest + 1
+        return res
+```
+
+## DP
+
+### DP 1D (5)
+
+* [70. Climbing Stairs](#70-Climbing-Stairs)
+* [118. Pascal's Triangle](#118-Pascal's-Triangle)
+* [53. Maximum Subarray](#53-Maximum-Subarray)
+* [198. House Robber](#198-House-Robber)
+* [152. Maximum Product Subarray](#152-Maximum-Product-Subarray)
+
+### 70. Climbing Stairs
+
+```python
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        first, second = 1, 2
+        for i in range(3, n + 1):
+            second, first = second + first, second 
+        return second if n >= 2 else first
+```
+
+### 118. Pascal's Triangle
+
+```python
+class Solution:
+    def generate(self, numRows: int) -> List[List[int]]:
+        res = [[1]]
+        for i in range(2, numRows + 1):
+            lastRow = res[-1]
+            lastRow = [0] + lastRow + [0]
+            lastRow = [lastRow[i] + lastRow[i + 1] for i in range(len(lastRow) - 1)]
+            res.append(lastRow)
+        return res
+```
+
+### 53. Maximum Subarray
+
+```python
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        n = len(nums)
+        dp = [0] * n 
+        dp[0] = nums[0]
+        for i in range(1, n):
+            dp[i] = max(nums[i], nums[i] + dp[i - 1])
+        return max(dp)
+```
+
 ### 198. House Robber
 
 ```python
@@ -1163,6 +1962,28 @@ class Solution:
             dp[i] = max(dp[i - 1], dp[i - 2] + nums[i - 1])
         return dp[-1]
 ```
+
+### 152. Maximum Product Subarray
+
+```python
+class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
+        res = mx = mn = nums[0]
+        n = len(nums)
+        for i in range(1, n):
+            temp = mx 
+            mx = max(mx * nums[i], mn * nums[i], nums[i])
+            mn = min(temp * nums[i], mn * nums[i], nums[i])
+            res = max(res, mx)
+        return res
+```
+
+
+### DP knapsack
+
+* [322. Coin Change](#322-Coin-Change)
+* [279. Perfect Squares](#279-Perfect-Squares)
+* [53. Maximum Subarray](#53-Maximum-Subarray)
 
 ### 322. Coin Change
 
@@ -1198,5 +2019,245 @@ class Solution:
         return res
 ```
 
-### try more
-s
+### 416. Partition Equal Subset Sum
+
+```python
+class Solution:
+    def canPartition(self, nums: List[int]) -> bool:
+        if sum(nums) % 2 == 1:
+            return False
+        half = sum(nums) // 2
+        @cache
+        def f(t, i):
+            if i == len(nums):
+                return True if t == half else False
+            return f(t, i + 1) or f(t + nums[i], i + 1)
+        return f(0, 0)
+```
+
+### Dp 2D (6)
+
+* [62. Unique Paths](#62-Unique-Paths)
+* [64. Minimum Path Sum](#64-Minimum-Path-Sum)
+* [1143. Longest Common Subsequence](#1143-Longest-Common-Subsequence)
+* [5. Longest Palindromic Substring](#5-Longest-Palindromic-Substring)
+* [5. Longest Palindromic Substring](#5-Longest-Palindromic-Substring)
+* [72. Edit Distance](#72-Edit-Distance)
+* [139. Word Break](#139-Word-Break)
+
+### 62. Unique Paths
+
+```python
+class Solution:
+    def uniquePaths(self, m: int, n: int) -> int:
+        R, C = m, n
+        dp = [[1] * C for i in range(R)]
+        for r in range(1, m):
+            for c in range(1, n):
+                dp[r][c] = dp[r - 1][c] + dp[r][c - 1]
+        return dp[-1][-1]
+```
+
+### 64. Minimum Path Sum
+
+```python
+class Solution:
+    def minPathSum(self, grid: List[List[int]]) -> int:
+        R, C = len(grid), len(grid[0])
+        for r in range(1, R):
+            grid[r][0] += grid[r - 1][0]
+        for c in range(1, C):
+            grid[0][c] += grid[0][c - 1]
+        for r in range(1, R):
+            for c in range(1, C):
+                grid[r][c] += min(grid[r - 1][c], grid[r][c - 1])
+        return grid[-1][-1]
+```
+
+### 1143. Longest Common Subsequence
+
+```python
+class Solution:
+    def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+        R, C = len(text1) + 1, len(text2) + 1
+        dp = [[0] * C for r in range(R)]
+        for r in range(1, R):
+            for c in range(1, C):
+                if text1[r - 1] != text2[c - 1]:
+                    dp[r][c] = max(dp[r - 1][c], dp[r][c - 1])
+                else:
+                    dp[r][c] = dp[r - 1][c - 1] + 1
+        return dp[-1][-1]
+```
+
+### 5. Longest Palindromic Substring
+
+```python
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        n, res = len(s), s[0]
+        dp = [[False] * n for r in range(n)]
+        for r in range(1, n):
+            for l in range(r):
+                if s[r] == s[l] and (r - l + 1 <= 3 or dp[l + 1][r - 1]):
+                    dp[l][r] = True
+                    if r - l + 1 > len(res):
+                        res = s[l: r + 1]
+        return res 
+```
+
+### 72. Edit Distance
+
+```python
+class Solution:
+    def minDistance(self, word1: str, word2: str) -> int:
+        R, C = len(word1) + 1, len(word2) + 1
+        dp = [[0] * C for r in range(R)]
+        for c in range(1, C):
+            dp[0][c] = dp[0][c - 1] + 1
+        for r in range(1, R):
+            dp[r][0] = dp[r - 1][0] + 1
+        for r in range(1, R):
+            for c in range(1, C):
+                if word1[r - 1] == word2[c - 1]:
+                    dp[r][c] = dp[r - 1][c - 1]
+                else:
+                    dp[r][c] = min(dp[r][c - 1], dp[r - 1][c], dp[r - 1][c - 1]) + 1
+        return dp[-1][-1]
+```
+
+
+### 139. Word Break
+
+```python
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        n, wordDict = len(s), set(wordDict)
+        dp = [True] + [False] * n
+        for i in range(n + 1):
+            for j in range(i + 1, n + 1):
+                if dp[i] and s[i:j] in wordDict:
+                    dp[j] = True
+        return dp[-1]
+```
+
+## greedy (4)
+
+* [121. Best Time to Buy and Sell Stock](#121-Best-Time-to-Buy-and-Sell-Stock)
+* [55. Jump Game](#55-Jump-Game)
+* [45. Jump Game II](#45-Jump-Game-II)
+* [763. Partition Labels](#763-Partition-Labels)
+
+## Tricks (5)
+
+* [136. Single Number](#136-Single-Number)
+* [189. Rotate Array](#189-Rotate-Array)
+* [169. Majority Element](#169-Majority-Element)
+* [31. Next Permutation](#31-Next-Permutation)
+* [75. Sort Colors](#75-Sort-Colors)
+
+### 136. Single Number
+
+- bit manipulation
+
+```python
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        res = 0
+        for n in nums:
+            res ^= n 
+        return res
+```
+### 189. Rotate Array
+
+- reverse
+
+```python
+class Solution:
+    def rotate(self, nums: List[int], k: int) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        n = len(nums)
+        k = k % n 
+        nums.reverse()
+        l, r = 0, k - 1
+        while l < r:
+            nums[l], nums[r] = nums[r], nums[l]
+            l += 1
+            r -= 1
+        l, r = k, n - 1
+        while l < r:
+            nums[l], nums[r] = nums[r], nums[l]
+            l += 1
+            r -= 1
+```
+
+
+### 169. Majority Element
+
+- Moore Voting
+
+```python
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
+        count = 0
+        for n in nums:
+            if count == 0:
+                major = n 
+                count = 1
+            elif n == major:
+                count += 1
+            else:
+                count -= 1
+        return major
+```
+
+### 31. Next Permutation
+
+- math
+
+```python
+class Solution:
+    def nextPermutation(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        pivot = None
+        n = len(nums)
+        for i in range(n - 1, 0, -1):
+            if nums[i] > nums[i - 1]:
+                pivot = i - 1
+                break
+        if pivot == None:
+            nums.reverse()
+            return 
+        
+        for i in range(n - 1, 0, -1):
+            if nums[i] > nums[pivot]:
+                nums[i], nums[pivot] = nums[pivot], nums[i]
+                break 
+        print(pivot)
+        nums[pivot + 1:] = nums[pivot + 1:][::-1]
+```
+
+### 75. Sort Colors
+
+```python
+class Solution:
+    def sortColors(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        i, l, r = 0, 0, len(nums) - 1
+        while i <= r:
+            if nums[i] == 2:
+                nums[i], nums[r] = nums[r], nums[i]
+                r -= 1
+            elif nums[i] == 0:
+                nums[i], nums[l] = nums[l], nums[i]
+                l += 1
+                i += 1
+            else:
+                i += 1
+```
