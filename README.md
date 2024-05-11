@@ -6,7 +6,9 @@ Check my YouTube for all questions (https://www.youtube.com/@letscode1000)
 
 ## Top Coding Patterns
 
-* ### 1 Hash Table
+* ### 1 Hash
+  * #### Hash Table
+  * #### Hash Set
 * ### 2 Matrix
 * ### 3 Stack
 * ### 4 Queue
@@ -77,7 +79,7 @@ Check my YouTube for all questions (https://www.youtube.com/@letscode1000)
 * ### 21 Binary Index Tree
 * ### 22 Segment Tree
 * ### 23 Math
-
+* ### 24 Tricks
 
 
 
