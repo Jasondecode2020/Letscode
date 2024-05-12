@@ -16,9 +16,10 @@ Check my YouTube for all questions (https://www.youtube.com/@letscode1000)
   * #### Basics
   * #### Two Heaps
   * #### Regret greedy
-* ### 6 D & Q
-  * #### 6.1 Binary Search
-  * #### 6.2 Sort
+* ### 6 Divide and Conquer
+  * #### 6.1 Basics
+  * #### 6.2 Binary Search
+  * #### 6.3 Sort
 * ### 7 Two Pointers
   * #### Basics
   * #### Fast Slow Pointers
