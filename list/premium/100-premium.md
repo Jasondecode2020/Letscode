@@ -74,3 +74,91 @@ class Solution:
         backtrack(n, [])
         return res 
 ```
+
+### sliding window (4)
+
+* [159. Longest Substring with At Most Two Distinct Characters](#159-longest-substring-with-at-most-two-distinct-characters)
+* [340. Longest Substring with At Most K Distinct Characters](#340-longest-substring-with-at-most-k-distinct-characters)
+* [487. Max Consecutive Ones II](#487-max-consecutive-ones-ii)
+* [1100. Find K-Length Substrings With No Repeated Characters](#1100-find-k-length-substrings-with-no-repeated-characters)
+
+### 159. Longest Substring with At Most Two Distinct Characters
+
+```python
+class Solution:
+    def lengthOfLongestSubstringTwoDistinct(self, s: str) -> int:
+        d = Counter()
+        l, res = 0, 0
+        for r, c in enumerate(s):
+            d[c] += 1
+            while len(d) > 2:
+                d[s[l]] -= 1
+                if d[s[l]] == 0:
+                    d.pop(s[l])
+                l += 1
+            res = max(res, r - l + 1)
+        return res
+```
+
+### 340. Longest Substring with At Most K Distinct Characters
+
+```python
+class Solution:
+    def lengthOfLongestSubstringKDistinct(self, s: str, k: int) -> int:
+        d = Counter()
+        l, res = 0, 0
+        for r, c in enumerate(s):
+            d[c] += 1
+            while len(d) > k:
+                d[s[l]] -= 1
+                if d[s[l]] == 0:
+                    d.pop(s[l])
+                l += 1
+            res = max(res, r - l + 1)
+        return res
+```
+
+### 487. Max Consecutive Ones II
+
+```python
+class Solution:
+    def findMaxConsecutiveOnes(self, nums: List[int]) -> int:
+        count, res, l = 0, 0, 0
+        for r, n in enumerate(nums):
+            if n == 0:
+                count += 1
+            while count > 1:
+                if nums[l] == 0:
+                    count -= 1
+                l += 1
+            res = max(res, r - l + 1)
+        return res
+```
+
+### 1100. Find K-Length Substrings With No Repeated Characters
+
+```python
+class Solution:
+    def numKLenSubstrNoRepeats(self, s: str, k: int) -> int:
+        if k > 26: return 0
+        freq, res = [0] * 26, 0
+        l, n = 0, len(s)
+        for r in range(n):
+            freq[ord(s[r]) - ord('a')] += 1
+            while freq[ord(s[r]) - ord('a')] > 1:
+                freq[ord(s[l]) - ord('a')] -= 1
+                l += 1
+            if r - l + 1 == k:
+                res += 1
+                freq[ord(s[l]) - ord('a')] -= 1
+                l += 1
+        return res
+```
+
+输入：
+[[16,32],[27,3],[23,-14],[-32,-16],[-3,26],[-14,33]]
+"aaabfc"
+输出：
+3
+预期：
+2

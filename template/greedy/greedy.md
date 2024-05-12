@@ -489,3 +489,22 @@ class Solution:
                 target = 1
         return res
 ```
+
+### 2216. Minimum Deletions to Make Array Beautiful
+
+```python
+class Solution:
+    def minDeletion(self, nums: List[int]) -> int:
+        # [1,1,2,2,3,3]
+        # [1,1,1,2,3,3]
+        # [1,2,3,3]
+        n = len(nums)
+        pairs = 0
+        i = 0
+        while i < n:
+            if i + 1 < n and nums[i + 1] != nums[i]:
+                pairs += 1
+                i += 1
+            i += 1
+        return n - pairs * 2
+```

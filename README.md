@@ -13,9 +13,19 @@ Check my YouTube for all questions (https://www.youtube.com/@letscode1000)
 * ### 3 Stack
 * ### 4 Queue
 * ### 5 Heap
-* ### 6 Binary Search
+  * #### Basics
+  * #### Two Heaps
+  * #### Regret greedy
+* ### 6 D & Q
+  * #### 6.1 Binary Search
+  * #### 6.2 Sort
 * ### 7 Two Pointers
+  * #### Basics
+  * #### Fast Slow Pointers
+  * #### List Groups
 * ### 8 Sliding Window
+  * #### Fixed Window
+  * #### Changable Window
 * ### 9 Linked List
 * ### 10 Tree
   * #### 11.1 DFS
@@ -66,6 +76,9 @@ Check my YouTube for all questions (https://www.youtube.com/@letscode1000)
       * [505. The Maze II](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/Shortest-path.md#505-The-Maze-II)
 * ### 12 Backtracking
 * ### 13 Dynamic Programming
+  * #### 13.1 Basics
+    * ##### 13.1.1 Climbing Stairs
+    * ##### 13.1.2 House Robber
 * ### 14 Greedy
 * ### 15 Sweep Line
 * ### 16 Difference Array
@@ -79,6 +92,11 @@ Check my YouTube for all questions (https://www.youtube.com/@letscode1000)
 * ### 21 Binary Index Tree
 * ### 22 Segment Tree
 * ### 23 Math
+  * #### 23.1 Primes
+  * #### 23.2 Factors
+  * #### 23.3 Combinations
+  * #### 23.4 gcd 
+  * #### 23.5 remainder
 * ### 24 Tricks
 
 

@@ -29,9 +29,9 @@ while i < n or i < n - 1:
 
 - 11 similar questions
 
-### 228. Summary Ranges
-### 1446. Consecutive Characters
-### 1578. Minimum Time to Make Rope Colorful
+* [228. Summary Ranges](#228-summary-ranges)
+* [1446. Consecutive Characters](#1446-consecutive-characters)
+* [1578. Minimum Time to Make Rope Colorful](#1578-minimum-time-to-make-rope-colorful)
 ### 1759. Count Number of Homogenous Substrings
 ### 1839. Longest Substring Of All Vowels in Order
 ### 1869. Longer Contiguous Segments of Ones than Zeros
@@ -45,6 +45,10 @@ while i < n or i < n - 1:
 ### 2981. Find Longest Special Substring That Occurs Thrice I
 ### 2982. Find Longest Special Substring That Occurs Thrice II
 ### 2110. Number of Smooth Descent Periods of a Stock
+
+
+### 1578. Minimum Time to Make Rope Colorful
+
 
 ### 228. Summary Ranges
 
@@ -84,13 +88,20 @@ class Solution:
 ```python
 class Solution:
     def minCost(self, colors: str, neededTime: List[int]) -> int:
-        res, i, n = 0, 0, len(colors)
+        i = 0
+        n = len(colors)
+        res = 0
         while i < n:
-            start = i
-            while i < n - 1 and colors[i] == colors[i + 1]:
-                i += 1
-            res += sum(neededTime[start: i + 1]) - max(neededTime[start: i + 1])
-            i += 1
+            start = i 
+            j = start
+            total, mx = 0, -inf
+            while j < n and colors[j] == colors[start]:
+                total += neededTime[j]
+                mx = max(mx, neededTime[j])
+                j += 1
+            if j - start + 1 >= 2:
+                res += total - mx 
+            i = j
         return res 
 ```
 

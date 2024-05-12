@@ -163,9 +163,10 @@
 * [72. Edit Distance](#72-Edit-Distance)
 * [139. Word Break](#139-Word-Break)
 
-### exercise (1)
+### exercise (2)
 
 * [132. Palindrome Partitioning II](#132-Palindrome-Partitioning-II)
+* [3144. Minimum Substring Partition of Equal Character Frequency](#3144-minimum-substring-partition-of-equal-character-frequency)
 
 ## greedy (4)
 
@@ -1726,6 +1727,7 @@ class Solution:
 ## Binary Search practice (1)
 
 * [81. Search in Rotated Sorted Array II](#81-Search-in-Rotated-Sorted-Array-II)
+* [154. Find Minimum in Rotated Sorted Array II](#154-find-minimum-in-rotated-sorted-array-ii)
 - similar to 33
 
 ### 35. Search Insert Position
@@ -1875,6 +1877,23 @@ class Solution:
             else:
                 l += 1
         return False
+```
+
+### 154. Find Minimum in Rotated Sorted Array II
+
+```python
+class Solution:
+    def findMin(self, nums: List[int]) -> int:
+        l, r = 0, len(nums) - 1
+        while l < r:
+            m = l + (r - l) // 2
+            if nums[m] > nums[r]:
+                l = m + 1
+            elif nums[m] < nums[r]:
+                r = m  
+            else:
+                r -= 1
+        return nums[l]
 ```
 
 ## greedy
@@ -2098,6 +2117,11 @@ class Solution:
 * [72. Edit Distance](#72-Edit-Distance)
 * [139. Word Break](#139-Word-Break)
 
+- exercise
+
+* [132. Palindrome Partitioning II](#132-palindrome-partitioning-ii)
+* [3144. Minimum Substring Partition of Equal Character Frequency](#3144-minimum-substring-partition-of-equal-character-frequency)
+
 ### 62. Unique Paths
 
 ```python
@@ -2192,6 +2216,49 @@ class Solution:
                 if dp[i] and s[i:j] in wordDict:
                     dp[j] = True
         return dp[-1]
+```
+
+### 132. Palindrome Partitioning II
+
+```python
+class Solution:
+    def minCut(self, s: str) -> int:
+        @cache
+        def dfs(i):
+            if i == n:
+                return 0
+            res = inf 
+            for j in range(i, n):
+                if dp[i][j]:
+                    res = min(res, dfs(j + 1) + 1)
+            return res
+        n = len(s)
+        dp = [[False] * n for c in range(n)]
+        for j in range(n):
+            for i in range(j + 1):
+                if s[i] == s[j] and (j - i <= 2 or dp[i + 1][j - 1]):
+                    dp[i][j] = True
+        return dfs(0) - 1
+```
+
+### 3144. Minimum Substring Partition of Equal Character Frequency
+
+```python
+class Solution:
+    def minimumSubstringsInPartition(self, s: str) -> int:
+        @cache
+        def dfs(i):
+            if i >= len(s):
+                return 0
+            c = Counter()
+            res = inf
+            for j in range(i, n):
+                c[s[j]] += 1
+                if len(set(c.values())) == 1:
+                    res = min(res, dfs(j + 1) + 1)
+            return res
+        n = len(s)
+        return dfs(0)
 ```
 
 ## greedy (4)

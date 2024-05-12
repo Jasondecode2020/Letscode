@@ -38,3 +38,35 @@ class Solution:
         return C2(n + 2) - 3 * C2(n + 2 - (limit + 1)) + 3 * C2(n + 2 - 2 * (limit + 1)) - C2(n + 2 - 3 * (limit + 1))
 ```
 
+### 1573. Number of Ways to Split a String
+
+```python
+class Solution:
+    def numWays(self, s: str) -> int:
+        n = len(s)
+        mod = 10 ** 9 + 7
+        ones = s.count('1')
+        if ones % 3:
+            return 0
+        k = ones // 3
+        if k == 0:
+            return ((n - 1) * (n - 2) // 2) % mod
+        i = 0
+        res = 1
+        count = 0
+        s = s.strip('0')
+        n = len(s)
+        while i < n:
+            if s[i] == '1':
+                count += 1
+            if count == k:
+                count = 0
+                j = i + 1
+                while j < n and s[j] != '1':
+                    j += 1
+                res *= (j - i)
+                i = j
+            else:
+                i += 1
+        return res % mod
+```

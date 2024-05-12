@@ -16,6 +16,14 @@
 
 * [477. Total Hamming Distance](#477-total-hamming-distance)
 
+### Linked List (1)
+
+* [707. Design Linked List](#707-design-linked-list)
+
+### Graph
+
+* [935. Knight Dialer](#935-knight-dialer)
+
 ### 60. Permutation Sequence
 
 ```python
@@ -90,4 +98,94 @@ class Solution:
         for v in d.values():
             res += v * (n - v)
         return res
+```
+
+### 707. Design Linked List
+
+```python
+class ListNode:
+
+    def __init__(self, val = 0):
+        self.val = val
+        self.next = None
+
+class MyLinkedList:
+
+    def __init__(self):
+        self.head = ListNode()
+        self.size = 0
+
+    def get(self, index: int) -> int:
+        if index >= self.size or index < 0:
+            return -1
+        p = self.head
+        for i in range(index + 1):
+            p = p.next 
+        return p.val 
+
+    def addAtHead(self, val: int) -> None:
+        self.addAtIndex(0, val)
+
+    def addAtTail(self, val: int) -> None:
+        self.addAtIndex(self.size, val)
+
+    def addAtIndex(self, index: int, val: int) -> None:
+        if index > self.size or index < 0:
+            return 
+        self.size += 1
+        p = self.head 
+        for i in range(index):
+            p = p.next 
+        temp = ListNode(val)
+        temp.next = p.next 
+        p.next = temp 
+
+    def deleteAtIndex(self, index: int) -> None:
+        if index < 0 or index >= self.size:
+            return 
+        self.size -= 1
+        p = self.head 
+        for i in range(index):
+            p = p.next 
+        p.next = p.next.next
+
+
+# Your MyLinkedList object will be instantiated and called as such:
+# obj = MyLinkedList()
+# param_1 = obj.get(index)
+# obj.addAtHead(val)
+# obj.addAtTail(val)
+# obj.addAtIndex(index,val)
+# obj.deleteAtIndex(index)
+```
+
+### 935. Knight Dialer
+
+```python
+class Solution:
+    def knightDialer(self, n: int) -> int:
+        g = {
+            1: [6, 8],
+            2: [7, 9],
+            3: [4, 8],
+            4: [0, 3, 9],
+            6: [0, 1, 7],
+            7: [2, 6],
+            8: [1, 3],
+            9: [2, 4],
+            0: [4, 6]
+        }
+        mod = 10 ** 9 + 7
+        @cache
+        def dfs(i, step):
+            if step == n - 1:
+                return 1
+            res = 0
+            for j in g[i]:
+                res += dfs(j, step + 1)
+            return res
+        if n == 1:
+            return 10
+        res = sum(dfs(i, 0) for i in range(10) if i != 5)
+        return res % mod
 ```
