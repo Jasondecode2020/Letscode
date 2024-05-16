@@ -1,29 +1,32 @@
-### 1780. Check if Number is a Sum of Powers of Three
+### 50. Pow(x, n)
 
 ```python
 class Solution:
-    def checkPowersOfThree(self, n: int) -> bool:
-        s = set()
-        while n:
-            sign = False
-            for i in range(15, -1, -1):
-                if n - 3 ** i >= 0 and i not in s:
-                    n -= 3 ** i 
-                    s.add(i)
-                    sign = True
-                    break
-            if not sign:
-                break
-        return n == 0
+    def myPow(self, x: float, n: int) -> float:
+        def dfs(x, n):
+            if n == 1:
+                return x
+            res = dfs(x, n // 2)
+            if n % 2 == 0:
+                return res * res 
+            return x * res * res 
+        if n == 0:
+            return 1
+        if n > 0:
+            return dfs(x, n)
+        else:
+            return 1 / dfs(x, abs(n))
 ```
 
-### 1276. Number of Burgers with No Waste of Ingredients
+### 2961. Double Modular Exponentiation
 
 ```python
 class Solution:
-    def numOfBurgers(self, tomatoSlices: int, cheeseSlices: int) -> List[int]:
-        z1, z2 = tomatoSlices, cheeseSlices
-        if z1 - 2 * z2 >= 0 and (z1 - 2 * z2) % 2 == 0 and 4 * z2 - z1 >= 0 and (4 * z2 - z1) % 2 == 0:
-            return [(z1 - 2 * z2) // 2, (4 * z2 - z1) // 2]
-        return []
+    def getGoodIndices(self, variables: List[List[int]], target: int) -> List[int]:
+        res = []
+        for i, (a, b, c, m) in enumerate(variables):
+            A = pow(a, b, 10)
+            if pow(A, c, m) == target:
+                res.append(i)
+        return res
 ```

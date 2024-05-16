@@ -1,6 +1,6 @@
 # DP
 
-## 1 Basics
+## 1 Basics (19)
 
 ### 1.1 Climbing Stairs (8)
 
@@ -13,14 +13,14 @@
 * [2266. Count Number of Texts](#2266-count-number-of-texts) 1857
 * [2533. Number of Good Binary Strings](#2533-number-of-good-binary-strings) 1694
 
-### 1.2 House Robber (8)
+### 1.2 House Robber (4)
 
 * [198. House Robber](#198-house-robber)
 * [740. Delete and Earn](#740-delete-and-earn)
 * [2320. Count Number of Ways to Place Houses](#2320-count-number-of-ways-to-place-houses) 1608
 * [213. House Robber II](#213-house-robber-ii)
 
-### 1.3 maximum Subarray (6)
+### 1.3 maximum Subarray (7)
 
 - f[i] = f[i−1] + a[i]
 
@@ -30,27 +30,69 @@
 * [1191. K-Concatenation Maximum Sum](#1191-k-concatenation-maximum-sum) 1748
 * [918. Maximum Sum Circular Subarray](#918-maximum-sum-circular-subarray) 1777
 * [2321. Maximum Score Of Spliced Array](#2321-maximum-score-of-spliced-array) 1791
-* [152. Maximum Product Subarray]()
+* [152. Maximum Product Subarray](#152-maximum-product-subarray)
 
-## 2 Grid
+## 2 Grid (18)
 
 ### 2.1 Basics (8)
 
-* [62. Unique Paths](#70-climbing-stairs)
-* [509. Fibonacci Number](#509-fibonacci-number)
-* [1137. N-th Tribonacci Number](#1137-n-th-tribonacci-number)
-* [746. Min Cost Climbing Stairs](#746-min-cost-climbing-stairs)
-* [377. Combination Sum IV](#377-combination-sum-iv)
-* [2466. Count Ways To Build Good Strings](#2466-count-ways-to-build-good-strings) 1694
-* [2266. Count Number of Texts](#2266-count-number-of-texts) 1857
-* [2533. Number of Good Binary Strings](#2533-number-of-good-binary-strings) 1694
+* [62. Unique Paths](#62-unique-paths)
+* [63. Unique Paths II](#63-unique-paths-ii)
+* [64. Minimum Path Sum](#64-minimum-path-sum)
+* [120. Triangle](#120-triangle)
+* [931. Minimum Falling Path Sum](#931-minimum-falling-path-sum)
+* [2684. Maximum Number of Moves in a Grid](#2684-maximum-number-of-moves-in-a-grid)
+* [1289. Minimum Falling Path Sum II](#1289-minimum-falling-path-sum-ii)
+* [2304. Minimum Path Cost in a Grid](#2304-minimum-path-cost-in-a-grid)
 
-### 2.2 Advanced (8)
+### 2.2 Advanced (10)
 
-* [198. House Robber](#198-house-robber)
-* [740. Delete and Earn](#740-delete-and-earn)
-* [2320. Count Number of Ways to Place Houses](#2320-count-number-of-ways-to-place-houses) 1608
-* [213. House Robber II](#213-house-robber-ii)
+* [1594. Maximum Non Negative Product in a Matrix](#62-unique-paths)
+* [2435. Paths in Matrix Whose Sum Is Divisible by K](#2435-paths-in-matrix-whose-sum-is-divisible-by-k)
+* [174. Dungeon Game](#174-dungeon-game)
+* [2328. Number of Increasing Paths in a Grid](#2328-number-of-increasing-paths-in-a-grid)
+* [2267. Check if There Is a Valid Parentheses String Path](#2267-check-if-there-is-a-valid-parentheses-string-path)
+* [2328. Number of Increasing Paths in a Grid](#2328-number-of-increasing-paths-in-a-grid)
+* [2510. Check if There is a Path With Equal Number of 0's And 1's](#2510-check-if-there-is-a-path-with-equal-number-of-0s-and-1s)
+* [1463. Cherry Pickup II](#1463-cherry-pickup-ii)
+* [741. Cherry Pickup](#741-cherry-pickup)
+* [1937. Maximum Number of Points with Cost](#1937-maximum-number-of-points-with-cost)
+
+## 3 Knapsack (18)
+
+### 3.1 0-1 (8)
+
+* [62. Unique Paths](#62-unique-paths)
+* [63. Unique Paths II](#63-unique-paths-ii)
+* [64. Minimum Path Sum](#64-minimum-path-sum)
+* [120. Triangle](#120-triangle)
+* [931. Minimum Falling Path Sum](#931-minimum-falling-path-sum)
+* [2684. Maximum Number of Moves in a Grid](#2684-maximum-number-of-moves-in-a-grid)
+* [1289. Minimum Falling Path Sum II](#1289-minimum-falling-path-sum-ii)
+* [2304. Minimum Path Cost in a Grid](#2304-minimum-path-cost-in-a-grid)
+
+### 3.2 unbounded (10)
+
+* [1594. Maximum Non Negative Product in a Matrix](#62-unique-paths)
+* [2435. Paths in Matrix Whose Sum Is Divisible by K](#2435-paths-in-matrix-whose-sum-is-divisible-by-k)
+* [174. Dungeon Game](#174-dungeon-game)
+* [2328. Number of Increasing Paths in a Grid](#2328-number-of-increasing-paths-in-a-grid)
+* [2267. Check if There Is a Valid Parentheses String Path](#2267-check-if-there-is-a-valid-parentheses-string-path)
+* [2328. Number of Increasing Paths in a Grid](#2328-number-of-increasing-paths-in-a-grid)
+* [2510. Check if There is a Path With Equal Number of 0's And 1's](#2510-check-if-there-is-a-path-with-equal-number-of-0s-and-1s)
+* [1463. Cherry Pickup II](#1463-cherry-pickup-ii)
+* [741. Cherry Pickup](#741-cherry-pickup)
+* [1937. Maximum Number of Points with Cost](#1937-maximum-number-of-points-with-cost)
+
+### 3.3 mutiple (1)
+
+* [1594. Maximum Non Negative Product in a Matrix](#62-unique-paths)
+
+### 3.2 group (3)
+
+* [1155. Number of Dice Rolls With Target Sum](#1155-number-of-dice-rolls-with-target-sum)
+* [1981. Minimize the Difference Between Target and Chosen Elements](#2435-paths-in-matrix-whose-sum-is-divisible-by-k)
+* [2218. Maximum Value of K Coins From Piles](#174-dungeon-game)
 
 ### 70. Climbing Stairs
 
@@ -561,18 +603,471 @@ class Solution:
 ```python
 class Solution:
     def numberOfPaths(self, grid: List[List[int]], k: int) -> int:
-        R, C = len(grid), len(grid[0])
         mod = 10 ** 9 + 7
+        R, C = len(grid), len(grid[0])
         @cache
         def dfs(r, c, total):
+            if r >= R or c >= C:
+                return 0
             total = (total + grid[r][c]) % k
             if r == R - 1 and c == C - 1:
                 return 1 if total % k == 0 else 0
-            res = 0
-            res += dfs(r + 1, c, total) if r + 1 < R else 0
-            res += dfs(r, c + 1, total) if c + 1 < C else 0
-            return res % mod 
+            res = dfs(r + 1, c, total) + dfs(r, c + 1, total)
+            return res % mod
         res = dfs(0, 0, 0)
         dfs.cache_clear()
+        return res
+```
+
+### 174. Dungeon Game
+
+```python
+class Solution:
+    def calculateMinimumHP(self, dungeon: List[List[int]]) -> int:
+        R, C = len(dungeon),len(dungeon[0])
+        @cache
+        def check(r, c, threshold):
+            if r >= R or c >= C:
+                return False
+            total = threshold + dungeon[r][c]
+            if r == R - 1 and c == C - 1:
+                return True if total > 0 else False
+            if total > 0:
+                return check(r + 1, c, total) or check(r, c + 1, total)
+
+        l, r, res = 1, 10 ** 9, 1
+        while l <= r:
+            mid = (l+r)//2
+            if check(0, 0, mid):
+                res = mid
+                r = mid - 1
+            else:
+                l = mid + 1
+        del check
         return res 
 ```
+
+### 2328. Number of Increasing Paths in a Grid
+
+```python
+class Solution:
+    def countPaths(self, matrix: List[List[int]]) -> int:
+        R, C, res = len(matrix), len(matrix[0]), 0
+        directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+        mod = 10 ** 9 + 7
+        @cache
+        def dfs(r, c):
+            res = 1
+            for dr, dc in directions:
+                row, col = dr + r, dc + c 
+                if 0 <= row < R and 0 <= col < C and matrix[row][col] > matrix[r][c]:
+                    res += dfs(row, col)
+            return res
+        
+        for r in range(R):
+            for c in range(C):
+                res += dfs(r, c)
+        return res % mod
+```
+
+### 329. Longest Increasing Path in a Matrix
+
+```python
+class Solution:
+    def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
+        R, C = len(matrix), len(matrix[0])
+        directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+        indegree = [0] * R * C 
+
+        for r in range(R):
+            for c in range(C):
+                for dr, dc in directions:
+                    row, col = r + dr, c + dc 
+                    if 0 <= row < R and 0 <= col < C and matrix[r][c] < matrix[row][col]:
+                        indegree[row * C + col] += 1
+
+        res, q = 0, deque([i for i, d in enumerate(indegree) if d == 0])
+        while q:
+            for i in range(len(q)):
+                node = q.popleft()
+                r, c = node // C,  node % C
+                for dr, dc in directions:
+                    row, col = r + dr, c + dc 
+                    if 0 <= row < R and 0 <= col < C and matrix[r][c] < matrix[row][col]:
+                        indegree[row * C + col] -= 1
+                        if indegree[row * C + col] == 0:
+                            q.append(row * C + col)
+            res += 1
+        return res
+```
+
+### 2267. Check if There Is a Valid Parentheses String Path
+
+```python
+class Solution:
+    def hasValidPath(self, grid: List[List[str]]) -> bool:
+        @cache
+        def dfs(r, c, open, close):
+            if r >= R or c >= C or open < close:
+                return False 
+            if r == R - 1 and c == C - 1:
+                if grid[r][c] == '(':
+                    return True if open + 1 == close else False 
+                else:
+                    return True if open == close + 1 else False 
+            if grid[r][c] == '(':
+                return dfs(r + 1, c, open + 1, close) or dfs(r, c + 1, open + 1, close)
+            else:
+                return dfs(r + 1, c, open, close + 1) or dfs(r, c + 1, open, close + 1)
+
+        R, C = len(grid), len(grid[0])
+        res = dfs(0, 0, 0, 0)
+        dfs.cache_clear()
+        return res
+```
+
+### 2510. Check if There is a Path With Equal Number of 0's And 1's
+
+- same as 2267. Check if There Is a Valid Parentheses String Path
+
+```python
+class Solution:
+    def isThereAPath(self, grid: List[List[int]]) -> bool:
+        @cache
+        def dfs(r, c, one, zero):
+            if r >= R or c >= C or one > (R + C) / 2 or zero > (R + C) / 2:
+                return False 
+            if r == R - 1 and c == C - 1:
+                if grid[r][c] == 1:
+                    return True if one + 1 == zero else False 
+                else:
+                    return True if one == zero + 1 else False 
+            if grid[r][c] == 1:
+                return dfs(r + 1, c, one + 1, zero) or dfs(r, c + 1, one + 1, zero)
+            else:
+                return dfs(r + 1, c, one, zero + 1) or dfs(r, c + 1, one, zero + 1)
+
+        R, C = len(grid), len(grid[0])
+        res = dfs(0, 0, 0, 0)
+        dfs.cache_clear()
+        return res
+```
+
+### 1463. Cherry Pickup II
+
+```python
+class Solution:
+    def cherryPickup(self, grid: List[List[int]]) -> int:
+        @cache
+        def dfs(r1, c1, c2):
+            if c1 < 0 or c1 >= C or c2 < 0 or c2 >= C:
+                return -inf 
+            if r1 == R - 1:
+                return grid[r1][c1] if c1 == c2 else grid[r1][c1] + grid[r1][c2]
+            cur = grid[r1][c1] if c1 == c2 else grid[r1][c1] + grid[r1][c2]
+            nxt = -inf 
+            for dr1, dc1 in directions:
+                for dr2, dc2 in directions:
+                    row1, col1 = r1 + dr1, c1 + dc1
+                    row2, col2 = r1 + dr2, c2 + dc2
+                    nxt = max(nxt, dfs(row1, col1, col2))
+            return cur + nxt
+
+        R, C = len(grid), len(grid[0])
+        directions = [[1, -1], [1, 0], [1, 1]]
+        return dfs(0, 0, C - 1)
+```
+
+### 741. Cherry Pickup
+
+```python
+class Solution:
+    def cherryPickup(self, grid: List[List[int]]) -> int:
+        @cache
+        def dfs(r1, c1, r2): # r1 + c1 - r2 == c2
+            if any([n >= N for n in [r1, c1, r2, r1 + c1 - r2]]) or grid[r1][c1] == -1 or grid[r2][r1 + c1 - r2] == -1:
+                return -inf 
+            if r1 == c1 == N - 1:
+                return grid[r1][c1]
+
+            cur = grid[r1][c1] if r1 == r2 and c1 == r1 + c1 - r2 else grid[r1][c1] + grid[r2][r1 + c1 - r2]
+            nxt = -inf 
+            for dr1, dc1 in directions:
+                for dr2, dc2 in directions:
+                    row1, col1 = r1 + dr1, c1 + dc1 
+                    row2, col2 = r2 + dr2, r1 + c1 - r2 + dc2 
+                    nxt = max(nxt, dfs(row1, col1, row2))
+            return cur + nxt
+
+        N = len(grid)
+        directions = [[0, 1], [1, 0]]
+        res = dfs(0, 0, 0)
+        return res if res != -inf else 0
+```
+
+### 1937. Maximum Number of Points with Cost
+
+```python
+class Solution:
+    def maxPoints(self, points: List[List[int]]) -> int:
+        R, C = len(points), len(points[0])
+        dp = deepcopy(points)
+        for r in range(1, R):
+            preMax, sufMax = -inf, -inf
+            for c in range(C):
+                preMax = max(preMax, dp[r - 1][c] + c)
+                dp[r][c] = max(dp[r][c], points[r][c] - c + preMax)
+            for c in range(C - 1, -1, -1):
+                sufMax = max(sufMax, dp[r - 1][c] - c)
+                dp[r][c] = max(dp[r][c], points[r][c] + c + sufMax)
+        return max(dp[-1])
+```
+
+### 2915. Length of the Longest Subsequence That Sums to Target
+
+```python
+class Solution:
+    def lengthOfLongestSubsequence(self, nums: List[int], target: int) -> int:
+        nums.sort()
+        N = len(nums)
+        @cache
+        def f(t, i):
+            if t > target:
+                return -inf 
+            if i == N:
+                return 0 if t == target else -inf 
+            return max(f(t, i + 1), f(t + nums[i], i + 1) + 1)
+        res = f(0, 0)
+        f.cache_clear()
+        return res if res != -inf else -1
+```
+
+### 416. Partition Equal Subset Sum
+
+```python
+class Solution:
+    def canPartition(self, nums: List[int]) -> bool:
+        if sum(nums) % 2 == 1:
+            return False
+        half = sum(nums) // 2
+        @cache
+        def f(t, i):
+            if i == len(nums):
+                return True if t == half else False
+            return f(t, i + 1) or f(t + nums[i], i + 1)
+        return f(0, 0)
+```
+
+### 494. Target Sum
+
+```python
+class Solution:
+    def findTargetSumWays(self, nums: List[int], target: int) -> int:
+        @cache
+        def f(t, i):
+            if i == len(nums):
+                return 1 if t == target else 0
+            return f(t - nums[i], i + 1) + f(t + nums[i], i + 1)
+        return f(0, 0)
+```
+
+### 2787. Ways to Express an Integer as Sum of Powers
+
+```python
+mod = 10 ** 9 + 7
+class Solution:
+    def numberOfWays(self, n: int, x: int) -> int:
+        nums = [i for i in range(n, 0, -1)]
+        N = len(nums)
+        @cache
+        def f(t, i):
+            if t > n:
+                return 0
+            if i == N:
+                return 1 if t == n else 0
+            return (f(t, i + 1) + f(t + nums[i] ** x, i + 1)) % mod
+        res = f(0, 0)
+        return res
+```
+
+### 474. Ones and Zeroes
+
+```python
+class Solution:
+    def findMaxForm(self, strs: List[str], m: int, n: int) -> int:
+        @cache
+        def f(a, b, i):
+            if i == len(strs):
+                return 0 if (a <= m and b <= n) else -inf
+            if a > m or b > n:
+                return -inf
+            ones, zeros = strs[i].count('1'), strs[i].count('0')
+            return max(f(a, b, i + 1), f(a + zeros, b + ones, i + 1) + 1)
+        res = f(0, 0, 0)
+        return res if res != -inf else 0
+```
+
+### 1049. Last Stone Weight II
+
+```python
+class Solution:
+    def lastStoneWeightII(self, stones: List[int]) -> int:
+        mx = max(stones)
+        @cache
+        def f(t, i):
+            if i == len(stones):
+                return abs(t)
+            if t > mx:  # optimize
+                return inf
+            return min(f(t - stones[i], i + 1), f(t + stones[i], i + 1))
+
+        return f(0, 0)
+```
+
+1774. 最接近目标价格的甜点成本
+879. 盈利计划 2204
+3082. 求出所有子序列的能量和 2242
+956. 最高的广告牌 2381
+2518. 好分区的数目 2415
+2742. 给墙壁刷油漆 2425
+LCP 47. 入场安检
+2291. 最大股票收益（会员题）
+2431. 最大限度地提高购买水果的口味（会员题）
+
+# ###################################################################################
+
+
+### 279. Perfect Squares
+
+```python
+square = [i * i for i in range(100, 0, -1)]
+class Solution:
+    def numSquares(self, n: int) -> int:
+        @cache
+        def f(t, i):
+            if t > n:
+                return inf 
+            if i == len(square):
+                return 0 if t == n else inf
+            return min(f(t, i + 1), f(t + square[i], i) + 1) 
+        res = f(0, 0)
+        f.cache_clear()
+        return res
+```
+
+### 322. Coin Change
+
+```python
+class Solution:
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        coins.sort(reverse = True)
+        @cache
+        def f(t, i):
+            if t > amount:
+                return inf 
+            if i == len(coins):
+                return 0 if t == amount else inf 
+            return min(f(t, i + 1), f(t + coins[i], i) + 1) 
+        res = f(0, 0)
+        return res if res != inf else -1
+```
+
+### 518. Coin Change II
+
+```python
+class Solution:
+    def change(self, amount: int, coins: List[int]) -> int:
+        coins.sort(reverse = True)
+        N = len(coins)
+        @cache
+        def f(t, i):
+            if t > amount:
+                return 0
+            if i == N:
+                return 1 if t == amount else 0
+            return f(t, i + 1) + f(t + coins[i], i)
+        res = f(0, 0)
+        return res if res != inf else -1
+```
+
+### 377. Combination Sum IV (unbounded knapsack with sequence)
+
+```python
+class Solution:
+    def combinationSum4(self, nums: List[int], target: int) -> int:
+        @cache
+        def f(t):
+            if t > target:
+                return 0
+            if t == target:
+                return 1
+            return sum(f(t + n) for n in nums)
+        return f(0)
+```
+
+### 2585. Number of Ways to Earn Points
+
+```python
+mod = 10 ** 9 + 7
+class Solution:
+    def waysToReachTarget(self, target: int, types: List[List[int]]) -> int:
+        n = len(types)
+        @cache
+        def f(i, t):
+            if i < 0:
+                return 1 if t == 0 else 0
+            count, mark = types[i]
+            res = 0
+            for k in range(min(count, t // mark) + 1):
+                res += f(i - 1, t - k * mark)
+            return res
+        return f(n - 1, target) % mod
+```
+
+### 1449. Form Largest Integer With Digits That Add up to Target
+
+###########################################################################################
+
+### 2585. Number of Ways to Earn Points
+
+```python
+mod = 10 ** 9 + 7
+class Solution:
+    def waysToReachTarget(self, target: int, types: List[List[int]]) -> int:
+        n = len(types)
+        @cache
+        def f(i, t):
+            if i < 0:
+                return 1 if t == 0 else 0
+            count, mark = types[i]
+            res = 0
+            for k in range(min(count, t // mark) + 1):
+                res += f(i - 1, t - k * mark)
+            return res
+        return f(n - 1, target) % mod
+```
+
+#####################################################################################################
+
+### 1155. Number of Dice Rolls With Target Sum
+
+```python
+class Solution:
+    def numRollsToTarget(self, n: int, k: int, target: int) -> int:
+        mod = 10 ** 9 + 7
+        @cache
+        def dfs(i, t):
+            if t > target:
+                return 0
+            if i == n:
+                return 1 if t == target else 0
+            res = 0
+            for j in range(1, k + 1):
+                res += dfs(i + 1, t + j)
+            return res % mod
+        return dfs(0, 0) % mod
+```
+
+### 1981. Minimize the Difference Between Target and Chosen Elements
+
+### 2218. Maximum Value of K Coins From Piles
