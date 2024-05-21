@@ -2800,3 +2800,52 @@ class Solution:
             return len(edges) - count
         return -1
 ```
+
+### 2424. Longest Uploaded Prefix
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n
+
+    def isConnected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] > self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2
+            self.rank[p2] += self.rank[p1]
+
+class LUPrefix:
+
+    def __init__(self, n: int):
+        self.uf = UF(n + 1)
+        self.s = set()
+
+    def upload(self, video: int) -> None:
+        if video - 1 in self.s:
+            self.uf.union(video - 1, video)
+        if video + 1 in self.s:
+            self.uf.union(video + 1, video)
+        self.s.add(video)
+
+    def longest(self) -> int:
+        return self.uf.rank[self.uf.find(1)] if 1 in self.s else 0
+
+
+# Your LUPrefix object will be instantiated and called as such:
+# obj = LUPrefix(n)
+# obj.upload(video)
+# param_2 = obj.longest()
+```

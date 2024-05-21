@@ -748,3 +748,95 @@ class Solution:
         backtrack('')
         return res 
 ```
+
+### 842. Split Array into Fibonacci Sequence
+
+```python
+class Solution:
+    def splitIntoFibonacci(self, num: str) -> List[int]:
+        def backtrack(i):
+            if i == n:
+                return len(res) >= 3 
+            cur = 0
+            for j in range(i, n):
+                if j > i and num[i] == '0': # with leading zero
+                    break
+                cur = cur * 10 + ord(num[j]) - ord('0')
+                if cur > 2 ** 31 - 1:
+                    break 
+                if len(res) < 2 or cur == res[-2] + res[-1]:
+                    res.append(cur)
+                    if backtrack(j + 1):
+                        return True # break until find one group
+                    res.pop()
+                if len(res) >= 2 and cur > res[-2] + res[-1]:
+                    break
+        n = len(num)
+        res = []
+        backtrack(0)
+        return res
+```
+
+### 842. Split Array into Fibonacci Sequence
+
+```python
+class Solution:
+    def splitIntoFibonacci(self, num: str) -> List[int]:
+        n = len(num)
+        def backtrack(i):
+            if i == n:
+                return len(res) >= 3
+            cur = 0
+            for j in range(i, n):
+                if j > i and num[i] == '0':
+                    break 
+                cur = cur * 10 + ord(num[j]) - ord('0')
+                if cur >= 2 ** 31:
+                    break 
+                if len(res) < 2 or cur == res[-2] + res[-1]:
+                    res.append(cur)
+                    if backtrack(j + 1):
+                        return True
+                    res.pop()
+                if len(res) >= 2 and cur > res[-2] + res[-1]:
+                    break
+            return False
+        res = []
+        backtrack(0)
+        return res
+```
+
+### 267. Palindrome Permutation II
+
+```python
+class Solution:
+    def generatePalindromes(self, s: str) -> List[str]:
+        n = len(s)
+        def backtrack(a, ans):
+            if len(ans) == n // 2:
+                res.append(ans)
+                return 
+            for i in range(len(a)):
+                if i > 0 and a[i] == a[i - 1]:
+                    continue
+                backtrack(a[:i] + a[i+1:], ans + a[i])
+        d = Counter(s)
+        new_string = ''
+        count = 0
+        mid_string = ''
+        for k, v in d.items():
+            if v % 2 == 1:
+                mid_string = k
+                count += 1
+                if count > 1:
+                    return []
+            new_string += k * (v // 2)
+        res = []
+        new_string = ''.join(sorted(list(new_string)))
+        backtrack(new_string, '')
+        if count == 0:
+            res = [item + item[::-1] for item in res]
+        else:
+            res = [item + mid_string + item[::-1] for item in res]
+        return res
+```

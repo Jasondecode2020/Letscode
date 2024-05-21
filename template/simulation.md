@@ -540,3 +540,20 @@ class Solution:
             res += 1
         return res
 ```
+
+### 950. Reveal Cards In Increasing Order
+
+```python
+class Solution:
+    def deckRevealedIncreasing(self, deck: List[int]) -> List[int]:
+        # [17] => [13, 17] => [11, 17, 13] => [7, 13, 11, 17]=> [5, 17, 7, 13, 11]
+        # => [3, 11, 5, 17, 7, 13] => [2, 13, 3, 11, 5, 17, 7]
+        res = []
+        deck.sort(reverse = True)
+        for i, card in enumerate(deck):
+            if i == 0:
+                res.append(card)
+            else:
+                res = [card] + [res[-1]] + res[:-1]
+        return res 
+```

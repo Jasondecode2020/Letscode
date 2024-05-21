@@ -508,3 +508,113 @@ class Solution:
             i += 1
         return n - pairs * 2
 ```
+
+## greedy to mid point
+
+### 462. Minimum Moves to Equal Array Elements II
+
+- O(n ^ 2)
+
+```python
+class Solution:
+    def minMoves2(self, nums: List[int]) -> int:
+        res = inf
+        n = len(nums)
+        for i in range(n):
+            ans = 0
+            for j in range(n):
+                if i != j:
+                    ans += abs(nums[i] - nums[j])
+            res = min(res, ans)
+        return res if n > 1 else 0
+```
+
+- O(n)
+
+```python
+class Solution:
+    def minMoves2(self, nums: List[int]) -> int:
+        # [1, 2, 3]
+        # [1, 2, 9, 10]
+        n = len(nums)
+        nums.sort()
+        if n % 2 == 1:
+            mid = n // 2
+            return sum(abs(v - nums[mid]) for v in nums)
+        else:
+            mid1, mid2 = n // 2 - 1, n // 2
+            res1 = sum(abs(v - nums[mid1]) for v in nums)
+            res2 = sum(abs(v - nums[mid2]) for v in nums)
+            return min(res1, res2)
+```
+
+- optimized code: only need to use mid
+
+```python
+class Solution:
+    def minMoves2(self, nums: List[int]) -> int:
+        # [1, 2, 3]
+        # [1, 2, 6, 10]
+        # (b - a) + (c - b) + (d - b) = b - a + c - b + d - b = c - a + d - b
+        # (c - a) + (c - b) + (d - c) = c - a + c - b + d - c = c - a + d - b
+        n = len(nums)
+        nums.sort()
+        mid = n // 2
+        return sum(abs(v - nums[mid]) for v in nums)
+```
+
+### 453. Minimum Moves to Equal Array Elements
+
+```python
+class Solution:
+    def minMoves(self, nums: List[int]) -> int:
+        mn = min(nums)
+        res = 0
+        for n in nums:
+            res += n - mn
+        return res
+
+        # k = ((min(nums) + k) * n - sum) / (n - 1)
+        # k(n - 1) = mn * n +  - sum =  - k => k = sum - mn * n 
+```
+
+### 2033. Minimum Operations to Make a Uni-Value Grid
+
+```python
+class Solution:
+    def minOperations(self, grid: List[List[int]], x: int) -> int:
+        nums = []
+        for item in grid:
+            nums.extend(item)
+
+        nums.sort()
+        mid = nums[len(nums) // 2]
+        res = 0
+        for n in nums:
+            if abs(mid - n) % x:
+                return -1
+            res += abs(mid - n) // x
+        return res 
+```
+
+### 2448. Minimum Cost to Make Array Equal
+
+```python
+class Solution:
+    def minCost(self, nums: List[int], cost: List[int]) -> int:
+        # nums = [1,3,5,2]
+        # cost = [2,3,1,14]
+        res = sorted(zip(nums, cost))
+        total = sum(cost)
+        mid = total // 2 + 1
+        count = 0
+        for i, (n, c) in enumerate(res):
+            count += c 
+            if mid <= count:
+                idx = i 
+                break
+        ans = 0
+        for i, (n, c) in enumerate(res):
+            ans += abs(n - res[idx][0]) * c 
+        return ans
+```
