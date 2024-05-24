@@ -53,14 +53,17 @@
 * [2866. Beautiful Towers II 2071](#2866-beautiful-towers-ii)
 * [2454. Next Greater Element IV](#2454-next-greater-element-iv)
 
-### 7 array + monotonic stack (2)
+### 7 Hash + monotonic stack (2)
 
 * [1944. Number of Visible People in a Queue](#1944-number-of-visible-people-in-a-queue)
 * [3113. Find the Number of Subarrays Where Boundary Elements Are Maximum](#3113-find-the-number-of-subarrays-where-boundary-elements-are-maximum)
 
-# ##########################################################################################################
-# Exercise list                                                                                            #
-# ##########################################################################################################
+## 8 Dp + monotonic stack (1)
+
+* [2289. Steps to Make Array Non-decreasing](#2289-steps-to-make-array-non-decreasing)
+
+## Exercise list                                                                                            
+
 
 ### 1 Next Greater or smaller (7)
 
@@ -157,7 +160,7 @@ class Solution:
 
 - next greater or equal
 
-* [901. Online Stock Span](#456-132-Pattern)* 
+* [901. Online Stock Span](#901-online-stock-span)
 * [456. 132 Pattern](#456-132-Pattern)
 
 ### 901. Online Stock Span
@@ -382,8 +385,8 @@ class Solution:
 ### 4 Contributions
 
 * [907. Sum of Subarray Minimums 1976](#907-sum-of-subarray-minimums)
-* [2104. Sum of Subarray Ranges 2000]()
-* [1856. Maximum Subarray Min-Product 2051]()
+* [2104. Sum of Subarray Ranges 2000](#2104-sum-of-subarray-ranges)
+* [1856. Maximum Subarray Min-Product 2051](#1856-maximum-subarray-min-product)
 
 ### 907. Sum of Subarray Minimums
 
@@ -562,8 +565,34 @@ class Solution:
 
 ### 6 Two monotonic stack (2)
 
+* [2832. Maximal Range That Each Element Is Maximum in It](#2832-maximal-range-that-each-element-is-maximum-in-it)
 * [2866. Beautiful Towers II 2071](#2866-beautiful-towers-ii)
 * [2454. Next Greater Element IV](#2454-next-greater-element-iv)
+
+### 2832. Maximal Range That Each Element Is Maximum in It
+
+```python
+class Solution:
+    def maximumLengthOfRanges(self, nums: List[int]) -> List[int]:
+        stack = []
+        nums = [inf] + nums + [inf]
+        n = len(nums)
+        res = [1] * n 
+        for i, x in enumerate(nums):
+            while stack and x > nums[stack[-1]]:
+                j = stack.pop()
+                res[j] += i - j - 1
+            stack.append(i)
+        
+        stack = []
+        nums = nums[::-1]
+        for i, x in enumerate(nums):
+            while stack and x > nums[stack[-1]]:
+                j = stack.pop()
+                res[n - j - 1] += i - j - 1
+            stack.append(i)
+        return res[1:-1]
+```
 
 ### 2866. Beautiful Towers II
 
@@ -681,4 +710,71 @@ class Solution:
                     d[i] += d[j]
             stack.append(i)
         return sum(d.values())
+```
+
+## 8 Dp + monotonic stack (1)
+
+* [2289. Steps to Make Array Non-decreasing](#2289-steps-to-make-array-non-decreasing)
+
+### 2289. Steps to Make Array Non-decreasing
+
+```python
+class Solution:
+    def totalSteps(self, nums: List[int]) -> int:
+        res, stack = 0, [] # (time, i)
+        for i, x in enumerate(nums):
+            t = 0
+            while stack and x >= nums[stack[-1][1]]:
+                t = max(t, stack.pop()[0])
+            if stack:
+                t += 1
+            res = max(res, t)
+            stack.append((t, i))
+        return res 
+```
+
+
+
+## left
+
+### 1776. Car Fleet II
+
+### 1966. Binary Searchable Numbers in an Unsorted Array
+
+### 2818. Apply Operations to Maximize Score
+
+### 2281. Sum of Total Strength of Wizards
+
+### 321. Create Maximum Number
+
+```python
+lass Solution:
+    def maxNumber(self, nums1: List[int], nums2: List[int], k: int) -> List[int]:
+        def divide(nums, k):
+            stack = []
+            drop = len(nums) - k
+            for num in nums:
+                while drop and stack and stack[-1] < num:
+                    stack.pop()
+                    drop -= 1
+                stack.append(num)
+            return stack[:k]
+
+        def merge(A, B):
+            ans = []
+            while A or B:
+                bigger = A if A > B else B
+                ans.append(bigger.pop(0))
+            return ans
+        
+        res = [0] * k
+        for i in range(k + 1):
+            if i <= len(nums1) and k-i <= len(nums2):
+                res = max(res, merge(divide(nums1, i), divide(nums2, k-i)))
+        return res
+```
+
+### 2030. Smallest K-Length Subsequence With Occurrences of a Letter
+
+```python
 ```

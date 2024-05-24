@@ -85,6 +85,14 @@ Check my YouTube for all questions (https://www.youtube.com/@letscode1000)
 * ### 16 Difference Array
 * ### 17 Trie
 * ### 18 Monotonic Stack
+  * #### 18.1 Next(previous) greater or smaller
+  * #### 18.2 Longest interval
+  * #### 18.3 Rectangle Max Area
+  * #### 18.4 Dictionary sequence
+  * #### 18.5 Two monotonic stack
+  * #### 18.6 Hash + monotonic stack
+  * #### 18.7 Contributions
+  * #### 18.8 Dp + monotonic stack
 * ### 19 Monotonic Queue
 * ### 20 String Matching
   * #### 20.1 Z-function
