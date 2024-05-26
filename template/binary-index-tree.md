@@ -45,8 +45,12 @@ class BIT:
 
 ## questions:
 
+### 1 Contigous
 * [307. Range Sum Query - Mutable](#307-range-sum-query---mutable)
 * [308. Range Sum Query 2D - Mutable](#308-range-sum-query-2d---mutable)
+
+### 2 Discrete
+* [3072. Distribute Elements Into Two Arrays II](#3072-distribute-elements-into-two-arrays-ii)
 * [2179. Count Good Triplets in an Array](#2179-count-good-triplets-in-an-array)
 * [2659. Make Array Empty](#2659-make-array-empty)
 
@@ -159,6 +163,39 @@ class NumMatrix:
 # obj = NumMatrix(matrix)
 # obj.update(row,col,val)
 # param_2 = obj.sumRegion(row1,col1,row2,col2)
+```
+
+### 3072. Distribute Elements Into Two Arrays II
+
+```python
+from sortedcontainers import SortedList
+class Solution:
+    def resultArray(self, nums: List[int]) -> List[int]:
+        def greaterCount(arr, val):
+            n = len(arr)
+            i = arr.bisect_left(val + 1)
+            return n - i
+                
+        sl1, sl2 = SortedList([nums[0]]), SortedList([nums[1]])
+        arr1, arr2 = [nums[0]], [nums[1]]
+        for n in nums[2:]:
+            if greaterCount(sl1, n) > greaterCount(sl2, n):
+                arr1.append(n)
+                sl1.add(n)
+            elif greaterCount(sl1, n) < greaterCount(sl2, n):
+                arr2.append(n)
+                sl2.add(n)
+            elif greaterCount(sl1, n) == greaterCount(sl2, n):
+                if len(arr1) < len(arr2):
+                    arr1.append(n)
+                    sl1.add(n)
+                elif len(arr1) > len(arr2):
+                    arr2.append(n)
+                    sl2.add(n)
+                else:
+                    arr1.append(n)
+                    sl1.add(n)
+        return arr1 + arr2
 ```
 
 ### 2179. Count Good Triplets in an Array
