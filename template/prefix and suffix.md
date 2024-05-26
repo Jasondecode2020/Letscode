@@ -285,3 +285,20 @@ class Solution:
                     ans += pre[i][j][k] * suf[j][i][k + 1]
         return ans % MOD
 ```
+
+* [2104. Sum of Subarray Ranges](#2104-sum-of-subarray-ranges)
+
+### 2104. Sum of Subarray Ranges
+
+```python
+class Solution:
+    def subArrayRanges(self, nums: List[int]) -> int:
+        n, res = len(nums), 0
+        for i in range(n):
+            mn, mx = nums[i], nums[i]
+            for j in range(i, n):
+                mn = min(mn, nums[j])
+                mx = max(mx, nums[j])
+                res += mx - mn
+        return res
+```
