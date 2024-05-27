@@ -46,11 +46,15 @@ class BIT:
 ## questions:
 
 ### 1 Contigous
+
 * [307. Range Sum Query - Mutable](#307-range-sum-query---mutable)
 * [308. Range Sum Query 2D - Mutable](#308-range-sum-query-2d---mutable)
 
 ### 2 Discrete
+
 * [3072. Distribute Elements Into Two Arrays II](#3072-distribute-elements-into-two-arrays-ii)
+
+### 3
 * [2179. Count Good Triplets in an Array](#2179-count-good-triplets-in-an-array)
 * [2659. Make Array Empty](#2659-make-array-empty)
 
@@ -196,6 +200,48 @@ class Solution:
                     arr1.append(n)
                     sl1.add(n)
         return arr1 + arr2
+```
+
+```python
+class BIT:
+    def __init__(self, n): # init BIT
+        self.tree = [0] * n
+        self.n = len(self.tree)
+
+    def lowbit(self, i):
+        return i & -i
+
+    def add(self, i, k): # add k to index i
+        while i < self.n:
+            self.tree[i] += k
+            i += self.lowbit(i) # add last set bit
+
+    def sum(self, i): # sum from index 1 to i
+        res = 0
+        while i > 0:
+            res += self.tree[i]
+            i -= (i & -i) # minus the last set bit
+        return res
+
+class Solution:
+    def resultArray(self, nums: List[int]) -> List[int]:
+        arr1, arr2 = [nums[0]], [nums[1]]
+        sorted_arr = sorted(set(nums))
+        n = len(sorted_arr)
+        t1, t2 = BIT(n + 1), BIT(n + 1)
+        t1.add(bisect_left(sorted_arr, nums[0]) + 1, 1)
+        t2.add(bisect_left(sorted_arr, nums[1]) + 1, 1)
+        for v in nums[2:]:
+            idx = bisect_left(sorted_arr, v) + 1
+            gc1 = len(arr1) - t1.sum(idx)
+            gc2 = len(arr2) - t2.sum(idx)
+            if gc1 > gc2 or gc1 == gc2 and len(arr1) <= len(arr2):
+                arr1.append(v)
+                t1.add(idx, 1)
+            else:
+                arr2.append(v)
+                t2.add(idx, 1)
+        return arr1 + arr2 
 ```
 
 ### 2179. Count Good Triplets in an Array
