@@ -647,3 +647,36 @@ class Solution:
             i = j 
         return res 
 ```
+
+### 809. Expressive Words
+
+```python
+class Solution:
+    def expressiveWords(self, s: str, words: List[str]) -> int:
+        def listGroup(s):
+            n = len(s)
+            res = []
+            i = 0
+            while i < n:
+                start = i 
+                j = start 
+                while j < n and s[j] == s[start]:
+                    j += 1
+                res.append((s[start], j - start))
+                i = j
+            return res 
+        def check(word, origin):
+            if [c for c, n in word] != [c for c, n in origin]:
+                return False
+            for a, b in zip(word, origin):
+                if a[1] > b[1] or (a[1] < b[1] and b[1] < 3):
+                    return False
+            return True
+
+        origin = listGroup(s)
+        res = 0
+        for word in words:
+            if check(listGroup(word), origin):
+                res += 1
+        return res
+```

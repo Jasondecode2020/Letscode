@@ -618,3 +618,22 @@ class Solution:
             ans += abs(n - res[idx][0]) * c 
         return ans
 ```
+
+### 2028. Find Missing Observations
+
+```python
+class Solution:
+    def missingRolls(self, rolls: List[int], mean: int, n: int) -> List[int]:
+        m = len(rolls)
+        total = (m + n) * mean 
+        left = total - sum(rolls)
+        res = []
+        if n * 1 <= left <= n * 6:
+            d, mod = divmod(left, n)
+            for i in range(n):
+                res.append(d)
+            if mod:
+                for i in range(mod):
+                    res[i] += 1
+        return res
+```

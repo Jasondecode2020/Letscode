@@ -49,6 +49,7 @@ class BIT:
 
 * [307. Range Sum Query - Mutable](#307-range-sum-query---mutable)
 * [308. Range Sum Query 2D - Mutable](#308-range-sum-query-2d---mutable)
+* [1649. Create Sorted Array through Instructions](#1649-create-sorted-array-through-instructions)
 
 ### 2 Discrete
 
@@ -167,6 +168,52 @@ class NumMatrix:
 # obj = NumMatrix(matrix)
 # obj.update(row,col,val)
 # param_2 = obj.sumRegion(row1,col1,row2,col2)
+```
+
+### 1649. Create Sorted Array through Instructions
+
+```python
+from sortedcontainers import SortedList
+class Solution:
+    def createSortedArray(self, instructions: List[int]) -> int:
+        sl, res, mod = SortedList(), 0, 10 ** 9 + 7
+        for instruction in instructions:
+            n = len(sl)
+            l = sl.bisect_left(instruction)
+            r = n - sl.bisect_right(instruction)
+            res = (res + min(l, r)) % mod
+            sl.add(instruction)
+        return res % mod
+class BIT:
+    def __init__(self, n):
+        self.tree = [0] * n 
+        self.n = len(self.tree)
+
+    def lowbit(self, i):
+        return i & -i 
+
+    def add(self, i, k):
+        while i < self.n:
+            self.tree[i] += k
+            i += self.lowbit(i)
+
+    def sum(self, i):
+        res = 0
+        while i > 0:
+            res += self.tree[i]
+            i -= self.lowbit(i)
+        return res
+
+class Solution:
+    def createSortedArray(self, instructions: List[int]) -> int:
+        n = 10 ** 5
+        t = BIT(n + 1)
+        res, mod = 0, 10 ** 9 + 7
+        for x in instructions:
+            l, r = t.sum(x - 1), t.sum(n) - t.sum(x)
+            t.add(x, 1)
+            res = (res + min(l, r)) % mod 
+        return res 
 ```
 
 ### 3072. Distribute Elements Into Two Arrays II

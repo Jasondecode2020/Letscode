@@ -302,3 +302,25 @@ class Solution:
                 res += mx - mn
         return res
 ```
+
+### 2012. Sum of Beauty in the Array
+
+```python
+class Solution:
+    def sumOfBeauties(self, nums: List[int]) -> int:
+        preMax, sufMin = nums[::], nums[::]
+        n = len(nums)
+        for i in range(1, n):
+            preMax[i] = max(preMax[i], preMax[i - 1])
+        for i in range(n - 2, -1, -1):
+            sufMin[i] = min(sufMin[i], sufMin[i + 1])
+        res = 0
+        for i in range(1, n - 1):
+            if preMax[i - 1] < nums[i] and nums[i] < sufMin[i + 1]:
+                res += 2
+            elif nums[i - 1] < nums[i] < nums[i + 1]:
+                res += 1
+            else:
+                res += 0
+        return res
+```

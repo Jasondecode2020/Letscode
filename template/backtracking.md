@@ -840,3 +840,37 @@ class Solution:
             res = [item + mid_string + item[::-1] for item in res]
         return res
 ```
+
+### 1087. Brace Expansion
+
+```python
+class Solution:
+    def expand(self, s: str) -> List[str]:
+        # "{a,b}c{d,e}f"
+        s = s.replace(',', '')
+        i, n = 0, len(s)
+        res = []
+        while i < n:
+            if s[i] == '{':
+                start = i 
+                j = start + 1
+                ans = ''
+                while j < n and s[j] != '}':
+                    ans += s[j]
+                    j += 1
+                res.append(ans)
+                i = j + 1
+            else:
+                res.append(s[i])
+                i += 1
+        ans = []
+        L = len(res)
+        def backtrack(valid, i):
+            if i == L:
+                ans.append(valid)
+                return 
+            for c in res[i]:
+                backtrack(valid + c, i + 1)
+        backtrack('', 0)
+        return sorted(ans)
+```

@@ -135,3 +135,37 @@ class FileSystem:
 # param_1 = obj.createPath(path,value)
 # param_2 = obj.get(path)
 ```
+
+### 1472. Design Browser History
+
+```python
+class BrowserHistory:
+
+    def __init__(self, homepage: str):
+        self.stack = [homepage]
+        self.forword_history = deque()
+
+    def visit(self, url: str) -> None:
+        self.stack.append(url)
+        self.forword_history = deque()
+
+    def back(self, steps: int) -> str:
+        while steps > 0 and len(self.stack) > 1:
+            cur = self.stack.pop()
+            self.forword_history.appendleft(cur)
+            steps -= 1
+        return self.stack[-1]
+
+    def forward(self, steps: int) -> str:
+        while steps > 0 and self.forword_history:
+            url = self.forword_history.popleft()
+            self.stack.append(url)
+            steps -= 1
+        return self.stack[-1]
+
+# Your BrowserHistory object will be instantiated and called as such:
+# obj = BrowserHistory(homepage)
+# obj.visit(url)
+# param_2 = obj.back(steps)
+# param_3 = obj.forward(steps)
+```
