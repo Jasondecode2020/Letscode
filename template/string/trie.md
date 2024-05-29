@@ -465,3 +465,58 @@ class MagicDictionary:
             return False
         return dfs(0, self.root, 0)
 ```
+
+### 820. Short Encoding of Words
+
+```python
+class TrieNode: # has children and endOfWord
+    def __init__(self):
+        self.children = {} # can be 26 for English letters
+        self.endOfWord = False # check if word ends with a letter
+
+class Trie: # a tree like data structure to solve prefix problems in string
+    def __init__(self): # init the node
+        self.root = TrieNode()
+
+    def insert(self, word: str) -> None: # insert a word inside a Trie
+        cur = self.root
+        for c in word:
+            if c not in cur.children:
+                cur.children[c] = TrieNode()
+            cur = cur.children[c]
+        cur.endOfWord = True
+
+    def search(self, word: str) -> bool: # check if a word inside trie
+        cur = self.root
+        for c in word:
+            if c not in cur.children:
+                return False
+            cur = cur.children[c]
+        return cur.endOfWord == True
+
+    def startsWith(self, prefix: str) -> bool: # check if a prefix inside a word
+        cur = self.root
+        for c in prefix:
+            if c not in cur.children:
+                return False
+            cur = cur.children[c]
+        return True
+
+    def tialOfWord(self, word):
+        cur = self.root
+        for c in word:
+            cur = cur.children[c]
+        return len(cur.children) == 0
+
+class Solution:
+    def minimumLengthEncoding(self, words: List[str]) -> int:
+        t = Trie()
+        res = 0
+        words = set(words)
+        for word in words:
+            t.insert(word[::-1])
+        for word in words:
+            if t.tialOfWord(word[::-1]):
+                res += len(word) + 1
+        return res 
+```
