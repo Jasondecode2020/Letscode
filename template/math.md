@@ -30,3 +30,15 @@ class Solution:
                 res.append(i)
         return res
 ```
+
+### 829. Consecutive Numbers Sum
+
+```python
+class Solution:
+    def consecutiveNumbersSum(self, n: int) -> int:
+        res, n = 0, 2 * n 
+        for i in range(1, int(sqrt(n)) + 1):
+            if n % i == 0 and (n // i - (i - 1)) % 2 == 0:
+                res += 1
+        return res
+```

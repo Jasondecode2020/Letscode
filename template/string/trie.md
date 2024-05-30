@@ -520,3 +520,58 @@ class Solution:
                 res += len(word) + 1
         return res 
 ```
+
+### 1032. Stream of Characters
+
+```python
+class TrieNode: # has children and endOfWord
+    def __init__(self):
+        self.children = {} # can be 26 for English letters
+        self.endOfWord = False # check if word ends with a letter
+
+class Trie: # a tree like data structure to solve prefix problems in string
+    def __init__(self): # init the node
+        self.root = TrieNode()
+
+    def insert(self, word: str) -> None: # insert a word inside a Trie
+        cur = self.root
+        for c in word:
+            if c not in cur.children:
+                cur.children[c] = TrieNode()
+            cur = cur.children[c]
+        cur.endOfWord = True
+
+    def search(self, word: str) -> bool: # check if a word inside trie
+        cur = self.root
+        for c in word:
+            if c not in cur.children:
+                return False
+            cur = cur.children[c]
+        return cur.endOfWord == True
+
+class StreamChecker:
+
+    def __init__(self, words: List[str]):
+        self.words = set(words)
+        self.t = Trie()
+        self.s = ''
+        for word in words:
+            self.t.insert(word[::-1])
+
+    def query(self, letter: str) -> bool:
+        self.s += letter
+        if len(self.s) > 200:
+            reversed_str = self.s[-200:][::-1]
+        else:
+            reversed_str = self.s[::-1]
+        for i in range(1, len(reversed_str) + 1):
+            if self.t.search(reversed_str[:i]):
+                return True
+        return False
+
+
+
+# Your StreamChecker object will be instantiated and called as such:
+# obj = StreamChecker(words)
+# param_1 = obj.query(letter)
+```
