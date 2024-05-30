@@ -575,3 +575,61 @@ class StreamChecker:
 # obj = StreamChecker(words)
 # param_1 = obj.query(letter)
 ```
+
+### 745. Prefix and Suffix Search
+
+```python
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.endOfWord = False
+        self.index = set()
+
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+
+    def insert(self, word, i):
+        cur = self.root 
+        for c in word:
+            if c not in cur.children:
+                cur.children[c] = TrieNode()
+                cur.index.add(i)
+            cur = cur.children[c]
+            cur.index.add(i)
+        cur.endOfWord = True 
+
+    def prefix(self, word):
+        cur = self.root 
+        for c in word:
+            if c not in cur.children:
+                return -1
+            cur = cur.children[c]
+        return cur.index
+
+class WordFilter:
+
+    def __init__(self, words: List[str]):
+        self.t1, self.t2 = Trie(), Trie()
+        d = defaultdict(int)
+        for i, word in enumerate(words):
+            d[word] = i
+        for word in d.keys():
+            self.t1.insert(word, d[word])
+            self.t2.insert(word[::-1], d[word])
+
+    def f(self, pref: str, suff: str) -> int:
+        preIndexSet, sufIndexSet = self.t1.prefix(pref), self.t2.prefix(suff[::-1])
+        if preIndexSet == -1 or sufIndexSet == -1:
+            return -1
+        res = -inf
+        for cnt in preIndexSet:
+            if cnt in sufIndexSet:
+                res = max(res, cnt)
+        return res if res != -inf else -1
+        
+
+# Your WordFilter object will be instantiated and called as such:
+# obj = WordFilter(words)
+# param_1 = obj.f(pref,suff)
+```
