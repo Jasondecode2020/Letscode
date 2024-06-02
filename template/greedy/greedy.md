@@ -637,3 +637,17 @@ class Solution:
                     res[i] += 1
         return res
 ```
+
+### 2498. Frog Jump II
+
+```python
+class Solution:
+    def maxJump(self, stones: List[int]) -> int:
+        first, last = stones[0], stones[-1]
+        middle = stones[1:-1]
+        forward = [first] + middle[::2] + [last ]
+        backward = [first] + middle[1::2] + [last]
+        dist1 = max(forward[i] - forward[i - 1] for i in range(1, len(forward)))
+        dist2 = max(backward[i] - backward[i - 1] for i in range(1, len(backward)))
+        return max(dist1, dist2)
+```
