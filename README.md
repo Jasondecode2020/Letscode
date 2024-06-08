@@ -80,7 +80,7 @@ Check my YouTube for all questions (https://www.youtube.com/@letscode1000)
   * #### 13.1 Basics
     * ##### 13.1.1 Climbing Stairs
     * ##### 13.1.2 House Robber
-    * ##### 13.1.3 [LCS](https://github.com/Jasondecode2020/Letscode/blob/main/pattern/lcsdp.md)
+    * ##### 13.1.3 [LCS](https://github.com/Jasondecode2020/Letscode/blob/main/pattern/lcs.md)
       * [1143. Longest Common Subsequence](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/LCS.md#1143-longest-common-subsequence)
       * [583. Delete Operation for Two Strings](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/LCS.md#583-delete-operation-for-two-strings)
       * [712. Minimum ASCII Delete Sum for Two Strings](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/LCS.md#712-minimum-ascii-delete-sum-for-two-strings)
