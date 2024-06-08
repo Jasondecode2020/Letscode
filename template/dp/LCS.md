@@ -13,18 +13,20 @@ def lcs(s1, s2):
     return f[-1][-1]
 ```
 
-### question list:
+### question list: (15)
 
 * [1143. Longest Common Subsequence](#1143-longest-common-subsequence)
 * [583. Delete Operation for Two Strings](#583-delete-operation-for-two-strings)
 * [712. Minimum ASCII Delete Sum for Two Strings](#712-minimum-ascii-delete-sum-for-two-strings)
 * [72. Edit Distance](#72-edit-distance)
 * [97. Interleaving String](#97-interleaving-string)
+
 * [115. Distinct Subsequences](#115-distinct-subsequences)
 * [1035. Uncrossed Lines](#1035-uncrossed-lines)
 * [1458. Max Dot Product of Two Subsequences](#1458-max-dot-product-of-two-subsequences)
 * [1092. Shortest Common Supersequence](#1092-shortest-common-supersequence)
 * [1639. Number of Ways to Form a Target String Given a Dictionary](#1639-number-of-ways-to-form-a-target-string-given-a-dictionary)
+
 * [161. One Edit Distance](#161-one-edit-distance)
 * [516. Longest Palindromic Subsequence](#516-longest-palindromic-subsequence)
 * [1312. Minimum Insertion Steps to Make a String Palindrome](#1312-minimum-insertion-steps-to-make-a-string-palindrome)
