@@ -680,3 +680,26 @@ class Solution:
                 res += 1
         return res
 ```
+
+### 1807. Evaluate the Bracket Pairs of a String
+
+```python
+class Solution:
+    def evaluate(self, s: str, knowledge: List[List[str]]) -> str:
+        d = defaultdict(lambda: '?')
+        for key, val in knowledge:
+            d[key] = val 
+        res = ''
+        i = 0
+        while i < len(s):
+            if s[i] == '(':
+                j = i + 1
+                while j < len(s) and s[j] != ')':
+                    j += 1
+                res += d[s[i + 1: j]]
+                i = j + 1
+            else:
+                res += s[i]
+                i += 1
+        return res
+```

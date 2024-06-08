@@ -80,6 +80,22 @@ Check my YouTube for all questions (https://www.youtube.com/@letscode1000)
   * #### 13.1 Basics
     * ##### 13.1.1 Climbing Stairs
     * ##### 13.1.2 House Robber
+    * ##### 13.1.3 [LCS](https://github.com/Jasondecode2020/Letscode/blob/main/pattern/lcsdp.md)
+      * [1143. Longest Common Subsequence](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/LCS.md#1143-longest-common-subsequence)
+      * [583. Delete Operation for Two Strings](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/LCS.md#583-delete-operation-for-two-strings)
+      * [712. Minimum ASCII Delete Sum for Two Strings](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/LCS.md#712-minimum-ascii-delete-sum-for-two-strings)
+      * [72. Edit Distance](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/LCS.md#72-edit-distance)
+      * [97. Interleaving String](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/LCS.md#97-interleaving-string)
+      * [115. Distinct Subsequences](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/LCS.md#115-distinct-subsequences)
+      * [1035. Uncrossed Lines](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/LCS.md#1035-uncrossed-lines)
+      * [1458. Max Dot Product of Two Subsequences](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/LCS.md#1458-max-dot-product-of-two-subsequences)
+      * [1092. Shortest Common Supersequence](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/LCS.md#1092-shortest-common-supersequence)
+      * [1639. Number of Ways to Form a Target String Given a Dictionary](#1639-number-of-ways-to-form-a-target-string-given-a-dictionary)
+      * [161. One Edit Distance](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/LCS.md#161-one-edit-distance)
+      * [516. Longest Palindromic Subsequence](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/LCS.md#516-longest-palindromic-subsequence)
+      * [1312. Minimum Insertion Steps to Make a String Palindrome](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/LCS.md#1312-minimum-insertion-steps-to-make-a-string-palindrome)
+      * [44. Wildcard Matching](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/LCS.md#44-wildcard-matching)
+      * [10. Regular Expression Matching](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/LCS.md#10-regular-expression-matching)
 * ### 14 Greedy
 * ### 15 Sweep Line
 * ### 16 Difference Array

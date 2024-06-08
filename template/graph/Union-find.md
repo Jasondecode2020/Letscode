@@ -2849,3 +2849,52 @@ class LUPrefix:
 # obj.upload(video)
 # param_2 = obj.longest()
 ```
+
+### 2948. Make Lexicographically Smallest Array by Swapping Elements
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n
+
+    def isConnected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] > self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2
+            self.rank[p2] += self.rank[p1]
+
+class Solution:
+    def lexicographicallySmallestArray(self, nums: List[int], limit: int) -> List[int]:
+        # (1, 2, 3) (3, 6, 5) [1, 3, 5, 8, 9]
+        origin = nums[::]
+        n = len(nums)
+        uf = UF(n)
+        
+        index = list(range(n))
+        index.sort(key = lambda x: nums[x])
+        nums.sort()
+        for i in range(1, n):
+            if nums[i] - nums[i - 1] <= limit and not uf.isConnected(index[i], index[i - 1]):
+                uf.union(index[i], index[i - 1])
+        d = defaultdict(list)
+        for i in range(n):
+            d[uf.find(i)].append(i)
+        res = [0] * n 
+        for arr in d.values():
+            for i, v in zip(sorted(arr), sorted(origin[i] for i in arr)):
+                res[i] = v 
+        return res
+```

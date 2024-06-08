@@ -42,3 +42,13 @@ class Solution:
                 res += 1
         return res
 ```
+
+### 1785. Minimum Elements to Add to Form a Given Sum
+
+```python
+class Solution:
+    def minElements(self, nums: List[int], limit: int, goal: int) -> int:
+        res = goal - sum(nums)
+        res = abs(res)
+        return ceil(res / limit)
+```

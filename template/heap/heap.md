@@ -148,3 +148,20 @@ class Solution:
                 break
         return res
 ```
+
+### 1845. Seat Reservation Manager
+
+```python
+class SeatManager:
+
+    def __init__(self, n: int):
+        self.nums = list(range(1, n + 1))
+        heapify(self.nums)
+
+    def reserve(self) -> int:
+        num = heappop(self.nums)
+        return num
+
+    def unreserve(self, seatNumber: int) -> None:
+        heappush(self.nums, seatNumber)
+```

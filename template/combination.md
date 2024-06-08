@@ -70,3 +70,19 @@ class Solution:
                 i += 1
         return res % mod
 ```
+
+### 1569. Number of Ways to Reorder Array to Get Same BST
+
+```python
+class Solution:
+    def numOfWays(self, nums: List[int]) -> int:
+        mod = 10 ** 9 + 7
+        def f(nums):
+            if len(nums) <= 2:
+                return 1
+            val = nums[0]
+            l = [n for n in nums if n < val]
+            r = [n for n in nums if n > val]
+            return comb(len(l) + len(r), len(l)) * f(l) * f(r)
+        return (f(nums) - 1) % mod
+```
