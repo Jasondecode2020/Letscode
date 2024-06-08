@@ -80,7 +80,7 @@ Check my YouTube for all questions (https://www.youtube.com/@letscode1000)
   * #### 13.1 Basics
     * ##### 13.1.1 Climbing Stairs
     * ##### 13.1.2 House Robber
-  * #### 13.2 LCS **(15)** [pattern](https://github.com/Jasondecode2020/Letscode/blob/main/pattern/lcs.md)
+  * #### 13.2 LCS (15) [pattern](https://github.com/Jasondecode2020/Letscode/blob/main/pattern/lcs.md)
     * [1143. Longest Common Subsequence](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/LCS.md#1143-longest-common-subsequence)
     * [583. Delete Operation for Two Strings](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/LCS.md#583-delete-operation-for-two-strings)
     * [712. Minimum ASCII Delete Sum for Two Strings](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/LCS.md#712-minimum-ascii-delete-sum-for-two-strings)
@@ -96,7 +96,7 @@ Check my YouTube for all questions (https://www.youtube.com/@letscode1000)
     * [1312. Minimum Insertion Steps to Make a String Palindrome](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/LCS.md#1312-minimum-insertion-steps-to-make-a-string-palindrome)
     * [44. Wildcard Matching](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/LCS.md#44-wildcard-matching)
     * [10. Regular Expression Matching](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/LCS.md#10-regular-expression-matching)
-  * #### 13.3 LIS **(17)** [pattern](https://github.com/Jasondecode2020/Letscode/blob/main/pattern/lis.md)
+  * #### 13.3 LIS (17) [pattern](https://github.com/Jasondecode2020/Letscode/blob/main/pattern/lis.md)
     * [300. Longest Increasing Subsequence](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/LIS.md#300-longest-increasing-subsequence)
     * [334. Increasing Triplet Subsequence](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/LIS.md#334-increasing-triplet-subsequence)
     * [646. Maximum Length of Pair Chain](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/LIS.md#646-maximum-length-of-pair-chain)
