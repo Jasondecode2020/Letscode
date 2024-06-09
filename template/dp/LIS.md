@@ -31,7 +31,7 @@ def lis(arr): # strictly increasing
     f = []
     for n in arr:
         i = bisect_left(f, n)
-        if i == len(Lf):
+        if i == len(f):
             f.append(n)
         else:
             f[i] = n

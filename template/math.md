@@ -52,3 +52,41 @@ class Solution:
         res = abs(res)
         return ceil(res / limit)
 ```
+
+### 1093. Statistics from a Large Sample
+
+```python
+class Solution:
+    def sampleStats(self, count: List[int]) -> List[float]:
+        mn, mx, mean, median, mode = inf, -inf, 0, 0, 0
+        mx_f = max(count)
+        total_num, total_val = 0, 0
+        for i, f in enumerate(count):
+            if f:
+                mn = min(mn, i)
+                mx = max(mx, i)
+                total_num += f
+                total_val += f * i 
+            if f == mx_f:
+                mode = i
+        cnt = 0
+        a, b = -1, -1
+        for i, f in enumerate(count):
+            if f:
+                cnt += f
+                if total_num % 2 == 0:
+                    if a == -1 and cnt >= total_num // 2:
+                        a = i 
+                    if b == -1 and cnt >= total_num // 2 + 1:
+                        b = i 
+                    if b != -1:
+                        break
+                else:
+                    if cnt >= total_num // 2 + 1:
+                        median = i 
+                        break
+        if a != -1 and b != -1:
+            median = (a + b) / 2
+        mean = total_val / total_num
+        return [mn, mx, mean, median, mode]
+```
