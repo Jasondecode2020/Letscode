@@ -51,6 +51,30 @@ def ePrimeFactors(n): # include n
 ePrimeFactors(1000)
 ```
 
+## 5 Divisors of n
+
+```python
+def divisorsN(self, n):
+    res = 0
+    for i in range(1, int(sqrt(n)) + 1):
+        if n % i == 0:
+            if i != n // i:
+                res += 2
+            else:
+                res += 1
+    return res
+```
+
+## 6 Divisors of array
+
+```python
+N = 10 ** 5 + 1
+divisors = [[] for i in range(N)]
+for i in range(1, N):
+    for j in range(i, N, i):
+        divisors[j].append(i)
+```
+
 ## 1 check prime numbers (6)
 
 * [3115. Maximum Prime Difference 1294](#3115-maximum-prime-difference)
@@ -347,7 +371,16 @@ class Solution:
 
 ## 3 prime factors
 
-* [2521. Distinct Prime Factors of Product of Array]()
+* [2521. Distinct Prime Factors of Product of Array](#2521-distinct-prime-factors-of-product-of-array)
+* [2507. Smallest Value After Replacing With Sum of Prime Factors 1499](#2507-smallest-value-after-replacing-with-sum-of-prime-factors)
+* [2584. Split the Array to Make Coprime Products 2159](#2584-split-the-array-to-make-coprime-products)
+* [2709. Greatest Common Divisor Traversal 2173](#2709-greatest-common-divisor-traversal)
+* [952. Largest Component Size by Common Factor 2272](#952-largest-component-size-by-common-factor)
+* [1998. GCD Sort of an Array](#1998-gcd-sort-of-an-array)
+* [2862. Maximum Element-Sum of a Complete Subset of Indices](#2862-maximum-element-sum-of-a-complete-subset-of-indices)
+* [2818. Apply Operations to Maximize Score]
+* [1735. Count Ways to Make Array With Product]
+* [2338. Count the Number of Ideal Arrays 2665](#2338-count-the-number-of-ideal-arrays)
 
 ### 2521. Distinct Prime Factors of Product of Array
 
@@ -391,11 +424,569 @@ class Solution:
         return len(s)
 ```
 
+### 2507. Smallest Value After Replacing With Sum of Prime Factors
+
+```python
+class Solution:
+    def smallestValue(self, n: int) -> int:
+        def primeFactors(n):
+            res = []
+            for i in range(2, int(sqrt(n)) + 1):
+                while n % i == 0:
+                    res.append(i)
+                    n //= i 
+            if n >= 2:
+                res.append(n)
+            return sum(res)
+
+        while n != primeFactors(n):
+            n = primeFactors(n)
+        return n
+```
+
+### 2584. Split the Array to Make Coprime Products
+
+```python
+class Solution:
+    def findValidSplit(self, nums: List[int]) -> int:
+        d = defaultdict(int)
+        for n in nums:
+            for num in divisors[n]:
+                d[num] += 1
+
+        pre_d = defaultdict(int)
+        for i, n in enumerate(nums):
+            if i == len(nums) - 1: return -1
+            for num in divisors[n]:
+                pre_d[num] += 1
+                d[num] -= 1
+                if d[num] == 0:
+                    d.pop(num)
+            if all(v not in d for v in pre_d.keys()):
+                return i 
+```
+
+### 2709. Greatest Common Divisor Traversal
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+    
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n 
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] > self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2 
+            self.rank[p2] += self.rank[p1]
+
+    def isConnected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+divisors = defaultdict(list)
+def ePrime(n):
+    primes = [False] * 2 + [True] * (n - 1)
+    for i in range(n + 1):
+        if primes[i]:
+            for j in range(i, n + 1, i):
+                divisors[j].append(i)
+                primes[j] = False
+ePrime(100001)  
+
+class Solution:
+    def canTraverseAllPairs(self, nums: List[int]) -> bool:
+        uf = UF(max(nums) + 1)
+        for n in nums:
+            for a, b in pairwise(divisors[n]):
+                uf.union(a, b)
+        d = Counter()
+        if len(nums) == 1:
+            return True
+        for n in nums:
+            if n == 1:
+                return False
+            res = uf.find(divisors[n][0])
+            d[res] += 1
+        return max(list(d.values())) == len(nums)
+```
+
+### 952. Largest Component Size by Common Factor
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+    
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n 
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] > self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2 
+            self.rank[p2] += self.rank[p1]
+
+    def isConnected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+divisors = defaultdict(list)
+def ePrime(n): # include n
+    primes = [False] * 2 + [True] * (n - 1)
+    for i in range(2, n + 1):
+        if primes[i]:
+            for j in range(i, n + 1, i):
+                divisors[j].append(i)
+                primes[j] = False
+ePrime(100001)
+
+class Solution:
+    def largestComponentSize(self, nums: List[int]) -> int:
+        uf = UF(max(nums) + 1)
+        for i in nums:
+            for j, k in pairwise(divisors[i]):
+                uf.union(k, j)
+        d = defaultdict(int)
+        for i in nums:
+            if i == 1:
+                continue
+            res = uf.find(divisors[i][0])
+            d[res] += 1
+        return max(d.values())
+```
+
+
+### 1998. GCD Sort of an Array
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+    
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n 
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] > self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2 
+            self.rank[p2] += self.rank[p1]
+
+    def isConnected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+divisors = defaultdict(list)
+def ePrime(n):
+    primes = [False] * 2 + [True] * (n - 1)
+    for i in range(n + 1):
+        if primes[i]:
+            for j in range(i, n + 1, i):
+                divisors[j].append(i)
+                primes[j] = False
+ePrime(100001)  
+       
+class Solution:
+    def gcdSort(self, nums: List[int]) -> bool:
+        uf = UF(max(nums) + 1)
+        for n in nums:
+            for a, b in pairwise(divisors[n]):
+                uf.union(a, b)
+
+        d = defaultdict(list)
+        for i, n in enumerate(nums):
+            res = uf.find(divisors[n][0])
+            d[res].append((n, i))
+        res = [0] * len(nums)
+        for v in d.values():
+            for (a, _), i in zip(sorted(v), sorted(i for _, i in v)):
+                res[i] = a
+        return res == sorted(nums)
+```
+
+### 2862. Maximum Element-Sum of a Complete Subset of Indices
+
+```python
+class Solution:
+    def maximumSum(self, nums: List[int]) -> int:
+        squares = [i * i for i in range(1, 101)]
+        nums = [0] + nums 
+        n = len(nums)
+        
+        res = 0
+        for i in range(1, n):
+            ans = 0
+            flag = 0
+            for j in squares:
+                if i * j < n:
+                    flag += 1
+                    ans += nums[i * j]
+            if flag >= 2:
+                res = max(res, ans)
+        return max(res, max(nums))
+```
+
+### 2338. Count the Number of Ideal Arrays
+
+```python
+MOD, MX = 10 ** 9 + 7, 10 ** 4 + 1
+primeFreq = [[] for _ in range(MX)] 
+for j in range(2, MX):
+    n = j
+    res = []
+    for i in range(2, int(n ** 0.5) + 1):
+        while n % i == 0:
+            res.append(i)
+            n //= i
+    if n >= 2:
+        res.append(n)
+    primeFreq[j].extend(Counter(res).values())
+
+class Solution:
+    def idealArrays(self, n: int, maxValue: int) -> int:
+        res = 0
+        for i in range(1, maxValue + 1):
+            mul = 1
+            for k in primeFreq[i]:
+                mul = mul * comb(n + k - 1, k) % MOD
+            res += mul
+        return res % MOD
+```
+
 ## 4 factorial
+
+### 172. Factorial Trailing Zeroes
+
+```python
+class Solution:
+    def trailingZeroes(self, n: int) -> int:
+        res = 0
+        for i in range(5, n + 1, 5):
+            while i % 5 == 0:
+                i //= 5
+                res += 1
+        return res 
+```
 
 ## 5 divisors
 
+* [2427. Number of Common Factors](#2427-number-of-common-factors)
+* [1952. Three Divisors](#1952-three-divisors)
+* [1492. The kth Factor of n](#1492-the-kth-factor-of-n)
+* [507. Perfect Number](#507-perfect-number)
+* [1390. Four Divisors](#1390-four-divisors)
+* [1362. Closest Divisors](#1362-closest-divisors)
+* [829. Consecutive Numbers Sum](#829-consecutive-numbers-sum)
+* [952. Largest Component Size by Common Factor](#952-largest-component-size-by-common-factor)
+* [1627. Graph Connectivity With Threshold](#1627-graph-connectivity-with-threshold)
+* [2183. Count Array Pairs Divisible by K](#)
+
+### 2427. Number of Common Factors
+
+```python
+class Solution:
+    def commonFactors(self, a: int, b: int) -> int:
+        mn = gcd(a, b)
+        res = 0
+        for i in range(1, int(sqrt(mn)) + 1):
+            if mn % i == 0:
+                if i != mn // i:
+                    res += 2
+                else:
+                    res += 1
+        return res
+```
+
+### 1952. Three Divisors
+
+```python
+class Solution:
+    def isThree(self, n: int) -> bool:
+        res = 0
+        for i in range(1, int(sqrt(n)) + 1):
+            if n % i == 0:
+                if i != n // i:
+                    res += 2
+                else:
+                    res += 1
+        return res == 3
+```
+
+### 1492. The kth Factor of n
+
+```python
+class Solution:
+    def kthFactor(self, n: int, k: int) -> int:
+        def divisorsN(n):
+            res = []
+            for i in range(1, int(sqrt(n)) + 1):
+                if n % i == 0:
+                    if i != n // i:
+                        res.extend([i, n // i])
+                    else:
+                        res.append(i)
+            return sorted(res)
+        res = divisorsN(n)
+        return res[k - 1] if k <= len(res) else -1
+```
+
+### 507. Perfect Number
+
+```python
+class Solution:
+    def checkPerfectNumber(self, num: int) -> bool:
+        res = 0
+        for i in range(1, int(sqrt(num)) + 1):
+            if num % i == 0:
+                if i != num // i:
+                    res += i + num // i
+                else:
+                    res += i
+        return res - num == num
+```
+
+### 1390. Four Divisors
+
+```python
+class Solution:
+    def sumFourDivisors(self, nums: List[int]) -> int:
+        def check(n):
+            res = set()
+            for i in range(1, int(sqrt(n)) + 1):
+                if n % i == 0:
+                    res.add(i)
+                    res.add(n // i)
+                    if len(res) > 4:
+                        break
+            if len(res) == 4:
+                return sum(list(res))
+            return 0
+
+        res = 0
+        for n in nums:
+            res += check(n)
+        return res
+```
+
+### 1362. Closest Divisors
+
+```python
+class Solution:
+    def closestDivisors(self, num: int) -> List[int]:
+        res = [-inf, inf]
+        for n in range(num + 1, num + 3):
+            for i in range(1, int(sqrt(n)) + 1):
+                if n % i == 0:
+                    a, b = i, n // i
+                    if b - a < res[1] - res[0]:
+                        res = [a, b]
+        return res
+```
+
+### 829. Consecutive Numbers Sum
+
+```python
+class Solution:
+    def consecutiveNumbersSum(self, n: int) -> int:
+        res, n = 0, n * 2
+        k = 1
+        while k * k < n:
+            if n % k == 0 and (n // k - (k - 1)) % 2 == 0:
+                res += 1
+            k += 1
+        return res
+```
+
+### 952. Largest Component Size by Common Factor
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+    
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n 
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] > self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2 
+            self.rank[p2] += self.rank[p1]
+
+    def isConnected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+divisors = defaultdict(list)
+def ePrime(n): # include n
+    primes = [False] * 2 + [True] * (n - 1)
+    for i in range(2, n + 1):
+        if primes[i]:
+            for j in range(i, n + 1, i):
+                divisors[j].append(i)
+                primes[j] = False
+ePrime(100001)
+
+class Solution:
+    def largestComponentSize(self, nums: List[int]) -> int:
+        uf = UF(max(nums) + 1)
+        for i in nums:
+            for j, k in pairwise(divisors[i]):
+                uf.union(k, j)
+        d = defaultdict(int)
+        for i in nums:
+            if i == 1:
+                continue
+            res = uf.find(divisors[i][0])
+            d[res] += 1
+        return max(d.values())
+```
+
+### 1627. Graph Connectivity With Threshold
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+    
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n 
+
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] > self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2 
+            self.rank[p2] += self.rank[p1]
+
+    def isConnected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+class Solution:
+    def areConnected(self, n: int, threshold: int, queries: List[List[int]]) -> List[bool]:
+        uf = UF(n + 1)
+        res = []
+        for i in range(threshold + 1, n + 1, 1): 
+            for j in range(i, n + 1, i):
+                uf.union(i, j)
+        for x, y in queries:                       
+            res.append(uf.isConnected(x, y))
+        return res
+```
+
+### 2183. Count Array Pairs Divisible by K
+
+```python
+N = 10 ** 5 + 1
+divisors = [[] for i in range(N)]
+for i in range(1, N):
+    for j in range(i, N, i):
+        divisors[j].append(i)
+
+class Solution:
+    def countPairs(self, nums: List[int], k: int) -> int:
+        # [6,3,3,4,5], k = 6, gcd(4, 6) = 2, k = 3
+        # a * b = k
+        res = 0
+        c = Counter()
+        for n in nums:
+            res += c[k // gcd(n, k)]
+            for factor in divisors[n]:
+                c[factor] += 1
+        return res
+```
+
+
 ## 6 gcd
+
+### 1979. Find Greatest Common Divisor of Array
+
+```python
+class Solution:
+    def findGCD(self, nums: List[int]) -> int:
+        return gcd(max(nums), min(nums))
+```
+
+### 2807. Insert Greatest Common Divisors in Linked List
+
+```python
+class Solution:
+    def insertGreatestCommonDivisors(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        cur = head
+        while cur.next:
+            cur.next = ListNode(gcd(cur.val, cur.next.val), cur.next)
+            cur = cur.next.next
+        return head
+```
+
+### 914. X of a Kind in a Deck of Cards
+
+```python
+class Solution:
+    def hasGroupsSizeX(self, deck: List[int]) -> bool:
+        v = Counter(deck).values()
+        x = reduce(gcd, v)
+        return x > 1
+```
+
+### 1071. Greatest Common Divisor of Strings
+
+```python
+class Solution:
+    def gcdOfStrings(self, str1: str, str2: str) -> str:
+        for i in range(min(len(str1), len(str2)), 0, -1):
+            if (len(str1) % i) == 0 and (len(str2) % i) == 0:
+                if str1[: i] * (len(str1) // i) == str1 and str1[: i] * (len(str2) // i) == str2:
+                    return str1[: i]
+        return ''
+```
+
+### 2001. Number of Pairs of Interchangeable Rectangles
+
+```python
+class Solution:
+    def interchangeableRectangles(self, rectangles: List[List[int]]) -> int:
+        ratio = Counter()
+        res = 0
+        for a, b in rectangles: # 4, 8 => 4 // 4, 8 // 4 => (1, 2)
+            ratio[a // gcd(a, b), b // gcd(a, b)] += 1
+        for n in ratio.values():
+            res += n * (n - 1) // 2
+        return res
+```
 
 ## 7 lcm
 
