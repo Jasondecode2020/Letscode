@@ -249,18 +249,18 @@ class Solution:
 
 ### 5. Longest Palindromic Substring
 
+- range enlarge
 ```python
 class Solution:
     def longestPalindrome(self, s: str) -> str:
-        n, res = len(s), s[0]
-        dp = [[False] * n for r in range(n)]
-        for r in range(1, n):
-            for l in range(r):
-                if s[r] == s[l] and (r - l + 1 <= 3 or dp[l + 1][r - 1]):
-                    dp[l][r] = True
-                    if r - l + 1 > len(res):
-                        res = s[l: r + 1]
-        return res 
+        n, res = len(s), ''
+        f = [[False] * n for r in range(n)]
+        for r in range(n):
+            for l in range(r + 1):
+                if s[l] == s[r] and (r - l + 1 <= 3 or f[l + 1][r - 1]):
+                    f[l][r] = True
+                    res = max(res, s[l: r + 1], key = len)
+        return res
 ```
 
 ### 3040. Maximum Number of Operations With the Same Score II

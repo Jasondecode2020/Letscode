@@ -56,37 +56,28 @@ class Solution:
 
 ## Topological sort
 
-* [1557. Minimum Number of Vertices to Reach All Nodes](#1557-Minimum-Number-of-Vertices-to-Reach-All-Nodes)
 * [207. Course Schedule](#207-course-schedule)
 * [210. Course Schedule II](#210-Course-Schedule-II)
+* [310. Minimum Height Trees](#310-Minimum-Height-Trees)
+* [444. Sequence Reconstruction](#444-Sequence-Reconstruction)
+* [802. Find Eventual Safe States](#802-Find-Eventual-Safe-States)
+
 * [1462. Course Schedule IV](#1462-Course-Schedule-IV)
 * [2115. Find All Possible Recipes from Given Supplies](#2115-Find-All-Possible-Recipes-from-Given-Supplies)
 * [269. Alien Dictionary](#269-Alien-Dictionary)
-* [310. Minimum Height Trees](#310-Minimum-Height-Trees)
 * [329. Longest Increasing Path in a Matrix](#329-Longest-Increasing-Path-in-a-Matrix)
-* [802. Find Eventual Safe States](#802-Find-Eventual-Safe-States)
+
 * [1203](#)
 * [1136. Parallel Courses](#1136-Parallel-Courses)
 * [1059. All Paths from Source Lead to Destination](#1059-All-Paths-from-Source-Lead-to-Destination)
-* [444. Sequence Reconstruction](#444-Sequence-Reconstruction)
 * [2360. Longest Cycle in a Graph](#2360-Longest-Cycle-in-a-Graph)
 * [2603](#)
+* [1557. Minimum Number of Vertices to Reach All Nodes](#1557-Minimum-Number-of-Vertices-to-Reach-All-Nodes)
 
 ## Topological sort + dp
 
 * [2050. Parallel Courses III](#2050. Parallel Courses III)
 * [1857](#207-course-schedule)
-
-### 1557. Minimum Number of Vertices to Reach All Nodes
-
-```python
-class Solution:
-    def findSmallestSetOfVertices(self, n: int, edges: List[List[int]]) -> List[int]:
-        indegree = [0] * n 
-        for u, v in edges:
-            indegree[v] += 1
-        return [i for i, v in enumerate(indegree) if v == 0]
-```
 
 ### 207. Course Schedule
 
@@ -192,6 +183,80 @@ class Solution:
         return res[::-1] if self.valid else []
 ```
 
+### 310. Minimum Height Trees
+
+- undirected indegree = 1 can pop off
+
+```python
+class Solution:
+    def findMinHeightTrees(self, n: int, edges: List[List[int]]) -> List[int]:
+        g, indegree = defaultdict(list), [0] * n 
+        for a, b in edges:
+            g[a].append(b)
+            g[b].append(a)
+            indegree[a] += 1
+            indegree[b] += 1
+        
+        q, res = deque([i for i, v in enumerate(indegree) if v == 1]), []
+        while q:
+            res = list(q)
+            for _ in range(len(q)):
+                node = q.popleft()
+                for nei in g[node]:
+                    indegree[nei] -= 1
+                    if indegree[nei] == 1:
+                        q.append(nei)
+        return res if res else list(range(n))
+```
+
+### 444. Sequence Reconstruction
+
+```python
+class Solution:
+    def sequenceReconstruction(self, nums: List[int], sequences: List[List[int]]) -> bool:
+        g, indegree = defaultdict(list), [0] * (len(nums) + 1)
+        for item in sequences:
+            for a, b in pairwise(item):
+                g[a].append(b)
+                indegree[b] += 1
+        
+        q, res = deque([i for i, v in enumerate(indegree) if v == 0 and i != 0]), []
+        while q:
+            if len(q) > 1:
+                return False
+            node = q.popleft()
+            res.append(node)
+            for nei in g[node]:
+                indegree[nei] -= 1
+                if indegree[nei] == 0:
+                    q.append(nei)
+        return res == nums
+```
+
+
+### 802. Find Eventual Safe States
+
+```python
+class Solution:
+    def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:
+        g, indegree = defaultdict(list), [0] * len(graph)
+        for i, nodes in enumerate(graph):
+            for node in nodes:
+                g[node].append(i)
+                indegree[i] += 1
+
+        q = deque([i for i, d in enumerate(indegree) if d == 0])
+        res = []
+        while q:
+            node = q.popleft()
+            res.append(node)
+            for nei in g[node]:
+                indegree[nei] -= 1
+                if indegree[nei] == 0:
+                    q.append(nei)
+        return sorted(res)
+```
+
 ### 1462. Course Schedule IV
 
 ```python
@@ -270,33 +335,6 @@ class Solution:
         return res if len(res) == len(unique_letters) else ''
 ```
 
-### 310. Minimum Height Trees
-
-- undirected indegree = 1 can pop off
-
-```python
-class Solution:
-    def findMinHeightTrees(self, n: int, edges: List[List[int]]) -> List[int]:
-        g, indegree = defaultdict(list), [0] * n
-        for u, v in edges:
-            g[u].append(v)
-            g[v].append(u)
-            indegree[u] += 1
-            indegree[v] += 1
-
-        res, q = n, [i for i, d in enumerate(indegree) if d == 1]
-        while res > 2:
-            res -= len(q)
-            ans = []
-            for i in range(len(q)):
-                node = q.pop()
-                for nei in g[node]:
-                    indegree[nei] -= 1
-                    if indegree[nei] == 1:
-                        ans.append(nei)
-            q = ans
-        return q if q else [0]
-```
 
 ### 329. Longest Increasing Path in a Matrix
 
@@ -376,29 +414,6 @@ class Solution:
         return res
 ```
 
-### 802. Find Eventual Safe States
-
-```python
-class Solution:
-    def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:
-        g, indegree = defaultdict(list), [0] * len(graph)
-        for i, nodes in enumerate(graph):
-            for node in nodes:
-                g[node].append(i)
-                indegree[i] += 1
-
-        q = deque([i for i, d in enumerate(indegree) if d == 0])
-        res = []
-        while q:
-            node = q.popleft()
-            res.append(node)
-            for nei in g[node]:
-                indegree[nei] -= 1
-                if indegree[nei] == 0:
-                    q.append(nei)
-        return sorted(res)
-```
-
 ### 851. Loud and Rich
 
 ```python
@@ -469,33 +484,6 @@ class Solution:
                 if indegree[nei] == 0:
                     q.append(nei)
         return False
-```
-
-### 444. Sequence Reconstruction
-
-```python
-class Solution:
-    def sequenceReconstruction(self, nums: List[int], sequences: List[List[int]]) -> bool:
-        g, indegree = defaultdict(list), defaultdict(int)
-        unique = set([n for s in sequences for n in s])
-        for n in unique:
-            indegree[n] = 0
-        
-        for a in sequences:
-            for u, v in pairwise(a):
-                g[u].append(v)
-                indegree[v] += 1
-        res, q = [], [i for i, d in indegree.items() if d == 0]
-        while q:
-            if len(q) > 1:
-                return False
-            node = q.pop()
-            res.append(node)
-            for nei in g[node]:
-                indegree[nei] -= 1
-                if indegree[nei] == 0:
-                    q.append(nei)
-        return res == nums
 ```
 
 ### 2360. Longest Cycle in a Graph
@@ -580,4 +568,16 @@ class Solution:
                 if indegree[nei] == 0:
                     q.append(nei)
         return res
+```
+
+
+### 1557. Minimum Number of Vertices to Reach All Nodes
+
+```python
+class Solution:
+    def findSmallestSetOfVertices(self, n: int, edges: List[List[int]]) -> List[int]:
+        indegree = [0] * n 
+        for u, v in edges:
+            indegree[v] += 1
+        return [i for i, v in enumerate(indegree) if v == 0]
 ```

@@ -1,4 +1,24 @@
-## combinations
+## combinatorics
+
+### 3128. Right Triangles
+
+```python
+class Solution:
+    def numberOfRightTriangles(self, grid: List[List[int]]) -> int:
+        R, C = len(grid), len(grid[0])
+        row, col = [0] * R, [0] * C
+        for r in range(R):
+            for c in range(C):
+                if grid[r][c]:
+                    row[r] += 1
+                    col[c] += 1
+        res = 0
+        for r in range(R):
+            for c in range(C):
+                if grid[r][c] == 1:
+                    res += (row[r] - 1) * (col[c] - 1)
+        return res
+```
 
 * [357. Count Numbers with Unique Digits](#357-Count-Numbers-with-Unique-Digits)
 

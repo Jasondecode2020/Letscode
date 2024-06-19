@@ -1,6 +1,35 @@
-# greedy
+## greedy
 
-## simulation
+* [55. Jump Game](#55-jump-game)
+
+### 55. Jump Game
+
+```python
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        n = len(nums)
+        furthest = nums[0]
+        for i in range(1, n):
+            if furthest >= i:
+                furthest = max(furthest, i + nums[i])
+        return furthest >= n - 1
+```
+
+### 45. Jump Game II
+
+```python
+class Solution:
+    def jump(self, nums: List[int]) -> int:
+        n = len(nums)
+        furthest, prev, res = 0, 0, 0
+        for i in range(n - 1):
+            if furthest >= i:
+                furthest = max(furthest, i + nums[i])
+                if i == prev:
+                    prev = furthest
+                    res += 1
+        return res
+```
 
 ### 455. Assign Cookies
 
@@ -650,4 +679,21 @@ class Solution:
         dist1 = max(forward[i] - forward[i - 1] for i in range(1, len(forward)))
         dist2 = max(backward[i] - backward[i - 1] for i in range(1, len(backward)))
         return max(dist1, dist2)
+```
+
+### 517. Super Washing Machines
+
+```python
+class Solution:
+    def findMinMoves(self, machines: List[int]) -> int:
+        total = sum(machines)
+        n = len(machines)
+        if total % n:
+            return -1
+        average = total // n 
+        res, need = 0, 0
+        for m in machines:
+            need += m - average
+            res = max(res, abs(need), m - average)
+        return res 
 ```
