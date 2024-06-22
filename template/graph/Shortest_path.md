@@ -30,13 +30,16 @@ class Solution:
 * [1514. Path with Maximum Probability](#1514-Path-with-Maximum-Probability) 1846
 * [3123. Find Edges in Shortest Paths](#3123-Find-Edges-in-Shortest-Paths)
 * [2473. Minimum Cost to Buy Apples](#2473-Minimum-Cost-to-Buy-Apples)
-* [1976. Number of Ways to Arrive at Destination](#1976-Number-of-Ways-to-Arrive-at-Destination)
+
+### Dijkstra
+
+* [1976. Number of Ways to Arrive at Destination 2095](#1976-Number-of-Ways-to-Arrive-at-Destination)
+* [1786. Number of Restricted Paths From First to Last Node](#1786-number-of-restricted-paths-from-first-to-last-node)
 * [505. The Maze II](#505-The-Maze-II)
 
 1631. 最小体力消耗路径 1948 做法不止一种
 1368. 使网格图至少有一条有效路径的最小代价 2069 也可以 0-1 BFS
 1786. 从第一个节点出发到最后一个节点的受限路径数 2079
-1976. 到达目的地的方案数 2095
 2662. 前往目标的最小代价 2154
 2045. 到达目的地的第二短时间 2202 也可以 BFS
 882. 细分图中的可到达节点 2328
@@ -254,27 +257,60 @@ class Solution:
 class Solution:
     def countPaths(self, n: int, roads: List[List[int]]) -> int:
         g = defaultdict(list)
+        mod = 10 ** 9 + 7
         for u, v, t in roads:
             g[u].append((v, t))
             g[v].append((u, t))
 
-        dist = [inf] * n
-        dist[0] = 0
-        ways = [0] * n
-        ways[0] = 1
-        pq = [(0, 0)]
-        mod = 10 ** 9 + 7
+        dist, paths = [inf] * n, [0] * n 
+        dist[0], paths[0] = 0, 1
+        pq = [(0, 0)] # time, node 
         while pq:
-            t, u = heappop(pq)
-            for v, c in g[u]:
-                time = c + t
-                if time < dist[v]:
-                    dist[v] = time
-                    ways[v] = ways[u]
-                    heappush(pq, (time, v))
-                elif time == dist[v]:
-                    ways[v] += ways[u]
-        return ways[-1] % mod
+            t, node = heappop(pq)
+            for nei, c in g[node]:
+                time = t + c 
+                if time < dist[nei]:
+                    dist[nei] = time 
+                    heappush(pq, (time, nei))
+                    paths[nei] = paths[node]
+                elif time == dist[nei]:
+                    paths[nei] += paths[node]
+        return paths[-1] % mod
+```
+
+### 1786. Number of Restricted Paths From First to Last Node
+
+- dijkstra and dfs + memo
+
+```python
+class Solution:
+    def countRestrictedPaths(self, n: int, edges: List[List[int]]) -> int:
+        g, mod = defaultdict(list), 10 ** 9 + 7
+        for u, v, c in edges:
+            g[u - 1].append((v - 1, c))
+            g[v - 1].append((u - 1, c))
+    
+        dist = [inf] * n 
+        dist[n - 1] = 0
+        pq = [(0, n - 1)] # cost, node
+        while pq:
+            cost, node = heappop(pq)
+            for nei, c in g[node]:
+                new_cost = cost + c
+                if new_cost < dist[nei]:
+                    dist[nei] = new_cost
+                    heappush(pq, (new_cost, nei))
+        
+        @cache
+        def dfs(x):
+            if x == n - 1:
+                return 1
+            res = 0
+            for y, c in g[x]:
+                if dist[y] < dist[x]:
+                    res += dfs(y)
+            return res
+        return dfs(0) % mod
 ```
 
 ### 505. The Maze II

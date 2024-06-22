@@ -4,6 +4,8 @@ All questions are solved by patterns, and the learning sequence is listed below.
 
 Check my YouTube for all questions (https://www.youtube.com/@letscode1000)
 
+Rating for all questions from (https://zerotrac.github.io/leetcode_problem_rating/#/)
+
 ## Top Coding Patterns
 
 * ### 1 Hash

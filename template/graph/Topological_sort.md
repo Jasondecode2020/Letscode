@@ -1,60 +1,4 @@
-## template 1: bfs + queue
-
-* [207. Course Schedule](#207-course-schedule)
-
-```python
-class Solution:
-    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        g, indegree = defaultdict(list), [0] * numCourses
-        for a, b in prerequisites:
-            g[b].append(a)
-            indegree[a] += 1
-        
-        res, q = PROBLEM_CONDITION, deque([i for i, v in enumerate(indegree) if v == 0])
-        while q:
-            node = q.popleft()
-            res += 1
-            for nei in g[node]:
-                indegree[nei] -= 1
-                if not indegree[nei]:
-                    q.append(nei)
-        return PROBLEM_CONDITION
-```
-
-## template 2: dfs + stack
-
-* [207. Course Schedule](#207-course-schedule)
-
-```python
-class Solution:
-    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        g = defaultdict(list)
-        visited = [0] * numCourses
-        self.valid = True
-
-        for u, v in prerequisites:
-            g[v].append(u)
-        
-        def dfs(u):
-            visited[u] = 1
-            for v in g[u]:
-                if visited[v] == 0:
-                    dfs(v)
-                    if not self.valid:
-                        return
-                elif visited[v] == 1:
-                    self.valid = False
-                    return
-            visited[u] = 2
-        
-        for i in range(numCourses):
-            if self.valid and not visited[i]:
-                dfs(i)
-        
-        return self.valid
-```
-
-## Topological sort
+## Topological sort(with dp)
 
 * [207. Course Schedule](#207-course-schedule)
 * [210. Course Schedule II](#210-Course-Schedule-II)
@@ -62,19 +6,25 @@ class Solution:
 * [444. Sequence Reconstruction](#444-Sequence-Reconstruction)
 * [802. Find Eventual Safe States](#802-Find-Eventual-Safe-States)
 
+* [851. Loud and Rich](#851-loud-and-rich)
+* [1059. All Paths from Source Lead to Destination](#1059-All-Paths-from-Source-Lead-to-Destination)
+* [1136. Parallel Courses](#1136-Parallel-Courses)
+* [1245. Tree Diameter](#1245-tree-diameter)
 * [1462. Course Schedule IV](#1462-Course-Schedule-IV)
+
 * [2115. Find All Possible Recipes from Given Supplies](#2115-Find-All-Possible-Recipes-from-Given-Supplies)
+* [2192. All Ancestors of a Node in a Directed Acyclic Graph](#2192-all-ancestors-of-a-node-in-a-directed-acyclic-graph)
 * [269. Alien Dictionary](#269-Alien-Dictionary)
 * [329. Longest Increasing Path in a Matrix](#329-Longest-Increasing-Path-in-a-Matrix)
 
-* [1203](#)
-* [1136. Parallel Courses](#1136-Parallel-Courses)
-* [1059. All Paths from Source Lead to Destination](#1059-All-Paths-from-Source-Lead-to-Destination)
+* [2328. Number of Increasing Paths in a Grid](#2328-number-of-increasing-paths-in-a-grid)
 * [2360. Longest Cycle in a Graph](#2360-Longest-Cycle-in-a-Graph)
-* [2603](#)
+* [2050. Parallel Courses III](#2050-parallel-courses-iii)
+
+* [1857. Largest Color Value in a Directed Graph]()
 * [1557. Minimum Number of Vertices to Reach All Nodes](#1557-Minimum-Number-of-Vertices-to-Reach-All-Nodes)
 
-## Topological sort + dp
+
 
 * [2050. Parallel Courses III](#2050. Parallel Courses III)
 * [1857](#207-course-schedule)
@@ -257,6 +207,99 @@ class Solution:
         return sorted(res)
 ```
 
+### 851. Loud and Rich
+
+```python
+class Solution:
+    def loudAndRich(self, richer: List[List[int]], quiet: List[int]) -> List[int]:
+        g, indegree = defaultdict(list), [0] * len(quiet)
+        for a, b in richer:
+            g[a].append(b)
+            indegree[b] += 1
+        
+        q, res = deque([i for i, v in enumerate(indegree) if v == 0]), list(range(len(quiet)))
+        while q:
+            node = q.popleft()
+            for nei in g[node]:
+                if quiet[res[node]] < quiet[res[nei]]:
+                    res[nei] = res[node]
+                indegree[nei] -= 1
+                if indegree[nei] == 0:
+                    q.append(nei)
+        return res
+```
+
+### 1059. All Paths from Source Lead to Destination
+
+```python
+class Solution:
+    def leadsToDestination(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
+        g, indegree = defaultdict(list), [0] * n
+        for a, b in edges:
+            g[b].append(a)
+            indegree[a] += 1
+        
+        if indegree[destination]:
+            return False
+        q = deque([destination])
+        while q:
+            node = q.popleft()
+            if node == source:
+                return True
+            for nei in g[node]:
+                indegree[nei] -= 1
+                if indegree[nei] == 0:
+                    q.append(nei)
+        return Falses
+```
+
+### 1136. Parallel Courses
+
+```python
+class Solution:
+    def minimumSemesters(self, n: int, relations: List[List[int]]) -> int:
+        g, indegree = defaultdict(list), [0] * n
+        for prev, nxt in relations:
+            g[prev - 1].append(nxt - 1)
+            indegree[nxt - 1] += 1
+
+        res, count, q = 0, 0, deque([i for i, d in enumerate(indegree) if d == 0])
+        ans = []
+        while q:
+            res += 1
+            for i in range(len(q)):
+                node = q.popleft()
+                count += 1
+                for nei in g[node]:
+                    indegree[nei] -= 1
+                    if indegree[nei] == 0:
+                        q.append(nei)
+        return res if res > 0 and count == n else -1
+```
+
+### 1245. Tree Diameter
+
+```python
+class Solution:
+    def treeDiameter(self, edges: List[List[int]]) -> int:
+        g, indegree = defaultdict(list), [0] * (len(edges) + 1)
+        for a, b in edges:
+            g[a].append(b)
+            g[b].append(a)
+            indegree[a] += 1
+            indegree[b] += 1
+        q, depth, res = deque([i for i, v in enumerate(indegree) if v == 1]), -1, 0
+        while q:
+            res = len(q)
+            for _ in range(res):
+                node = q.popleft()
+                for nei in g[node]:
+                    indegree[nei] -= 1
+                    if indegree[nei] == 1:
+                        q.append(nei)
+
+```
+
 ### 1462. Course Schedule IV
 
 ```python
@@ -266,19 +309,18 @@ class Solution:
         for a, b in prerequisites:
             g[a].append(b)
             indegree[b] += 1
-
-        searchTable = [[False] * numCourses for r in range(numCourses)]
         q = deque([i for i, v in enumerate(indegree) if v == 0])
+        dp = [[False] * numCourses for r in range(numCourses)]
         while q:
             node = q.popleft()
             for nei in g[node]:
-                searchTable[node][nei] = True
+                dp[node][nei] = True
                 for i in range(numCourses):
-                    searchTable[i][nei] |= searchTable[i][node]
+                    dp[i][nei] |= dp[i][node]
                 indegree[nei] -= 1
                 if indegree[nei] == 0:
                     q.append(nei)
-        return [searchTable[i][j] for i, j in queries]
+        return [dp[a][b] for a, b in queries]
 ```
 
 ### 2115. Find All Possible Recipes from Given Supplies
@@ -286,23 +328,43 @@ class Solution:
 ```python
 class Solution:
     def findAllRecipes(self, recipes: List[str], ingredients: List[List[str]], supplies: List[str]) -> List[str]:
-        g = defaultdict(list)
-        indegree = defaultdict(int)
-        for recipe, ingredient in zip(recipes, ingredients):
-            for item in ingredient:
-                g[item].append(recipe)
-                indegree[recipe] += 1
-                
-        res = []
-        q = deque(supplies)
+        g, indegree = defaultdict(list), defaultdict(int)
+        for r, item in zip(recipes, ingredients):
+            for i in item:
+                g[i].append(r)
+                indegree[r] += 1
+        
+        q, res = deque(supplies), []
         while q:
-            ingredient = q.popleft()
-            for recipe in g[ingredient]:
-                indegree[recipe] -= 1
-                if indegree[recipe] == 0:
-                    q.append(recipe)
-                    res.append(recipe)
+            node = q.popleft()
+            for nei in g[node]:
+                indegree[nei] -= 1
+                if indegree[nei] == 0:
+                    q.append(nei)
+                    res.append(nei)
         return res
+```
+
+### 2192. All Ancestors of a Node in a Directed Acyclic Graph
+
+```python
+class Solution:
+    def getAncestors(self, n: int, edges: List[List[int]]) -> List[List[int]]:
+        g, indegree = defaultdict(list), [0] * n 
+        for a, b in edges:
+            g[a].append(b)
+            indegree[b] += 1
+        
+        q, res = deque([i for i, v in enumerate(indegree) if v == 0]), {i: set() for i in range(n)}
+        while q:
+            node = q.popleft()
+            for nei in g[node]:
+                res[nei] |= res[node]
+                res[nei].add(node)
+                indegree[nei] -= 1
+                if indegree[nei] == 0:
+                    q.append(nei)
+        return [sorted(list(item)) for item in res.values()]
 ```
 
 ### 269. Alien Dictionary
@@ -310,21 +372,22 @@ class Solution:
 ```python
 class Solution:
     def alienOrder(self, words: List[str]) -> str:
-        unique_letters = set([c for word in words for c in word])
+        letters = set([c for word in words for c in word])
         g, indegree = defaultdict(list), defaultdict(int)
-        for c in unique_letters:
+        for c in letters:
             indegree[c] = 0
-        for a, b in pairwise(words):
-            for x, y in zip(a, b):
-                if x != y:
-                    g[x].append(y)
-                    indegree[y] += 1
+        for s, t in pairwise(words):
+            flag = False
+            for a, b in zip(s, t):
+                if a != b:
+                    g[a].append(b)
+                    indegree[b] += 1
+                    flag = True
                     break
-            else:
-                if len(a) > len(b):
-                    return ''
-
-        res, q = '', deque([i for i, d in indegree.items() if d == 0])
+            if not flag and len(s) > len(t):
+                return ''
+        
+        q, res = deque([i for i, v in indegree.items() if v == 0]), ''
         while q:
             node = q.popleft()
             res += node
@@ -332,9 +395,8 @@ class Solution:
                 indegree[nei] -= 1
                 if indegree[nei] == 0:
                     q.append(nei)
-        return res if len(res) == len(unique_letters) else ''
+        return res if len(res) == len(letters) else ''
 ```
-
 
 ### 329. Longest Increasing Path in a Matrix
 
@@ -357,6 +419,67 @@ class Solution:
         for r in range(R):
             for c in range(C):
                 res = max(res, dfs(r, c))
+        return res
+```
+
+```python
+class Solution:
+    def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
+        R, C = len(matrix), len(matrix[0])
+        directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+        indegree = [0] * R * C 
+        def f(r, c, C):
+            return r * C + c
+
+        for r in range(R):
+            for c in range(C):
+                for dr, dc in directions:
+                    row, col = r + dr, c + dc 
+                    if 0 <= row < R and 0 <= col < C and matrix[r][c] < matrix[row][col]:
+                        indegree[f(row, col, C)] += 1
+
+        res, q = 0, deque([i for i, d in enumerate(indegree) if d == 0])
+        while q:
+            for i in range(len(q)):
+                node = q.popleft()
+                r, c = node // C,  node % C
+                for dr, dc in directions:
+                    row, col = r + dr, c + dc 
+                    if 0 <= row < R and 0 <= col < C and matrix[r][c] < matrix[row][col]:
+                        indegree[f(row, col, C)] -= 1
+                        if indegree[f(row, col, C)] == 0:
+                            q.append(f(row, col, C))
+            res += 1
+        return res
+```
+
+```python
+class Solution:
+    def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
+        R, C = len(matrix), len(matrix[0])
+        directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+        indegree = [0] * R * C 
+        g = defaultdict(list)
+        def f(r, c, C):
+            return r * C + c
+
+        for r in range(R):
+            for c in range(C):
+                for dr, dc in directions:
+                    row, col = r + dr, c + dc 
+                    if 0 <= row < R and 0 <= col < C and matrix[r][c] < matrix[row][col]:
+                        indegree[f(row, col, C)] += 1
+                        g[f(r, c, C)].append(f(row, col, C))
+
+        res, q = 0, deque([i for i, d in enumerate(indegree) if d == 0])
+        while q:
+            for i in range(len(q)):
+                node = q.popleft()
+                for nei in g[node]:
+                    indegree[nei] -= 1
+                    if indegree[nei] == 0:
+                        q.append(nei)
+            res += 1
         return res
 ```
 
@@ -414,78 +537,6 @@ class Solution:
         return res
 ```
 
-### 851. Loud and Rich
-
-```python
-class Solution:
-    def loudAndRich(self, richer: List[List[int]], quiet: List[int]) -> List[int]:
-        g, indegree = defaultdict(list), [0] * len(quiet)
-        for high, low in richer:
-            g[high].append(low)
-            indegree[low] += 1
-
-        q = deque([i for i, v in enumerate(indegree) if v == 0])
-        res = list(range(len(quiet)))
-        while q:
-            node = q.popleft()
-            for nei in g[node]:
-                # node has more money than nei
-                # check if node is quieter than nei
-                if quiet[res[node]] < quiet[res[nei]]:
-                    res[nei] = res[node]
-                indegree[nei] -= 1
-                if indegree[nei] == 0:
-                    q.append(nei)
-        return res
-```
-
-### 1136. Parallel Courses
-
-```python
-class Solution:
-    def minimumSemesters(self, n: int, relations: List[List[int]]) -> int:
-        g, indegree = defaultdict(list), [0] * n
-        for prev, nxt in relations:
-            g[prev - 1].append(nxt - 1)
-            indegree[nxt - 1] += 1
-
-        res, count, q = 0, 0, deque([i for i, d in enumerate(indegree) if d == 0])
-        ans = []
-        while q:
-            res += 1
-            for i in range(len(q)):
-                node = q.popleft()
-                count += 1
-                for nei in g[node]:
-                    indegree[nei] -= 1
-                    if indegree[nei] == 0:
-                        q.append(nei)
-        return res if res > 0 and count == n else -1
-```
-
-### 1059. All Paths from Source Lead to Destination
-
-```python
-class Solution:
-    def leadsToDestination(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
-        g, indegree = defaultdict(list), [0] * n
-        for u, v in edges:
-            g[v].append(u)
-            indegree[u] += 1
-        if indegree[destination]:
-            return False
-        q = deque([destination])
-        while q:
-            node = q.popleft()
-            if node == source:
-                return True
-            for nei in g[node]:
-                indegree[nei] -= 1
-                if indegree[nei] == 0:
-                    q.append(nei)
-        return False
-```
-
 ### 2360. Longest Cycle in a Graph
 
 ```python
@@ -521,29 +572,6 @@ class Solution:
         return cycle(indegree)
 ```
 
-### 1059. All Paths from Source Lead to Destination
-
-```python
-class Solution:
-    def leadsToDestination(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
-        g, indegree = defaultdict(list), [0] * n
-        for u, v in edges:
-            g[v].append(u)
-            indegree[u] += 1
-        if indegree[destination]:
-            return False
-        q = deque([destination])
-        while q:
-            node = q.popleft()
-            if node == source:
-                return True
-            for nei in g[node]:
-                indegree[nei] -= 1
-                if indegree[nei] == 0:
-                    q.append(nei)
-        return False
-```
-
 ### 2050. Parallel Courses III
 
 ```python
@@ -570,14 +598,33 @@ class Solution:
         return res
 ```
 
-
-### 1557. Minimum Number of Vertices to Reach All Nodes
+### 1857. Largest Color Value in a Directed Graph
 
 ```python
 class Solution:
-    def findSmallestSetOfVertices(self, n: int, edges: List[List[int]]) -> List[int]:
-        indegree = [0] * n 
+    def largestPathValue(self, colors: str, edges: List[List[int]]) -> int:
+        g = defaultdict(list)
+        n = len(colors)
+        indegree = [0] * n
         for u, v in edges:
+            g[u].append(v)
             indegree[v] += 1
-        return [i for i, v in enumerate(indegree) if v == 0]
+        
+        q = deque([i for i, v in enumerate(indegree) if v == 0])
+        dp = [[0] * 26 for _ in range(n)]
+        found = 0
+        while q:
+            found += 1
+            node = q.popleft()
+            dp[node][ord(colors[node]) - ord('a')] += 1
+            for nei in g[node]:
+                for c in range(26):
+                    dp[nei][c] = max(dp[nei][c], dp[node][c])
+                indegree[nei] -= 1
+                if indegree[nei] == 0:
+                    q.append(nei)
+
+        if found != n:
+            return -1
+        return max(max(item) for item in dp)
 ```
