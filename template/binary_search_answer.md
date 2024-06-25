@@ -1220,3 +1220,52 @@ class Solution:
                 l = m
         return res
 ```
+
+### 878. Nth Magical Number
+
+```python
+class Solution:
+    def nthMagicalNumber(self, n: int, a: int, b: int) -> int:
+        mod = 10 ** 9 + 7
+        def check(threshold):
+            cnt = 0
+            cnt += threshold // a
+            cnt += threshold // b
+            cnt -= threshold // lcm(a, b)
+            return cnt >= n 
+        l, r, res = 2, 4 * (10 ** 4) * (10 ** 9), 2
+        while l <= r:
+            m = l + (r - l) // 2
+            if check(m):
+                res = m 
+                r = m - 1
+            else:
+                l = m + 1
+        return res % mod
+```
+
+### 1201. Ugly Number III
+
+```python
+class Solution:
+    def nthUglyNumber(self, n: int, a: int, b: int, c: int) -> int:
+        def check(threshold):
+            cnt = 0
+            cnt += threshold // a
+            cnt += threshold // b
+            cnt += threshold // c 
+            cnt -= threshold // lcm(a, b)
+            cnt -= threshold // lcm(b, c)
+            cnt -= threshold // lcm(a, c)
+            cnt += threshold // lcm(a, b, c)
+            return cnt >= n 
+        l, r, res = 1, max(a, b, c) * (10 ** 9), 2
+        while l <= r:
+            m = l + (r - l) // 2
+            if check(m):
+                res = m 
+                r = m - 1
+            else:
+                l = m + 1
+        return res
+```

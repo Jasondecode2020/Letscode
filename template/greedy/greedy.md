@@ -697,3 +697,17 @@ class Solution:
             res = max(res, abs(need), m - average)
         return res 
 ```
+
+### 2371. Minimize Maximum Value in a Grid
+
+```python
+class Solution:
+    def minScore(self, grid: List[List[int]]) -> List[List[int]]:
+        R, C = len(grid), len(grid[0])
+        nums = sorted([(grid[r][c], r, c) for r in range(R) for c in range(C)])
+        row, col = [0] * R, [0] * C 
+        for num, r, c in nums:
+            grid[r][c] = max(row[r], col[c]) + 1
+            row[r] = col[c] = grid[r][c]
+        return grid
+```

@@ -43,6 +43,7 @@ def fn(q):
 * [1129. Shortest Path with Alternating Colors](#1129-Shortest-Path-with-Alternating-Colors)
 * [2608. Shortest Cycle in a Graph](#2608-Shortest-Cycle-in-a-Graph)
 * [1298. Maximum Candies You Can Get from Boxes](#1298-Maximum-Candies-You-Can-Get-from-Boxes)
+* [631. Design Excel Sum Formula](#631-design-excel-sum-formula)
 
 ### 1306. Jump Game III
 
@@ -426,4 +427,44 @@ class Solution:
                         visited_box.add(box)
                         q.append(box)
         return res
+```
+
+### 631. Design Excel Sum Formula
+
+```python
+class Excel:
+    def __init__(self, height: int, width: str):
+        self.g = [[0] * (ord(width) - 64) for r in range(height)]
+        self.sum_state = deepcopy(self.g)
+
+    def set(self, row: int, column: str, val: int) -> None:
+        self.g[row - 1][ord(column) - 65] = val
+        # 0 means single val, otherwise: array
+        self.sum_state[row - 1][ord(column) - 65] = 0 
+
+    def get(self, row: int, column: str) -> int:
+        if self.sum_state[row - 1][ord(column) - 65] == 0:
+            return self.g[row - 1][ord(column) - 65]
+        q, res = deque([(row - 1, ord(column) - 65)]), 0
+        while q:
+            r, c = q.popleft()
+            if self.sum_state[r][c] == 0:
+                res += self.g[r][c]
+            else:
+                for s in self.sum_state[r][c]:
+                    if len(s) <= 3:
+                        row, col = int(s[1:]) - 1, ord(s[0]) - 65
+                        q.append((row, col))
+                    else:
+                        a, b = s.split(':')
+                        row1, col1 = int(a[1:]) - 1, ord(a[0]) - 65
+                        row2, col2 = int(b[1:]) - 1, ord(b[0]) - 65
+                        for i in range(row1, row2 + 1):
+                            for j in range(col1, col2 + 1):
+                                q.append((i, j))
+        return res
+
+    def sum(self, row: int, column: str, numbers: List[str]) -> int:
+        self.sum_state[row - 1][ord(column) - 65] = numbers
+        return self.get(row, column)
 ```

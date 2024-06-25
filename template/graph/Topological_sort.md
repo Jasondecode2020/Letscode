@@ -16,18 +16,16 @@
 * [2192. All Ancestors of a Node in a Directed Acyclic Graph](#2192-all-ancestors-of-a-node-in-a-directed-acyclic-graph)
 * [269. Alien Dictionary](#269-Alien-Dictionary)
 * [329. Longest Increasing Path in a Matrix](#329-Longest-Increasing-Path-in-a-Matrix)
-
 * [2328. Number of Increasing Paths in a Grid](#2328-number-of-increasing-paths-in-a-grid)
+
+* [2392. Build a Matrix With Conditions](#)
+* [1591. Strange Printer II](#1591-strange-printer-ii)
 * [2360. Longest Cycle in a Graph](#2360-Longest-Cycle-in-a-Graph)
 * [2050. Parallel Courses III](#2050-parallel-courses-iii)
+* [1916. Count Ways to Build Rooms in an Ant Colony](#1916)
 
-* [1857. Largest Color Value in a Directed Graph]()
+* [1857. Largest Color Value in a Directed Graph](#1857-largest-color-value-in-a-directed-graph)
 * [1557. Minimum Number of Vertices to Reach All Nodes](#1557-Minimum-Number-of-Vertices-to-Reach-All-Nodes)
-
-
-
-* [2050. Parallel Courses III](#2050. Parallel Courses III)
-* [1857](#207-course-schedule)
 
 ### 207. Course Schedule
 
@@ -537,6 +535,69 @@ class Solution:
         return res
 ```
 
+### 2392. Build a Matrix With Conditions
+
+```python
+class Solution:
+    def buildMatrix(self, k: int, rowConditions: List[List[int]], colConditions: List[List[int]]) -> List[List[int]]:
+        def topologicalSort(conditions):
+            g, indegree = defaultdict(list), [0] * (k + 1)
+            for a, b in conditions:
+                g[a].append(b)
+                indegree[b] += 1
+            q, res = deque([i for i, v in enumerate(indegree) if v == 0 and i != 0]), []
+            while q:
+                node = q.popleft()
+                res.append(node)
+                for nei in g[node]:
+                    indegree[nei] -= 1
+                    if indegree[nei] == 0:
+                        q.append(nei)
+            return res if len(res) == k else 0
+        row, col = topologicalSort(rowConditions), topologicalSort(colConditions)
+        if not row or not col:
+            return []
+        res = [[0] * k for r in range(k)]
+        row_pos = {x: r for r, x in enumerate(row)}
+        for c, y in enumerate(col):
+            res[row_pos[y]][c] = y
+        return res
+```
+
+### 1591. Strange Printer II
+
+```python
+class Solution:
+    def isPrintable(self, targetGrid: List[List[int]]) -> bool:
+        R, C = len(targetGrid), len(targetGrid[0])
+        color = defaultdict(list)
+        for r in range(R):
+            for c in range(C):
+                color[targetGrid[r][c]].append([r, c])
+
+        g, indegree = defaultdict(list), {c: 0 for c in color}
+        for c1 in color:
+            x1, x2 = min([item[0] for item in color[c1]]), max([item[0] for item in color[c1]])
+            y1, y2 = min([item[1] for item in color[c1]]), max([item[1] for item in color[c1]])
+            for c2 in color:
+                if c1 != c2:
+                    for x, y in color[c2]:
+                        if x1 <= x <= x2 and y1 <= y <= y2:
+                            g[c1].append(c2)
+                            indegree[c2] += 1
+                            break
+
+        q, cnt = deque([i for i, v in indegree.items() if v == 0]), 0
+        while q:
+            node = q.popleft()
+            cnt += 1
+            for nei in g[node]:
+                indegree[nei] -= 1
+                if indegree[nei] == 0:
+                    q.append(nei)
+        return cnt == len(color)
+```
+
 ### 2360. Longest Cycle in a Graph
 
 ```python
@@ -596,6 +657,36 @@ class Solution:
                 if indegree[nei] == 0:
                     q.append(nei)
         return res
+```
+
+### 1916. Count Ways to Build Rooms in an Ant Colony
+
+```python
+class Solution:
+    def waysToBuildRooms(self, prevRoom: List[int]) -> int:
+        mod = 10 ** 9 + 7
+        n = len(prevRoom)
+        fac, inv = [0] * n, [0] * n 
+        fac[0] = inv[0] = 1
+        for i in range(1, n):
+            fac[i] = fac[i - 1] * i % mod 
+            inv[i] = pow(fac[i], mod - 2, mod)
+        
+        g = defaultdict(list)
+        for i in range(1, n):
+            g[prevRoom[i]].append(i)
+
+        f, cnt = [0] * n, [0] * n 
+        def dfs(u):
+            f[u] = 1
+            for v in g[u]:
+                dfs(v)
+                f[u] = f[u] * f[v] * inv[cnt[v]] % mod 
+                cnt[u] += cnt[v]
+            f[u] = f[u] * fac[cnt[u]] % mod 
+            cnt[u] += 1
+            return f[0]
+        return dfs(0)
 ```
 
 ### 1857. Largest Color Value in a Directed Graph
