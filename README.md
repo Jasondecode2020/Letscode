@@ -116,6 +116,15 @@ Rating for all questions from (https://zerotrac.github.io/leetcode_problem_ratin
     * [2407. Longest Increasing Subsequence II](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/LIS.md#2407-longest-increasing-subsequence-ii)
     * [1187. Make Array Strictly Increasing](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/LIS.md#1187-make-array-strictly-increasing)
     * [1713. Minimum Operations to Make a Subsequence](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/LIS.md#1713-minimum-operations-to-make-a-subsequence)
+  * #### 13.4 Prefix Sum
+  * #### 13.5 Prefix Suffix Sum
+  * #### 13.6 Bit Mask
+    * [526. Beautiful Arrangement](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/bit.md#526-beautiful-arrangement)
+    * [2741. Special Permutations](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/bit.md#2741-special-permutations)
+    * [698. Partition to K Equal Sum Subsets](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/bit.md#698-Partition-to-K-Equal-Sum-Subsets)
+    * [847. Shortest Path Visiting All Nodes](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/bit.md#847-Shortest-Path-Visiting-All-Nodes)
+    * [1284. Minimum Number of Flips to Convert Binary Matrix to Zero Matrix](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/bit.md#1284-minimum-number-of-flips-to-convert-binary-matrix-to-zero-matrix)
+    * [864. Shortest Path to Get All Keys](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/bit.md#864-shortest-path-to-get-all-keys)
 * ### 14 Greedy
 * ### 15 Sweep Line
 * ### 16 Difference Array

@@ -1,7 +1,53 @@
 ### Question list
 
-1 [698. Partition to K Equal Sum Subsets](#698-Partition-to-K-Equal-Sum-Subsets)
-2 [847. Shortest Path Visiting All Nodes](#847-Shortest-Path-Visiting-All-Nodes)
+### bit dp (6)
+
+* [526. Beautiful Arrangement](#526-beautiful-arrangement)
+* [2741. Special Permutations](#2741-special-permutations)
+* [698. Partition to K Equal Sum Subsets](#698-Partition-to-K-Equal-Sum-Subsets)
+* [847. Shortest Path Visiting All Nodes](#847-Shortest-Path-Visiting-All-Nodes)
+* [1284. Minimum Number of Flips to Convert Binary Matrix to Zero Matrix](#1284-minimum-number-of-flips-to-convert-binary-matrix-to-zero-matrix)
+* [864. Shortest Path to Get All Keys](#864-shortest-path-to-get-all-keys)
+
+### 526. Beautiful Arrangement
+
+```python
+class Solution:
+    def countArrangement(self, n: int) -> int:
+        state = (1 << n) - 1
+        print(state)
+        @cache
+        def dfs(s):
+            if s == state:
+                return 1
+            i = s.bit_count() 
+            res = 0
+            for j in range(1, n + 1):
+                if s & 1 << (j - 1) == 0 and (i % j == 0 or j % i == 0):
+                    res += dfs(s | 1 << (j - 1))
+            return res 
+        return dfs(0)
+```
+
+### 2741. Special Permutations
+
+```python
+class Solution:
+    def specialPerm(self, nums: List[int]) -> int:
+        mod = 10 ** 9 + 7
+        n = len(nums)
+        state = (1 << n) - 1
+        @cache
+        def dfs(s, prev):
+            if s == state:
+                return 1
+            res = 0
+            for i, num in enumerate(nums):
+                if s & 1 << i == 0 and (prev == -1 or num % prev == 0 or prev % num == 0):
+                    res += dfs(s | 1 << i, num)
+            return res 
+        return dfs(0, -1) % mod
+```
 
 ### 698. Partition to K Equal Sum Subsets
 
@@ -77,34 +123,6 @@ class Solution:
                     visited.add((nei, new_state))
 ```
 
-### 698. Partition to K Equal Sum Subsets
-
-```python
-class Solution:
-    def canPartitionKSubsets(self, nums: List[int], k: int) -> bool:
-        @cache   
-        def dfs(state, total):
-            if state == (1 << n) - 1:
-                return True
-            for j in range(n):
-                if total + nums[j] > target:
-                    break
-                if state & (1 << j) == 0:     
-                    next_state = state + (1 << j)     
-                    res = total + nums[j] if (total + nums[j]) % target != 0 else 0
-                    if dfs(next_state, res):    
-                        return True
-            return False
-        
-        total = sum(nums)
-        if total % k != 0:
-            return False
-        n = len(nums)
-        target = total // k   
-        nums.sort()   
-        return dfs(0, 0)
-```
-
 ### 1284. Minimum Number of Flips to Convert Binary Matrix to Zero Matrix
 
 ```python
@@ -134,36 +152,6 @@ class Solution:
                         visited.add(nxt_state)
                         q.append((nxt_state, steps + 1))
         return -1
-```
-
-### 465. Optimal Account Balancing
-
-```python
-class Solution:
-    def minTransfers(self, transactions: List[List[int]]) -> int:
-        person = defaultdict(int)
-        for u, v, c in transactions:
-            person[u] -= c
-            person[v] += c
-        accounts = list(person.values())
-       
-        self.res = inf
-        n = len(accounts)
-        def dfs(i, cnt):
-            if cnt >= self.res: return 
-            while i < n and accounts[i] == 0: 
-                i += 1
-            if i == n:
-                self.res = min(self.res, cnt)
-                return
-              
-            for j in range(i + 1, n):
-                if accounts[i] * accounts[j] < 0:
-                    accounts[j] += accounts[i]
-                    dfs(i + 1, cnt + 1)
-                    accounts[j] -= accounts[i]
-        dfs(0, 0)
-        return self.res
 ```
 
 ### 864. Shortest Path to Get All Keys
@@ -196,3 +184,4 @@ class Solution:
             res += 1
         return -1
 ```
+
