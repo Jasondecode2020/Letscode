@@ -78,6 +78,32 @@ Rating for all questions from (https://zerotrac.github.io/leetcode_problem_ratin
       * [1976. Number of Ways to Arrive at Destination](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/Shortest-path.md#1976-Number-of-Ways-to-Arrive-at-Destination)
       * [505. The Maze II](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/Shortest-path.md#505-The-Maze-II)
 * ### 12 Backtracking
+  * #### 12.1 Select or Not
+    * [257. Binary Tree Paths](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#257-Binary-Tree-Paths)[E]
+    * [988. Smallest String Starting From Leaf](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#988-Smallest-String-Starting-From-Leaf)[M][same as 257]
+    * [113. Path Sum II](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#113-Path-Sum-II)[M][same as 257]
+    * [1863. Sum of All Subset XOR Totals](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#1863-Sum-of-All-Subset-XOR-Totals)[E]
+    * [22. Generate Parentheses](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#22-Generate-Parentheses)[M]
+    * [78. Subsets](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#78-Subsets)[M]
+    * [90. Subsets II](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#90-Subsets-II)[M]
+    * [784. Letter Case Permutation](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#784-Letter-Case-Permutation)
+    * [1239. Maximum Length of a Concatenated String with Unique Characters](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#784-Letter-Case-Permutation)
+  * #### 12.1 Enumerate
+    * [39. Combination Sum](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#39-Combination-Sum)[M]
+    * [40. Combination Sum II](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#40-Combination-Sum-II)[M]
+    * [216. Combination Sum III](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#216-Combination-Sum-III)[M]
+    * [377. Combination Sum IV](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#377-Combination-Sum-IV)[M](solved by dp, backtrack idea)
+    * [46. Permutations](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#46-Permutations)[M]
+    * [47. Permutations II](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#47-Permutations-II)[M]
+    * [77. Combinations](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#77-Combinations)[M]
+    * [17. Letter Combinations of a Phone Number](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#17-Letter-Combinations-of-a-Phone-Number)[M]
+    * [996. Number of Squareful Arrays](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#996-Number-of-Squareful-Arrays)
+  * #### 12.1 Games
+    * [37. Sudoku Solver](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#37-Sudoku-Solver)
+    * [51. N-Queens](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#51-N-Queens)
+    * [52. N-Queens II](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#52-N-Queens-II)
+    * [679. 24 Game](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#679-24-Game)
+
 * ### 13 Dynamic Programming
   * #### 13.1 Basics
     * ##### 13.1.1 Climbing Stairs

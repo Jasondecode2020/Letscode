@@ -3,6 +3,7 @@
 ### bit dp (6)
 
 * [526. Beautiful Arrangement](#526-beautiful-arrangement)
+* [996. Number of Squareful Arrays](#996-Number-of-Squareful-Arrays)
 * [2741. Special Permutations](#2741-special-permutations)
 * [698. Partition to K Equal Sum Subsets](#698-Partition-to-K-Equal-Sum-Subsets)
 * [847. Shortest Path Visiting All Nodes](#847-Shortest-Path-Visiting-All-Nodes)
@@ -27,6 +28,61 @@ class Solution:
                     res += dfs(s | 1 << (j - 1))
             return res 
         return dfs(0)
+```
+
+### 996. Number of Squareful Arrays
+
+- backtrack
+
+```python
+class Solution:
+    def numSquarefulPerms(self, nums: List[int]) -> int:
+        def is_perfect_square(n):
+            return pow(int(sqrt(n)), 2) == n
+
+        self.res = 0
+        def backtrack(nums, path):
+            if not nums:
+                self.res += 1
+                return
+            for i in range(len(nums)):
+                if i > 0 and nums[i] == nums[i - 1]:
+                    continue
+                if not path or is_perfect_square(path[-1] + nums[i]):
+                    path.append(nums[i])
+                    backtrack(nums[: i] + nums[i + 1: ], path)
+                    path.pop()
+                    
+        backtrack(sorted(nums), [])
+        return self.res
+```
+
+- bit dp
+
+```python
+class Solution:
+    def numSquarefulPerms(self, nums: List[int]) -> int:
+        def perfectSquare(n):
+            return pow(int(sqrt(n)), 2) == n
+
+        n = len(nums)
+        state = (1 << n) - 1
+        nums.sort()
+        @cache
+        def dfs(s, prev):
+            if s == state:
+                return 1
+            res = 0
+            for i, num in enumerate(nums):
+                if s & 1 << i == 0 and (prev == -1 or perfectSquare(num + prev)):
+                    res += dfs(s | 1 << i, num)
+            return res 
+        res = dfs(0, -1)
+        d = Counter(nums)
+        for v in d.values():
+            if v > 1:
+                res = res // factorial(v)
+        return res
 ```
 
 ### 2741. Special Permutations
