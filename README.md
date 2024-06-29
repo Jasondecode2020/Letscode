@@ -191,9 +191,24 @@ Rating for all questions from (https://zerotrac.github.io/leetcode_problem_ratin
 * ### 23 Math
   * #### 23.1 Primes
   * #### 23.2 Factors
-  * #### 23.3 Combinations
-  * #### 23.4 gcd 
-  * #### 23.5 remainder
+  * #### 23.3 Combinatorics
+  * #### 23.4 Gcd 
+  * #### 23.5 Remainder
+  * #### 23.6 Computational Geometry(14)
+    * [812. Largest Triangle Area](https://github.com/Jasondecode2020/Letscode/blob/main/template/math/computational_geometry#812-largest-triangle-area)
+    * [836. Rectangle Overlap](https://github.com/Jasondecode2020/Letscode/blob/main/template/math/computational_geometry#836-rectangle-overlap)
+    * [223. Rectangle Area](https://github.com/Jasondecode2020/Letscode/blob/main/template/math/computational_geometry#223-rectangle-area)
+    * [2481. Minimum Cuts to Divide a Circle](https://github.com/Jasondecode2020/Letscode/blob/main/template/math/computational_geometry#2481-minimum-cuts-to-divide-a-circle)
+    * [1232. Check If It Is a Straight Line](https://github.com/Jasondecode2020/Letscode/blob/main/template/math/computational_geometry#1232-check-if-it-is-a-straight-line)
+    * [1266. Minimum Time Visiting All Points](https://github.com/Jasondecode2020/Letscode/blob/main/template/math/computational_geometry#1266-minimum-time-visiting-all-points)
+    * [1037. Valid Boomerang](https://github.com/Jasondecode2020/Letscode/blob/main/template/math/computational_geometry#1037-valid-boomerang)
+    * [883. Projection Area of 3D Shapes](https://github.com/Jasondecode2020/Letscode/blob/main/template/math/computational_geometry#883-projection-area-of-3d-shapes)
+    * [892. Surface Area of 3D Shapes](https://github.com/Jasondecode2020/Letscode/blob/main/template/math/computational_geometry#892-surface-area-of-3d-shapes)
+    * [1030. Matrix Cells in Distance Order](https://github.com/Jasondecode2020/Letscode/blob/main/template/math/computational_geometry#1030-matrix-cells-in-distance-order)
+    * [469. Convex Polygon](https://github.com/Jasondecode2020/Letscode/blob/main/template/math/computational_geometry#469-convex-polygon)
+    * [356. Line Reflection](https://github.com/Jasondecode2020/Letscode/blob/main/template/math/computational_geometry#356-line-reflection)
+    * [593. Valid Square](https://github.com/Jasondecode2020/Letscode/blob/main/template/math/computational_geometry#593-valid-square)
+    * [2613. Beautiful Pairs](https://github.com/Jasondecode2020/Letscode/blob/main/template/math/computational_geometry#2613-beautiful-pairs)
 * ### 24 Tricks
 
 
