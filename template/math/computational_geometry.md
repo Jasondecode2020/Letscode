@@ -1,5 +1,7 @@
 ## Question list(14)
 
+* [3102](https://oi-wiki.org/geometry/distance/)
+
 * [812. Largest Triangle Area](#812-largest-triangle-area)
 * [836. Rectangle Overlap](#836-rectangle-overlap)
 * [223. Rectangle Area](#223-rectangle-area)
@@ -16,6 +18,7 @@
 * [356. Line Reflection](#356-line-reflection)
 * [593. Valid Square](#593-valid-square)
 * [2613. Beautiful Pairs](#2613-beautiful-pairs)
+* [3102. Minimize Manhattan Distances](#)
 
 ## Area of triangle
 
@@ -310,4 +313,23 @@ class Solution:
         points.sort()
         dist, index1, index2 = dfs(0, len(points) - 1)
         return [index1, index2]
+```
+
+### 3102. Minimize Manhattan Distances
+
+```python
+from sortedcontainers import SortedList
+class Solution:
+    def minimumDistance(self, points: List[List[int]]) -> int:
+        sl1 = SortedList([x + y for x, y in points])
+        sl2 = SortedList([x - y for x, y in points])
+        res = inf
+        for x, y in points:
+            x, y = x + y, x - y
+            sl1.remove(x)
+            sl2.remove(y)
+            res = min(res, max(sl1[-1] - sl1[0], sl2[-1] - sl2[0]))
+            sl1.add(x)
+            sl2.add(y)
+        return res
 ```
