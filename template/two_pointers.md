@@ -38,6 +38,7 @@ def fn(arr1, arr2):
 * [259. 3Sum Smaller](#259-3Sum-Smaller)
 * [18. 4Sum](#18-4Sum)
 * [11. Container With Most Water](#11-Container-With-Most-Water)
+* [1679. Max Number of K-Sum Pairs]()
 
 ### 1. Two Sum
 
@@ -220,6 +221,27 @@ class Solution:
             else:
                 r -= 1
         return res
+```
+
+### 1679. Max Number of K-Sum Pairs
+
+```python
+class Solution:
+    def maxOperations(self, nums: List[int], k: int) -> int:
+        nums.sort()
+        l, r = 0, len(nums) - 1
+        res = 0
+        while l < r:
+            two = nums[l] + nums[r]
+            if two == k:
+                res += 1
+                l += 1
+                r -= 1
+            elif two > k:
+                r -= 1
+            else:
+                l += 1
+        return res 
 ```
 
 ### 42. Trapping Rain Water
