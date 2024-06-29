@@ -11,9 +11,9 @@ Rating for all questions from (https://zerotrac.github.io/leetcode_problem_ratin
 * ### 1 Hash
   * #### 1.1 Hash Table
     * ##### 1.1.1 Two sum(16)
-      * [1. Two Sum](https://github.com/Jasondecode2020/Letscode/blob/main/template/hash_table#1-two-sum)
-      * [1512. Number of Good Pairs](https://github.com/Jasondecode2020/Letscode/blob/main/template/hash_table#1512-number-of-good-pairs)
-      * [2815. Max Pair Sum in an Array](https://github.com/Jasondecode2020/Letscode/blob/main/template/hash_table#2815-max-pair-sum-in-an-array)
+      * [1. Two Sum](https://github.com/Jasondecode2020/Letscode/blob/main/template/hash_table.md#1-two-sum)
+      * [1512. Number of Good Pairs](https://github.com/Jasondecode2020/Letscode/blob/main/template/hash_table.md#1512-number-of-good-pairs)
+      * [2815. Max Pair Sum in an Array](https://github.com/Jasondecode2020/Letscode/blob/main/template/hash_table.md#2815-max-pair-sum-in-an-array)
       * [2748. Number of Beautiful Pairs](https://github.com/Jasondecode2020/Letscode/blob/main/template/hash_table.md#2748-number-of-beautiful-pairs)
       * [219. Contains Duplicate II](https://github.com/Jasondecode2020/Letscode/blob/main/template/hash_table.md#219-contains-duplicate-ii)
       * [121. Best Time to Buy and Sell Stock](https://github.com/Jasondecode2020/Letscode/blob/main/template/hash_table.md#121-best-time-to-buy-and-sell-stock)
