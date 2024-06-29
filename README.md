@@ -16,7 +16,7 @@ Rating for all questions from (https://zerotrac.github.io/leetcode_problem_ratin
       * [2815. Max Pair Sum in an Array](https://github.com/Jasondecode2020/Letscode/blob/main/template/hash_table#2815-max-pair-sum-in-an-array)
       * [2748. Number of Beautiful Pairs](https://github.com/Jasondecode2020/Letscode/blob/main/template/hash_table#2748-number-of-beautiful-pairs)
       * [219. Contains Duplicate II](https://github.com/Jasondecode2020/Letscode/blob/main/template/hash_table#219-contains-duplicate-ii)
-      * [121. Best Time to Buy and Sell Stockhttps://github.com/Jasondecode2020/Letscode/blob/main/template/hash_table121-best-time-to-buy-and-sell-stock)
+      * [121. Best Time to Buy and Sell Stock](https://github.com/Jasondecode2020/Letscode/blob/main/template/hash_table#121-best-time-to-buy-and-sell-stock)
       * [2342. Max Sum of a Pair With Equal Sum of Digits](https://github.com/Jasondecode2020/Letscode/blob/main/template/hash_table#2342-max-sum-of-a-pair-with-equal-sum-of-digits)
       * [1010. Pairs of Songs With Total Durations Divisible by 60](https://github.com/Jasondecode2020/Letscode/blob/main/template/hash_table#1010-pairs-of-songs-with-total-durations-divisible-by-60)
       * [3185. Count Pairs That Form a Complete Day II](https://github.com/Jasondecode2020/Letscode/blob/main/template/hash_table#3185-count-pairs-that-form-a-complete-day-ii)
@@ -24,7 +24,7 @@ Rating for all questions from (https://zerotrac.github.io/leetcode_problem_ratin
       * [2874. Maximum Value of an Ordered Triplet II](https://github.com/Jasondecode2020/Letscode/blob/main/template/hash_table#2874-maximum-value-of-an-ordered-triplet-ii)
       * [1014. Best Sightseeing Pair](https://github.com/Jasondecode2020/Letscode/blob/main/template/hash_table#1014-best-sightseeing-pair)
       * [1214. Two Sum BSTs](https://github.com/Jasondecode2020/Letscode/blob/main/template/hash_table#1214-two-sum-bsts)
-      * [2971. Find Polygon With the Largest Perimeterhttps://github.com/Jasondecode2020/Letscode/blob/main/template/hash_table2971-find-polygon-with-the-largest-perimeter)
+      * [2971. Find Polygon With the Largest Perimeter](https://github.com/Jasondecode2020/Letscode/blob/main/template/hash_table#2971-find-polygon-with-the-largest-perimeter)
       * [1679. Max Number of K-Sum Pairs](https://github.com/Jasondecode2020/Letscode/blob/main/template/hash_table#1679-max-number-of-k-sum-pairs)
       * [2964. Number of Divisible Triplet Sums](https://github.com/Jasondecode2020/Letscode/blob/main/template/hash_table#2964-number-of-divisible-triplet-sums)
   * #### 1.2 Hash Set
