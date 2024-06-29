@@ -1,6 +1,9 @@
+## reference
+
+* [3102 reading](https://oi-wiki.org/geometry/distance/)
+
 ## Question list(14)
 
-* [3102](https://oi-wiki.org/geometry/distance/)
 
 * [812. Largest Triangle Area](#812-largest-triangle-area)
 * [836. Rectangle Overlap](#836-rectangle-overlap)
