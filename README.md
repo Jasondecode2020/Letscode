@@ -6,6 +6,8 @@ Check my YouTube for all questions (https://www.youtube.com/@letscode1000)
 
 Rating for all questions from (https://zerotrac.github.io/leetcode_problem_rating/#/)
 
+Practice with ratings (https://huxulm.github.io/lc-rating/zen)
+
 ## Top Coding Patterns
 
 * ### 1 Hash

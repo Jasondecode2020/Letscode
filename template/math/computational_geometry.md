@@ -21,8 +21,8 @@
 * [356. Line Reflection](#356-line-reflection)
 * [593. Valid Square](#593-valid-square)
 * [2613. Beautiful Pairs](#2613-beautiful-pairs)
-* [3102. Minimize Manhattan Distances](#)
-
+* [3102. Minimize Manhattan Distances](#3102-minimize-manhattan-distances)
+* [1131. Maximum of Absolute Value Expression](#1131-maximum-of-absolute-value-expression)
 ## Area of triangle
 
 ```python
@@ -335,4 +335,22 @@ class Solution:
             sl1.add(x)
             sl2.add(y)
         return res
+```
+
+### 1131. Maximum of Absolute Value Expression
+
+```python
+from sortedcontainers import SortedList
+class Solution:
+    def maxAbsValExpr(self, arr1: List[int], arr2: List[int]) -> int:
+        sl1, sl2 = SortedList(), SortedList()
+        sl3, sl4 = SortedList(), SortedList()
+        for i, (x, y) in enumerate(zip(arr1, arr2)):
+            sl1.add(x + y + i)
+            sl2.add(x - y - i)
+            sl3.add(x + y - i)
+            sl4.add(x - y + i)
+        mx_plus, mx_minus = sl1[-1] - sl1[0], sl2[-1] - sl2[0]
+        mx_plus2, mx_minus2 = sl4[-1] - sl4[0], sl3[-1] - sl3[0]
+        return max(mx_plus, mx_minus, mx_plus2, mx_minus2)
 ```
