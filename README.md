@@ -212,13 +212,39 @@ Practice with ratings (https://huxulm.github.io/lc-rating/zen)
 * ### 17 Trie
 * ### 18 Monotonic Stack
   * #### 18.1 Next(previous) greater or smaller
+    * [739. Daily Temperatures](https://github.com/Jasondecode2020/Letscode/blob/main/template/monotonic_stack.md#739-Daily-Temperatures)
+    * [496. Next Greater Element I](https://github.com/Jasondecode2020/Letscode/blob/main/template/monotonic_stack.md#496-next-greater-element-i)
+    * [503. Next Greater Element II](https://github.com/Jasondecode2020/Letscode/blob/main/template/monotonic_stack.md#503-next-greater-element-ii)
+    * [1019. Next Greater Node In Linked List](https://github.com/Jasondecode2020/Letscode/blob/main/template/monotonic_stack.md#1019-next-greater-node-in-linked-list)
+    * [1475. Final Prices With a Special Discount in a Shop](https://github.com/Jasondecode2020/Letscode/blob/main/template/monotonic_stack.md#1475-final-prices-with-a-special-discount-in-a-shop)
+    * [901. Online Stock Span](https://github.com/Jasondecode2020/Letscode/blob/main/template/monotonic_stack.md#456-132-Pattern)* 
+    * [456. 132 Pattern](https://github.com/Jasondecode2020/Letscode/blob/main/template/monotonic_stack.md#456-132-Pattern)
   * #### 18.2 Longest interval
+    * [962. Maximum Width Ramp](https://github.com/Jasondecode2020/Letscode/blob/main/template/monotonic_stack.md#962-maximum-width-ramp)
+    * [1124. Longest Well-Performing Interval](#1124-longest-well-performing-interval)
   * #### 18.3 Rectangle Max Area
+    * [42. Trapping Rain Water](https://github.com/Jasondecode2020/Letscode/blob/main/template/monotonic_stack.md#42-trapping-rain-water)
+    * [84. Largest Rectangle in Histogram](https://github.com/Jasondecode2020/Letscode/blob/main/template/monotonic_stack.md#84-largest-rectangle-in-histogram)
+    * [85. Maximal Rectangle](https://github.com/Jasondecode2020/Letscode/blob/main/template/monotonic_stack.md#85-maximal-rectangle)
+    * [1504. Count Submatrices With All Ones](https://github.com/Jasondecode2020/Letscode/blob/main/template/monotonic_stack.md#1504-count-submatrices-with-all-ones)
+    * [1793. Maximum Score of a Good Subarray](https://github.com/Jasondecode2020/Letscode/blob/main/template/monotonic_stack.md#1793-maximum-score-of-a-good-subarray)
   * #### 18.4 Dictionary sequence
+    * [402. Remove K Digits ~1800](https://github.com/Jasondecode2020/Letscode/blob/main/template/monotonic_stack.md#402-remove-k-digits)
+    * [316. Remove Duplicate Letters](https://github.com/Jasondecode2020/Letscode/blob/main/template/monotonic_stack.md#316-remove-duplicate-letters)
+    * [1081. Smallest Subsequence of Distinct Characters](https://github.com/Jasondecode2020/Letscode/blob/main/template/monotonic_stack.md#1081-smallest-subsequence-of-distinct-characters)
+    * [1673. Find the Most Competitive Subsequence 1802](https://github.com/Jasondecode2020/Letscode/blob/main/template/monotonic_stack.md#1673-find-the-most-competitive-subsequence)
   * #### 18.5 Two monotonic stack
+    * [2866. Beautiful Towers II 2071](https://github.com/Jasondecode2020/Letscode/blob/main/template/monotonic_stack.md#2866-beautiful-towers-ii)
+    * [2454. Next Greater Element IV](https://github.com/Jasondecode2020/Letscode/blob/main/template/monotonic_stack.md#2454-next-greater-element-iv)
   * #### 18.6 Hash + monotonic stack
+    * [1944. Number of Visible People in a Queue](https://github.com/Jasondecode2020/Letscode/blob/main/template/monotonic_stack.md#1944-number-of-visible-people-in-a-queue)
+    * [3113. Find the Number of Subarrays Where Boundary Elements Are Maximum](https://github.com/Jasondecode2020/Letscode/blob/main/template/monotonic_stack.md#3113-find-the-number-of-subarrays-where-boundary-elements-are-maximum)
   * #### 18.7 Contributions
+    * [907. Sum of Subarray Minimums 1976](https://github.com/Jasondecode2020/Letscode/blob/main/template/monotonic_stack.md#907-sum-of-subarray-minimums)
+    * [2104. Sum of Subarray Ranges 2000](https://github.com/Jasondecode2020/Letscode/blob/main/template/monotonic_stack.md#2104-sum-of-subarray-ranges)
+    * [1856. Maximum Subarray Min-Product 2051](https://github.com/Jasondecode2020/Letscode/blob/main/template/monotonic_stack.md#1856-maximum-subarray-min-product)
   * #### 18.8 Dp + monotonic stack
+    * [2289. Steps to Make Array Non-decreasing](https://github.com/Jasondecode2020/Letscode/blob/main/template/monotonic_stack.md#2289-steps-to-make-array-non-decreasing)
 * ### 19 Monotonic Queue
 * ### 20 String Matching
   * #### 20.1 Z-function

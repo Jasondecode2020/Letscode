@@ -38,8 +38,8 @@
 ### 4 Contributions (3)
 
 * [907. Sum of Subarray Minimums 1976](#907-sum-of-subarray-minimums)
-* [2104. Sum of Subarray Ranges 2000]()
-* [1856. Maximum Subarray Min-Product 2051]()
+* [2104. Sum of Subarray Ranges 2000](#2104-sum-of-subarray-ranges)
+* [1856. Maximum Subarray Min-Product 2051](#1856-maximum-subarray-min-product)
 
 ### 5 Dictionary sequence (4)
 
