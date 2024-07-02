@@ -602,22 +602,6 @@ class Solution:
         return res if res != inf else -1
 ```
 
-### 930. Binary Subarrays With Sum
-
-```python
-class Solution:
-    def numSubarraysWithSum(self, nums: List[int], goal: int) -> int:
-        res, total, l = 0, 0, 0
-        prefix = defaultdict(int)
-        prefix[0] = 1
-        for r, n in enumerate(nums):
-            total += n
-            if total - goal in prefix:
-                res += prefix[total - goal] 
-            prefix[total] += 1
-        return res
-```
-
 ### 1876. Substrings of Size Three with Distinct Characters
 
 ```python

@@ -439,24 +439,6 @@ class DataStream:
         return self.cnt >= self.k
 ```
 
-### 2971. Find Polygon With the Largest Perimeter
-
-```python
-class Solution:
-    def largestPerimeter(self, nums: List[int]) -> int:
-        # [1,12,1,2,5,50,3]
-        # [1, 1, 2, 3, 5, 12, 50]
-        # [1, 2, 4, 7, 12, 24, 74]
-        nums.sort()
-        pre = list(accumulate(nums))
-        res = -1
-        n = len(nums)
-        for i in range(n - 1, 1, -1):
-            if nums[i] < pre[i - 1]:
-                return pre[i]
-        return -1
-```
-
 ### 2918. Minimum Equal Sum of Two Arrays After Replacing Zeros
 
 ```python

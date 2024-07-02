@@ -24,6 +24,7 @@ class Solution:
 * [2256. Minimum Average Difference](#209-Minimum-Size-Subarray-Sum)
 * [42. Trapping Rain Water](#15-3Sum)
 * [2909. Minimum Sum of Mountain Triplets II](#15-3Sum)
+* [2055. Plates Between Candles](#2055-plates-between-candles)
 
 ### 334. Increasing Triplet Subsequence
 
@@ -322,5 +323,35 @@ class Solution:
                 res += 1
             else:
                 res += 0
+        return res
+```
+
+### 2055. Plates Between Candles
+
+```python
+class Solution:
+    def platesBetweenCandles(self, s: str, queries: List[List[int]]) -> List[int]:
+        right_closest, left_closest = inf, inf 
+        n = len(s)
+        left = [0] * n
+        for i, c in enumerate(s):
+            if c == '|':
+                left_closest = i 
+            left[i] = left_closest
+        right = [0] * n
+        for i in range(n - 1, -1, -1):
+            if s[i] == '|':
+                right_closest = i 
+            right[i] = right_closest
+        
+        pre = [0] * n
+        for i, c in enumerate(s):
+            if c == '*':
+                pre[i] = 1
+        pre = list(accumulate(pre, initial = 0))
+        res = [0] * len(queries)
+        for i, (a, b) in enumerate(queries):
+            if left[b] != inf and right[a] != inf and pre[left[b] + 1] - pre[right[a]] > 0:
+                res[i] = pre[left[b] + 1] - pre[right[a]]
         return res
 ```

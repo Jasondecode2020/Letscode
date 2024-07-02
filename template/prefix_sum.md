@@ -1,34 +1,617 @@
-# template: build prefix sum array
+## 1 basics
+
+* [303. Range Sum Query - Immutable](#303-range-sum-query---immutable)
+* [2559. Count Vowel Strings in Ranges](#2559-count-vowel-strings-in-ranges)
+* [2389. Longest Subsequence With Limited Sum](#2389-longest-subsequence-with-limited-sum)
+* [3152. Special Array II](#3152-special-array-ii)
+* [2438. Range Product Queries of Powers](#2438-range-product-queries-of-powers)
+* [2055. Plates Between Candles](#2055-plates-between-candles)
+* [1744. Can You Eat Your Favorite Candy on Your Favorite Day?](#1744-can-you-eat-your-favorite-candy-on-your-favorite-day)
+
+## 2 prefix + hash
+
+* [930. Binary Subarrays With Sum](#930-binary-subarrays-with-sum)
+* [560. Subarray Sum Equals K](#560-subarray-sum-equals-k)
+* [1524. Number of Sub-arrays With Odd Sum](#1524-number-of-sub-arrays-with-odd-sum)
+* [974. Subarray Sums Divisible by K](#974-subarray-sums-divisible-by-k)
+* [523. Continuous Subarray Sum](#523-continuous-subarray-sum)
+* [437. Path Sum III](#437-path-sum-iii)
+* [525. Contiguous Array](#525-contiguous-array)
+* [1546. Maximum Number of Non-Overlapping Subarrays With Sum Equals Target](#1546-maximum-number-of-non-overlapping-subarrays-with-sum-equals-target)
+
+## 3 prefix + distance
+
+* [1685. Sum of Absolute Differences in a Sorted Array](#2588-count-the-number-of-beautiful-subarrays)
+* [2615. Sum of Distances](#2615-sum-of-distances)
+* [2602. Minimum Operations to Make All Array Elements Equal](#1177-can-make-palindrome-from-substring)
+
+## 4 prefix + xor
+
+* [2588. Count the Number of Beautiful Subarrays](#2588-count-the-number-of-beautiful-subarrays)
+* [1310. XOR Queries of a Subarray](#1310-xor-queries-of-a-subarray)
+* [1177. Can Make Palindrome from Substring](#1177-can-make-palindrome-from-substring)
+* [1371. Find the Longest Substring Containing Vowels in Even Counts](#1371-find-the-longest-substring-containing-vowels-in-even-counts)
+* [1915. Number of Wonderful Substrings](#1915-number-of-wonderful-substrings)
+
+## 5 2d prefix
+
+* [304. Range Sum Query 2D - Immutable](#304-range-sum-query-2d---immutable)
+* [1314. Matrix Block Sum](#1314-matrix-block-sum)
+* [3070. Count Submatrices with Top-Left Element and Sum Less Than k](#3070-count-submatrices-with-top-left-element-and-sum-less-than-k)
+* [1292. Maximum Side Length of a Square with Sum Less than or Equal to Threshold](#1292-maximum-side-length-of-a-square-with-sum-less-than-or-equal-to-threshold)
+* [221. Maximal Square](#221-maximal-square)
+* [1277. Count Square Submatrices with All Ones](#1277-count-square-submatrices-with-all-ones)
+* [1504. Count Submatrices With All Ones](#1504-count-submatrices-with-all-ones)
+* [1074. Number of Submatrices That Sum to Target](#1074-number-of-submatrices-that-sum-to-target)
+
+### 303. Range Sum Query - Immutable
 
 ```python
-def fn(arr):
-    n = len(arr)
-    for i in range(1, n):
-        arr[i] += arr[i - 1]
+class NumArray:
+
+    def __init__(self, nums: List[int]):
+        self.a = list(accumulate(nums, initial = 0))
+
+    def sumRange(self, left: int, right: int) -> int:
+        return self.a[right + 1] - self.a[left]
 ```
 
-- lib
-
-```python
-def fn(arr):
-    arr = list(accumulate(arr, initial = 0))
-    # or 
-    arr = list(accumulate(arr))
-```
-
-### 2971. Find Polygon With the Largest Perimeter
+### 2559. Count Vowel Strings in Ranges
 
 ```python
 class Solution:
-    def largestPerimeter(self, nums: List[int]) -> int:
-        # [1, 1, 2, 3, 5, 12, 50]
+    def vowelStrings(self, words: List[str], queries: List[List[int]]) -> List[int]:
+        v = 'aeiou'
+        def check(s):
+            return 1 if s[0] in v and s[-1] in v else 0
+        nums = [check(s) for s in words]
+        pre = list(accumulate(nums, initial = 0))
+        return [pre[b + 1] - pre[a] for a, b in queries]
+```
+
+### 2389. Longest Subsequence With Limited Sum
+
+```python
+class Solution:
+    def answerQueries(self, nums: List[int], queries: List[int]) -> List[int]:
         nums.sort()
-        res = -1
-        pre = list(accumulate(nums))
+        a = list(accumulate(nums, initial = 0))
+        res = [0] * len(queries)
+        for i, q in enumerate(queries):
+            j = bisect_left(a, q)
+            if j < len(a) and a[j] == q:
+                res[i] = j 
+            else:
+                res[i] = j - 1
+        return res
+```
+
+### 3152. Special Array II
+
+```python
+from itertools import accumulate
+class Solution:
+    def isArraySpecial(self, nums: List[int], queries: List[List[int]]) -> List[bool]:
+        pre = []
+        for a, b in pairwise(nums):
+            if (a + b) % 2 == 0:
+                pre.append(1)
+            else:
+                pre.append(0)
+        pre = list(accumulate(pre, initial = 0))
+        return [pre[b] - pre[a] == 0 for a, b in queries]
+```
+
+### 2438. Range Product Queries of Powers
+
+```python
+class Solution:
+    def productQueries(self, n: int, queries: List[List[int]]) -> List[int]:
+        # n = 15
+        # [1111]
+        # [1, 2, 4, 8]
+        mod = 10 ** 9 + 7
+        s = bin(n)[2:]
+        res = []
+        for i, c in enumerate(s[::-1]):
+            if c != '0':
+                res.append(int(c) * 2 ** i)
+        pre = [1] * (len(res) + 1)
+        for i in range(len(res)):
+            pre[i + 1] = pre[i] * res[i]
+        return [(pre[b + 1] // pre[a]) % mod for a, b in queries]
+```
+
+### 2055. Plates Between Candles
+
+```python
+class Solution:
+    def platesBetweenCandles(self, s: str, queries: List[List[int]]) -> List[int]:
+        right_closest, left_closest = inf, inf 
+        n = len(s)
+        left = [0] * n
+        for i, c in enumerate(s):
+            if c == '|':
+                left_closest = i 
+            left[i] = left_closest
+        right = [0] * n
+        for i in range(n - 1, -1, -1):
+            if s[i] == '|':
+                right_closest = i 
+            right[i] = right_closest
+        
+        pre = [0] * n
+        for i, c in enumerate(s):
+            if c == '*':
+                pre[i] = 1
+        pre = list(accumulate(pre, initial = 0))
+        res = [0] * len(queries)
+        for i, (a, b) in enumerate(queries):
+            if left[b] != inf and right[a] != inf and pre[left[b] + 1] - pre[right[a]] > 0:
+                res[i] = pre[left[b] + 1] - pre[right[a]]
+        return res
+```
+
+### 1744. Can You Eat Your Favorite Candy on Your Favorite Day?
+
+```python
+class Solution:
+    def canEat(self, candiesCount: List[int], queries: List[List[int]]) -> List[bool]:
+        pre = list(accumulate(candiesCount, initial = 0))
+        res = [False] * len(queries)
+        for i, (t, d, c) in enumerate(queries):
+            earliest, latest = pre[t] // c,  pre[t + 1] - 1
+            if earliest <= d <= latest:
+                res[i] = True
+        return res
+```
+
+
+### 930. Binary Subarrays With Sum
+
+```python
+class Solution:
+    def numSubarraysWithSum(self, nums: List[int], goal: int) -> int:
+        n, total, res = len(nums), 0, 0
+        pre = defaultdict(int)
+        pre[0] = 1 
+        for v in nums:
+            total += v 
+            res += pre[total - goal]
+            pre[total] += 1
+        return res 
+```
+
+### 560. Subarray Sum Equals K
+
+
+```python
+class Solution:
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        pre = defaultdict(int)
+        pre[0] = 1
+        res, total = 0, 0
+        for v in nums:
+            total += v 
+            res += pre[total - k]
+            pre[total] += 1
+        return res 
+```
+
+### 1524. Number of Sub-arrays With Odd Sum
+
+```python
+class Solution:
+    def numOfSubarrays(self, arr: List[int]) -> int:
+        pre_odd, pre_even = 0, 0
+        pre = list(accumulate(arr))
+        res = 0
+        mod = 10 ** 9 + 7
+        for n in pre:
+            if n % 2 == 1:
+                res += pre_even + 1
+                pre_odd += 1
+            else:
+                res += pre_odd
+                pre_even += 1
+        return res % mod
+```
+
+### 974. Subarray Sums Divisible by K
+
+```python
+class Solution:
+    def subarraysDivByK(self, nums: List[int], k: int) -> int:
+        res, presum = 0, 0
+        d = defaultdict(int)
+        d[0] = 1
+        for n in nums:
+            presum += n 
+            presum %= k
+            if presum in d:
+                res += d[presum]
+            d[presum] = d[presum] + 1
+        return res
+```
+
+### 523. Continuous Subarray Sum
+
+```python
+class Solution:
+    def checkSubarraySum(self, nums: List[int], k: int) -> bool:
+        presum, d = 0, {0: -1}
+        for i, n in enumerate(nums):
+            presum += n 
+            if presum % k in d and i - d[presum % k] >= 2:
+                return True
+            if presum % k not in d:
+                d[presum % k] = i
+        return False
+```
+
+### 437. Path Sum III
+
+```python
+class Solution:
+    def pathSum(self, root: Optional[TreeNode], targetSum: int) -> int:
+        def dfs(node, presum):
+            if not node:
+                return 
+            curr =  node.val + presum
+            self.res += prefix[curr - targetSum]
+            prefix[curr] += 1
+            dfs(node.left, presum + node.val)
+            dfs(node.right, presum + node.val)
+            prefix[curr] -= 1
+        
+        self.res = 0
+        prefix = defaultdict(int)
+        prefix[0] = 1
+        dfs(root, 0)
+        return self.res
+```
+
+### 525. Contiguous Array
+
+```python
+class Solution:
+    def findMaxLength(self, nums: List[int]) -> int:
+        res, count, d = 0, 0, {0: -1}
+        for i, n in enumerate(nums):
+            if n:
+                count += 1
+            else:
+                count -= 1
+            if count in d:
+                res = max(res, i - d[count])
+            else:
+                d[count] = i
+        return res
+```
+
+### 1546. Maximum Number of Non-Overlapping Subarrays With Sum Equals Target
+
+```python
+class Solution:
+    def maxNonOverlapping(self, nums: List[int], target: int) -> int:
+        s, res = set([0]), 0
+        for a in accumulate(nums):
+            if a - target in s:
+                s.clear()
+                res += 1
+            s.add(a)
+        return res
+```
+
+### 1685. Sum of Absolute Differences in a Sorted Array
+
+```python
+class Solution:
+    def getSumAbsoluteDifferences(self, nums: List[int]) -> List[int]:
+        # [0, 2, 5, 10]
+        pre = list(accumulate(nums, initial = 0))
+        res = []
         n = len(pre)
-        for i in range(2, n):
-            if pre[i - 1] > nums[i]:
-                res = pre[i]
+        for i in range(1, n):
+            ans = (pre[-1] - pre[i] - (n - 1 - i) * nums[i - 1]) + ((i - 1) * nums[i - 1] - pre[i - 1])
+            res.append(ans)
+        return res
+```
+
+### 2588. Count the Number of Beautiful Subarrays
+
+```python
+class Solution:
+    def beautifulSubarrays(self, nums: List[int]) -> int:
+        d = defaultdict(int)
+        d[0] = 1
+        total = 0
+        res = 0
+        for n in nums:
+            total ^= n
+            res += d[total]
+            d[total] += 1
+        return res 
+```
+
+### 2615. Sum of Distances
+
+```python
+class Solution:
+    def distance(self, nums: List[int]) -> List[int]:
+        # [0, 0, 2, 5]
+        d = defaultdict(list)
+        for i, n in enumerate(nums):
+            d[n].append(i)
+        n = len(nums)
+        res = [0] * n 
+        for arr in d.values():
+            pre = list(accumulate(arr, initial = 0))
+            m = len(pre)
+            for i in range(1, m):
+                res[arr[i - 1]] = (pre[-1] - pre[i] - (m - 1 - i) * arr[i - 1]) + (i - 1) * arr[i - 1] - pre[i - 1]
+        return res
+```
+
+### 2602. Minimum Operations to Make All Array Elements Equal
+
+```python
+class Solution:
+    def minOperations(self, nums: List[int], queries: List[int]) -> List[int]:
+        # [1, 3, 6, 8]
+        # [0, 1, 4, 10, 18]
+        nums.sort()
+        pre = list(accumulate(nums, initial = 0))
+        n = len(queries)
+        m = len(pre)
+        res = [0] * n 
+        for i, q in enumerate(queries):
+            j = bisect_left(nums, q)
+            ans = pre[-1] - pre[j] - (m - 1 - j) * q + q * j - pre[j]
+            res[i] = ans 
+        return res
+```
+
+### 1310. XOR Queries of a Subarray
+
+```python
+class Solution:
+    def xorQueries(self, arr: List[int], queries: List[List[int]]) -> List[int]:
+        arr = [0] + arr
+        for i in range(1, len(arr)):
+            arr[i] ^= arr[i - 1]
+        res = []
+        for s, e in queries:
+            res.append(arr[e + 1] ^ arr[s])
+        return res
+```
+
+
+### 1177. Can Make Palindrome from Substring
+
+```python
+class Solution:
+    def canMakePaliQueries(self, s: str, queries: List[List[int]]) -> List[bool]:
+        n = len(s)
+        dp = [[0] * 26 for i in range(n + 1)]
+        for i, c in enumerate(s, start = 1):
+            dp[i][ord(c) - ord('a')] += 1
+        for i in range(1, n + 1):
+            for j in range(26):
+                dp[i][j] += dp[i - 1][j]
+
+        res = [False] * len(queries)
+        for j, (l, r, k) in enumerate(queries):
+            odd = 0
+            for i in range(26):
+                if (dp[r + 1][i] - dp[l][i]) % 2 == 1:
+                    odd += 1
+            if odd // 2 <= k:
+                res[j] = True
+        return res
+```
+
+
+### 1371. Find the Longest Substring Containing Vowels in Even Counts
+
+```python
+class Solution:
+    def findTheLongestSubstring(self, s: str) -> int:
+        idx = [-1] + [inf] * ((1 << 5) - 1)
+        res, mask = 0, 0
+        vowel = set(list('aeiou'))
+        d = Counter()
+        for i, c in enumerate('aeoui'):
+            d[c] = i
+        for i, c in enumerate(s):
+            if c in vowel:
+                mask ^= 1 << d[c]
+            res = max(res, i - idx[mask])
+            idx[mask] = min(i, idx[mask])
+        return res 
+```
+
+
+### 1915. Number of Wonderful Substrings
+
+```python
+class Solution:
+    def wonderfulSubstrings(self, word: str) -> int:
+        index = [1] + [0] * ((1 << 10) - 1)
+        res, mask = 0, 0
+        for i, c in enumerate(word):
+            mask ^= 1 << (ord(c) - ord('a'))
+            res += index[mask]
+            for j in range(10):
+                res += index[mask ^ (1 << j)]
+            index[mask] += 1
+        return res
+```
+
+### 304. Range Sum Query 2D - Immutable
+
+```python
+class NumMatrix:
+
+    def __init__(self, matrix: List[List[int]]):
+        self.mat = matrix
+        R, C = len(matrix), len(matrix[0])
+        for r in range(1, R):
+            self.mat[r][0] += self.mat[r - 1][0]
+        for c in range(1, C):
+            self.mat[0][c] += self.mat[0][c - 1]
+        for r in range(1, R):
+            for c in range(1, C):
+                self.mat[r][c] += self.mat[r - 1][c] + self.mat[r][c - 1] - self.mat[r - 1][c - 1]
+    def sumRegion(self, row1: int, col1: int, row2: int, col2: int) -> int:
+        left = self.mat[row2][col1 - 1] if col1 - 1 >= 0 else 0
+        top = self.mat[row1 - 1][col2] if row1 - 1 >= 0 else 0
+        topLeft = self.mat[row1 - 1][col1 - 1] if row1 >= 1 and col1 >= 1 else 0
+        return self.mat[row2][col2] - left - top + topLeft
+```
+
+### 1314. Matrix Block Sum
+
+```python
+class Solution:
+    def matrixBlockSum(self, mat: List[List[int]], k: int) -> List[List[int]]:
+        R, C = len(mat), len(mat[0])
+        for r in range(1, R):
+            mat[r][0] += mat[r - 1][0]
+        for c in range(1, C):
+            mat[0][c] += mat[0][c - 1]
+        for r in range(1, R):
+            for c in range(1, C):
+                mat[r][c] += mat[r - 1][c] + mat[r][c - 1] - mat[r - 1][c - 1]
+        res = [[0] * C for r in range(R)]
+        for r in range(R):
+            for c in range(C):
+                left = mat[min(R - 1, r + k)][c - k - 1] if c - k - 1 >= 0 else 0
+                top = mat[r - k - 1][min(C - 1, c + k)] if r - k - 1 >= 0 else 0
+                topLeft = mat[r - k - 1][c - k - 1] if r >= k + 1 and c >= k + 1 else 0
+                res[r][c] = mat[min(R - 1, r + k)][min(C - 1, c + k)] - left - top + topLeft
+        return res 
+```
+
+### 3070. Count Submatrices with Top-Left Element and Sum Less Than k
+
+```python
+class Solution:
+    def countSubmatrices(self, grid: List[List[int]], k: int) -> int:
+        R, C = len(grid), len(grid[0])
+        dp = [[0] * C for r in range(R)]
+        dp[0][0] = grid[0][0]
+        for c in range(1, C):
+            dp[0][c] += dp[0][c - 1] + grid[0][c]
+        for r in range(1, R):
+            dp[r][0] += dp[r - 1][0] + grid[r][0]
+        for r in range(1, R):
+            for c in range(1, C):
+                dp[r][c] = dp[r - 1][c] + dp[r][c - 1] + grid[r][c] - dp[r - 1][c - 1]
+        return sum(1 for r in range(R) for c in range(C) if dp[r][c] <= k)
+```
+
+### 1292. Maximum Side Length of a Square with Sum Less than or Equal to Threshold
+
+```python
+class Solution:
+    def maxSideLength(self, mat: List[List[int]], threshold: int) -> int:
+        R, C = len(mat), len(mat[0])
+        dp = [[0] * (C + 1) for r in range(R + 1)]
+        for r in range(1, R + 1):
+            for c in range(1, C + 1):
+                dp[r][c] = dp[r - 1][c] + dp[r][c - 1] - dp[r - 1][c - 1] + mat[r - 1][c - 1]
+
+        def check(m):
+            for r in range(m, R + 1):
+                for c in range(m, C + 1):
+                    s = dp[r][c] - dp[r - m][c] - dp[r][c - m] + dp[r - m][c - m]
+                    if s <= threshold:
+                        return True
+            return False
+
+        l, r, res = 0, 10 ** 9, 0
+        while l <= r:
+            m = l + (r - l) // 2
+            if check(m):
+                res = m 
+                l = m + 1
+            else:
+                r = m - 1
+        return res
+```
+
+### 221. Maximal Square
+
+```python
+class Solution:
+    def maximalSquare(self, matrix: List[List[str]]) -> int:
+        R, C, res = len(matrix), len(matrix[0]), 0
+        dp=[[0] * (C + 1) for r in range(R + 1)]
+        for i in range(1, R + 1):
+            for j in range(1, C + 1):
+                if(matrix[i - 1][j - 1] == "1"):
+                    dp[i][j] = min(dp[i - 1][j - 1], dp[i - 1][j], dp[i][j - 1]) + 1
+                    res = max(dp[i][j], res)
+        return res * res
+```
+
+### 1277. Count Square Submatrices with All Ones
+
+```python
+class Solution:
+    def countSquares(self, matrix: List[List[int]]) -> int:
+        # same as largest aubsquare
+        # 1 init a dp
+        dp = [[0] * (len(matrix[0]) + 1)  for i in range(len(matrix) + 1)]
+        # 2 write function: T = mn
+        for i in range(1, len(dp)): # rows
+            for j in range(1, len(dp[0])): # cols
+                if matrix[i-1][j-1] == 1:
+                    dp[i][j] = min([dp[i-1][j-1], dp[i-1][j], dp[i][j-1]]) + 1
+        
+        return sum([sum(item) for item in dp])
+```
+
+### 1504. Count Submatrices With All Ones
+
+```python
+class Solution:
+    def numSubmat(self, mat: List[List[int]]) -> int:
+        R, C, res = len(mat), len(mat[0]), 0
+        hist = [0] * (C + 1) # design hist for hist[-1] to be 0
+        for i in range(R):
+            stack, dp = [-1], [0] * (C + 1) # design of stack for easy calc
+            for j in range(C):
+                hist[j] = 0 if mat[i][j] == 0 else hist[j] + 1
+                while hist[j] < hist[stack[-1]]:
+                    stack.pop()
+                dp[j] = dp[stack[-1]] + hist[j] * (j - stack[-1]) # Important!!
+                stack.append(j)
+            res += sum(dp)
+        return res
+```
+
+### 1074. Number of Submatrices That Sum to Target
+
+```python
+class Solution:
+    def numSubmatrixSumTarget(self, matrix: List[List[int]], target: int) -> int:
+        R, C = len(matrix), len(matrix[0])
+        for row in matrix:
+            for c in range(C - 1):
+                row[c + 1] += row[c]
+
+        res = 0
+        for i in range(C):
+            for j in range(i, C):
+                nums = [matrix[k][j] - (matrix[k][i - 1] if i > 0 else 0) for k in range(R)]
+                presum, d = 0, {0: 1}
+                for n in nums:
+                    presum += n
+                    if presum - target in d:
+                        res += d[presum - target]
+                    d[presum] = d.get(presum, 0) + 1
         return res
 ```
 
@@ -226,19 +809,6 @@ class Solution:
         return max(res)
 ```
 
-### 303. Range Sum Query - Immutable
-
-```python
-class NumArray:
-
-    def __init__(self, nums: List[int]):
-        self.arr = list(accumulate(nums, initial = 0))
-        print(self.arr)
-
-    def sumRange(self, left: int, right: int) -> int:
-        return self.arr[right + 1] - self.arr[left]
-```
-
 ### 1480. Running Sum of 1d Array
 
 ```python
@@ -280,22 +850,6 @@ class Solution:
         arr = list(accumulate(nums, initial = 0))
         minNum = min(arr)
         return 1 - minNum
-```
-
-### 2389. Longest Subsequence With Limited Sum
-
-```python
-class Solution:
-    def answerQueries(self, nums: List[int], queries: List[int]) -> List[int]:
-        arr = list(accumulate(sorted(nums), initial = 0))
-        res = []
-        for q in queries:
-            i = bisect_left(arr, q)
-            if i < len(arr) and arr[i] == q:
-                res.append(i)
-            else:
-                res.append(i - 1)
-        return res
 ```
 
 ### 1991. Find the Middle Index in Array
@@ -442,19 +996,6 @@ class Solution:
         return res
 ```
 
-### 1310. XOR Queries of a Subarray
-
-```python
-class Solution:
-    def xorQueries(self, arr: List[int], queries: List[List[int]]) -> List[int]:
-        arr = [0] + arr
-        for i in range(1, len(arr)):
-            arr[i] ^= arr[i - 1]
-        res = []
-        for s, e in queries:
-            res.append(arr[e + 1] ^ arr[s])
-        return res
-```
 
 
 
@@ -551,48 +1092,9 @@ class Solution:
         return res
 ```
 
-### 560. Subarray Sum Equals K
 
-```python
-class Solution:
-    def subarraySum(self, nums: List[int], k: int) -> int:
-        res, presum, d = 0, 0, {0: 1} # [1, 2, 3]
-        for n in nums:
-            presum += n
-            if presum - k in d:
-                res += d[presum - k]
-            d[presum] = d.get(presum, 0) + 1
-        return res
-```
 
-### 974. Subarray Sums Divisible by K
 
-```python
-class Solution:
-    def subarraysDivByK(self, nums: List[int], k: int) -> int:
-        res, presum, d = 0, 0, {0: 1}
-        for n in nums:
-            presum += n 
-            if presum % k in d:
-                res += d[presum % k]
-            d[presum % k] = d.get(presum % k, 0) + 1
-        return res
-```
-
-### 523. Continuous Subarray Sum
-
-```python
-class Solution:
-    def checkSubarraySum(self, nums: List[int], k: int) -> bool:
-        presum, d = 0, {0: -1}
-        for i, n in enumerate(nums):
-            presum += n 
-            if presum % k in d and i - d[presum % k] >= 2:
-                return True
-            if presum % k not in d:
-                d[presum % k] = i
-        return False
-```
 
 ### 1074. Number of Submatrices That Sum to Target
 
@@ -1180,78 +1682,5 @@ class Solution:
                     if idx < len(sortedList):
                         res = max(res, presum - sortedList[idx])
                     sortedList.add(presum)
-        return res
-```
-
-### 1310. XOR Queries of a Subarray
-
-```python
-class Solution:
-    def xorQueries(self, arr: List[int], queries: List[List[int]]) -> List[int]:
-        arr = [0] + arr
-        for i in range(1, len(arr)):
-            arr[i] ^= arr[i - 1]
-        res = []
-        for s, e in queries:
-            res.append(arr[e + 1] ^ arr[s])
-        return res
-```
-
-### 1177. Can Make Palindrome from Substring
-
-```python
-class Solution:
-    def canMakePaliQueries(self, s: str, queries: List[List[int]]) -> List[bool]:
-        n = len(s)
-        dp = [[0] * 26 for i in range(n + 1)]
-        for i, c in enumerate(s, start = 1):
-            dp[i][ord(c) - ord('a')] += 1
-        for i in range(1, n + 1):
-            for j in range(26):
-                dp[i][j] += dp[i - 1][j]
-
-        res = [False] * len(queries)
-        for j, (l, r, k) in enumerate(queries):
-            odd = 0
-            for i in range(26):
-                if (dp[r + 1][i] - dp[l][i]) % 2 == 1:
-                    odd += 1
-            if odd // 2 <= k:
-                res[j] = True
-        return res
-```
-
-### 1371. Find the Longest Substring Containing Vowels in Even Counts
-
-```python
-class Solution:
-    def findTheLongestSubstring(self, s: str) -> int:
-        idx = [-1] + [inf] * ((1 << 5) - 1)
-        res, mask = 0, 0
-        vowel = set(list('aeiou'))
-        d = Counter()
-        for i, c in enumerate('aeoui'):
-            d[c] = i
-        for i, c in enumerate(s):
-            if c in vowel:
-                mask ^= 1 << d[c]
-            res = max(res, i - idx[mask])
-            idx[mask] = min(i, idx[mask])
-        return res 
-```
-
-### 1915. Number of Wonderful Substrings
-
-```python
-class Solution:
-    def wonderfulSubstrings(self, word: str) -> int:
-        index = [1] + [0] * ((1 << 10) - 1)
-        res, mask = 0, 0
-        for i, c in enumerate(word):
-            mask ^= 1 << (ord(c) - ord('a'))
-            res += index[mask]
-            for j in range(10):
-                res += index[mask ^ (1 << j)]
-            index[mask] += 1
         return res
 ```

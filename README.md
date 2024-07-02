@@ -162,6 +162,42 @@ Practice with ratings (https://huxulm.github.io/lc-rating/zen)
     * [1187. Make Array Strictly Increasing](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/LIS.md#1187-make-array-strictly-increasing)
     * [1713. Minimum Operations to Make a Subsequence](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/LIS.md#1713-minimum-operations-to-make-a-subsequence)
   * #### 13.4 Prefix Sum
+    * ##### 1 basics
+      * [303. Range Sum Query - Immutable](https://github.com/Jasondecode2020/Letscode/blob/main/template/prefix_sum.md#303-range-sum-query---immutable)
+      * [2559. Count Vowel Strings in Ranges](https://github.com/Jasondecode2020/Letscode/blob/main/template/prefix_sum.md#2559-count-vowel-strings-in-ranges)
+      * [2389. Longest Subsequence With Limited Sum](https://github.com/Jasondecode2020/Letscode/blob/main/template/prefix_sum.md#2389-longest-subsequence-with-limited-sum)
+      * [3152. Special Array II](https://github.com/Jasondecode2020/Letscode/blob/main/template/prefix_sum.md#3152-special-array-ii)
+      * [2438. Range Product Queries of Powers](https://github.com/Jasondecode2020/Letscode/blob/main/template/prefix_sum.md#2438-range-product-queries-of-powers)
+      * [2055. Plates Between Candles](https://github.com/Jasondecode2020/Letscode/blob/main/template/prefix_sum.md#2055-plates-between-candles)
+      * [1744. Can You Eat Your Favorite Candy on Your Favorite Day?](https://github.com/Jasondecode2020/Letscode/blob/main/template/prefix_sum.md#1744-can-you-eat-your-favorite-candy-on-your-favorite-day)
+    * ##### 2 prefix + hash
+      * [930. Binary Subarrays With Sum](https://github.com/Jasondecode2020/Letscode/blob/main/template/prefix_sum.md#930-binary-subarrays-with-sum)
+      * [560. Subarray Sum Equals K](https://github.com/Jasondecode2020/Letscode/blob/main/template/prefix_sum.md#560-subarray-sum-equals-k)
+      * [1524. Number of Sub-arrays With Odd Sum](https://github.com/Jasondecode2020/Letscode/blob/main/template/prefix_sum.md#1524-number-of-sub-arrays-with-odd-sum)
+      * [974. Subarray Sums Divisible by K](https://github.com/Jasondecode2020/Letscode/blob/main/template/prefix_sum.md#974-subarray-sums-divisible-by-k)
+      * [523. Continuous Subarray Sum](https://github.com/Jasondecode2020/Letscode/blob/main/template/prefix_sum.md#523-continuous-subarray-sum)
+      * [437. Path Sum III](https://github.com/Jasondecode2020/Letscode/blob/main/template/prefix_sum.md#437-path-sum-iii)
+      * [525. Contiguous Array](https://github.com/Jasondecode2020/Letscode/blob/main/template/prefix_sum.md#525-contiguous-array)
+      * [1546. Maximum Number of Non-Overlapping Subarrays With Sum Equals Target](https://github.com/Jasondecode2020/Letscode/blob/main/template/prefix_sum.md#1546-maximum-number-of-non-overlapping-subarrays-with-sum-equals-target)
+    * ##### 3 prefix + distance
+      * [1685. Sum of Absolute Differences in a Sorted Array](https://github.com/Jasondecode2020/Letscode/blob/main/template/prefix_sum.md#2588-count-the-number-of-beautiful-subarrays)
+      * [2615. Sum of Distances](https://github.com/Jasondecode2020/Letscode/blob/main/template/prefix_sum.md#2615-sum-of-distances)
+      * [2602. Minimum Operations to Make All Array Elements Equal](https://github.com/Jasondecode2020/Letscode/blob/main/template/prefix_sum.md#1177-can-make-palindrome-from-substring)
+    * ##### 4 prefix + xor
+      * [2588. Count the Number of Beautiful Subarrays](https://github.com/Jasondecode2020/Letscode/blob/main/template/prefix_sum.md#2588-count-the-number-of-beautiful-subarrays)
+      * [1310. XOR Queries of a Subarray](https://github.com/Jasondecode2020/Letscode/blob/main/template/prefix_sum.md#1310-xor-queries-of-a-subarray)
+      * [1177. Can Make Palindrome from Substring](https://github.com/Jasondecode2020/Letscode/blob/main/template/prefix_sum.md#1177-can-make-palindrome-from-substring)
+      * [1371. Find the Longest Substring Containing Vowels in Even Counts](https://github.com/Jasondecode2020/Letscode/blob/main/template/prefix_sum.md#1371-find-the-longest-substring-containing-vowels-in-even-counts)
+      * [1915. Number of Wonderful Substrings](https://github.com/Jasondecode2020/Letscode/blob/main/template/prefix_sum.md#1915-number-of-wonderful-substrings)
+    * ##### 5 2d prefix
+      * [304. Range Sum Query 2D - Immutable](https://github.com/Jasondecode2020/Letscode/blob/main/template/prefix_sum.md#304-range-sum-query-2d---immutable)
+      * [1314. Matrix Block Sum](https://github.com/Jasondecode2020/Letscode/blob/main/template/prefix_sum.md#1314-matrix-block-sum)
+      * [3070. Count Submatrices with Top-Left Element and Sum Less Than k](https://github.com/Jasondecode2020/Letscode/blob/main/template/prefix_sum.md#3070-count-submatrices-with-top-left-element-and-sum-less-than-k)
+      * [1292. Maximum Side Length of a Square with Sum Less than or Equal to Threshold](https://github.com/Jasondecode2020/Letscode/blob/main/template/prefix_sum.md#1292-maximum-side-length-of-a-square-with-sum-less-than-or-equal-to-threshold)
+      * [221. Maximal Square](https://github.com/Jasondecode2020/Letscode/blob/main/template/prefix_sum.md#221-maximal-square)
+      * [1277. Count Square Submatrices with All Ones](https://github.com/Jasondecode2020/Letscode/blob/main/template/prefix_sum.md#1277-count-square-submatrices-with-all-ones)
+      * [1504. Count Submatrices With All Ones](https://github.com/Jasondecode2020/Letscode/blob/main/template/prefix_sum.md#1504-count-submatrices-with-all-ones)
+      * [1074. Number of Submatrices That Sum to Target](https://github.com/Jasondecode2020/Letscode/blob/main/template/prefix_sum.md#1074-number-of-submatrices-that-sum-to-target)
   * #### 13.5 Prefix Suffix Sum
   * #### 13.6 Bit Mask
     * [526. Beautiful Arrangement](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/bit.md#526-beautiful-arrangement)
