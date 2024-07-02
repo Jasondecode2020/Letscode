@@ -43,6 +43,8 @@
 * [1277. Count Square Submatrices with All Ones](#1277-count-square-submatrices-with-all-ones)
 * [1504. Count Submatrices With All Ones](#1504-count-submatrices-with-all-ones)
 * [1074. Number of Submatrices That Sum to Target](#1074-number-of-submatrices-that-sum-to-target)
+* [1738. Find Kth Largest XOR Coordinate Value](#1738-find-kth-largest-xor-coordinate-value)
+* [3148. Maximum Difference Score in a Grid](#3148-maximum-difference-score-in-a-grid)
 
 ### 303. Range Sum Query - Immutable
 
@@ -612,6 +614,43 @@ class Solution:
                     if presum - target in d:
                         res += d[presum - target]
                     d[presum] = d.get(presum, 0) + 1
+        return res
+```
+
+### 1738. Find Kth Largest XOR Coordinate Value
+
+```python
+class Solution:
+    def kthLargestValue(self, matrix: List[List[int]], k: int) -> int:
+        R, C = len(matrix), len(matrix[0])
+        res = []
+        for r in range(1, R):
+            matrix[r][0] ^= matrix[r - 1][0]
+        for c in range(1, C):
+            matrix[0][c] ^= matrix[0][c - 1]
+        for r in range(1, R):
+            for c in range(1, C):
+                matrix[r][c] ^= matrix[r - 1][c] ^ matrix[r][c - 1] ^ matrix[r - 1][c - 1]
+        for r in range(R):
+            for c in range(C):
+                res.append(matrix[r][c])
+        res.sort(reverse = True)
+        return res[k - 1]
+```
+
+### 3148. Maximum Difference Score in a Grid
+
+```python
+class Solution:
+    def maxScore(self, grid: List[List[int]]) -> int:
+        R, C = len(grid), len(grid[0])
+        f = [[inf] * (C + 1) for r in range(R + 1)]
+        res = -inf
+        for r in range(1, R + 1):
+            for c in range(1, C + 1):
+                mn = min(f[r - 1][c], f[r][c - 1])
+                res = max(res, grid[r - 1][c - 1] - mn)
+                f[r][c] = min(mn, grid[r - 1][c - 1])
         return res
 ```
 
