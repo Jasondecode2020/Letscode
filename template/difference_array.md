@@ -2,10 +2,13 @@
 
 - 1d difference array
 
+* [2848. Points That Intersect With Cars](#2848-Points-That-Intersect-With-Cars)
+* [1893. Check if All the Integers in a Range Are Covered](#1893-Check-if-All-the-Integers-in-a-Range-Are-Covered)
+* [1854. Maximum Population Year](#1854-maximum-population-year)
+* [2960. Count Tested Devices After Test Operations](#2960-count-tested-devices-after-test-operations)
+* [1094. Car Pooling](#1094-car-pooling)
 * [370. Range Addition](#370-Range-Addition)
 * [1109. Corporate Flight Bookings](#1109-Corporate-Flight-Bookings)
-* [1893. Check if All the Integers in a Range Are Covered](#1893-Check-if-All-the-Integers-in-a-Range-Are-Covered)
-* [2848. Points That Intersect With Cars](#2848-Points-That-Intersect-With-Cars)
 * [848. Shifting Letters](#848-Shifting-Letters)
 * [2381. Shifting Letters II](#2381-Shifting-Letters-II)
 * [2406. Divide Intervals Into Minimum Number of Groups](#2406-Divide-Intervals-Into-Minimum-Number-of-Groups)
@@ -15,6 +18,74 @@
 * [1943. Describe the Painting](#2406-Divide-Intervals-Into-Minimum-Number-of-Groups)
 
 - 2d difference array
+
+### 2848. Points That Intersect With Cars
+
+```python
+class Solution:
+    def numberOfPoints(self, nums: List[List[int]]) -> int:
+        n = max(e for s, e in nums)
+        f = [0] * (n + 2)
+        for s, e in nums:
+            f[s] += 1
+            f[e + 1] -= 1
+        return sum(s > 0 for s in accumulate(f))
+```
+
+### 1893. Check if All the Integers in a Range Are Covered
+
+```python
+class Solution:
+    def isCovered(self, ranges: List[List[int]], left: int, right: int) -> bool:
+        f = [0] * 52
+        for s, e in ranges:
+            f[s] += 1
+            f[e + 1] -= 1
+        return all(v > 0 for i, v in enumerate(accumulate(f)) if left <= i <= right)
+```
+
+### 1854. Maximum Population Year
+
+```python
+class Solution:
+    def maximumPopulation(self, logs: List[List[int]]) -> int:
+        f = [0] * 2051
+        for s, e in logs:
+            f[s] += 1
+            f[e] -= 1
+        pre = list(accumulate(f))
+        ans, res = 0, 0
+        for i, n in enumerate(pre):
+            if n > ans:
+                res = i 
+                ans = n 
+        return res 
+```
+
+### 2960. Count Tested Devices After Test Operations
+
+```python
+class Solution:
+    def countTestedDevices(self, batteryPercentages: List[int]) -> int:
+        dec = 0
+        for x in batteryPercentages:
+            if x > dec:
+                dec += 1
+        return dec
+```
+
+### 1094. Car Pooling
+
+```python
+class Solution:
+    def carPooling(self, trips: List[List[int]], capacity: int) -> bool:
+        f = [0] * 1001
+        for c, s, e in trips:
+            f[s] += c
+            f[e] -= c
+        pre = list(accumulate(f))
+        return max(pre) <= capacity
+```
 
 ### 370. Range Addition
 
@@ -40,31 +111,6 @@ class Solution:
             f[last + 1] -= seats
         prefix = list(accumulate(f))
         return prefix[1:-1]
-```
-
-### 1893. Check if All the Integers in a Range Are Covered
-
-```python
-class Solution:
-    def isCovered(self, ranges: List[List[int]], left: int, right: int) -> bool:
-        f = [0] * 52
-        for s, e in ranges:
-            f[s] += 1
-            f[e + 1] -= 1
-        return all(v > 0 for i, v in enumerate(accumulate(f)) if left <= i <= right)
-```
-
-### 2848. Points That Intersect With Cars
-
-```python
-class Solution:
-    def numberOfPoints(self, nums: List[List[int]]) -> int:
-        n = max(e for s, e in nums)
-        f = [0] * (n + 2)
-        for s, e in nums:
-            f[s] += 1
-            f[e + 1] -= 1
-        return sum(s > 0 for s in accumulate(f))
 ```
 
 ### 848. Shifting Letters
