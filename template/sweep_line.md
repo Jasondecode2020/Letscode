@@ -195,6 +195,26 @@ class MyCalendarThree:
         return self.res
 ```
 
+```python
+from sortedcontainers import SortedList
+class MyCalendarThree:
+
+    def __init__(self):
+        self.events = SortedList()
+
+    def book(self, startTime: int, endTime: int) -> int:
+        self.events.add((startTime, 1))
+        self.events.add((endTime, -1))
+        res, count = 0, 0
+        for x, sign in self.events:
+            if sign == 1:
+                count += 1
+                res = max(res, count)
+            else:
+                count -= 1
+        return res
+```
+
 ### 452. Minimum Number of Arrows to Burst Balloons
 
 - greedy at end

@@ -7,17 +7,28 @@
 * [1854. Maximum Population Year](#1854-maximum-population-year)
 * [2960. Count Tested Devices After Test Operations](#2960-count-tested-devices-after-test-operations)
 * [1094. Car Pooling](#1094-car-pooling)
-* [370. Range Addition](#370-Range-Addition)
 * [1109. Corporate Flight Bookings](#1109-Corporate-Flight-Bookings)
-* [848. Shifting Letters](#848-Shifting-Letters)
-* [2381. Shifting Letters II](#2381-Shifting-Letters-II)
+* [56. Merge Intervals](#56-merge-intervals)
+* [57. Insert Interval](#57-insert-interval)
 * [2406. Divide Intervals Into Minimum Number of Groups](#2406-Divide-Intervals-Into-Minimum-Number-of-Groups)
-* [2772. Apply Operations to Make All Array Elements Equal to Zero](#2406-Divide-Intervals-Into-Minimum-Number-of-Groups)
-* [2237. Count Positions on Street With Required Brightness](#2406-Divide-Intervals-Into-Minimum-Number-of-Groups)
+* [2381. Shifting Letters II](#2381-Shifting-Letters-II)
+* [995. Minimum Number of K Consecutive Bit Flips](#995-minimum-number-of-k-consecutive-bit-flips)
 * [1589. Maximum Sum Obtained of Any Permutation](#2406-Divide-Intervals-Into-Minimum-Number-of-Groups)
-* [1943. Describe the Painting](#2406-Divide-Intervals-Into-Minimum-Number-of-Groups)
+* [2772. Apply Operations to Make All Array Elements Equal to Zero](#2772-apply-operations-to-make-all-array-elements-equal-to-zero)
+* [1943. Describe the Painting](#1943-describe-the-painting)
+* [2251. Number of Flowers in Full Bloom](#2251-number-of-flowers-in-full-bloom)
+
+* [253. Meeting Rooms II](#253-meeting-rooms-ii)
+* [370. Range Addition](#370-Range-Addition)
+* [759. Employee Free Time]()
+* [848. Shifting Letters](#848-Shifting-Letters)
+* [2021. Brightest Position on Street](#2021-brightest-position-on-street)
+* [2237. Count Positions on Street With Required Brightness](#2237-count-positions-on-street-with-required-brightness)
+* [2015. Average Height of Buildings in Each Segment](#2015-average-height-of-buildings-in-each-segment)
 
 - 2d difference array
+
+* [2536. Increment Submatrices by One]()
 
 ### 2848. Points That Intersect With Cars
 
@@ -87,41 +98,89 @@ class Solution:
         return max(pre) <= capacity
 ```
 
-### 370. Range Addition
-
-```python
-class Solution:
-    def getModifiedArray(self, length: int, updates: List[List[int]]) -> List[int]:
-        f = [0] * (length + 1)
-        for start, end, inc in updates:
-            f[start] += inc
-            f[end + 1] -= inc
-        f = list(accumulate(f))
-        return f[: -1]
-```
-
 ### 1109. Corporate Flight Bookings
 
 ```python
 class Solution:
     def corpFlightBookings(self, bookings: List[List[int]], n: int) -> List[int]:
         f = [0] * (n + 2)
-        for first, last, seats in bookings:
-            f[first] += seats
-            f[last + 1] -= seats
-        prefix = list(accumulate(f))
-        return prefix[1:-1]
+        for s, e, v in bookings:
+            f[s] += v
+            f[e + 1] -= v
+        pre = list(accumulate(f))
+        return pre[1: -1]
 ```
 
-### 848. Shifting Letters
+### 56. Merge Intervals
 
 ```python
 class Solution:
-    def shiftingLetters(self, s: str, shifts: List[int]) -> str:
-        prefix = list(accumulate(shifts[::-1]))[::-1]
-        res = ''
-        for c, n in zip(s, prefix):
-            res += chr((n + ord(c) - 97) % 26 + 97)
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        n = len(intervals)
+        intervals.sort()
+        start, end = intervals[0]
+        res = []
+        for i in range(1, n):
+            s, e = intervals[i]
+            if s > end:
+                res.append([start, end])
+                start = s 
+            end = max(end, e)
+        res.append([start, end])
+        return res 
+```
+
+```python
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        events = []
+        for s, e in intervals:
+            events.append([s, -1])
+            events.append([e, 1])
+        events.sort()
+        start, end = inf, -inf
+        res = []
+        count = 0
+        for x, sign in events:
+            if sign == -1:
+                count += 1
+                start = min(start, x)
+            else:
+                count -= 1
+                end = max(end, x)
+            if count == 0:
+                res.append([start, end])
+                start = inf 
+        return res
+```
+
+### 57. Insert Interval
+
+- use count to store one result
+- use start, end to record one merged interval
+
+```python
+class Solution:
+    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        intervals.append(newInterval)
+        events = []
+        for s, e in intervals:
+            events.append((s, -1))
+            events.append((e, 1))
+        events.sort()
+
+        count, res = 0, []
+        start, end = inf, -inf
+        for point, sign in events:
+            if sign < 0:
+                count += 1
+                start = min(start, point)
+            else:
+                count -= 1
+                end = max(end, point)
+            if count == 0:
+                res.append([start, end])
+                start, end = inf, -inf
         return res
 ```
 
@@ -130,17 +189,20 @@ class Solution:
 ```python
 class Solution:
     def shiftingLetters(self, s: str, shifts: List[List[int]]) -> str:
-        f = [0] * (len(s) + 1)
-        for start, end, sign in shifts:
-            if sign == 1:
+        n = len(s)
+        f = [0] * (n + 1)
+        for start, end, direction in shifts:
+            if direction == 1:
                 f[start] += 1
                 f[end + 1] -= 1
             else:
                 f[start] += -1
                 f[end + 1] -= -1
+        pre = list(accumulate(f))[:-1]
         res = ''
-        for i, n in enumerate(list(accumulate(f))[:-1]):
-            res += chr((n + ord(s[i]) - ord('a')) % 26 + ord('a'))
+        for c, v in zip(list(s), pre):
+            v %= 26
+            res += chr(ord(c) + v) if ord(c) + v <= ord('z') else chr(ord(c) + v - 26)
         return res
 ```
 
@@ -150,31 +212,26 @@ class Solution:
 class Solution:
     def minGroups(self, intervals: List[List[int]]) -> int:
         f = [0] * (10 ** 6 + 2)
-        for l, r in intervals:
-            f[l] += 1
-            f[r + 1] -= 1
-        f = list(accumulate(f))
-        return max(f)
+        for s, e in intervals:
+            f[s] += 1
+            f[e + 1] -= 1
+        pre = list(accumulate(f))
+        return max(pre)
 ```
 
-### 2772. Apply Operations to Make All Array Elements Equal to Zero
+- heap
 
 ```python
 class Solution:
-    def checkArray(self, nums: List[int], k: int) -> bool:
-        n = len(nums)
-        f = [0] * (n + 1)
-        sum_f = 0
-        for i, v in enumerate(nums):
-            sum_f += f[i]
-            v += sum_f
-            if v == 0:
-                continue
-            if v < 0 or i + k > n:
-                return False
-            sum_f -= v
-            f[i + k] += v
-        return True
+    def minGroups(self, intervals: List[List[int]]) -> int:
+        intervals.sort()
+        pq = []
+        for s, e in intervals:
+            if pq and s > pq[0]:
+                heapreplace(pq, e)
+            else:
+                heappush(pq, e)
+        return len(pq)
 ```
 
 ### 2237. Count Positions on Street With Required Brightness
@@ -208,26 +265,120 @@ class Solution:
         return sum(a * b for a, b in zip(arr, nums)) % mod
 ```
 
+### 2772. Apply Operations to Make All Array Elements Equal to Zero
+
+```python
+class Solution:
+    def checkArray(self, nums: List[int], k: int) -> bool:
+        n = len(nums)
+        f = [0] * (n + 1)
+        pre = 0
+        for i, v in enumerate(nums):
+            pre += f[i]
+            v += pre 
+            if v == 0:
+                continue
+            if v < 0 or i + k > n:
+                return False
+            pre += -v
+            f[i + k] -= -v 
+        return True
+```
+
 ### 1943. Describe the Painting
 
 ```python
 class Solution:
     def splitPainting(self, segments: List[List[int]]) -> List[List[int]]:
-        color = defaultdict(int)
-        for s, e, c in segments:
-            color[s] += c
-            color[e] -= c 
-        points = sorted([[k, v]for k, v in color.items()])
-
-        n = len(points)
-        for i in range(1, n):
-            points[i][1] += points[i-1][1]
+        d = defaultdict(int)
+        for s, e, v in segments:
+            d[s] += v
+            d[e] -= v
+        arr = sorted([[k, v] for k, v in d.items()])
+        for i in range(1, len(arr)):
+            arr[i][1] += arr[i - 1][1]
 
         res = []
-        for i in range(n - 1):
-            if points[i][1]:
-                res.append([points[i][0], points[i + 1][0], points[i][1]])
+        for a, b in pairwise(arr):
+            k1, v1 = a
+            k2, v2 = b 
+            if v1:
+                res.append([k1, k2, v1])
         return res
+```
+
+### 2251. Number of Flowers in Full Bloom
+
+```python
+class Solution:
+    def fullBloomFlowers(self, flowers: List[List[int]], people: List[int]) -> List[int]:
+        d = defaultdict(int)
+        for s, e in flowers:
+            d[s] += 1
+            d[e + 1] -= 1
+        pre = sorted([[k, v] for k, v in d.items()])
+        for i in range(1, len(pre)):
+            pre[i][1] += pre[i - 1][1]
+        
+        arr = []
+        for a, b in pairwise(pre):
+            k1, v1 = a
+            k2, v2 = b 
+            arr.append([k1, k2 - 1, v1])
+        res = []
+        for pos in people:
+            i = bisect_right(arr, pos, key = lambda x: x[0])
+            if i == 0 or (i == len(arr) and pos > arr[i - 1][1]):
+                res.append(0)
+            else:
+                res.append(arr[i - 1][2])
+        return res 
+```
+
+### 253. Meeting Rooms II
+
+```python
+class Solution:
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        n = max(b for a, b in intervals)
+        f = [0] * (n + 2)
+        for s, e in intervals:
+            f[s] += 1
+            f[e] -= 1
+        pre = list(accumulate(f))
+        return max(pre)
+```
+
+```python
+class Solution:
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        events = []
+        for s, e in intervals:
+            events.append((s, 1))
+            events.append((e, -1))
+        events.sort()
+
+        res, count = 0, 0
+        for x, sign in events:
+            if sign == 1:
+                count += 1
+            else:
+                count -= 1
+            res = max(res, count)
+        return res
+```
+
+```python
+class Solution:
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        pq = []
+        intervals.sort()
+        for s, e in intervals:
+            if pq and s >= pq[0]:
+                heapreplace(pq, e)
+            else:
+                heappush(pq, e)
+        return len(pq)
 ```
 
 ### 995. Minimum Number of K Consecutive Bit Flips
@@ -240,12 +391,189 @@ class Solution:
         ans, flip = 0, 0
         for i in range(n):
             flip += f[i]
-            if (A[i] + flip) % 2 == 0: #需要翻转
+            if (A[i] + flip) % 2 == 0: #需要翻转 1, 0
                 if i + K > n: #出界了，就结束
                     return -1
                 ans += 1 # 翻转次数
                 flip += 1 # 左侧位置+1 直接传递到 revCnt 上
                 f[i + K] -= 1 # 右端点+1 位置 -1
+        return ans
+```
+
+- same idea using queue
+
+```python
+class Solution:
+    def minKBitFlips(self, nums: List[int], k: int) -> int:
+        q = deque()
+        n = len(nums)
+        res = 0
+        for r in range(n):
+            if q and r - q[0] + 1 > k:
+                q.popleft()
+            if (len(q) + nums[r]) % 2 == 0:
+                if r + k - 1 >= n:
+                    return -1
+                res += 1
+                q.append(r)
+        return res
+```
+
+### 1589. Maximum Sum Obtained of Any Permutation
+
+```python
+class Solution:
+    def maxSumRangeQuery(self, nums: List[int], requests: List[List[int]]) -> int:
+        mod = 10 ** 9 + 7
+        n = len(nums)
+        f = [0] * (n + 1)
+        for s, e in requests:
+            f[s] += 1
+            f[e + 1] -= 1
+        pre = list(accumulate(f))[:-1]
+        pre.sort()
+        nums.sort()
+        res = sum(a * b for a, b in zip(pre, nums))
+        return res % mod
+```
+
+
+
+### 370. Range Addition
+
+```python
+class Solution:
+    def getModifiedArray(self, length: int, updates: List[List[int]]) -> List[int]:
+        f = [0] * (length + 1)
+        for start, end, inc in updates:
+            f[start] += inc
+            f[end + 1] -= inc
+        f = list(accumulate(f))
+        return f[: -1]
+```
+
+### 759. Employee Free Time
+
+'''
+We are given a list schedule of employees, which represents the working time for each employee.
+
+Each employee has a list of non-overlapping Intervals, and these intervals are in sorted order.
+
+Return the list of finite intervals representing common, positive-length free time for all employees, also in sorted order.
+
+(Even though we are representing Intervals in the form [x, y], the objects inside are Intervals, not lists or arrays. For example, schedule[0][0].start = 1, schedule[0][0].end = 2, and schedule[0][0][0] is not defined).  Also, we wouldn't include intervals like [5, 5] in our answer, as they have zero length.
+
+Example 1:
+
+Input: schedule = [[[1,2],[5,6]],[[1,3]],[[4,10]]]
+Output: [[3,4]]
+Explanation: There are a total of three employees, and all common
+free time intervals would be [-inf, 1], [3, 4], [10, inf].
+We discard any intervals that contain inf as they aren't finite.
+Example 2:
+
+Input: schedule = [[[1,3],[6,7]],[[2,4]],[[2,5],[9,12]]]
+Output: [[5,6],[7,9]]
+
+Constraints:
+
+1 <= schedule.length , schedule[i].length <= 50
+0 <= schedule[i].start < schedule[i].end <= 10^8
+'''
+
+```python
+class Solution:
+    def employeeFreeTime(self, schedule: '[[Interval]]') -> '[Interval]':
+        events = []
+        for s in schedule:
+            for item in s:
+                events.append([item.start, -1])
+                events.append([item.end, 1])
+        events.sort()
+
+        count, res = 0, []
+        start, end = inf, -inf
+        for point, sign in events:
+            if sign < 0:
+                count += 1
+                start = min(start, point)
+            else:
+                count -= 1
+                end = max(end, point)
+            if count == 0:
+                res.append([start, end])
+                start, end = inf, -inf
+        return [Interval(res[i - 1][1], res[i][0]) for i in range(1, len(res))]
+```
+
+### 848. Shifting Letters
+
+```python
+class Solution:
+    def shiftingLetters(self, s: str, shifts: List[int]) -> str:
+        prefix = list(accumulate(shifts[::-1]))[::-1]
+        res = ''
+        for c, n in zip(s, prefix):
+            res += chr((n + ord(c) - 97) % 26 + 97)
+        return res
+```
+
+### 2021. Brightest Position on Street
+
+```python
+class Solution:
+    def brightestPosition(self, lights: List[List[int]]) -> int:
+        events = []
+        for point, radius in lights:
+            s, e = point - radius, point + radius
+            events.append((s, -1))
+            events.append((e, 1))
+        events.sort()
+        res, count, ans = -inf, 0, 0
+        for x, sign in events:
+            if sign == -1:
+                count += 1
+            else:
+                count -= 1
+            if count > ans:
+                res = x 
+                ans = count
+        return res 
+```
+
+### 2015. Average Height of Buildings in Each Segment
+
+```python
+class Solution:
+    def averageHeightOfBuildings(self, buildings: List[List[int]]) -> List[List[int]]:
+        d = defaultdict(lambda: [0, 0])
+        for s, e, h in buildings:
+            d[s][0] += 1
+            d[s][1] += h 
+            d[e][0] -= 1
+            d[e][1] -= h 
+        arr = sorted([[pos, cnt, val] for pos, (cnt, val) in d.items()])
+        for i in range(1, len(arr)):
+            arr[i][1] += arr[i - 1][1]
+            arr[i][2] += arr[i - 1][2]
+        res = []
+        for a, b in pairwise(arr):
+            k1, c1, v1 = a 
+            k2, c2, v2 = b 
+            if v1:
+                res.append([k1, k2, v1 // c1])
+        q = deque(res)
+        ans = []
+        while len(q) > 1:
+            s1, e1, v1 = q.popleft()
+            s2, e2, v2 = q.popleft()
+            if s2 == e1 and v1 == v2:
+                q.appendleft([s1, e2, v1])
+            else:
+                ans.append([s1, e1, v1])
+                q.appendleft([s2, e2, v2])
+        if q:
+            ans.append(q[0])
         return ans
 ```
 
@@ -278,4 +606,17 @@ class Solution:
                 res.append([start, j - 1])
             i = j
         return res
+```
+
+### 2536. Increment Submatrices by One
+
+```python
+class Solution:
+    def rangeAddQueries(self, n: int, queries: List[List[int]]) -> List[List[int]]:
+        dp = [[0] * n for r in range(n)]
+        for x1, y1, x2, y2 in queries:
+            for r in range(x1, x2 + 1):
+                for c in range(y1, y2 + 1):
+                    dp[r][c] += 1
+        return dp
 ```
