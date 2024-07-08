@@ -208,7 +208,46 @@ Practice with ratings (https://huxulm.github.io/lc-rating/zen)
     * [864. Shortest Path to Get All Keys](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/bit.md#864-shortest-path-to-get-all-keys)
 * ### 14 Greedy
 * ### 15 Sweep Line
+  * #### 1D
+    * [252. Meeting Rooms](
+    * [2848. Points That Intersect With Cars](https://github.com/Jasondecode2020/Letscode/blob/main/template/sweep_line.md#252-meeting-rooms)
+    * [253. Meeting Rooms II](https://github.com/Jasondecode2020/Letscode/blob/main/template/sweep_line.md#253-meeting-rooms-ii)
+    * [56. Merge Intervals](https://github.com/Jasondecode2020/Letscode/blob/main/template/sweep_line.md#56-merge-intervals)
+    * [57. Insert Interval](https://github.com/Jasondecode2020/Letscode/blob/main/template/sweep_line.md#57-insert-interval)
+    * [1854. Maximum Population Year](https://github.com/Jasondecode2020/Letscode/blob/main/template/sweep_line.md#1854-maximum-population-year)
+    * [729. My Calendar I](https://github.com/Jasondecode2020/Letscode/blob/main/template/sweep_line.md#729-my-calendar-i)
+    * [731. My Calendar II](https://github.com/Jasondecode2020/Letscode/blob/main/template/sweep_line.md#731-my-calendar-ii)
+    * [732. My Calendar III](https://github.com/Jasondecode2020/Letscode/blob/main/template/sweep_line.md#732-my-calendar-iii)
+  * #### 2D 
+    * [218. The Skyline Problem](https://github.com/Jasondecode2020/Letscode/blob/main/template/sweep_line.md#218-the-skyline-problem)
 * ### 16 Difference Array
+  * #### 1d 
+    * [2848. Points That Intersect With Cars](https://github.com/Jasondecode2020/Letscode/blob/main/template/difference_array.md#2848-Points-That-Intersect-With-Cars)
+    * [1893. Check if All the Integers in a Range Are Covered](https://github.com/Jasondecode2020/Letscode/blob/main/template/difference_array.md#1893-Check-if-All-the-Integers-in-a-Range-Are-Covered)
+    * [1854. Maximum Population Year](https://github.com/Jasondecode2020/Letscode/blob/main/template/difference_array.md#1854-maximum-population-year)
+    * [2960. Count Tested Devices After Test Operations](https://github.com/Jasondecode2020/Letscode/blob/main/template/difference_array.md#2960-count-tested-devices-after-test-operations)
+    * [1094. Car Pooling](https://github.com/Jasondecode2020/Letscode/blob/main/template/difference_array.md#1094-car-pooling)
+    * [1109. Corporate Flight Bookings](https://github.com/Jasondecode2020/Letscode/blob/main/template/difference_array.md#1109-Corporate-Flight-Bookings)
+    * [56. Merge Intervals](https://github.com/Jasondecode2020/Letscode/blob/main/template/difference_array.md#56-merge-intervals)
+    * [57. Insert Interval](https://github.com/Jasondecode2020/Letscode/blob/main/template/difference_array.md#57-insert-interval)
+    * [2406. Divide Intervals Into Minimum Number of Groups](https://github.com/Jasondecode2020/Letscode/blob/main/template/difference_array.md#2406-Divide-Intervals-Into-Minimum-Number-of-Groups)
+    * [2381. Shifting Letters II](https://github.com/Jasondecode2020/Letscode/blob/main/template/difference_array.md#2381-Shifting-Letters-II)
+    * [995. Minimum Number of K Consecutive Bit Flips](https://github.com/Jasondecode2020/Letscode/blob/main/template/difference_array.md#995-minimum-number-of-k-consecutive-bit-flips)
+    * [1589. Maximum Sum Obtained of Any Permutation](https://github.com/Jasondecode2020/Letscode/blob/main/template/difference_array.md#2406-Divide-Intervals-Into-Minimum-Number-of-Groups)
+    * [2772. Apply Operations to Make All Array Elements Equal to Zero](https://github.com/Jasondecode2020/Letscode/blob/main/template/difference_array.md#2772-apply-operations-to-make-all-array-elements-equal-to-zero)
+    * [1943. Describe the Painting](https://github.com/Jasondecode2020/Letscode/blob/main/template/difference_array.md#1943-describe-the-painting)
+    * [2251. Number of Flowers in Full Bloom](https://github.com/Jasondecode2020/Letscode/blob/main/template/difference_array.md#2251-number-of-flowers-in-full-bloom)
+    * [253. Meeting Rooms II](https://github.com/Jasondecode2020/Letscode/blob/main/template/difference_array.md#253-meeting-rooms-ii)
+    * [370. Range Addition](https://github.com/Jasondecode2020/Letscode/blob/main/template/difference_array.md#370-Range-Addition)
+    * [759. Employee Free Time](#759)
+    * [848. Shifting Letters](https://github.com/Jasondecode2020/Letscode/blob/main/template/difference_array.md#848-Shifting-Letters)
+    * [2021. Brightest Position on Street](https://github.com/Jasondecode2020/Letscode/blob/main/template/difference_array.md#2021-brightest-position-on-street)
+    * [2237. Count Positions on Street With Required Brightness](https://github.com/Jasondecode2020/Letscode/blob/main/template/difference_array.md#2237-count-positions-on-street-with-required-brightness)
+    * [2015. Average Height of Buildings in Each Segment](https://github.com/Jasondecode2020/Letscode/blob/main/template/difference_array.md#2015-average-height-of-buildings-in-each-segment)
+  * #### 2d difference array
+    * [2536. Increment Submatrices by One](https://github.com/Jasondecode2020/Letscode/blob/main/template/difference_array.md#2536-increment-submatrices-by-one)
+    * [850. Rectangle Area II](https://github.com/Jasondecode2020/Letscode/blob/main/template/difference_array.md#850-rectangle-area-ii)
+    * [2132. Stamping the Grid](https://github.com/Jasondecode2020/Letscode/blob/main/template/difference_array.md#2132-stamping-the-grid)
 * ### 17 Trie
 * ### 18 Monotonic Stack
   * #### 18.1 Next(previous) greater or smaller

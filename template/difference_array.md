@@ -17,7 +17,6 @@
 * [2772. Apply Operations to Make All Array Elements Equal to Zero](#2772-apply-operations-to-make-all-array-elements-equal-to-zero)
 * [1943. Describe the Painting](#1943-describe-the-painting)
 * [2251. Number of Flowers in Full Bloom](#2251-number-of-flowers-in-full-bloom)
-
 * [253. Meeting Rooms II](#253-meeting-rooms-ii)
 * [370. Range Addition](#370-Range-Addition)
 * [759. Employee Free Time]()
@@ -28,7 +27,9 @@
 
 - 2d difference array
 
-* [2536. Increment Submatrices by One]()
+* [2536. Increment Submatrices by One](#2536-increment-submatrices-by-one)
+* [850. Rectangle Area II](#850-rectangle-area-ii)
+* [2132. Stamping the Grid](#2132-stamping-the-grid)
 
 ### 2848. Points That Intersect With Cars
 
@@ -613,10 +614,91 @@ class Solution:
 ```python
 class Solution:
     def rangeAddQueries(self, n: int, queries: List[List[int]]) -> List[List[int]]:
-        dp = [[0] * n for r in range(n)]
+        # dp = [[0] * n for r in range(n)]
+        # for x1, y1, x2, y2 in queries:
+        #     for r in range(x1, x2 + 1):
+        #         for c in range(y1, y2 + 1):
+        #             dp[r][c] += 1
+        # return dp
+
+        # f = [[0] * (n + 1) for r in range(n)]
+        # for x1, y1, x2, y2 in queries:
+        #     for r in range(x1, x2 + 1):
+        #         f[r][y1] += 1
+        #         f[r][y2 + 1] -= 1
+        # return [list(accumulate(row[:-1])) for row in f]
+
+        f = [[0] * (n + 2) for r in range(n + 2)]
         for x1, y1, x2, y2 in queries:
-            for r in range(x1, x2 + 1):
-                for c in range(y1, y2 + 1):
-                    dp[r][c] += 1
-        return dp
+            f[x1 + 1][y1 + 1] += 1
+            f[x1 + 1][y2 + 2] -= 1
+            f[x2 + 2][y1 + 1] -= 1
+            f[x2 + 2][y2 + 2] += 1
+        for r in range(1, n + 1):
+            for c in range(1, n + 1):
+                f[r][c] += f[r][c - 1] + f[r - 1][c] - f[r - 1][c - 1]
+        return [row[1:-1] for row in f[1:-1]]
+```
+
+### 850. Rectangle Area II
+
+- https://leetcode.cn/problems/rectangle-area-ii/solutions/1826992/gong-shui-san-xie-by-ac_oier-9r36/
+
+```python
+class Solution:
+    def rectangleArea(self, rectangles: List[List[int]]) -> int:
+        def getArea(width):
+            lines = [(y1, y2) for x1, y1, x2, y2 in rectangles if x1 <= a and x2 >= b]
+            lines.sort()
+            height, start, end = 0, -1, -1
+            for s, e in lines:
+                if s > end:
+                    height += end - start
+                    start = s
+                end = max(end, e)
+            height += end - start
+            return width * height
+
+        mod = 10 ** 9 + 7
+        points = []
+        for x1, y1, x2, y2 in rectangles:
+            points.extend([x1, x2])
+        points.sort()
+
+        res = 0
+        for i in range(1, len(points)):
+            a, b = points[i - 1], points[i]
+            width = b - a 
+            area = getArea(width)
+            res += area
+        return res % mod
+```
+
+### 2132. Stamping the Grid
+
+```python
+class Solution:
+    def possibleToStamp(self, grid: List[List[int]], stampHeight: int, stampWidth: int) -> bool:
+        R, C = len(grid), len(grid[0])
+        pre = [[0] * (C + 1) for r in range(R + 1)]
+        for r in range(1, R + 1):
+            for c in range(1, C + 1):
+                pre[r][c] = pre[r - 1][c] + pre[r][c - 1] - pre[r - 1][c - 1] + grid[r - 1][c - 1]
+
+        f = [[0] * (C + 2) for r in range(R + 2)]
+        for x2 in range(stampHeight, R + 1):
+            for y2 in range(stampWidth, C + 1):
+                x1, y1 = x2 - stampHeight + 1, y2 - stampWidth + 1
+                if pre[x2][y2] - pre[x2][y1 - 1] - pre[x1 - 1][y2] + pre[x1 - 1][y1 - 1] == 0:
+                    f[x1][y1] += 1
+                    f[x1][y2 + 1] -= 1
+                    f[x2 + 1][y1] -= 1
+                    f[x2 + 1][y2 + 1] += 1
+                    
+        for r in range(1, R + 1):
+            for c in range(1, C + 1):
+                f[r][c] += f[r][c - 1] + f[r - 1][c] - f[r - 1][c - 1]
+                if grid[r - 1][c - 1] == 0 and f[r][c] == 0:
+                    return False
+        return True
 ```

@@ -2,6 +2,19 @@
 
 ## 1D
 
+* [252. Meeting Rooms](#252-meeting-rooms)
+* [253. Meeting Rooms II](#253-meeting-rooms-ii)
+* [56. Merge Intervals](#56-merge-intervals)
+* [57. Insert Interval](#57-insert-interval)
+* [1854. Maximum Population Year](#1854-maximum-population-year)
+* [729. My Calendar I](#729-my-calendar-i)
+* [731. My Calendar II](#731-my-calendar-ii)
+* [732. My Calendar III](#732-my-calendar-iii)
+
+## 2D 
+
+* [218. The Skyline Problem](#218-the-skyline-problem)
+
 ### 252. Meeting Rooms
 
 - use count to check overlap
@@ -212,72 +225,6 @@ class MyCalendarThree:
                 res = max(res, count)
             else:
                 count -= 1
-        return res
-```
-
-### 452. Minimum Number of Arrows to Burst Balloons
-
-- greedy at end
-- use prev end
-
-```python
-class Solution:
-    def findMinArrowShots(self, points: List[List[int]]) -> int:
-        points.sort(key = lambda x: x[1])
-        prev, count = -inf, 0
-        for s, e in points:
-            if s > prev:
-                count += 1
-                prev = e
-        return count
-```
-
-### 435. Non-overlapping Intervals
-
-- greedy at end
-- use prev end
-
-```python
-class Solution:
-    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
-        intervals.sort(key = lambda x: x[1])
-        prev, count = -inf, 0
-        for s, e in intervals:
-            if s >= prev:
-                count += 1
-                prev = e
-        return len(intervals) - count
-```
-
-### 646. Maximum Length of Pair Chain
-
-```python
-class Solution:
-    def findLongestChain(self, intervals: List[List[int]]) -> int:
-        intervals.sort(key = lambda x: x[1])
-        prev, count = -inf, 0
-        for s, e in intervals:
-            if s > prev:
-                count += 1
-                prev = e
-        return count
-```
-
-### 1272. Remove Interval
-
-```python
-class Solution:
-    def removeInterval(self, intervals: List[List[int]], toBeRemoved: List[int]) -> List[List[int]]:
-        start, end = toBeRemoved
-        res = []
-        for s, e in intervals:
-            if s >= end or e <= start:
-                res.append([s, e])
-            else:
-                if s < start:
-                    res.append([s, start])
-                if e > end:
-                    res.append([end, e])
         return res
 ```
 

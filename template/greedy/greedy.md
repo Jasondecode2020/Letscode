@@ -711,3 +711,76 @@ class Solution:
             row[r] = col[c] = grid[r][c]
         return grid
 ```
+
+- interval
+
+* [452. Minimum Number of Arrows to Burst Balloons](#452-minimum-number-of-arrows-to-burst-balloons)
+* [435. Non-overlapping Intervals](#435-non-overlapping-intervals)
+* [646. Maximum Length of Pair Chain](#646-maximum-length-of-pair-chain)
+* [1272. Remove Interval](#1272-remove-interval)
+
+### 452. Minimum Number of Arrows to Burst Balloons
+
+- greedy at end
+- use prev end
+
+```python
+class Solution:
+    def findMinArrowShots(self, points: List[List[int]]) -> int:
+        points.sort(key = lambda x: x[1])
+        prev, count = -inf, 0
+        for s, e in points:
+            if s > prev:
+                count += 1
+                prev = e
+        return count
+```
+
+### 435. Non-overlapping Intervals
+
+- greedy at end
+- use prev end
+
+```python
+class Solution:
+    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+        intervals.sort(key = lambda x: x[1])
+        prev, count = -inf, 0
+        for s, e in intervals:
+            if s >= prev:
+                count += 1
+                prev = e
+        return len(intervals) - count
+```
+
+### 646. Maximum Length of Pair Chain
+
+```python
+class Solution:
+    def findLongestChain(self, intervals: List[List[int]]) -> int:
+        intervals.sort(key = lambda x: x[1])
+        prev, count = -inf, 0
+        for s, e in intervals:
+            if s > prev:
+                count += 1
+                prev = e
+        return count
+```
+
+### 1272. Remove Interval
+
+```python
+class Solution:
+    def removeInterval(self, intervals: List[List[int]], toBeRemoved: List[int]) -> List[List[int]]:
+        start, end = toBeRemoved
+        res = []
+        for s, e in intervals:
+            if s >= end or e <= start:
+                res.append([s, e])
+            else:
+                if s < start:
+                    res.append([s, start])
+                if e > end:
+                    res.append([end, e])
+        return res
+```
