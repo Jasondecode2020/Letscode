@@ -245,9 +245,9 @@ Practice with ratings (https://huxulm.github.io/lc-rating/zen)
     * [2237. Count Positions on Street With Required Brightness](https://github.com/Jasondecode2020/Letscode/blob/main/template/difference_array.md#2237-count-positions-on-street-with-required-brightness)
     * [2015. Average Height of Buildings in Each Segment](https://github.com/Jasondecode2020/Letscode/blob/main/template/difference_array.md#2015-average-height-of-buildings-in-each-segment)
   * #### 2d difference array
-    * [2536. Increment Submatrices by One](https://github.com/Jasondecode2020/Letscode/blob/main/template/difference_array.md#2536-increment-submatrices-by-one) 1583 [video](https://www.youtube.com/live/4ex4dl9rmIY)
-    * [850. Rectangle Area II](https://github.com/Jasondecode2020/Letscode/blob/main/template/difference_array.md#850-rectangle-area-ii) 2236 [video](https://www.youtube.com/watch?v=tQ72_E5jba0)
-    * [2132. Stamping the Grid](https://github.com/Jasondecode2020/Letscode/blob/main/template/difference_array.md#2132-stamping-the-grid) 2364[video](https://www.youtube.com/live/33XRNq0uEJ0)
+    * [2536. Increment Submatrices by One](https://github.com/Jasondecode2020/Letscode/blob/main/template/difference_array.md#2536-increment-submatrices-by-one) 1583 [(video)](https://www.youtube.com/live/4ex4dl9rmIY)
+    * [850. Rectangle Area II](https://github.com/Jasondecode2020/Letscode/blob/main/template/difference_array.md#850-rectangle-area-ii) 2236 [(video)](https://www.youtube.com/watch?v=tQ72_E5jba0)
+    * [2132. Stamping the Grid](https://github.com/Jasondecode2020/Letscode/blob/main/template/difference_array.md#2132-stamping-the-grid) 2364 [(video)](https://www.youtube.com/live/33XRNq0uEJ0)
 * ### 17 Trie
 * ### 18 Monotonic Stack
   * #### 18.1 Next(previous) greater or smaller
