@@ -2,7 +2,7 @@
 
 ### 1. 2 sum(16)
 
-* [1. Two Sum](#1-two-sum)
+* [1. Two Sum](#1-two-sum)  
 * [1512. Number of Good Pairs](#1512-number-of-good-pairs)
 * [2815. Max Pair Sum in an Array](#2815-max-pair-sum-in-an-array)
 * [2748. Number of Beautiful Pairs](#2748-number-of-beautiful-pairs)

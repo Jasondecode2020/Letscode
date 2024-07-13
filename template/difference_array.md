@@ -25,7 +25,7 @@
 * [2237. Count Positions on Street With Required Brightness](#2237-count-positions-on-street-with-required-brightness)
 * [2015. Average Height of Buildings in Each Segment](#2015-average-height-of-buildings-in-each-segment)
 
-- 2d difference array
+- 2d difference array (3)
 
 * [2536. Increment Submatrices by One](#2536-increment-submatrices-by-one)
 * [850. Rectangle Area II](#850-rectangle-area-ii)

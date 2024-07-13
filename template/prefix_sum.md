@@ -8,7 +8,7 @@
 * [2055. Plates Between Candles](#2055-plates-between-candles)
 * [1744. Can You Eat Your Favorite Candy on Your Favorite Day?](#1744-can-you-eat-your-favorite-candy-on-your-favorite-day)
 
-## 2 prefix + hash
+## 2 prefix + hash    
 
 * [930. Binary Subarrays With Sum](#930-binary-subarrays-with-sum)
 * [560. Subarray Sum Equals K](#560-subarray-sum-equals-k)
