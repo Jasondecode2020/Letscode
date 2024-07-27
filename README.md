@@ -32,6 +32,14 @@ Practice with ratings (https://huxulm.github.io/lc-rating/zen)
   * #### 1.2 Hash Set
 * ### 2 Matrix
 * ### 3 Stack
+  * #### 3.1 basics
+    * [1441. Build an Array With Stack Operations](#1441-build-an-array-with-stack-operations) 1180
+    * [844. Backspace String Compare](#844-Backspace-String-Compare) 1228
+    * [682. Baseball Game](#682-baseball-game) 1250
+    * [2390. Removing Stars From a String](#2390-removing-stars-from-a-string) 1348
+    * [1472. Design Browser History](#1472-design-browser-history) 1454
+    * [946. Validate Stack Sequences](#946-validate-stack-sequences) 1462
+    * [71. Simplify Path](#71-simplify-path) 1500
 * ### 4 Queue
 * ### 5 Heap
   * #### Basics
@@ -313,6 +321,7 @@ Practice with ratings (https://huxulm.github.io/lc-rating/zen)
     * [593. Valid Square](https://github.com/Jasondecode2020/Letscode/blob/main/template/math/computational_geometry.md#593-valid-square)
     * [2613. Beautiful Pairs](https://github.com/Jasondecode2020/Letscode/blob/main/template/math/computational_geometry.md#2613-beautiful-pairs)
 * ### 24 Tricks
+  * #### 2960. Count Tested Devices After Test Operations
 
 
 

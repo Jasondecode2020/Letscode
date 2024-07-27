@@ -1,3 +1,21 @@
+## tricks
+
+* [2960. Count Tested Devices After Test Operations](#2960-count-tested-devices-after-test-operations)
+
+### 2960. Count Tested Devices After Test Operations
+
+- reverse thinking: just use one value to compare with last values
+
+```python
+class Solution:
+    def countTestedDevices(self, batteryPercentages: List[int]) -> int:
+        n = 0
+        for b in batteryPercentages:
+            if b > n:
+                n += 1
+        return n 
+```
+
 ### 2017. Grid Game
 
 ```python

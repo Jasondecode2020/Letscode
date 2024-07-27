@@ -2,34 +2,46 @@
 
 - 1d difference array
 
-* [2848. Points That Intersect With Cars](#2848-Points-That-Intersect-With-Cars)
-* [1893. Check if All the Integers in a Range Are Covered](#1893-Check-if-All-the-Integers-in-a-Range-Are-Covered)
-* [1854. Maximum Population Year](#1854-maximum-population-year)
-* [2960. Count Tested Devices After Test Operations](#2960-count-tested-devices-after-test-operations)
-* [1094. Car Pooling](#1094-car-pooling)
-* [1109. Corporate Flight Bookings](#1109-Corporate-Flight-Bookings)
-* [56. Merge Intervals](#56-merge-intervals)
-* [57. Insert Interval](#57-insert-interval)
-* [2406. Divide Intervals Into Minimum Number of Groups](#2406-Divide-Intervals-Into-Minimum-Number-of-Groups)
-* [2381. Shifting Letters II](#2381-Shifting-Letters-II)
-* [995. Minimum Number of K Consecutive Bit Flips](#995-minimum-number-of-k-consecutive-bit-flips)
-* [1589. Maximum Sum Obtained of Any Permutation](#2406-Divide-Intervals-Into-Minimum-Number-of-Groups)
-* [2772. Apply Operations to Make All Array Elements Equal to Zero](#2772-apply-operations-to-make-all-array-elements-equal-to-zero)
-* [1943. Describe the Painting](#1943-describe-the-painting)
-* [2251. Number of Flowers in Full Bloom](#2251-number-of-flowers-in-full-bloom)
+```html
+<p>Can calculate directly using difference array</p>
+```
+* [2848. Points That Intersect With Cars](#2848-Points-That-Intersect-With-Cars) 1230
+* [1893. Check if All the Integers in a Range Are Covered](#1893-Check-if-All-the-Integers-in-a-Range-Are-Covered) 1307
+* [1854. Maximum Population Year](#1854-maximum-population-year) 1370
+* [1094. Car Pooling](#1094-car-pooling) 1441
+* [1109. Corporate Flight Bookings](#1109-Corporate-Flight-Bookings) 1570
+
+* [56. Merge Intervals](#56-merge-intervals) 1580
+* [57. Insert Interval](#57-insert-interval) 1600
+* [732. My Calendar III](#732-my-calendar-iii) 1700
+* [2406. Divide Intervals Into Minimum Number of Groups](#2406-Divide-Intervals-Into-Minimum-Number-of-Groups) 1731
+
+* [2381. Shifting Letters II](#2381-Shifting-Letters-II) 1793
+* [995. Minimum Number of K Consecutive Bit Flips](#995-minimum-number-of-k-consecutive-bit-flips) 1835
+* [1589. Maximum Sum Obtained of Any Permutation](#2406-Divide-Intervals-Into-Minimum-Number-of-Groups) 1871
+* [1943. Describe the Painting](#1943-describe-the-painting) 1969
+* [2251. Number of Flowers in Full Bloom](#2251-number-of-flowers-in-full-bloom) 2251
+
+* [2772. Apply Operations to Make All Array Elements Equal to Zero](#2772-apply-operations-to-make-all-array-elements-equal-to-zero) 2029
+* [798. Smallest Rotation with Highest Score](#798-smallest-rotation-with-highest-score) 2129
+* [2528. Maximize the Minimum Powered City](#2528-maximize-the-minimum-powered-city) 2236
+* [1674. Minimum Moves to Make Array Complementary](#1674-minimum-moves-to-make-array-complementary) 2333
+* [3017. Count the Number of Houses at a Certain Distance II]() 2709
+
 * [253. Meeting Rooms II](#253-meeting-rooms-ii)
 * [370. Range Addition](#370-Range-Addition)
-* [759. Employee Free Time]()
-* [848. Shifting Letters](#848-Shifting-Letters)
+* [759. Employee Free Time](#759-employee-free-time)
 * [2021. Brightest Position on Street](#2021-brightest-position-on-street)
-* [2237. Count Positions on Street With Required Brightness](#2237-count-positions-on-street-with-required-brightness)
 * [2015. Average Height of Buildings in Each Segment](#2015-average-height-of-buildings-in-each-segment)
+
+* [2237. Count Positions on Street With Required Brightness](#2237-count-positions-on-street-with-required-brightness)
+* [3009. Maximum Number of Intersections on the Chart](#3009-maximum-number-of-intersections-on-the-chart) 2500
 
 - 2d difference array (3)
 
-* [2536. Increment Submatrices by One](#2536-increment-submatrices-by-one)
-* [850. Rectangle Area II](#850-rectangle-area-ii)
-* [2132. Stamping the Grid](#2132-stamping-the-grid)
+* [2536. Increment Submatrices by One](#2536-increment-submatrices-by-one) 1583
+* [850. Rectangle Area II](#850-rectangle-area-ii) 2236
+* [2132. Stamping the Grid](#2132-stamping-the-grid) 2364
 
 ### 2848. Points That Intersect With Cars
 
@@ -42,6 +54,25 @@ class Solution:
             f[s] += 1
             f[e + 1] -= 1
         return sum(s > 0 for s in accumulate(f))
+```
+
+```c++
+class Solution {
+public:
+    int numberOfPoints(vector<vector<int>>& nums) {
+        int f[102]{};
+        for (auto &p: nums) {
+            f[p[0]]++;
+            f[p[1] + 1]--;
+        }
+        int res = 0, pre = 0;
+        for (int n: f) {
+            pre += n;
+            res += pre > 0;
+        }
+        return res;
+    }
+};
 ```
 
 ### 1893. Check if All the Integers in a Range Are Covered
@@ -97,6 +128,27 @@ class Solution:
             f[e] -= c
         pre = list(accumulate(f))
         return max(pre) <= capacity
+```
+
+```c++
+class Solution {
+public:
+    bool carPooling(vector<vector<int>>& trips, int capacity) {
+        int f[1001]{};
+        for (auto &p: trips) {
+            f[p[1]] += p[0];
+            f[p[2]] -= p[0];
+        }
+        int pre = 0;
+        for (int n: f) {
+            pre += n;
+            if (pre > capacity) {
+                return false;
+            }
+        }
+        return true;
+    }
+};
 ```
 
 ### 1109. Corporate Flight Bookings
@@ -185,6 +237,73 @@ class Solution:
         return res
 ```
 
+- better O(n) solution
+
+```python
+class Solution:
+    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        s, e = newInterval 
+        res = []
+        insert = False 
+        for start, end in intervals:
+            if e < start:
+                if not insert:
+                    res.append([s, e])
+                    insert = True
+                res.append([start, end])
+            elif end < s:
+                res.append([start, end])
+            else:
+                s, e = min(s, start), max(e, end)
+        if not insert:
+            res.append([s, e])
+        return res 
+```
+
+
+### 732. My Calendar III
+
+```python
+class MyCalendarThree:
+
+    def __init__(self):
+        self.res = -inf
+        self.intervals = []
+
+    def book(self, start: int, end: int) -> int:
+        self.intervals.append([start, end])
+        events = []
+        for s, e in self.intervals:
+            events.append((s, 1))
+            events.append((e, -1))
+        events.sort()
+        count = 0
+        for point, sign in events:
+            count += sign
+            self.res = max(self.res, count)
+        return self.res
+```
+
+```python
+from sortedcontainers import SortedList
+class MyCalendarThree:
+
+    def __init__(self):
+        self.events = SortedList()
+
+    def book(self, startTime: int, endTime: int) -> int:
+        self.events.add((startTime, 1))
+        self.events.add((endTime, -1))
+        res, count = 0, 0
+        for x, sign in self.events:
+            if sign == 1:
+                count += 1
+                res = max(res, count)
+            else:
+                count -= 1
+        return res
+```
+
 ### 2381. Shifting Letters II
 
 ```python
@@ -249,6 +368,28 @@ class Solution:
         return sum(n >= r for n, r in zip(nums, requirement))
 ```
 
+### 3009. Maximum Number of Intersections on the Chart
+
+```python
+class Solution:
+    def maxIntersectionCount(self, y: List[int]) -> int:
+        f = defaultdict(int)
+        for a, b in pairwise(y):
+            if a < b:
+                f[a] += 1
+                f[b] -= 1
+            else:
+                f[b + 0.5] += 1
+                f[a + 0.5] -= 1
+        last = y[-1]
+        f[last] += 1
+        f[last + 0.5] -= 1
+        arr = sorted([[k, v] for k, v in f.items()])
+        for i in range(1, len(arr)):
+            arr[i][1] += arr[i - 1][1]
+        return max(b for a, b in arr)
+```
+
 ### 1589. Maximum Sum Obtained of Any Permutation
 
 ```python
@@ -284,6 +425,83 @@ class Solution:
             pre += -v
             f[i + k] -= -v 
         return True
+```
+
+### 798. Smallest Rotation with Highest Score
+
+```python
+class Solution:
+    def bestRotation(self, nums: List[int]) -> int:
+        n = len(nums)
+        diff = [0] * (n + 1)
+        for i, num in enumerate(nums):
+            if i >= num:
+                diff[0] += 1
+                diff[i - num + 1] -= 1
+                diff[i + 1] += 1
+            else:
+                diff[i + 1] += 1
+                diff[i + n + 1 - num] -= 1
+        pre = list(accumulate(diff))
+        mx = max(pre)
+        for i, n in enumerate(pre):
+            if n == mx:
+                return i
+```
+
+### 2528. Maximize the Minimum Powered City
+
+```python
+class Solution:
+    def maxPower(self, stations: List[int], r: int, k: int) -> int:
+        n = len(stations)
+        pre = list(accumulate(stations, initial=0))
+        for i in range(n):
+            stations[i] = pre[min(i + r + 1, n)] - pre[max(i - r, 0)]
+
+        def check(min_power: int) -> bool:
+            f = [0] * n 
+            sum_f = need = 0
+            for i, power in enumerate(stations):
+                sum_f += f[i] 
+                m = min_power - power - sum_f
+                if m > 0: 
+                    need += m
+                    if need > k: 
+                        return False
+                    sum_f += m 
+                    if i + r * 2 + 1 < n: 
+                        f[i + r * 2 + 1] -= m
+            return True
+            
+        left, right, res = 0, 10 ** 20, 0
+        while left <= right:
+            mid = (left + right) // 2
+            if check(mid):
+                res = mid
+                left = mid + 1
+            else:
+                right = mid - 1
+        return res
+```
+
+### 1674. Minimum Moves to Make Array Complementary
+
+```python
+class Solution:
+    def minMoves(self, nums: List[int], limit: int) -> int:
+        n = len(nums)
+        f = [0] * (2 * limit + 2)
+        for i in range(n // 2):
+            a = min(nums[i], nums[n - i - 1])
+            b = max(nums[i], nums[n - i - 1])
+            f[2] += 2
+            f[a + 1] -= 1
+            f[a + b] -= 1
+            f[a + b + 1] += 1
+            f[b + limit + 1] += 1
+        pre = list(accumulate(f[2:]))
+        return min(pre)
 ```
 
 ### 1943. Describe the Painting
@@ -322,7 +540,7 @@ class Solution:
             pre[i][1] += pre[i - 1][1]
         
         arr = []
-        for a, b in pairwise(pre):
+        for a, b in pairwise(pre): 
             k1, v1 = a
             k2, v2 = b 
             arr.append([k1, k2 - 1, v1])
@@ -507,17 +725,6 @@ class Solution:
         return [Interval(res[i - 1][1], res[i][0]) for i in range(1, len(res))]
 ```
 
-### 848. Shifting Letters
-
-```python
-class Solution:
-    def shiftingLetters(self, s: str, shifts: List[int]) -> str:
-        prefix = list(accumulate(shifts[::-1]))[::-1]
-        res = ''
-        for c, n in zip(s, prefix):
-            res += chr((n + ord(c) - 97) % 26 + 97)
-        return res
-```
 
 ### 2021. Brightest Position on Street
 

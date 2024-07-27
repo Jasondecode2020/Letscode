@@ -7,6 +7,7 @@
 * [2438. Range Product Queries of Powers](#2438-range-product-queries-of-powers)
 * [2055. Plates Between Candles](#2055-plates-between-candles)
 * [1744. Can You Eat Your Favorite Candy on Your Favorite Day?](#1744-can-you-eat-your-favorite-candy-on-your-favorite-day)
+* [848. Shifting Letters](#848-Shifting-Letters)
 
 ## 2 prefix + hash    
 
@@ -168,6 +169,17 @@ class Solution:
         return res
 ```
 
+### 848. Shifting Letters
+
+```python
+class Solution:
+    def shiftingLetters(self, s: str, shifts: List[int]) -> str:
+        prefix = list(accumulate(shifts[::-1]))[::-1]
+        res = ''
+        for c, n in zip(s, prefix):
+            res += chr((n + ord(c) - 97) % 26 + 97)
+        return res
+```
 
 ### 930. Binary Subarrays With Sum
 

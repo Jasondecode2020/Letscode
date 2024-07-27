@@ -1,4 +1,145 @@
-## stack to solve recursive function
+## stack 
+
+### basics
+
+* [1441. Build an Array With Stack Operations](#1441-build-an-array-with-stack-operations) 1180
+* [844. Backspace String Compare](#844-Backspace-String-Compare) 1228
+* [682. Baseball Game](#682-baseball-game) 1250
+* [2390. Removing Stars From a String](#2390-removing-stars-from-a-string) 1348
+* [1472. Design Browser History](#1472-design-browser-history) 1454
+* [946. Validate Stack Sequences](#946-validate-stack-sequences) 1462
+* [71. Simplify Path](#71-simplify-path) 1500
+
+### 1441. Build an Array With Stack Operations
+
+```python
+class Solution:
+    def buildArray(self, target: List[int], n: int) -> List[str]:
+        res = []
+        i = 1
+        j = 0
+        while i <= n and j < len(target):
+            if i == target[j]:
+                res.append('Push')
+                i += 1
+                j += 1
+            else:
+                res.extend(['Push', 'Pop'])
+                i += 1
+        return res
+```
+
+```java
+class Solution {
+    public List<String> buildArray(int[] target, int n) {
+        int i = 0;
+        int j = 1;
+        List<String> res = new ArrayList<String>();
+        while (i < target.length && j < n + 1) {
+            if (target[i] == j) {
+                res.add("Push");
+                i += 1;
+                j += 1;
+            } else {
+                res.add("Push");
+                res.add("Pop");
+                j += 1;
+            }
+                
+        }
+        return res;
+    }
+}
+```
+
+### 844. Backspace String Compare
+
+```python
+class Solution:
+    def backspaceCompare(self, s: str, t: str) -> bool:
+        def getString(s):
+            stack = []
+            for c in s:
+                if c != '#':
+                    stack.append(c)
+                elif stack:
+                    stack.pop()
+            return stack 
+        return getString(s) == getString(t)
+```
+
+### 682. Baseball Game
+
+```python
+class Solution:
+    def calPoints(self, operations: List[str]) -> int:
+        s = []
+        for o in operations:
+            if o[0] not in 'CD+':
+                s.append(int(o))
+            if o == '+':
+                s.append(s[-1] + s[-2])
+            if o == 'C':
+                s.pop()
+            if o == 'D':
+                s.append(s[-1] * 2)
+        return sum(s)
+```
+
+### 2390. Removing Stars From a String
+
+```python
+class Solution:
+    def removeStars(self, s: str) -> str:
+        stack = []
+        for c in s:
+            if c != '*':
+                stack.append(c)
+            else:
+                stack and stack.pop()
+        return ''.join(stack)
+```
+
+### 1472. Design Browser History
+
+```python
+class BrowserHistory:
+
+    def __init__(self, homepage: str):
+        self.stack = [homepage]
+        self.queue = deque()
+    def visit(self, url: str) -> None:
+        self.stack.append(url)
+        self.queue = deque()
+
+    def back(self, steps: int) -> str:
+        while len(self.stack) > 1 and steps:
+            url = self.stack.pop()
+            self.queue.appendleft(url)
+            steps -= 1
+        return self.stack[-1]
+
+    def forward(self, steps: int) -> str:
+        while self.queue and steps:
+            url = self.queue.popleft()
+            self.stack.append(url)
+            steps -= 1
+        return self.stack[-1]
+```
+
+### 946. Validate Stack Sequences
+
+```python
+class Solution:
+    def validateStackSequences(self, pushed: List[int], popped: List[int]) -> bool:
+        stack, i = [], 0
+        for n in pushed:
+            stack.append(n)
+            while stack and stack[-1] == popped[i]:
+                stack.pop()
+                i += 1
+        return not stack
+```
 
 ### 224. Basic Calculator
 
@@ -27,23 +168,6 @@ class Solution:
         return res
 ```
 
-### 682. Baseball Game
-
-```python
-class Solution:
-    def calPoints(self, operations: List[str]) -> int:
-        s = []
-        for o in operations:
-            if o[0] not in 'CD+':
-                s.append(int(o))
-            if o == '+':
-                s.append(s[-1] + s[-2])
-            if o == 'C':
-                s.pop()
-            if o == 'D':
-                s.append(s[-1] * 2)
-        return sum(s)
-```
 
 ### 232. Implement Queue using Stacks
 
@@ -88,6 +212,29 @@ class Solution:
             elif p and p != '.':
                 stack.append(p)
         return '/' + '/'.join(stack)
+```
+
+```java
+class Solution {
+    public String simplifyPath(String path) {
+        String[] paths = path.split("/");
+        Stack<String> stack = new Stack<String>();
+        for (String s: paths) {
+            if ("..".equals(s)) {
+                if (!stack.isEmpty()) {
+                    stack.pop();
+                }
+            } else {
+                if (s.length() > 0 && !".".equals(s)) {
+                    stack.push(s);
+                }
+            }
+        }
+        String res = "";
+        for (String s: stack) res = res + "/" + s;
+        return res.isEmpty() ? "/" : res;
+    }
+}
 ```
 
 ### 1006. Clumsy Factorial
@@ -146,19 +293,6 @@ class Solution:
         return ''.join(stack) + res if stack else res[1:]
 ```
 
-### 2390. Removing Stars From a String
-
-```python
-class Solution:
-    def removeStars(self, s: str) -> str:
-        stack = []
-        for c in s:
-            if c != '*':
-                stack.append(c)
-            else:
-                stack and stack.pop()
-        return ''.join(stack)
-```
 
 ### 921. Minimum Add to Make Parentheses Valid
 
@@ -191,19 +325,6 @@ class Solution:
         return stack[0]
 ```
 
-### 946. Validate Stack Sequences
-
-```python
-class Solution:
-    def validateStackSequences(self, pushed: List[int], popped: List[int]) -> bool:
-        stack, i = [], 0
-        for n in pushed:
-            stack.append(n)
-            while stack and stack[-1] == popped[i]:
-                stack.pop()
-                i += 1
-        return not stack
-```
 
 ### 1003. Check If Word Is Valid After Substitutions
 

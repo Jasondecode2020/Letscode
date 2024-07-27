@@ -39,6 +39,8 @@ def fn(arr1, arr2):
 * [18. 4Sum](#18-4Sum)
 * [11. Container With Most Water](#11-Container-With-Most-Water)
 * [1679. Max Number of K-Sum Pairs]()
+* [844. Backspace String Compare](#881-boats-to-save-people)
+
 
 ### 1. Two Sum
 
@@ -527,4 +529,39 @@ class Solution:
             l += 1
             r -= 2
         return res
+```
+
+
+### 844. Backspace String Compare
+
+```python
+class Solution:
+    def backspaceCompare(self, s: str, t: str) -> bool:
+        i, j = len(s) - 1, len(t) - 1
+        skipS = 0
+        skipT = 0
+        while i >= 0 or j >= 0:
+            while i >= 0:
+                if s[i] == '#':
+                    skipS += 1
+                    i -= 1
+                elif skipS > 0:
+                    skipS -= 1
+                    i -= 1
+                else:
+                    break 
+            while j >= 0:
+                if t[j] == '#':
+                    skipT += 1
+                    j -= 1
+                elif skipT > 0:
+                    skipT -= 1
+                    j -= 1
+                else:
+                    break 
+            if i >= 0 and j >= 0 and s[i] != t[j]:
+                return False
+            i -= 1
+            j -= 1
+        return i == j
 ```
