@@ -719,6 +719,79 @@ class Solution:
 * [646. Maximum Length of Pair Chain](#646-maximum-length-of-pair-chain)
 * [1272. Remove Interval](#1272-remove-interval)
 
+### 57. Insert Interval
+
+- use count to store one result
+- use start, end to record one merged interval
+
+```python
+class Solution:
+    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        intervals.append(newInterval)
+        events = []
+        for s, e in intervals:
+            events.append((s, -1))
+            events.append((e, 1))
+        events.sort()
+
+        count, res = 0, []
+        start, end = inf, -inf
+        for point, sign in events:
+            if sign < 0:
+                count += 1
+                start = min(start, point)
+            else:
+                count -= 1
+                end = max(end, point)
+            if count == 0:
+                res.append([start, end])
+                start, end = inf, -inf
+        return res
+```
+
+- better O(n) solution
+
+```python
+class Solution:
+    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        s, e = newInterval 
+        res = []
+        insert = False 
+        for start, end in intervals:
+            if e < start:
+                if not insert:
+                    res.append([s, e])
+                    insert = True
+                res.append([start, end])
+            elif end < s:
+                res.append([start, end])
+            else:
+                s, e = min(s, start), max(e, end)
+        if not insert:
+            res.append([s, e])
+        return res 
+```
+
+
+### 56. Merge Intervals
+
+```python
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        n = len(intervals)
+        intervals.sort()
+        start, end = intervals[0]
+        res = []
+        for i in range(1, n):
+            s, e = intervals[i]
+            if s > end:
+                res.append([start, end])
+                start = s 
+            end = max(end, e)
+        res.append([start, end])
+        return res 
+```
+
 ### 452. Minimum Number of Arrows to Burst Balloons
 
 - greedy at end

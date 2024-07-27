@@ -1,23 +1,26 @@
 ## difference array
 
-- 1d difference array
+### 1d difference array
 
-<p>Can calculate directly using difference array</p>
+<p>Can calculate directly using 1d difference array</p>
 
-* [2848. Points That Intersect With Cars](#2848-Points-That-Intersect-With-Cars) 1230
-* [1893. Check if All the Integers in a Range Are Covered](#1893-Check-if-All-the-Integers-in-a-Range-Are-Covered) 1307
-* [1854. Maximum Population Year](#1854-maximum-population-year) 1370
-* [1094. Car Pooling](#1094-car-pooling) 1441
-* [1109. Corporate Flight Bookings](#1109-Corporate-Flight-Bookings) 1570
+* 1. [2848. Points That Intersect With Cars](#2848-Points-That-Intersect-With-Cars) 1230
+* 2. [1893. Check if All the Integers in a Range Are Covered](#1893-Check-if-All-the-Integers-in-a-Range-Are-Covered) 1307
+* 3. [495. Teemo Attacking](#495-teemo-attacking) 1350
+* 4. [1854. Maximum Population Year](#1854-maximum-population-year) 1370
+* 5. [370. Range Addition](#370-Range-Addition) 1400
+* 6. [1094. Car Pooling](#1094-car-pooling) 1441
+* 7. [1109. Corporate Flight Bookings](#1109-Corporate-Flight-Bookings) 1570
+* 8. [252. Meeting Rooms](#252-meeting-rooms) 1600
+* 9. [253. Meeting Rooms II](#253-meeting-rooms-ii) 1601
+* 10. [2406. Divide Intervals Into Minimum Number of Groups](#2406-Divide-Intervals-Into-Minimum-Number-of-Groups) 1731
 
-* [56. Merge Intervals](#56-merge-intervals) 1580
-* [57. Insert Interval](#57-insert-interval) 1600
-* [732. My Calendar III](#732-my-calendar-iii) 1700
-* [2406. Divide Intervals Into Minimum Number of Groups](#2406-Divide-Intervals-Into-Minimum-Number-of-Groups) 1731
+
+* [1589. Maximum Sum Obtained of Any Permutation](#1589-maximum-sum-obtained-of-any-permutation) 1871
 
 * [2381. Shifting Letters II](#2381-Shifting-Letters-II) 1793
 * [995. Minimum Number of K Consecutive Bit Flips](#995-minimum-number-of-k-consecutive-bit-flips) 1835
-* [1589. Maximum Sum Obtained of Any Permutation](#2406-Divide-Intervals-Into-Minimum-Number-of-Groups) 1871
+
 * [1943. Describe the Painting](#1943-describe-the-painting) 1969
 * [2251. Number of Flowers in Full Bloom](#2251-number-of-flowers-in-full-bloom) 2251
 
@@ -27,8 +30,8 @@
 * [1674. Minimum Moves to Make Array Complementary](#1674-minimum-moves-to-make-array-complementary) 2333
 * [3017. Count the Number of Houses at a Certain Distance II]() 2709
 
-* [253. Meeting Rooms II](#253-meeting-rooms-ii)
-* [370. Range Addition](#370-Range-Addition)
+
+
 * [759. Employee Free Time](#759-employee-free-time)
 * [2021. Brightest Position on Street](#2021-brightest-position-on-street)
 * [2015. Average Height of Buildings in Each Segment](#2015-average-height-of-buildings-in-each-segment)
@@ -36,7 +39,7 @@
 * [2237. Count Positions on Street With Required Brightness](#2237-count-positions-on-street-with-required-brightness)
 * [3009. Maximum Number of Intersections on the Chart](#3009-maximum-number-of-intersections-on-the-chart) 2500
 
-- 2d difference array (3)
+### 2d difference array (3)
 
 * [2536. Increment Submatrices by One](#2536-increment-submatrices-by-one) 1583
 * [850. Rectangle Area II](#850-rectangle-area-ii) 2236
@@ -55,25 +58,6 @@ class Solution:
         return sum(s > 0 for s in accumulate(f))
 ```
 
-```c++
-class Solution {
-public:
-    int numberOfPoints(vector<vector<int>>& nums) {
-        int f[102]{};
-        for (auto &p: nums) {
-            f[p[0]]++;
-            f[p[1] + 1]--;
-        }
-        int res = 0, pre = 0;
-        for (int n: f) {
-            pre += n;
-            res += pre > 0;
-        }
-        return res;
-    }
-};
-```
-
 ### 1893. Check if All the Integers in a Range Are Covered
 
 ```python
@@ -86,6 +70,20 @@ class Solution:
         return all(v > 0 for i, v in enumerate(accumulate(f)) if left <= i <= right)
 ```
 
+### 495. Teemo Attacking
+
+```python
+class Solution:
+    def findPoisonedDuration(self, timeSeries: List[int], duration: int) -> int:
+        mx = max(timeSeries) + duration
+        nums = [0] * (mx + 1)
+        for t in timeSeries:
+            nums[t] += 1
+            nums[t + duration] -= 1
+        nums = list(accumulate(nums))
+        return sum([n > 0 for n in nums])
+```
+
 ### 1854. Maximum Population Year
 
 ```python
@@ -96,24 +94,10 @@ class Solution:
             f[s] += 1
             f[e] -= 1
         pre = list(accumulate(f))
-        ans, res = 0, 0
+        mx = max(pre)
         for i, n in enumerate(pre):
-            if n > ans:
-                res = i 
-                ans = n 
-        return res 
-```
-
-### 2960. Count Tested Devices After Test Operations
-
-```python
-class Solution:
-    def countTestedDevices(self, batteryPercentages: List[int]) -> int:
-        dec = 0
-        for x in batteryPercentages:
-            if x > dec:
-                dec += 1
-        return dec
+            if n == mx:
+                return i
 ```
 
 ### 1094. Car Pooling
@@ -129,27 +113,6 @@ class Solution:
         return max(pre) <= capacity
 ```
 
-```c++
-class Solution {
-public:
-    bool carPooling(vector<vector<int>>& trips, int capacity) {
-        int f[1001]{};
-        for (auto &p: trips) {
-            f[p[1]] += p[0];
-            f[p[2]] -= p[0];
-        }
-        int pre = 0;
-        for (int n: f) {
-            pre += n;
-            if (pre > capacity) {
-                return false;
-            }
-        }
-        return true;
-    }
-};
-```
-
 ### 1109. Corporate Flight Bookings
 
 ```python
@@ -163,144 +126,34 @@ class Solution:
         return pre[1: -1]
 ```
 
-### 56. Merge Intervals
+### 252. Meeting Rooms
 
 ```python
 class Solution:
-    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
-        n = len(intervals)
-        intervals.sort()
-        start, end = intervals[0]
-        res = []
-        for i in range(1, n):
-            s, e = intervals[i]
-            if s > end:
-                res.append([start, end])
-                start = s 
-            end = max(end, e)
-        res.append([start, end])
-        return res 
-```
-
-```python
-class Solution:
-    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
-        events = []
+    def canAttendMeetings(self, intervals: List[List[int]]) -> bool:
+        f = [0] * (10 ** 6 + 1)
         for s, e in intervals:
-            events.append([s, -1])
-            events.append([e, 1])
-        events.sort()
-        start, end = inf, -inf
-        res = []
-        count = 0
-        for x, sign in events:
-            if sign == -1:
-                count += 1
-                start = min(start, x)
-            else:
-                count -= 1
-                end = max(end, x)
-            if count == 0:
-                res.append([start, end])
-                start = inf 
-        return res
+            f[s] += 1
+            f[e] -= 1
+        pre = list(accumulate(f))
+        return max(pre) <= 1
 ```
-
-### 57. Insert Interval
-
-- use count to store one result
-- use start, end to record one merged interval
 
 ```python
 class Solution:
-    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
-        intervals.append(newInterval)
+    def canAttendMeetings(self, intervals: List[List[int]]) -> bool:
         events = []
-        for s, e in intervals:
-            events.append((s, -1))
-            events.append((e, 1))
-        events.sort()
-
-        count, res = 0, []
-        start, end = inf, -inf
-        for point, sign in events:
-            if sign < 0:
-                count += 1
-                start = min(start, point)
-            else:
-                count -= 1
-                end = max(end, point)
-            if count == 0:
-                res.append([start, end])
-                start, end = inf, -inf
-        return res
-```
-
-- better O(n) solution
-
-```python
-class Solution:
-    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
-        s, e = newInterval 
-        res = []
-        insert = False 
         for start, end in intervals:
-            if e < start:
-                if not insert:
-                    res.append([s, e])
-                    insert = True
-                res.append([start, end])
-            elif end < s:
-                res.append([start, end])
-            else:
-                s, e = min(s, start), max(e, end)
-        if not insert:
-            res.append([s, e])
-        return res 
-```
-
-
-### 732. My Calendar III
-
-```python
-class MyCalendarThree:
-
-    def __init__(self):
-        self.res = -inf
-        self.intervals = []
-
-    def book(self, start: int, end: int) -> int:
-        self.intervals.append([start, end])
-        events = []
-        for s, e in self.intervals:
-            events.append((s, 1))
-            events.append((e, -1))
+            events.append([start, 1])
+            events.append([end, -1])
         events.sort()
+        
         count = 0
-        for point, sign in events:
+        for time, sign in events:
             count += sign
-            self.res = max(self.res, count)
-        return self.res
-```
-
-```python
-from sortedcontainers import SortedList
-class MyCalendarThree:
-
-    def __init__(self):
-        self.events = SortedList()
-
-    def book(self, startTime: int, endTime: int) -> int:
-        self.events.add((startTime, 1))
-        self.events.add((endTime, -1))
-        res, count = 0, 0
-        for x, sign in self.events:
-            if sign == 1:
-                count += 1
-                res = max(res, count)
-            else:
-                count -= 1
-        return res
+            if count > 1:
+                return False
+        return True
 ```
 
 ### 2381. Shifting Letters II
@@ -558,8 +411,7 @@ class Solution:
 ```python
 class Solution:
     def minMeetingRooms(self, intervals: List[List[int]]) -> int:
-        n = max(b for a, b in intervals)
-        f = [0] * (n + 2)
+        f = [0] * (10 ** 6 + 1)
         for s, e in intervals:
             f[s] += 1
             f[e] -= 1
@@ -782,20 +634,6 @@ class Solution:
         if q:
             ans.append(q[0])
         return ans
-```
-
-### 495. Teemo Attacking
-
-```python
-class Solution:
-    def findPoisonedDuration(self, timeSeries: List[int], duration: int) -> int:
-        mx = max(timeSeries) + duration
-        nums = [0] * (mx + 1)
-        for t in timeSeries:
-            nums[t] += 1
-            nums[t + duration] -= 1
-        nums = list(accumulate(nums))
-        return sum([n > 0 for n in nums])
 ```
 
 ### 830. Positions of Large Groups

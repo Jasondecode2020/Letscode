@@ -11,6 +11,10 @@
 * [731. My Calendar II](#731-my-calendar-ii)
 * [732. My Calendar III](#732-my-calendar-iii)
 
+* [56. Merge Intervals](#56-merge-intervals) 1580
+* [57. Insert Interval](#57-insert-interval) 1600
+* [732. My Calendar III](#732-my-calendar-iii) 1700
+
 ## 2D 
 
 * [218. The Skyline Problem](#218-the-skyline-problem)
@@ -34,6 +38,19 @@ class Solution:
             if count > 1:
                 return False
         return True
+```
+
+- difference array
+
+```python
+class Solution:
+    def canAttendMeetings(self, intervals: List[List[int]]) -> bool:
+        f = [0] * (10 ** 6 + 1)
+        for s, e in intervals:
+            f[s] += 1
+            f[e] -= 1
+        pre = list(accumulate(f))
+        return max(pre) <= 1
 ```
 
 ### 253. Meeting Rooms II
@@ -227,6 +244,51 @@ class MyCalendarThree:
                 count -= 1
         return res
 ```
+
+
+### 732. My Calendar III
+
+```python
+class MyCalendarThree:
+
+    def __init__(self):
+        self.res = -inf
+        self.intervals = []
+
+    def book(self, start: int, end: int) -> int:
+        self.intervals.append([start, end])
+        events = []
+        for s, e in self.intervals:
+            events.append((s, 1))
+            events.append((e, -1))
+        events.sort()
+        count = 0
+        for point, sign in events:
+            count += sign
+            self.res = max(self.res, count)
+        return self.res
+```
+
+```python
+from sortedcontainers import SortedList
+class MyCalendarThree:
+
+    def __init__(self):
+        self.events = SortedList()
+
+    def book(self, startTime: int, endTime: int) -> int:
+        self.events.add((startTime, 1))
+        self.events.add((endTime, -1))
+        res, count = 0, 0
+        for x, sign in self.events:
+            if sign == 1:
+                count += 1
+                res = max(res, count)
+            else:
+                count -= 1
+        return res
+```
+
 
 ## 2D 
 
