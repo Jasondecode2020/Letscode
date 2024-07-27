@@ -2,9 +2,8 @@
 
 - 1d difference array
 
-```html
 <p>Can calculate directly using difference array</p>
-```
+
 * [2848. Points That Intersect With Cars](#2848-Points-That-Intersect-With-Cars) 1230
 * [1893. Check if All the Integers in a Range Are Covered](#1893-Check-if-All-the-Integers-in-a-Range-Are-Covered) 1307
 * [1854. Maximum Population Year](#1854-maximum-population-year) 1370
