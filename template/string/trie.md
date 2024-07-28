@@ -54,10 +54,19 @@ class Solution:
         return res
 ```
 
+### Trie(11)
+
 * [14. Longest Common Prefix](#14-Longest-Common-Prefix)
 * [208. Implement Trie](#208-Implement-Trie)
 * [720. Longest Word in Dictionary](#720-Longest-Word-in-Dictionary)
 * [1804. Implement Trie II](#1804-Implement-Trie-II)
+* [648. Replace Words](#648-replace-words)
+* [211. Design Add and Search Words Data Structure](#211-design-add-and-search-words-data-structure)
+* [212. Word Search II](#212-word-search-ii)
+* [676. Implement Magic Dictionary](#676-implement-magic-dictionary)
+* [820. Short Encoding of Words](#820-short-encoding-of-words)
+* [1032. Stream of Characters](#1032-stream-of-characters)
+* [745. Prefix and Suffix Search](#745-prefix-and-suffix-search)
 
 ### 14. Longest Common Prefix
 

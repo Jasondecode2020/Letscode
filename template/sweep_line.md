@@ -1,21 +1,33 @@
-# sweep line(11)
+# sweep line(13)
 
-## 1d sweep line(10)
+## 1d sweep line(12)
 
-* 1. [252. Meeting Rooms](#252-meeting-rooms)
-* 2. [253. Meeting Rooms II](#253-meeting-rooms-ii)
-* 3. [56. Merge Intervals](#56-merge-intervals)
-* 4. [57. Insert Interval](#57-insert-interval)
-* 5. [1854. Maximum Population Year](#1854-maximum-population-year)
-* 6. [2021. Brightest Position on Street](#2021-brightest-position-on-street)
-* 7. [759. Employee Free Time](#759-employee-free-time)
-* 8. [729. My Calendar I](#729-my-calendar-i)
-* 9. [731. My Calendar II](#731-my-calendar-ii)
-* 10. [732. My Calendar III](#732-my-calendar-iii)
+* 1. [252. Meeting Rooms](#252-meeting-rooms) 1300
+* 2. [253. Meeting Rooms II](#253-meeting-rooms-ii) 1400
+* 3. [56. Merge Intervals](#56-merge-intervals) 1500
+* 4. [57. Insert Interval](#57-insert-interval) 1550
+* 5. [1854. Maximum Population Year](#1854-maximum-population-year) 1600
+* 6. [2021. Brightest Position on Street](#2021-brightest-position-on-street) 1600
+* 7. [759. Employee Free Time](#759-employee-free-time) 1700
+* 8. [729. My Calendar I](#729-my-calendar-i) 1800
+* 9. [731. My Calendar II](#731-my-calendar-ii) 1800
+* 10. [732. My Calendar III](#732-my-calendar-iii) 1800
+* 11. [3169. Count Days Without Meetings](#3169-count-days-without-meetings) 1700
+* 12. [ 2963. Count the Number of Good Partitions](#2963-count-the-number-of-good-partitions) 1984
+
+
+### extra
+
+1871. Jump-Game-VII (M+)
+2158. Amount of New Area Painted Each Day
+2327. Number of People Aware of a Secret
+2584. Split the Array to Make Coprime Products
+2617. Minimum-Number-of-Visited-Cells-in-a-Grid (H)
+
 
 ## 2d sweep line(1)
 
-* [218. The Skyline Problem](#218-the-skyline-problem)
+* [218. The Skyline Problem](#218-the-skyline-problem) 2500
 
 ### 252. Meeting Rooms
 
@@ -319,6 +331,59 @@ class MyCalendarThree:
             else:
                 count -= 1
         return res
+```
+
+### 3169. Count Days Without Meetings
+
+```python
+class Solution:
+    def countDays(self, days: int, meetings: List[List[int]]) -> int:
+        intervals = meetings[::]
+        events = []
+        for s, e in intervals:
+            events.append((s, -1))
+            events.append((e, 1))
+        events.sort()
+
+        res, count = [], 0
+        start, end = inf, -inf
+        for point, sign in events:
+            if sign < 0:
+                start = min(start, point)
+                count += 1
+            else:
+                end = max(end, point)
+                count -= 1
+            if count == 0:
+                res.append([start, end])
+                start, end = inf, -inf
+        working_days = 0
+        for a, b in res:
+            working_days += b - a + 1
+        return days - working_days
+```
+
+###  2963. Count the Number of Good Partitions
+
+```python
+class Solution:
+    def numberOfGoodPartitions(self, nums: List[int]) -> int:
+        mod = 10 ** 9 + 7
+        d = defaultdict(int)
+        for i, n in enumerate(nums):
+            if n in d:
+                d[n][1] = i 
+            else:
+                d[n] = [i, i]
+        
+        a = sorted(d.values())
+        res = 0
+        r = a[0][1]
+        for left, right in a[1:]:
+            if left > r:
+                res += 1
+            r = max(r, right)
+        return pow(2, res, mod)
 ```
 
 ### 218. The Skyline Problem

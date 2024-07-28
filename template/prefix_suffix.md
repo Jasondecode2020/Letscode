@@ -1,7 +1,5 @@
 ## template
 
-- prefix suffix
-
 ```python
 class Solution:
     def minimumSum(self, nums: List[int]) -> int: # 2909
@@ -17,14 +15,17 @@ class Solution:
         return res if res != inf else -1
 ```
 
-* [238. Product of Array Except Self](#3-Longest-Substring-Without-Repeating-Characters)
+### prefix suffix(9)
+
+* [238. Product of Array Except Self](#238-product-of-array-except-self)
 * [2906. Construct Product Matrix](#209-Minimum-Size-Subarray-Sum)
-* [2483. Minimum Penalty for a Shop](#15-3Sum)
-* [334. Increasing Triplet Subsequence](#3-Longest-Substring-Without-Repeating-Characters)
-* [2256. Minimum Average Difference](#209-Minimum-Size-Subarray-Sum)
-* [42. Trapping Rain Water](#15-3Sum)
-* [2909. Minimum Sum of Mountain Triplets II](#15-3Sum)
+* [2483. Minimum Penalty for a Shop](#2483-minimum-penalty-for-a-shop)
+* [334. Increasing Triplet Subsequence](#334-increasing-triplet-subsequence)
+* [2256. Minimum Average Difference](#2256-minimum-average-difference)
+* [42. Trapping Rain Water](#42-trapping-rain-water)
+* [2909. Minimum Sum of Mountain Triplets II](#2906-construct-product-matrix)
 * [2055. Plates Between Candles](#2055-plates-between-candles)
+* [2012. Sum of Beauty in the Array](#2012-sum-of-beauty-in-the-array)
 
 ### 334. Increasing Triplet Subsequence
 
