@@ -1,8 +1,10 @@
-## difference array
+## difference array(26)
 
-### 1d difference array
+- 26 questions to practise 1d and 2d difference array
 
-<p>Can calculate directly using 1d difference array</p>
+### 1d difference array(contigous)(23)
+
+#### Basics(10)
 
 * 1. [2848. Points That Intersect With Cars](#2848-Points-That-Intersect-With-Cars) 1230
 * 2. [1893. Check if All the Integers in a Range Are Covered](#1893-Check-if-All-the-Integers-in-a-Range-Are-Covered) 1307
@@ -15,29 +17,31 @@
 * 9. [253. Meeting Rooms II](#253-meeting-rooms-ii) 1601
 * 10. [2406. Divide Intervals Into Minimum Number of Groups](#2406-Divide-Intervals-Into-Minimum-Number-of-Groups) 1731
 
+#### Advanced 1 (with other conditions)(3)
 
-* [1589. Maximum Sum Obtained of Any Permutation](#1589-maximum-sum-obtained-of-any-permutation) 1871
+* 1. [2237. Count Positions on Street With Required Brightness](#2237-count-positions-on-street-with-required-brightness) 1700
+* 2. [2381. Shifting Letters II](#2381-Shifting-Letters-II) 1793
+* 3. [1589. Maximum Sum Obtained of Any Permutation](#1589-maximum-sum-obtained-of-any-permutation) 1871
 
-* [2381. Shifting Letters II](#2381-Shifting-Letters-II) 1793
-* [995. Minimum Number of K Consecutive Bit Flips](#995-minimum-number-of-k-consecutive-bit-flips) 1835
+
+#### Advanced 2 (with condition of start)(3)
+
+* 1. [995. Minimum Number of K Consecutive Bit Flips](#995-minimum-number-of-k-consecutive-bit-flips) 1835
+* 2. [2772. Apply Operations to Make All Array Elements Equal to Zero](#2772-apply-operations-to-make-all-array-elements-equal-to-zero) 2029
+* 3. [2528. Maximize the Minimum Powered City](#2528-maximize-the-minimum-powered-city) 2236
+
+#### Advanced 3 (discrete array)(2)
 
 * [1943. Describe the Painting](#1943-describe-the-painting) 1969
 * [2251. Number of Flowers in Full Bloom](#2251-number-of-flowers-in-full-bloom) 2251
 
-* [2772. Apply Operations to Make All Array Elements Equal to Zero](#2772-apply-operations-to-make-all-array-elements-equal-to-zero) 2029
-* [798. Smallest Rotation with Highest Score](#798-smallest-rotation-with-highest-score) 2129
-* [2528. Maximize the Minimum Powered City](#2528-maximize-the-minimum-powered-city) 2236
-* [1674. Minimum Moves to Make Array Complementary](#1674-minimum-moves-to-make-array-complementary) 2333
-* [3017. Count the Number of Houses at a Certain Distance II]() 2709
+#### Advanced 4 (with more difference array calculations)(5)
 
-
-
-* [759. Employee Free Time](#759-employee-free-time)
-* [2021. Brightest Position on Street](#2021-brightest-position-on-street)
-* [2015. Average Height of Buildings in Each Segment](#2015-average-height-of-buildings-in-each-segment)
-
-* [2237. Count Positions on Street With Required Brightness](#2237-count-positions-on-street-with-required-brightness)
-* [3009. Maximum Number of Intersections on the Chart](#3009-maximum-number-of-intersections-on-the-chart) 2500
+* 1. [798. Smallest Rotation with Highest Score](#798-smallest-rotation-with-highest-score) 2129
+* 2. [1674. Minimum Moves to Make Array Complementary](#1674-minimum-moves-to-make-array-complementary) 2333
+* 3. [2015. Average Height of Buildings in Each Segment](#2015-average-height-of-buildings-in-each-segment) 2400
+* 4. [3009. Maximum Number of Intersections on the Chart](#3009-maximum-number-of-intersections-on-the-chart) 2500
+* 5. [3017. Count the Number of Houses at a Certain Distance II](#3017-count-the-number-of-houses-at-a-certain-distance-ii) 2709
 
 ### 2d difference array (3)
 
@@ -100,6 +104,19 @@ class Solution:
                 return i
 ```
 
+### 370. Range Addition
+
+```python
+class Solution:
+    def getModifiedArray(self, length: int, updates: List[List[int]]) -> List[int]:
+        f = [0] * (length + 1)
+        for start, end, inc in updates:
+            f[start] += inc
+            f[end + 1] -= inc
+        f = list(accumulate(f))
+        return f[: -1]
+```
+
 ### 1094. Car Pooling
 
 ```python
@@ -156,27 +173,51 @@ class Solution:
         return True
 ```
 
-### 2381. Shifting Letters II
+### 253. Meeting Rooms II
 
 ```python
 class Solution:
-    def shiftingLetters(self, s: str, shifts: List[List[int]]) -> str:
-        n = len(s)
-        f = [0] * (n + 1)
-        for start, end, direction in shifts:
-            if direction == 1:
-                f[start] += 1
-                f[end + 1] -= 1
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        f = [0] * (10 ** 6 + 1)
+        for s, e in intervals:
+            f[s] += 1
+            f[e] -= 1
+        pre = list(accumulate(f))
+        return max(pre)
+```
+
+```python
+class Solution:
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        events = []
+        for s, e in intervals:
+            events.append((s, 1))
+            events.append((e, -1))
+        events.sort()
+
+        res, count = 0, 0
+        for x, sign in events:
+            if sign == 1:
+                count += 1
             else:
-                f[start] += -1
-                f[end + 1] -= -1
-        pre = list(accumulate(f))[:-1]
-        res = ''
-        for c, v in zip(list(s), pre):
-            v %= 26
-            res += chr(ord(c) + v) if ord(c) + v <= ord('z') else chr(ord(c) + v - 26)
+                count -= 1
+            res = max(res, count)
         return res
 ```
+
+```python
+class Solution:
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        pq = []
+        intervals.sort()
+        for s, e in intervals:
+            if pq and s >= pq[0]:
+                heapreplace(pq, e)
+            else:
+                heappush(pq, e)
+        return len(pq)
+```
+
 
 ### 2406. Divide Intervals Into Minimum Number of Groups
 
@@ -242,42 +283,39 @@ class Solution:
         return max(b for a, b in arr)
 ```
 
-### 1589. Maximum Sum Obtained of Any Permutation
+### 3017. Count the Number of Houses at a Certain Distance II
 
 ```python
 class Solution:
-    def maxSumRangeQuery(self, nums: List[int], requests: List[List[int]]) -> int:
-        mod = 10 ** 9 + 7
-        nums.sort(reverse = True)
-        n = len(nums)
-        f = [0] * (n + 1)
-        for s, e in requests:
-            f[s] += 1
-            f[e + 1] -= 1
-        arr = list(accumulate(f[:-1]))
-        arr.sort(reverse = True)
-        return sum(a * b for a, b in zip(arr, nums)) % mod
+    def countOfPairs(self, n: int, x: int, y: int) -> List[int]:
+        # 调整 x, y 的大小关系
+        if x > y: x, y = y, x
+        ans = [0] * (n + 1)
+        x -= 1
+        y -= 1
+        for i in range(n):
+            # 不需要中介的情况
+            if abs(i - x) + 1 > abs(i - y):
+                ans[1] += 1
+                ans[n - i] -= 1
+            # 需要中介的情况
+            else:
+                # 找到分界点
+                d = abs(i - x) + 1
+                sep = (y + i + d) // 2
+                # 分界点左侧是直接走，距离从 1 到 sep - i
+                ans[1] += 1
+                ans[sep - i + 1] -= 1
+                # 分界点及其右侧与 y 左侧，通过中介，距离从 d + 1 到 d + y - (sep + 1)
+                ans[d + 1] += 1
+                ans[d + y - sep] -= 1
+                # y 及其右侧，距离从 d 到 d + (n - 1) - y
+                ans[d] += 1
+                ans[d + n - y] -= 1
+        ans = list(accumulate(ans))
+        return [x * 2 for x in ans[1:]]
 ```
 
-### 2772. Apply Operations to Make All Array Elements Equal to Zero
-
-```python
-class Solution:
-    def checkArray(self, nums: List[int], k: int) -> bool:
-        n = len(nums)
-        f = [0] * (n + 1)
-        pre = 0
-        for i, v in enumerate(nums):
-            pre += f[i]
-            v += pre 
-            if v == 0:
-                continue
-            if v < 0 or i + k > n:
-                return False
-            pre += -v
-            f[i + k] -= -v 
-        return True
-```
 
 ### 798. Smallest Rotation with Highest Score
 
@@ -301,41 +339,6 @@ class Solution:
                 return i
 ```
 
-### 2528. Maximize the Minimum Powered City
-
-```python
-class Solution:
-    def maxPower(self, stations: List[int], r: int, k: int) -> int:
-        n = len(stations)
-        pre = list(accumulate(stations, initial=0))
-        for i in range(n):
-            stations[i] = pre[min(i + r + 1, n)] - pre[max(i - r, 0)]
-
-        def check(min_power: int) -> bool:
-            f = [0] * n 
-            sum_f = need = 0
-            for i, power in enumerate(stations):
-                sum_f += f[i] 
-                m = min_power - power - sum_f
-                if m > 0: 
-                    need += m
-                    if need > k: 
-                        return False
-                    sum_f += m 
-                    if i + r * 2 + 1 < n: 
-                        f[i + r * 2 + 1] -= m
-            return True
-            
-        left, right, res = 0, 10 ** 20, 0
-        while left <= right:
-            mid = (left + right) // 2
-            if check(mid):
-                res = mid
-                left = mid + 1
-            else:
-                right = mid - 1
-        return res
-```
 
 ### 1674. Minimum Moves to Make Array Complementary
 
@@ -406,68 +409,23 @@ class Solution:
         return res 
 ```
 
-### 253. Meeting Rooms II
-
-```python
-class Solution:
-    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
-        f = [0] * (10 ** 6 + 1)
-        for s, e in intervals:
-            f[s] += 1
-            f[e] -= 1
-        pre = list(accumulate(f))
-        return max(pre)
-```
-
-```python
-class Solution:
-    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
-        events = []
-        for s, e in intervals:
-            events.append((s, 1))
-            events.append((e, -1))
-        events.sort()
-
-        res, count = 0, 0
-        for x, sign in events:
-            if sign == 1:
-                count += 1
-            else:
-                count -= 1
-            res = max(res, count)
-        return res
-```
-
-```python
-class Solution:
-    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
-        pq = []
-        intervals.sort()
-        for s, e in intervals:
-            if pq and s >= pq[0]:
-                heapreplace(pq, e)
-            else:
-                heappush(pq, e)
-        return len(pq)
-```
-
 ### 995. Minimum Number of K Consecutive Bit Flips
 
 ```python
 class Solution:
-    def minKBitFlips(self, A: List[int], K: int) -> int:
-        n = len(A)
+    def minKBitFlips(self, nums: List[int], k: int) -> int:
+        n = len(nums)
         f = [0] * (n + 1)
-        ans, flip = 0, 0
-        for i in range(n):
+        res, flip = 0, 0
+        for i, v in enumerate(nums):
             flip += f[i]
-            if (A[i] + flip) % 2 == 0: #需要翻转 1, 0
-                if i + K > n: #出界了，就结束
+            if (flip + v) % 2 == 0:
+                if i + k > n:
                     return -1
-                ans += 1 # 翻转次数
-                flip += 1 # 左侧位置+1 直接传递到 revCnt 上
-                f[i + K] -= 1 # 右端点+1 位置 -1
-        return ans
+                flip += 1
+                res += 1
+                f[i + k] -= 1
+        return res 
 ```
 
 - same idea using queue
@@ -489,6 +447,108 @@ class Solution:
         return res
 ```
 
+
+### 2381. Shifting Letters II
+
+```python
+class Solution:
+    def shiftingLetters(self, s: str, shifts: List[List[int]]) -> str:
+        n = len(s)
+        f = [0] * (n + 1)
+        for start, end, direction in shifts:
+            if direction == 1:
+                f[start] += 1
+                f[end + 1] -= 1
+            else:
+                f[start] += -1
+                f[end + 1] -= -1
+        pre = list(accumulate(f))[:-1]
+        res = ''
+        for c, v in zip(list(s), pre):
+            v %= 26
+            res += chr(ord(c) + v) if ord(c) + v <= ord('z') else chr(ord(c) + v - 26)
+        return res
+```
+
+### 1589. Maximum Sum Obtained of Any Permutation
+
+- difference array, sorting to find the most frequent
+```python
+class Solution:
+    def maxSumRangeQuery(self, nums: List[int], requests: List[List[int]]) -> int:
+        n, mod = len(nums), 10 ** 9 + 7
+        f = [0] * (n + 1)
+        for s, e in requests:
+            f[s] += 1
+            f[e + 1] -= 1
+            
+        pre = list(accumulate(f[:-1]))
+        nums.sort()
+        pre.sort()
+        res = 0
+        for a, b in zip(nums, pre):
+            res += a * b
+            res %= mod 
+        return res 
+```
+
+### 2772. Apply Operations to Make All Array Elements Equal to Zero
+
+```python
+class Solution:
+    def checkArray(self, nums: List[int], k: int) -> bool:
+        n = len(nums)
+        f = [0] * (n + 1)
+        pre = 0
+        for i, v in enumerate(nums):
+            pre += f[i]
+            v += pre 
+            if v == 0:
+                continue
+            if v < 0 or i + k > n:
+                return False
+            pre += -v
+            f[i + k] -= -v 
+        return True
+```
+
+
+### 2528. Maximize the Minimum Powered City
+
+```python
+class Solution:
+    def maxPower(self, stations: List[int], r: int, k: int) -> int:
+        n = len(stations)
+        pre = list(accumulate(stations, initial=0))
+        for i in range(n):
+            stations[i] = pre[min(i + r + 1, n)] - pre[max(i - r, 0)]
+
+        def check(min_power: int) -> bool:
+            f = [0] * n 
+            sum_f = need = 0
+            for i, power in enumerate(stations):
+                sum_f += f[i] 
+                m = min_power - power - sum_f
+                if m > 0: 
+                    need += m
+                    if need > k: 
+                        return False
+                    sum_f += m 
+                    if i + r * 2 + 1 < n: 
+                        f[i + r * 2 + 1] -= m
+            return True
+            
+        left, right, res = 0, 10 ** 20, 0
+        while left <= right:
+            mid = (left + right) // 2
+            if check(mid):
+                res = mid
+                left = mid + 1
+            else:
+                right = mid - 1
+        return res
+```
+
 ### 1589. Maximum Sum Obtained of Any Permutation
 
 ```python
@@ -505,99 +565,6 @@ class Solution:
         nums.sort()
         res = sum(a * b for a, b in zip(pre, nums))
         return res % mod
-```
-
-
-
-### 370. Range Addition
-
-```python
-class Solution:
-    def getModifiedArray(self, length: int, updates: List[List[int]]) -> List[int]:
-        f = [0] * (length + 1)
-        for start, end, inc in updates:
-            f[start] += inc
-            f[end + 1] -= inc
-        f = list(accumulate(f))
-        return f[: -1]
-```
-
-### 759. Employee Free Time
-
-'''
-We are given a list schedule of employees, which represents the working time for each employee.
-
-Each employee has a list of non-overlapping Intervals, and these intervals are in sorted order.
-
-Return the list of finite intervals representing common, positive-length free time for all employees, also in sorted order.
-
-(Even though we are representing Intervals in the form [x, y], the objects inside are Intervals, not lists or arrays. For example, schedule[0][0].start = 1, schedule[0][0].end = 2, and schedule[0][0][0] is not defined).  Also, we wouldn't include intervals like [5, 5] in our answer, as they have zero length.
-
-Example 1:
-
-Input: schedule = [[[1,2],[5,6]],[[1,3]],[[4,10]]]
-Output: [[3,4]]
-Explanation: There are a total of three employees, and all common
-free time intervals would be [-inf, 1], [3, 4], [10, inf].
-We discard any intervals that contain inf as they aren't finite.
-Example 2:
-
-Input: schedule = [[[1,3],[6,7]],[[2,4]],[[2,5],[9,12]]]
-Output: [[5,6],[7,9]]
-
-Constraints:
-
-1 <= schedule.length , schedule[i].length <= 50
-0 <= schedule[i].start < schedule[i].end <= 10^8
-'''
-
-```python
-class Solution:
-    def employeeFreeTime(self, schedule: '[[Interval]]') -> '[Interval]':
-        events = []
-        for s in schedule:
-            for item in s:
-                events.append([item.start, -1])
-                events.append([item.end, 1])
-        events.sort()
-
-        count, res = 0, []
-        start, end = inf, -inf
-        for point, sign in events:
-            if sign < 0:
-                count += 1
-                start = min(start, point)
-            else:
-                count -= 1
-                end = max(end, point)
-            if count == 0:
-                res.append([start, end])
-                start, end = inf, -inf
-        return [Interval(res[i - 1][1], res[i][0]) for i in range(1, len(res))]
-```
-
-
-### 2021. Brightest Position on Street
-
-```python
-class Solution:
-    def brightestPosition(self, lights: List[List[int]]) -> int:
-        events = []
-        for point, radius in lights:
-            s, e = point - radius, point + radius
-            events.append((s, -1))
-            events.append((e, 1))
-        events.sort()
-        res, count, ans = -inf, 0, 0
-        for x, sign in events:
-            if sign == -1:
-                count += 1
-            else:
-                count -= 1
-            if count > ans:
-                res = x 
-                ans = count
-        return res 
 ```
 
 ### 2015. Average Height of Buildings in Each Segment

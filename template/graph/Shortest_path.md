@@ -448,6 +448,34 @@ class Solution:
         return res
 ```
 
+### 3015. Count the Number of Houses at a Certain Distance I
+
+```python
+class Solution:
+    def countOfPairs(self, n: int, x: int, y: int) -> List[int]:
+        # n = 3, x = 1, y = 3
+        g = [[inf] * (n + 1) for r in range(n + 1)]
+        for i in range(1, n):
+            g[i][i + 1] = 1
+            g[i + 1][i] = 1
+        for i in range(1, n + 1):
+            g[i][i] = 0
+        g[x][y] = 1
+        g[y][x] = 1
+
+        for m in range(1, n + 1):
+            for i in range(1, n + 1):
+                for j in range(1, n + 1):
+                    g[i][j] = min(g[i][j], g[i][m] + g[m][j])
+        
+        res = [0] * (n + 1)
+        for i in range(1, n + 1):
+            for j in range(1, n + 1):
+                if g[i][j] and i != j:
+                    res[g[i][j]] += 1
+        return res[1:]
+```
+
 ## 3 Bellman-Ford
 
 ### 787. Cheapest Flights Within K Stops

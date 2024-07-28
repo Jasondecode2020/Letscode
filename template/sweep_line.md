@@ -1,21 +1,19 @@
-# sweep line
+# sweep line(11)
 
-## 1D
+## 1d sweep line(10)
 
-* [252. Meeting Rooms](#252-meeting-rooms)
-* [253. Meeting Rooms II](#253-meeting-rooms-ii)
-* [56. Merge Intervals](#56-merge-intervals)
-* [57. Insert Interval](#57-insert-interval)
-* [1854. Maximum Population Year](#1854-maximum-population-year)
-* [729. My Calendar I](#729-my-calendar-i)
-* [731. My Calendar II](#731-my-calendar-ii)
-* [732. My Calendar III](#732-my-calendar-iii)
+* 1. [252. Meeting Rooms](#252-meeting-rooms)
+* 2. [253. Meeting Rooms II](#253-meeting-rooms-ii)
+* 3. [56. Merge Intervals](#56-merge-intervals)
+* 4. [57. Insert Interval](#57-insert-interval)
+* 5. [1854. Maximum Population Year](#1854-maximum-population-year)
+* 6. [2021. Brightest Position on Street](#2021-brightest-position-on-street)
+* 7. [759. Employee Free Time](#759-employee-free-time)
+* 8. [729. My Calendar I](#729-my-calendar-i)
+* 9. [731. My Calendar II](#731-my-calendar-ii)
+* 10. [732. My Calendar III](#732-my-calendar-iii)
 
-* [56. Merge Intervals](#56-merge-intervals) 1580
-* [57. Insert Interval](#57-insert-interval) 1600
-* [732. My Calendar III](#732-my-calendar-iii) 1700
-
-## 2D 
+## 2d sweep line(1)
 
 * [218. The Skyline Problem](#218-the-skyline-problem)
 
@@ -157,6 +155,84 @@ class Solution:
         return res
 ```
 
+### 2021. Brightest Position on Street
+
+```python
+class Solution:
+    def brightestPosition(self, lights: List[List[int]]) -> int:
+        events = []
+        for point, radius in lights:
+            s, e = point - radius, point + radius
+            events.append((s, -1))
+            events.append((e, 1))
+        events.sort()
+        res, count, ans = -inf, 0, 0
+        for x, sign in events:
+            if sign == -1:
+                count += 1
+            else:
+                count -= 1
+            if count > ans:
+                res = x 
+                ans = count
+        return res 
+```
+
+### 759. Employee Free Time
+
+'''
+We are given a list schedule of employees, which represents the working time for each employee.
+
+Each employee has a list of non-overlapping Intervals, and these intervals are in sorted order.
+
+Return the list of finite intervals representing common, positive-length free time for all employees, also in sorted order.
+
+(Even though we are representing Intervals in the form [x, y], the objects inside are Intervals, not lists or arrays. For example, schedule[0][0].start = 1, schedule[0][0].end = 2, and schedule[0][0][0] is not defined).  Also, we wouldn't include intervals like [5, 5] in our answer, as they have zero length.
+
+Example 1:
+
+Input: schedule = [[[1,2],[5,6]],[[1,3]],[[4,10]]]
+Output: [[3,4]]
+Explanation: There are a total of three employees, and all common
+free time intervals would be [-inf, 1], [3, 4], [10, inf].
+We discard any intervals that contain inf as they aren't finite.
+Example 2:
+
+Input: schedule = [[[1,3],[6,7]],[[2,4]],[[2,5],[9,12]]]
+Output: [[5,6],[7,9]]
+
+Constraints:
+
+1 <= schedule.length , schedule[i].length <= 50
+0 <= schedule[i].start < schedule[i].end <= 10^8
+'''
+
+```python
+class Solution:
+    def employeeFreeTime(self, schedule: '[[Interval]]') -> '[Interval]':
+        events = []
+        for s in schedule:
+            for item in s:
+                events.append([item.start, -1])
+                events.append([item.end, 1])
+        events.sort()
+
+        count, res = 0, []
+        start, end = inf, -inf
+        for point, sign in events:
+            if sign < 0:
+                count += 1
+                start = min(start, point)
+            else:
+                count -= 1
+                end = max(end, point)
+            if count == 0:
+                res.append([start, end])
+                start, end = inf, -inf
+        return [Interval(res[i - 1][1], res[i][0]) for i in range(1, len(res))]
+```
+
+
 ### 729. My Calendar I
 
 ```python
@@ -244,53 +320,6 @@ class MyCalendarThree:
                 count -= 1
         return res
 ```
-
-
-### 732. My Calendar III
-
-```python
-class MyCalendarThree:
-
-    def __init__(self):
-        self.res = -inf
-        self.intervals = []
-
-    def book(self, start: int, end: int) -> int:
-        self.intervals.append([start, end])
-        events = []
-        for s, e in self.intervals:
-            events.append((s, 1))
-            events.append((e, -1))
-        events.sort()
-        count = 0
-        for point, sign in events:
-            count += sign
-            self.res = max(self.res, count)
-        return self.res
-```
-
-```python
-from sortedcontainers import SortedList
-class MyCalendarThree:
-
-    def __init__(self):
-        self.events = SortedList()
-
-    def book(self, startTime: int, endTime: int) -> int:
-        self.events.add((startTime, 1))
-        self.events.add((endTime, -1))
-        res, count = 0, 0
-        for x, sign in self.events:
-            if sign == 1:
-                count += 1
-                res = max(res, count)
-            else:
-                count -= 1
-        return res
-```
-
-
-## 2D 
 
 ### 218. The Skyline Problem
 
