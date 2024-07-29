@@ -703,3 +703,21 @@ class Solution:
                 i += 1
         return res
 ```
+
+
+### 830. Positions of Large Groups
+
+```python
+class Solution:
+    def largeGroupPositions(self, s: str) -> List[List[int]]:
+        i, res = 0, []
+        while i < len(s):
+            start = i 
+            j = start
+            while j < len(s) and s[j] == s[start]:
+                j += 1
+            if j - start >= 3:
+                res.append([start, j - 1])
+            i = j
+        return res
+```

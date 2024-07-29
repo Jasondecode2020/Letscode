@@ -23,7 +23,6 @@
 * 2. [2381. Shifting Letters II](#2381-Shifting-Letters-II) 1793
 * 3. [1589. Maximum Sum Obtained of Any Permutation](#1589-maximum-sum-obtained-of-any-permutation) 1871
 
-
 #### Advanced 2 (with condition of start)(3)
 
 * 1. [995. Minimum Number of K Consecutive Bit Flips](#995-minimum-number-of-k-consecutive-bit-flips) 1835
@@ -32,8 +31,8 @@
 
 #### Advanced 3 (discrete array)(2)
 
-* [1943. Describe the Painting](#1943-describe-the-painting) 1969
-* [2251. Number of Flowers in Full Bloom](#2251-number-of-flowers-in-full-bloom) 2251
+* 1. [1943. Describe the Painting](#1943-describe-the-painting) 1969
+* 2. [2251. Number of Flowers in Full Bloom](#2251-number-of-flowers-in-full-bloom) 2251
 
 #### Advanced 4 (with more difference array calculations)(5)
 
@@ -323,22 +322,21 @@ class Solution:
 class Solution:
     def bestRotation(self, nums: List[int]) -> int:
         n = len(nums)
-        diff = [0] * (n + 1)
-        for i, num in enumerate(nums):
-            if i >= num:
-                diff[0] += 1
-                diff[i - num + 1] -= 1
-                diff[i + 1] += 1
+        f = [0] * (n + 1)
+        for i, v in enumerate(nums):
+            if i >= v:
+                f[0] += 1
+                f[i - v + 1] -= 1
+                f[i + 1] += 1
             else:
-                diff[i + 1] += 1
-                diff[i + n + 1 - num] -= 1
-        pre = list(accumulate(diff))
+                f[i + 1] += 1
+                f[i + 1 + n - v] -= 1
+        pre = list(accumulate(f))
         mx = max(pre)
         for i, n in enumerate(pre):
             if n == mx:
-                return i
+                return i 
 ```
-
 
 ### 1674. Minimum Moves to Make Array Complementary
 
@@ -601,23 +599,6 @@ class Solution:
         if q:
             ans.append(q[0])
         return ans
-```
-
-### 830. Positions of Large Groups
-
-```python
-class Solution:
-    def largeGroupPositions(self, s: str) -> List[List[int]]:
-        i, res = 0, []
-        while i < len(s):
-            start = i 
-            j = start
-            while j < len(s) and s[j] == s[start]:
-                j += 1
-            if j - start >= 3:
-                res.append([start, j - 1])
-            i = j
-        return res
 ```
 
 ### 2536. Increment Submatrices by One
