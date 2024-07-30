@@ -22,6 +22,11 @@
 * [525. Contiguous Array](#525-contiguous-array)
 * [1546. Maximum Number of Non-Overlapping Subarrays With Sum Equals Target](#1546-maximum-number-of-non-overlapping-subarrays-with-sum-equals-target)
 
+
+## 2 prefix + hash + formular(8)
+
+* [1983. Widest Pair of Indices With Equal Range Sum](#1983-widest-pair-of-indices-with-equal-range-sum)
+
 ## 3 prefix + distance(3)
 
 * [1685. Sum of Absolute Differences in a Sorted Array](#2588-count-the-number-of-beautiful-subarrays)
@@ -35,6 +40,7 @@
 * [1177. Can Make Palindrome from Substring](#1177-can-make-palindrome-from-substring)
 * [1371. Find the Longest Substring Containing Vowels in Even Counts](#1371-find-the-longest-substring-containing-vowels-in-even-counts)
 * [1915. Number of Wonderful Substrings](#1915-number-of-wonderful-substrings)
+* [1442. Count Triplets That Can Form Two Arrays of Equal XOR](#1442-count-triplets-that-can-form-two-arrays-of-equal-xor)
 
 ## 5 2d prefix(10)
 
@@ -50,12 +56,6 @@
 * [3148. Maximum Difference Score in a Grid](#3148-maximum-difference-score-in-a-grid)
 
 Hash+Prefix
-525.Contiguous-Array (M)
-930.Binary-Subarrays-With-Sum (M)
-1983.Widest-Pair-of-Indices-With-Equal-Range-Sum (M)
-1442.Count-Triplets-That-Can-Form-Two-Arrays-of-Equal-XOR (H-)
-1524.Number-of-Sub-arrays-With-Odd-Sum (M)
-974.Subarray-Sums-Divisible-by-K (M)
 1590.Make-Sum-Divisible-by-P (M+)
 1658.Minimum-Operations-to-Reduce-X-to-Zero (M)
 1371.Find-the-Longest-Substring-Containing-Vowels-in-Even-Counts (H-)
@@ -346,6 +346,24 @@ class Solution:
                 res += 1
             s.add(a)
         return res
+```
+
+### 1983. Widest Pair of Indices With Equal Range Sum
+
+```python
+class Solution:
+    def widestPairOfIndices(self, nums1: List[int], nums2: List[int]) -> int:
+        d = defaultdict(int)
+        d[0] = -1
+        diffsum = 0
+        res = 0
+        for i in range(len(nums1)):
+            diffsum += nums1[i] - nums2[i]
+            if diffsum in d:
+                res = max(res, i - d[diffsum])
+            else:
+                d[diffsum] = i 
+        return res 
 ```
 
 ### 1685. Sum of Absolute Differences in a Sorted Array
@@ -1077,10 +1095,6 @@ class Solution:
             res.append(cur)
         return res
 ```
-
-
-
-
 
 ## sliding window
 

@@ -29,7 +29,8 @@ Practice with ratings (https://huxulm.github.io/lc-rating/zen)
       * [2971. Find Polygon With the Largest Perimeter](https://github.com/Jasondecode2020/Letscode/blob/main/template/hash_table.md#2971-find-polygon-with-the-largest-perimeter)
       * [1679. Max Number of K-Sum Pairs](https://github.com/Jasondecode2020/Letscode/blob/main/template/hash_table.md#1679-max-number-of-k-sum-pairs)
       * [2964. Number of Divisible Triplet Sums](https://github.com/Jasondecode2020/Letscode/blob/main/template/hash_table.md#2964-number-of-divisible-triplet-sums)
-  * #### 1.2 Hash Set
+  * #### 1.2 Counter
+  * #### 1.3 Hash Set
 * ### 2 Matrix
 * ### 3 Stack
   * #### 3.1 basics
@@ -45,17 +46,16 @@ Practice with ratings (https://huxulm.github.io/lc-rating/zen)
   * #### Basics
   * #### Two Heaps
   * #### Regret greedy
-* ### 6 Divide and Conquer
+* ### 6 Binary Search
   * #### 6.1 Basics
-  * #### 6.2 Binary Search
-  * #### 6.3 Sort
+  * #### 6.2 Binary Search Answer
 * ### 7 Two Pointers
   * #### Basics
   * #### Fast Slow Pointers
   * #### List Groups
 * ### 8 Sliding Window
   * #### Fixed Window
-  * #### Changable Window
+  * #### Flex Window
 * ### 9 Linked List
 * ### 10 Tree
   * #### 11.1 DFS
@@ -215,8 +215,8 @@ Practice with ratings (https://huxulm.github.io/lc-rating/zen)
     * [1284. Minimum Number of Flips to Convert Binary Matrix to Zero Matrix](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/bit.md#1284-minimum-number-of-flips-to-convert-binary-matrix-to-zero-matrix)
     * [864. Shortest Path to Get All Keys](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/bit.md#864-shortest-path-to-get-all-keys)
 * ### 14 Greedy
-* ### 15 Sweep Line
-  * #### 1D
+* ### 15 Sweep Line(13)
+  * #### 1D(12)
     * [252. Meeting Rooms](https://github.com/Jasondecode2020/Letscode/blob/main/template/sweep_line.md#252-meeting-rooms) 1300
     * [253. Meeting Rooms II](https://github.com/Jasondecode2020/Letscode/blob/main/template/sweep_line.md#253-meeting-rooms-ii) 1400
     * [56. Merge Intervals](https://github.com/Jasondecode2020/Letscode/blob/main/template/sweep_line.md#56-merge-intervals) 1500
@@ -229,7 +229,7 @@ Practice with ratings (https://huxulm.github.io/lc-rating/zen)
     * [732. My Calendar III](https://github.com/Jasondecode2020/Letscode/blob/main/template/sweep_line.md#732-my-calendar-iii) 1800
     * [3169. Count Days Without Meetings](https://github.com/Jasondecode2020/Letscode/blob/main/template/sweep_line.md#3169-count-days-without-meetings) 1700
     * [ 2963. Count the Number of Good Partitions](https://github.com/Jasondecode2020/Letscode/blob/main/template/sweep_line.md#2963-count-the-number-of-good-partitions) 1984
-  * #### 2D 
+  * #### 2D(1)
     * [218. The Skyline Problem](https://github.com/Jasondecode2020/Letscode/blob/main/template/sweep_line.md#218-the-skyline-problem) 2500
 * ### 16 Difference Array(26)
   * #### 1d Basics(10)
