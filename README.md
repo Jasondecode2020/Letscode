@@ -217,17 +217,20 @@ Practice with ratings (https://huxulm.github.io/lc-rating/zen)
 * ### 14 Greedy
 * ### 15 Sweep Line
   * #### 1D
-    * [252. Meeting Rooms](
-    * [2848. Points That Intersect With Cars](https://github.com/Jasondecode2020/Letscode/blob/main/template/sweep_line.md#252-meeting-rooms)
-    * [253. Meeting Rooms II](https://github.com/Jasondecode2020/Letscode/blob/main/template/sweep_line.md#253-meeting-rooms-ii)
-    * [56. Merge Intervals](https://github.com/Jasondecode2020/Letscode/blob/main/template/sweep_line.md#56-merge-intervals)
-    * [57. Insert Interval](https://github.com/Jasondecode2020/Letscode/blob/main/template/sweep_line.md#57-insert-interval)
-    * [1854. Maximum Population Year](https://github.com/Jasondecode2020/Letscode/blob/main/template/sweep_line.md#1854-maximum-population-year)
-    * [729. My Calendar I](https://github.com/Jasondecode2020/Letscode/blob/main/template/sweep_line.md#729-my-calendar-i)
-    * [731. My Calendar II](https://github.com/Jasondecode2020/Letscode/blob/main/template/sweep_line.md#731-my-calendar-ii)
-    * [732. My Calendar III](https://github.com/Jasondecode2020/Letscode/blob/main/template/sweep_line.md#732-my-calendar-iii)
+    * [252. Meeting Rooms](https://github.com/Jasondecode2020/Letscode/blob/main/template/sweep_line.md#252-meeting-rooms) 1300
+    * [253. Meeting Rooms II](https://github.com/Jasondecode2020/Letscode/blob/main/template/sweep_line.md#253-meeting-rooms-ii) 1400
+    * [56. Merge Intervals](https://github.com/Jasondecode2020/Letscode/blob/main/template/sweep_line.md#56-merge-intervals) 1500
+    * [57. Insert Interval](https://github.com/Jasondecode2020/Letscode/blob/main/template/sweep_line.md#57-insert-interval) 1550
+    * [1854. Maximum Population Year](https://github.com/Jasondecode2020/Letscode/blob/main/template/sweep_line.md#1854-maximum-population-year) 1600
+    * [2021. Brightest Position on Street](https://github.com/Jasondecode2020/Letscode/blob/main/template/sweep_line.md#2021-brightest-position-on-street) 1600
+    * [759. Employee Free Time](https://github.com/Jasondecode2020/Letscode/blob/main/template/sweep_line.md#759-employee-free-time) 1700
+    * [729. My Calendar I](https://github.com/Jasondecode2020/Letscode/blob/main/template/sweep_line.md#729-my-calendar-i) 1800
+    * [731. My Calendar II](https://github.com/Jasondecode2020/Letscode/blob/main/template/sweep_line.md#731-my-calendar-ii) 1800
+    * [732. My Calendar III](https://github.com/Jasondecode2020/Letscode/blob/main/template/sweep_line.md#732-my-calendar-iii) 1800
+    * [3169. Count Days Without Meetings](https://github.com/Jasondecode2020/Letscode/blob/main/template/sweep_line.md#3169-count-days-without-meetings) 1700
+    * [ 2963. Count the Number of Good Partitions](https://github.com/Jasondecode2020/Letscode/blob/main/template/sweep_line.md#2963-count-the-number-of-good-partitions) 1984
   * #### 2D 
-    * [218. The Skyline Problem](https://github.com/Jasondecode2020/Letscode/blob/main/template/sweep_line.md#218-the-skyline-problem)
+    * [218. The Skyline Problem](https://github.com/Jasondecode2020/Letscode/blob/main/template/sweep_line.md#218-the-skyline-problem) 2500
 * ### 16 Difference Array(26)
   * #### 1d Basics(10)
     * 1. [2848. Points That Intersect With Cars](https://github.com/Jasondecode2020/Letscode/blob/main/template/difference_array.md#2848-Points-That-Intersect-With-Cars) 1230

@@ -70,6 +70,14 @@ Hash+Prefix
 2949.Count-Beautiful-Substrings-II (H-)
 2950.Number-of-Divisible-Substrings (H-)
 
+### extra
+
+1871. Jump-Game-VII (M+)
+2158. Amount of New Area Painted Each Day
+2327. Number of People Aware of a Secret
+2584. Split the Array to Make Coprime Products
+2617. Minimum-Number-of-Visited-Cells-in-a-Grid (H)
+
 ### 303. Range Sum Query - Immutable
 
 ```python

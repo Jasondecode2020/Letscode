@@ -15,16 +15,6 @@
 * 11. [3169. Count Days Without Meetings](#3169-count-days-without-meetings) 1700
 * 12. [ 2963. Count the Number of Good Partitions](#2963-count-the-number-of-good-partitions) 1984
 
-
-### extra
-
-1871. Jump-Game-VII (M+)
-2158. Amount of New Area Painted Each Day
-2327. Number of People Aware of a Secret
-2584. Split the Array to Make Coprime Products
-2617. Minimum-Number-of-Visited-Cells-in-a-Grid (H)
-
-
 ## 2d sweep line(1)
 
 * [218. The Skyline Problem](#218-the-skyline-problem) 2500
