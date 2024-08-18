@@ -1,3 +1,38 @@
+## counting sort
+
+### 1833. Maximum Ice Cream Bars
+
+```python
+class Solution:
+    def maxIceCream(self, costs: List[int], coins: int) -> int:
+        freq = [0] * (10 ** 5 + 1)
+        for c in costs:
+            freq[c] += 1
+        cnt = 0
+        for i in range(1, 10 ** 5 + 1):
+            if coins >= i:
+                mn = min(freq[i], coins // i)
+                cnt += mn
+                coins -= i * mn
+            else:
+                break
+        return cnt
+```
+
+### 3074. Apple Redistribution into Boxes
+
+```python
+class Solution:
+    def minimumBoxes(self, apple: List[int], capacity: List[int]) -> int:
+        total = sum(apple)
+        capacity.sort(reverse = True)
+        cnt = 0
+        for i, c in enumerate(capacity):
+            cnt += c 
+            if cnt >= total:
+                return i + 1
+```
+
 ## sorting: to sort arr simulation ans
 
 - 768. Max Chunks To Make Sorted II

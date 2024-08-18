@@ -71,7 +71,7 @@ def numIslands(self, grid: List[List[str]]) -> int:
     return res
 ```
 
-## dfs stack (backtracking)
+## template4: dfs stack (backtracking)
 
 * [797. All Paths From Source to Target](#797-All-Paths-From-Source-to-Target)
 
@@ -90,7 +90,7 @@ def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
         return res
 ```
 
-## DFS graph question list
+## DFS
 
 * [547. Number of Provinces](#547-Number-of-Provinces)
 * [1971. Find if Path Exists in Graph](#1971-Find-if-Path-Exists-in-Graph)
@@ -104,22 +104,25 @@ def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
 * [924. Minimize Malware Spread](#924-Minimize-Malware-Spread)
 * [802. Find Eventual Safe States](#802-Find-Eventual-Safe-States)
 * [261. Graph Valid Tree](#261-Graph-Valid-Tree)
+* [1376. Time Needed to Inform All Employees]()
 
-## DFS grid question list
+## Grid DFS
 
 * [200. Number of Islands](#200-Number-of-Islands)
-* 695. Max Area of Island
-* 463. Island Perimeter
-* 2658. Maximum Number of Fish in a Grid
-* 1034. Coloring A Border
-* 1020. Number of Enclaves
-* 1254. Number of Closed Islands
-* 130. Surrounded Regions
-* 1391. Check if There is a Valid Path in a Grid
-* 417. Pacific Atlantic Water Flow
+* [695. Max Area of Island](#695-max-area-of-island)
+* [面试题 16.19. Pond Sizes LCCI](#面试题-1619-pond-sizes-lcci)
+* [463. Island Perimeter](#463-island-perimeter)
+* [2658. Maximum Number of Fish in a Grid](#2658-maximum-number-of-fish-in-a-grid)
+* [1034. Coloring A Border](#1034-coloring-a-border)
+* [1020. Number of Enclaves](#1020-number-of-enclaves)
+* [1254. Number of Closed Islands](#1254-number-of-closed-islands)
+* [130. Surrounded Regions](#130-surrounded-regions)
+* [1391. Check if There is a Valid Path in a Grid](#130-surrounded-regions)
+* [417. Pacific Atlantic Water Flow](#417-pacific-atlantic-water-flow)
 * 529. Minesweeper
 * 827. Making A Large Island
 * 1905. Count Sub Islands
+* [1559. Detect Cycles in 2D Grid](#1559-detect-cycles-in-2d-grid)
 
 ### 547. Number of Provinces
 
@@ -477,6 +480,23 @@ class Solution:
         return dfs(0, -1) and len(visited) == n
 ```
 
+### 1376. Time Needed to Inform All Employees
+
+```python
+class Solution:
+    def numOfMinutes(self, n: int, headID: int, manager: List[int], informTime: List[int]) -> int:
+        g = defaultdict(list)
+        for i, n in enumerate(manager):
+            g[n].append(i)
+        def dfs(x):
+            mx = 0
+            for y in g[x]:
+                mx = max(mx, dfs(y))
+            return mx + informTime[x]
+        return dfs(headID)
+```
+
+
 ### ####################################################################################### graph grid
 
 ### 200. Number of Islands
@@ -487,11 +507,12 @@ class Solution:
         def dfs(r, c):
             grid[r][c] = '0'
             for dr, dc in directions:
-                row, col = r + dr, c + dc
+                row, col = r + dr, c + dc 
                 if 0 <= row < R and 0 <= col < C and grid[row][col] == '1':
                     dfs(row, col)
 
-        R, C, res = len(grid), len(grid[0]), 0
+        R, C = len(grid), len(grid[0])
+        res = 0
         directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
         for r in range(R):
             for c in range(C):
@@ -499,6 +520,56 @@ class Solution:
                     dfs(r, c)
                     res += 1
         return res
+```
+
+### 695. Max Area of Island
+
+```python
+class Solution:
+    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+        def dfs(r, c):
+            grid[r][c] = 0
+            self.cnt += 1
+            for dr, dc in directions:
+                row, col = r + dr, c + dc 
+                if 0 <= row < R and 0 <= col < C and grid[row][col] == 1:
+                    dfs(row, col)
+
+        R, C = len(grid), len(grid[0])
+        res = 0
+        directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+        for r in range(R):
+            for c in range(C):
+                if grid[r][c] == 1:
+                    self.cnt = 0
+                    dfs(r, c)
+                    res = max(res, self.cnt)
+        return res
+```
+
+### 面试题 16.19. Pond Sizes LCCI
+
+```python
+class Solution:
+    def pondSizes(self, grid: List[List[int]]) -> List[int]:
+        def dfs(r, c):
+            grid[r][c] = 1
+            self.cnt += 1
+            for dr, dc in directions:
+                row, col = r + dr, c + dc 
+                if 0 <= row < R and 0 <= col < C and grid[row][col] == 0:
+                    dfs(row, col)
+
+        R, C = len(grid), len(grid[0])
+        res = []
+        directions = [(1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (-1, 1), (-1, -1), (1, -1)]
+        for r in range(R):
+            for c in range(C):
+                if grid[r][c] == 0:
+                    self.cnt = 0
+                    dfs(r, c)
+                    res.append(self.cnt)
+        return sorted(res)
 ```
 
 ### 694. Number of Distinct Islands
@@ -573,20 +644,22 @@ class Solution:
 class Solution:
     def findMaxFish(self, grid: List[List[int]]) -> int:
         def dfs(r, c):
-            res = grid[r][c]
+            self.cnt += grid[r][c]
             grid[r][c] = 0
             for dr, dc in directions:
-                row, col = r + dr, c + dc
-                if 0 <= row < R and 0 <= col < C and grid[row][col]:
-                    res += dfs(row, col)
-            return res
+                row, col = r + dr, c + dc 
+                if 0 <= row < R and 0 <= col < C and grid[row][col] > 0:
+                    dfs(row, col)
 
-        R, C, res = len(grid), len(grid[0]), 0
+        R, C = len(grid), len(grid[0])
+        res = 0
         directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
         for r in range(R):
             for c in range(C):
-                if grid[r][c]:
-                    res = max(res, dfs(r, c))
+                if grid[r][c] > 0:
+                    self.cnt = 0
+                    dfs(r, c)
+                    res = max(res, self.cnt)
         return res
 ```
 
@@ -597,18 +670,18 @@ class Solution:
     def colorBorder(self, grid: List[List[int]], row: int, col: int, color: int) -> List[List[int]]:
         def dfs(r, c):
             for dr, dc in directions:
-                row, col = r + dr, c + dc
+                row, col = r + dr, c + dc 
                 if (row, col) not in visited:
                     if 0 <= row < R and 0 <= col < C and grid[row][col] == origin:
                         visited.add((row, col))
                         dfs(row, col)
                     else:
-                        grid[r][c] = color
+                        grid[r][c] = color 
 
-        R, C, res = len(grid), len(grid[0]), 0
+        R, C = len(grid), len(grid[0])
         directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
-        origin = grid[row][col]
         visited = set([(row, col)])
+        origin = grid[row][col]
         dfs(row, col)
         return grid
 ```
@@ -637,29 +710,58 @@ class Solution:
         return sum(grid[r][c] for r in range(R) for c in range(C))
 ```
 
+```python
+class Solution:
+    def numEnclaves(self, grid: List[List[int]]) -> int:
+        def dfs(r, c):
+            grid[r][c] = 0
+            self.count += 1
+            for dr, dc in direction:
+                row, col = r + dr, c + dc 
+                if 0 <= row < R and 0 <= col < C and grid[row][col] == 1:
+                    dfs(row, col)
+
+        R, C = len(grid), len(grid[0])
+        direction = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+        border = []
+        for r in range(R):
+            for c in range(C):
+                if r == 0 or c == 0 or r == R - 1 or c == C - 1:
+                    if grid[r][c] == 1:
+                        self.count = 0
+                        dfs(r, c)
+        res = 0
+        for r in range(R):
+            for c in range(C):
+                if grid[r][c] == 1:
+                    self.count = 0
+                    dfs(r, c)
+                    res += self.count 
+        return res
+```
+
 ### 1254. Number of Closed Islands
 
 ```python
 class Solution:
     def closedIsland(self, grid: List[List[int]]) -> int:
-        def dfs(i, j):
-            if grid[i][j] == 1:
-                return True
-            elif i == 0 or i == R - 1 or j == 0 or j == C - 1:
-                return False
-            grid[i][j] = 1
-            res = True
+        def dfs(r, c):
+            grid[r][c] = 1
+            if r == 0 or c == 0 or r == R - 1 or c == C - 1:
+                self.hasBorder = True
             for dr, dc in directions:
-                row, col = i + dr, j + dc
-                res &= dfs(row, col)
-            return res
+                row, col = r + dr, c + dc 
+                if 0 <= row < R and 0 <= col < C and grid[row][col] == 0:
+                    dfs(row, col)
+            return 1 if not self.hasBorder else 0
 
         res, R, C = 0, len(grid),len(grid[0])
         directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
-        for i in range(1, R - 1):
-            for j in range(1, C - 1):
-                if not grid[i][j]:
-                    res += dfs(i, j)
+        for r in range(1, R - 1):
+            for c in range(1, C - 1):
+                if grid[r][c] == 0:
+                    self.hasBorder = False
+                    res += dfs(r, c)
         return res
 ```
 
@@ -671,31 +773,39 @@ class Solution:
         """
         Do not return anything, modify board in-place instead.
         """
-        R, C = len(board), len(board[0])
-        directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
-        def dfs(r, c): #dfs
-            board[r][c] = 'T'
-            for dr, dc in directions:
-                row, col = r + dr, c + dc
-                if 0 <= row < R and 0 <= col < C and board[row][col] == 'O':
+        class Solution:
+    def solve(self, grid: List[List[str]]) -> None:
+        """
+        Do not return anything, modify board in-place instead.
+        """
+        def dfs(r, c):
+            for dr, dc in direction:
+                row, col = r + dr, c + dc 
+                if 0 <= row < R and 0 <= col < C and grid[row][col] == 'O' and (row, col) not in visited:
+                    visited.add((row, col))
                     dfs(row, col)
-        # 1 dfs capture unsurrounded regions (O -> T)
+
+        def dfs2(r, c):
+            grid[r][c] = 'X'
+            for dr, dc in direction:
+                row, col = r + dr, c + dc 
+                if 0 <= row < R and 0 <= col < C and grid[row][col] == 'O':
+                    dfs2(row, col)
+
+        R, C = len(grid), len(grid[0])
+        direction = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+        visited = set()
         for r in range(R):
             for c in range(C):
-                if (board[r][c] == "O" and (r in [0, R - 1] or c in [0, C - 1])):
-                    dfs(r, c)
-                    
-        # 2 capture surrounded regions (O -> X)
+                if r == 0 or c == 0 or r == R - 1 or c == C - 1:
+                    if grid[r][c] == 'O':
+                        visited.add((r, c))
+                        dfs(r, c)
         for r in range(R):
             for c in range(C):
-                if board[r][c] == "O":
-                    board[r][c] = "X"
-        
-        # 3 uncapture unsurrounded regions (T -> O)
-        for r in range(R):
-            for c in range(C):
-                if board[r][c] == "T":
-                    board[r][c] = "O"
+                if grid[r][c] == 'O' and (r, c) not in visited:
+                    dfs2(r, c) 
+        return grid
 ```
 
 ### 1391. Check if There is a Valid Path in a Grid
@@ -711,22 +821,14 @@ class Solution:
                 return
             visited.add((r, c))
             e = grid[r][c]
-            if e in [1, 4, 6]:
-                # right
-                if c + 1 < C and grid[r][c + 1] in [1, 3, 5]:
-                    dfs(r, c + 1)
-            if e in [1, 3, 5]:
-                # left
-                if c - 1 >= 0 and grid[r][c - 1] in [1, 4, 6]:
-                    dfs(r, c - 1)
-            if e in [2, 5, 6]:
-                # up
-                if r - 1 >= 0 and grid[r - 1][c] in [2, 3, 4]:
-                    dfs(r - 1, c)
-            if e in [2, 3, 4]:
-                # down
-                if r + 1 < R and grid[r + 1][c] in [2, 5, 6]:
-                    dfs(r + 1, c)
+            if e in [1, 4, 6] and c + 1 < C and grid[r][c + 1] in [1, 3, 5]:
+                dfs(r, c + 1)
+            if e in [1, 3, 5] and c - 1 >= 0 and grid[r][c - 1] in [1, 4, 6]:
+                dfs(r, c - 1)
+            if e in [2, 5, 6] and r - 1 >= 0 and grid[r - 1][c] in [2, 3, 4]:
+                dfs(r - 1, c)
+            if e in [2, 3, 4] and r + 1 < R and grid[r + 1][c] in [2, 5, 6]:
+                dfs(r + 1, c)
 
         R, C = len(grid), len(grid[0])
         visited = set()
@@ -742,28 +844,71 @@ class Solution:
     def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
         R, C = len(heights), len(heights[0])
         P, A = set(), set()
+        directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
         
         def dfs(r, c, visited, prevHeight):
-            if ((r, c) in visited or r < 0 or c < 0 or r == R or c == C or heights[r][c] < prevHeight):
-                return
-            visited.add((r, c))
-            dfs(r + 1, c, visited, heights[r][c])
-            dfs(r - 1, c, visited, heights[r][c])
-            dfs(r, c + 1, visited, heights[r][c])
-            dfs(r, c - 1, visited, heights[r][c])
+            for dr, dc in directions:
+                row, col = r + dr, c + dc 
+                if 0 <= row < R and 0 <= col < C and (row, col) not in visited and heights[row][col] >= prevHeight:
+                    visited.add((row, col))
+                    dfs(row, col, visited, heights[row][col])
             
         for c in range(C):
+            P.add((0, c))
             dfs(0, c, P, heights[0][c])
+            A.add((R - 1, c))
             dfs(R - 1, c, A, heights[R - 1][c])
         for r in range(R):
+            P.add((r, 0))
             dfs(r, 0, P, heights[r][0])
+            A.add((r, C - 1))
             dfs(r, C - 1, A, heights[r][C - 1])
-        res = []
+        
+        return [(r, c) for r in range(R) for c in range(C) if (r, c) in P and (r, c) in A]
+```
+
+### 1559. Detect Cycles in 2D Grid
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n
+    
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] > self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2
+            self.rank[p2] += self.rank[p1]
+
+    def isConnected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+class Solution:
+    def containsCycle(self, grid: List[List[str]]) -> bool:
+        R, C = len(grid), len(grid[0])
+        directions = [[1, 0], [0, 1]]
+        uf = UF(R * C)
+        res = 0
         for r in range(R):
             for c in range(C):
-                if (r, c) in P and (r, c) in A:
-                    res.append([r, c])
-        return res
+                for dr, dc in directions:
+                    row, col = r + dr, c + dc
+                    if 0 <= row < R and 0 <= col < C and grid[row][col] == grid[r][c]:
+                        if not uf.isConnected(row * C + col, r * C + c):
+                            uf.union(row * C + col, r * C + c)
+                        else:
+                            return True
+        return False
 ```
 
 ### 529. Minesweeper

@@ -1,5 +1,112 @@
 ## greedy
 
+## 1 min-max
+
+* [1833. Maximum Ice Cream Bars](#1833-maximum-ice-cream-bars)
+* [3074. Apple Redistribution into Boxes](#3074-apple-redistribution-into-boxes)
+* [1262. Greatest Sum Divisible by Three](#1262-greatest-sum-divisible-by-three)
+* [948. Bag of Tokens](#948-bag-of-tokens)
+* [1775. Equal Sum Arrays With Minimum Number of Operations](#1775-equal-sum-arrays-with-minimum-number-of-operations)
+
+### 1833. Maximum Ice Cream Bars
+
+```python
+class Solution:
+    def maxIceCream(self, costs: List[int], coins: int) -> int:
+        freq = [0] * (10 ** 5 + 1)
+        for c in costs:
+            freq[c] += 1
+        cnt = 0
+        for i in range(1, 10 ** 5 + 1):
+            if coins >= i:
+                mn = min(freq[i], coins // i)
+                cnt += mn
+                coins -= i * mn
+            else:
+                break
+        return cnt
+```
+
+### 3074. Apple Redistribution into Boxes
+
+```python
+class Solution:
+    def minimumBoxes(self, apple: List[int], capacity: List[int]) -> int:
+        total = sum(apple)
+        capacity.sort(reverse = True)
+        cnt = 0
+        for i, c in enumerate(capacity):
+            cnt += c 
+            if cnt >= total:
+                return i + 1
+```
+
+### 1262. Greatest Sum Divisible by Three
+
+```python
+class Solution:
+    def maxSumDivThree(self, nums: List[int]) -> int:
+        s = sum(nums)
+        if s % 3 == 0:
+            return s 
+        a1 = sorted([n for n in nums if n % 3 == 1])
+        a2 = sorted([n for n in nums if n % 3 == 2])
+        if s % 3 == 2:
+            a1, a2 = a2, a1 
+        res = s - a1[0] if a1 else 0 
+        if len(a2) > 1:
+            res = max(res, s - a2[0] - a2[1])
+        return res 
+```
+
+### 948. Bag of Tokens
+
+```python
+class Solution:
+    def bagOfTokensScore(self, tokens: List[int], power: int) -> int:
+        tokens.sort()
+        n = len(tokens)
+        l, r = 0, n - 1
+        score, res = 0, 0
+        while l <= r:
+            if power >= tokens[l]:
+                score += 1
+                power -= tokens[l]
+                l += 1
+                res = max(res, score)
+            else:
+                if score == 0:
+                    break
+                if score >= 1:
+                    power += tokens[r]
+                    score -= 1
+                    r -= 1
+        return res
+```
+
+### 1775. Equal Sum Arrays With Minimum Number of Operations
+
+```python
+class Solution:
+    def minOperations(self, nums1: List[int], nums2: List[int]) -> int:
+        n1, n2 = len(nums1), len(nums2)
+        mn_nums1, mx_nums1 = n1, n1 * 6
+        mn_nums2, mx_nums2 = n2, n2 * 6
+        if mn_nums1 > mx_nums2 or mn_nums2 > mx_nums1:
+            return -1
+        d = sum(nums2) - sum(nums1)
+        if d < 0:
+            d = -d 
+            nums1, nums2 = nums2, nums1
+        c = Counter([6 - x for x in nums1]) + Counter([x - 1 for x in nums2]) 
+        res = 0
+        for i in range(5, 0, -1):
+            if i * c[i] >= d:
+                return res + ceil(d / i)
+            res += c[i]
+            d -= i * c[i]
+```
+
 * [55. Jump Game](#55-jump-game)
 
 ### 55. Jump Game

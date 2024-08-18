@@ -1,4 +1,4 @@
-## 1 Minimum value
+## 1 Minimum value(10)
 
 * [1283. Find the Smallest Divisor Given a Threshold](#1283-find-the-smallest-divisor-given-a-threshold)
 * [2187. Minimum Time to Complete Trips](#2187-minimum-time-to-complete-trips)
@@ -20,7 +20,7 @@
 * [1642. Furthest Building You Can Reach](#1642-furthest-building-you-can-reach)
 * [2861. Maximum Number of Alloys](#2861-maximum-number-of-alloys)
 * [2258. Escape the Spreading Fire](#2258-escape-the-spreading-fire)
-
+* [1891. Cutting Ribbons]()
 ## 3 minimize max value
 * [410. Split Array Largest Sum](#410)
 * [2064. Minimized Maximum of Products Distributed to Any Store](#2064-minimized-maximum-of-products-distributed-to-any-store)
@@ -38,12 +38,14 @@
 * [2812. Find the Safest Path in a Grid](#2812-find-the-safest-path-in-a-grid)
 * [1102. Path With Maximum Minimum Value](#1102-path-with-maximum-minimum-value)
 * [1231. Divide Chocolate](#1231-divide-chocolate)
+* [2528. Maximize the Minimum Powered City](#2528-maximize-the-minimum-powered-city)
 
 ## 5 kth smallest/largest
 
 * [378. Kth Smallest Element in a Sorted Matrix](#378-kth-smallest-element-in-a-sorted-matrix)
 * [668. Kth Smallest Number in Multiplication Table](#668-kth-smallest-number-in-multiplication-table)
 * [373. Find K Pairs with Smallest Sums](#373-find-k-pairs-with-smallest-sums)
+* [1201. Ugly Number III](#1201-ugly-number-iii)
 
 * 2702. Minimum Operations to Make Numbers Non-positive
 
@@ -509,6 +511,54 @@ class Solution:
         return res if res < R * C else 10 ** 9
 ```
 
+### 1891. Cutting Ribbons
+
+```python
+class Solution:
+    def maxLength(self, ribbons: List[int], k: int) -> int:
+        def check(threshold):
+            count = 0
+            for r in ribbons:
+                count += r // threshold
+            return count >= k
+
+        l, r, res = 1, 10 ** 5, 0
+        while l <= r:
+            m = l + (r - l) // 2
+            if check(m):
+                res = m 
+                l = m + 1
+            else:
+                r = m - 1
+        return res
+```
+
+### 2137. Pour Water Between Buckets to Make Water Levels Equal
+
+```python
+class Solution:
+    def equalizeWater(self, buckets: List[int], loss: int) -> float:
+        def check(threshold):
+            res = 0
+            for b in buckets:
+                if b > threshold:
+                    res += (b - threshold) * (100 - loss) / 100
+            for b in buckets:
+                if b < threshold:
+                    res -= (threshold - b)
+            return res >= 0
+        l, r, res = 0, 10 ** 5, 0
+        eps = 10 ** -6
+        while l <= r:
+            m = l + (r - l) / 2
+            if check(m):
+                res = m 
+                l = m + eps
+            else:
+                r = m - eps
+        return res 
+```
+
 ### 2064. Minimized Maximum of Products Distributed to Any Store
 
 ```python
@@ -941,6 +991,42 @@ class Solution:
                 l = m + 1
             else:
                 r = m - 1
+        return res
+```
+
+### 2528. Maximize the Minimum Powered City
+
+```python
+class Solution:
+    def maxPower(self, stations: List[int], r: int, k: int) -> int:
+        n = len(stations)
+        pre = list(accumulate(stations, initial = 0))
+        for i in range(n):
+            stations[i] = pre[min(i + r + 1, n)] - pre[max(i - r, 0)]
+
+        def check(threshold):
+            pre = extra_stations = 0
+            f = [0] * (n + 1)
+            for i, power in enumerate(stations):
+                pre += f[i]
+                station_num = threshold - power - pre
+                if station_num > 0:
+                    extra_stations += station_num 
+                    if extra_stations > k:
+                        return False 
+                    pre += station_num
+                    if (i + 2 * r + 1) < n:
+                        f[i + 2 * r + 1] -= station_num
+            return True
+
+        left, right, res = 0, 10 ** 20, 0
+        while left <= right:
+            mid = (left + right) // 2
+            if check(mid):
+                res = mid 
+                left = mid + 1
+            else:
+                right = mid - 1
         return res
 ```
 

@@ -168,7 +168,8 @@ class UF:
 
 * 46 [2092. Find All People With Secret](#2092-Find-All-People-With-Secret)
 * 47 [2709. Greatest Common Divisor Traversal](#2709-Greatest-Common-Divisor-Traversal)
-* [1579. Remove Max Number of Edges to Keep Graph Fully Traversable](#1579-Remove-Max-Number-of-Edges-to-Keep-Graph-Fully-Traversable)
+* 48 [1579. Remove Max Number of Edges to Keep Graph Fully Traversable](#1579-Remove-Max-Number-of-Edges-to-Keep-Graph-Fully-Traversable)
+* 49 [1559. Detect Cycles in 2D Grid](#1559-detect-cycles-in-2d-grid)
 
 ### 128. Longest Consecutive Sequence
 
@@ -534,6 +535,50 @@ class Solution:
                         res -= 1
             ans.append(res)
         return ans
+```
+
+### 1559. Detect Cycles in 2D Grid
+
+```python
+class UF:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n
+    
+    def union(self, n1, n2):
+        p1, p2 = self.find(n1), self.find(n2)
+        if self.rank[p1] > self.rank[p2]:
+            self.parent[p2] = p1
+            self.rank[p1] += self.rank[p2]
+        else:
+            self.parent[p1] = p2
+            self.rank[p2] += self.rank[p1]
+
+    def isConnected(self, n1, n2):
+        return self.find(n1) == self.find(n2)
+
+class Solution:
+    def containsCycle(self, grid: List[List[str]]) -> bool:
+        R, C = len(grid), len(grid[0])
+        directions = [[1, 0], [0, 1]]
+        uf = UF(R * C)
+        res = 0
+        for r in range(R):
+            for c in range(C):
+                for dr, dc in directions:
+                    row, col = r + dr, c + dc
+                    if 0 <= row < R and 0 <= col < C and grid[row][col] == grid[r][c]:
+                        if not uf.isConnected(row * C + col, r * C + c):
+                            uf.union(row * C + col, r * C + c)
+                        else:
+                            return True
+        return False
 ```
 
 ### 323. Number of Connected Components in an Undirected Graph

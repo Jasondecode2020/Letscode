@@ -329,7 +329,8 @@ Practice with ratings (https://huxulm.github.io/lc-rating/zen)
     * [593. Valid Square](https://github.com/Jasondecode2020/Letscode/blob/main/template/math/computational_geometry.md#593-valid-square)
     * [2613. Beautiful Pairs](https://github.com/Jasondecode2020/Letscode/blob/main/template/math/computational_geometry.md#2613-beautiful-pairs)
 * ### 24 Tricks
-  * #### 2960. Count Tested Devices After Test Operations
+  * #### 24.1 Predicting the future
+  * [2960. Count Tested Devices After Test Operations]
 
 
 

@@ -539,3 +539,29 @@ class Solution:
                 res = [card] + [res[-1]] + res[:-1]
         return res 
 ```
+
+### 838. Push Dominoes
+
+```python
+class Solution:
+    def pushDominoes(self, dominoes: str) -> str:
+        n = len(dominoes)
+        right = [inf] * n 
+        cur = -inf 
+        for i, d in enumerate(dominoes):
+            if d == 'R':
+                cur = i 
+            elif d == 'L':
+                cur = -inf 
+            right[i] = i - cur 
+
+        left = [inf] * n 
+        cur = inf 
+        for i in range(n - 1, -1, -1):
+            if dominoes[i] == 'L':
+                cur = i 
+            elif dominoes[i] == 'R':
+                cur = inf 
+            left[i] = cur - i 
+        return ''.join(['.' if l == r else ('R' if l > r else 'L') for l, r in zip(left, right)])
+```

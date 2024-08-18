@@ -44,6 +44,257 @@ def fn(q):
 * [2608. Shortest Cycle in a Graph](#2608-Shortest-Cycle-in-a-Graph)
 * [1298. Maximum Candies You Can Get from Boxes](#1298-Maximum-Candies-You-Can-Get-from-Boxes)
 * [631. Design Excel Sum Formula](#631-design-excel-sum-formula)
+* [1377. Frog Position After T Seconds](#1377-frog-position-after-t-seconds)
+
+## Grid DFS
+
+* [200. Number of Islands](#200-Number-of-Islands)
+* [695. Max Area of Island](#695-max-area-of-island)
+* [面试题 16.19. Pond Sizes LCCI](#面试题-1619-pond-sizes-lcci)
+* [463. Island Perimeter](#463-island-perimeter)
+* [2658. Maximum Number of Fish in a Grid](#2658-maximum-number-of-fish-in-a-grid)
+* [1034. Coloring A Border](#1034-coloring-a-border)
+* [1020. Number of Enclaves](#1020-number-of-enclaves)
+* [1254. Number of Closed Islands](#1254-number-of-closed-islands)
+* [130. Surrounded Regions](#130-surrounded-regions)
+* [1391. Check if There is a Valid Path in a Grid](#130-surrounded-regions)
+* [417. Pacific Atlantic Water Flow](#417-pacific-atlantic-water-flow)
+* 529. Minesweeper
+* 827. Making A Large Island
+* [1905. Count Sub Islands]()
+* [1559. Detect Cycles in 2D Grid](#1559-detect-cycles-in-2d-grid)
+
+* [542. 01 Matrix](#542-01-matrix)
+* [994. Rotting Oranges]()
+* [2684. Maximum Number of Moves in a Grid](#2684-maximum-number-of-moves-in-a-grid) 1626
+* [1926. Nearest Exit from Entrance in Maze](#1926-nearest-exit-from-entrance-in-maze) 1638
+* [1162. As Far from Land as Possible](#1162-as-far-from-land-as-possible) 1666
+* [934. Shortest Bridge]() 1826
+2146. 价格范围内最高排名的 K 样物品 1837
+* [1293. Shortest Path in a Grid with Obstacles Elimination]()
+1210. 穿过迷宫的最少移动次数 2022
+317. 离建筑物最近的距离（会员题）
+490. 迷宫（会员题）
+505. 迷宫 II（会员题）
+
+### 542. 01 Matrix
+
+```python
+class Solution:
+    def updateMatrix(self, mat: List[List[int]]) -> List[List[int]]:
+        R, C = len(mat), len(mat[0])
+        visited = set()
+        q = deque()
+        directions = [[0, 1], [1, 0], [-1, 0], [0, -1]]
+        for r in range(R):
+            for c in range(C):
+                if mat[r][c] == 0:
+                    visited.add((r, c))
+                    q.append((r, c, 0))
+
+        while q:
+            r, c, d = q.popleft()
+            for dr, dc in directions:
+                row, col = r + dr, c + dc 
+                if 0 <= row < R and 0 <= col < C and mat[row][col] == 1 and (row, col) not in visited:
+                    mat[row][col] = d + 1
+                    visited.add((row, col))
+                    q.append((row, col, d + 1))
+        return mat
+```
+
+### 994. Rotting Oranges
+
+```python
+class Solution:
+    def orangesRotting(self, grid: List[List[int]]) -> int:
+        R, C = len(grid), len(grid[0])
+        visited = set()
+        q = deque()
+        directions = [[0, 1], [1, 0], [-1, 0], [0, -1]]
+        for r in range(R):
+            for c in range(C):
+                if grid[r][c] == 2:
+                    visited.add((r, c))
+                    q.append((r, c, 0))
+
+        res = 0
+        while q:
+            r, c, d = q.popleft()
+            for dr, dc in directions:
+                row, col = r + dr, c + dc 
+                if 0 <= row < R and 0 <= col < C and grid[row][col] == 1 and (row, col) not in visited:
+                    res = max(res, d + 1)
+                    visited.add((row, col))
+                    q.append((row, col, d + 1))
+        return res if len(visited) == sum(grid[r][c] > 0 for r in range(R) for c in range(C)) else -1
+```
+
+### 2684. Maximum Number of Moves in a Grid
+
+```python
+class Solution:
+    def maxMoves(self, grid: List[List[int]]) -> int:
+        R, C = len(grid), len(grid[0])
+        visited = set([(r, 0) for r in range(R)])
+        q = deque([(r, 0, 0) for r in range(R)])
+
+        res = 0
+        while q:
+            r, c, d = q.popleft()
+            res = max(res, d)
+            for row, col in [(r - 1, c + 1), (r, c + 1), (r + 1, c + 1)]:
+                if 0 <= row < R and 0 <= col < C and (row, col) not in visited and grid[r][c] < grid[row][col]:
+                    visited.add((row, col))
+                    q.append((row, col, d + 1))
+        return res 
+```
+
+### 1926. Nearest Exit from Entrance in Maze
+
+```python
+class Solution:
+    def nearestExit(self, maze: List[List[str]], entrance: List[int]) -> int:
+        R, C = len(maze), len(maze[0])
+        directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+        visited = set()
+        q = deque()
+        for r in range(R):
+            for c in range(C):
+                if [r, c] != entrance and (r == 0 or r == R - 1 or c == 0 or c == C - 1) and maze[r][c] == '.':
+                    visited.add((r, c))
+                    q.append((r, c, 0))
+
+        res = -1
+        while q:
+            r, c, d = q.popleft()
+            if [r, c] == entrance:
+                res = d
+                break 
+            for dr, dc in directions:
+                row, col = r + dr, c + dc 
+                if 0 <= row < R and 0 <= col < C and (row, col) not in visited and maze[row][col] == '.':
+                    visited.add((row, col))
+                    q.append((row, col, d + 1))
+        return res
+```
+
+### 1162. As Far from Land as Possible
+
+```python
+class Solution:
+    def maxDistance(self, grid: List[List[int]]) -> int:
+        q = deque()
+        directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+        R, C = len(grid), len(grid[0])
+        for r in range(R):
+            for c in range(C):
+                if grid[r][c] == 1:
+                    q.append((r, c, 0))
+        res = 0
+        while q:
+            r, c, d = q.popleft()
+            res = d
+            for dr, dc in directions:
+                row, col = r + dr, c + dc 
+                if 0 <= row < R and 0 <= col < C and grid[row][col] == 0:
+                    grid[row][col] = 1
+                    q.append((row, col, d + 1))
+        return res if res else -1
+```
+
+### 934. Shortest Bridge
+
+```python
+class Solution:
+    def shortestBridge(self, grid: List[List[int]]) -> int:
+        R, C = len(grid), len(grid[0])
+        directions = [[0, 1], [0, -1], [-1, 0], [1, 0]]
+        def dfs(r, c):
+            grid[r][c] = 2
+            heappush(pq, (0, r, c))
+            for dr, dc in directions:
+                row, col = r + dr, c + dc 
+                if 0 <= row < R and 0 <= col < C and grid[row][col] == 1:
+                    dfs(row, col)
+
+        for r in range(R):
+            for c in range(C):
+                if grid[r][c] == 1:
+                    pq = []
+                    dfs(r, c)
+                    while pq:
+                        d, row, col = heappop(pq)
+                        for dr, dc in directions:
+                            new_row, new_col = row + dr, col + dc 
+                            if 0 <= new_row < R and 0 <= new_col < C:
+                                if grid[new_row][new_col] == 1:
+                                    return d 
+                                if grid[new_row][new_col] == 0:
+                                    grid[new_row][new_col] = 2
+                                    heappush(pq, (d + 1, new_row, new_col))
+```
+
+### 1293. Shortest Path in a Grid with Obstacles Elimination
+
+```python
+class Solution:
+    def shortestPath(self, grid: List[List[int]], k: int) -> int:
+        if grid[0][0] == 1 and k == 0:
+            return -1
+        q = deque([(0, 0, 0 if grid[0][0] == 0 else 1, 0)])
+        visited = set([(0, 0, 0 if grid[0][0] == 0 else 1)])
+        directions = [[0, 1], [1, 0], [-1, 0], [0, -1]]
+        R, C = len(grid), len(grid[0])
+        while q:
+            r, c, obstacles, steps = q.popleft()
+            if r == R - 1 and c == C - 1:
+                return steps
+            for dr, dc in directions:
+                row, col = r + dr, c + dc 
+                if 0 <= row < R and 0 <= col < C and (row, col, obstacles) not in visited:
+                    visited.add((row, col, obstacles))
+                    if grid[row][col] == 0:
+                        q.append((row, col, obstacles, steps + 1))
+                    else:
+                        if obstacles + 1 <= k:
+                            q.append((row, col, obstacles + 1, steps + 1))
+        return -1
+```
+
+
+### 317. Shortest Distance from All Buildings
+
+```python
+class Solution:
+    def shortestDistance(self, grid: List[List[int]]) -> int:
+        R, C = len(grid), len(grid[0])
+        directions = [(0,1), (0,-1), (1,0), (-1,0)]
+        q, cnt = deque(), 0
+        distance = [[0] * C for r in range(R)]
+        counts = [[0] * C for r in range(R)]
+        res = inf
+        for i in range(R):
+            for j in range(C):
+                if grid[i][j] == 1:
+                    cnt += 1
+                    q.append((i, j, 0))
+                    visited = [[False] * C for r in range(R)]
+                    while q:
+                        r, c, dist = q.popleft()
+                        for dr, dc in directions:
+                            row, col = r + dr, c + dc 
+                            if 0 <= row < R and 0 <= col < C and grid[row][col]==0 and not visited[row][col]:
+                                counts[row][col] += 1
+                                distance[row][col] += dist + 1
+                                q.append((row, col, dist+1))
+                                visited[row][col] = True
+        for r in range(R):
+            for c in range(C):
+                if counts[r][c] == cnt and distance[r][c] < res:
+                    res = distance[r][c]
+        return res if res != inf else -1
+```
 
 ### 1306. Jump Game III
 
@@ -467,4 +718,31 @@ class Excel:
     def sum(self, row: int, column: str, numbers: List[str]) -> int:
         self.sum_state[row - 1][ord(column) - 65] = numbers
         return self.get(row, column)
+```
+
+### 1377. Frog Position After T Seconds
+
+```python
+class Solution:
+    def frogPosition(self, n: int, edges: List[List[int]], t: int, target: int) -> float:
+        g = defaultdict(list)
+        for u, v in edges:
+            g[u].append(v)
+            g[v].append(u)
+
+        q = deque([(1, 1, 0)])
+        visited = set([1])
+        res = 1
+        while q:
+            node, prob, time = q.popleft()
+            if node == target and (time < t and all(n in visited for n in g[node]) or time == t):
+                return prob
+            for nei in g[node]:
+                if nei not in visited:
+                    visited.add(nei)
+                    if node == 1:
+                        q.append((nei, prob * (1 / len(g[node])), time + 1))
+                    else:
+                        q.append((nei, prob * (1 / (len(g[node]) - 1)), time + 1))
+        return 0
 ```
