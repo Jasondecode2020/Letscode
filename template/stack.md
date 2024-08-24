@@ -360,3 +360,30 @@ class Solution:
                 res += c
         return res
 ```
+
+* [853. Car Fleet](#853-car-fleet)
+
+### 853. Car Fleet
+
+```python
+class Solution:
+    def carFleet(self, target: int, position: List[int], speed: List[int]) -> int:
+        pair = [(p, s) for p, s in sorted(zip(position, speed))]
+        stack = []
+        for p, s in sorted(pair, reverse = True):
+            stack.append((target - p) / s)
+            if len(stack) >= 2 and stack[-1] <= stack[-2]:
+                stack.pop()
+        return len(stack)
+```
+
+### 2211. Count Collisions on a Road
+
+```python
+class Solution:
+    def countCollisions(self, directions: str) -> int:
+        s = directions
+        s = s.lstrip('L')
+        s = s.rstrip('R')
+        return len(s) - s.count('S')
+```

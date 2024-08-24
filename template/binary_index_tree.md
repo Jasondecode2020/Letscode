@@ -54,19 +54,23 @@ class BIT:
 
 * [307. Range Sum Query - Mutable](#307-range-sum-query---mutable) 1800
 * [1649. Create Sorted Array through Instructions](#1649-create-sorted-array-through-instructions) 2208
-* [2179. Count Good Triplets in an Array](#2179-count-good-triplets-in-an-array) 2272
+* [3187. Peaks in Array]()
 
-### 2 1d Discrete
+### 2 1d Contiguous with map
+
+* [2179. Count Good Triplets in an Array](#2179-count-good-triplets-in-an-array) 2272
+* [2659. Make Array Empty](#2659-make-array-empty) 2282
+
+### 3 1d Discrete
 
 * [3072. Distribute Elements Into Two Arrays II](#3072-distribute-elements-into-two-arrays-ii) 2053
 
-### 3 2d Contiguous
+### 4 2d Contiguous
 
 * [308. Range Sum Query 2D - Mutable](#308-range-sum-query-2d---mutable) 1900
 
 ### 3
 
-* [2659. Make Array Empty](#2659-make-array-empty) 
 
 ### 307. Range Sum Query - Mutable
 
@@ -221,6 +225,62 @@ class Solution:
             t.add(i, 1)
             res += min(l, r)
         return res % mod
+```
+
+### 3187. Peaks in Array
+
+```python
+class BIT:
+    def __init__(self, nums):
+        self.t = [0] + nums 
+        self.n = len(self.t)
+
+    def lowbit(self, i):
+        return i & -i
+
+    def add(self, i, k):
+        while i < self.n:
+            self.t[i] += k
+            i += self.lowbit(i)
+
+    def update(self, i, k):
+        cur_val = self.query(i, i)
+        val = k - cur_val
+        self.add(i + 1, val)
+
+    def sum(self, i):
+        res = 0
+        while i > 0:
+            res += self.t[i]
+            i -= self.lowbit(i)
+        return res
+
+    def query(self, l, r):
+        if r < l:
+            return 0
+        return self.sum(r) - self.sum(l - 1)
+
+class Solution:
+    def countOfPeaks(self, nums: List[int], queries: List[List[int]]) -> List[int]:
+        n = len(nums)
+        bit = BIT([0] * (n - 2))
+        def add(i, val):
+            if nums[i - 1] < nums[i] and nums[i] > nums[i + 1]:
+                bit.add(i, val)
+        for i in range(1, n - 1):
+            add(i, 1)
+        res = []
+        for sign, a, b in queries:
+            if sign == 2:
+                for i in range(max(a - 1, 1), min(a + 2, n - 1)):
+                    add(i, -1)
+                nums[a] = b 
+                for i in range(max(a - 1, 1), min(a + 2, n - 1)):
+                    add(i, 1)
+            else:
+                val = bit.query(a + 1, b - 1)
+                res.append(val)
+        return res 
 ```
 
 ### 3072. Distribute Elements Into Two Arrays II

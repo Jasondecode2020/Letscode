@@ -11,7 +11,8 @@
 * [2512. Reward Top K Students](#2512-Reward-Top-K-Students)
 * [2502. Design Memory Allocator](#2502-Design-Memory-Allocator)
 * [2353. Design a Food Rating System](#2353-Design-a-Food-Rating-System)
-
+* [755. Pour Water](#755-pour-water)
+* [927. Three Equal Parts](#927-three-equal-parts)
 
 ### 1402. Reducing Dishes
 
@@ -564,4 +565,75 @@ class Solution:
                 cur = inf 
             left[i] = cur - i 
         return ''.join(['.' if l == r else ('R' if l > r else 'L') for l, r in zip(left, right)])
+```
+
+### 755. Pour Water
+
+```python
+class Solution:
+    def pourWater(self, heights: List[int], volume: int, k: int) -> List[int]:
+        n = len(heights)
+        for _ in range(volume):
+            i = k
+            pos = k
+            find = False
+            for d in [-1, 1]:
+                while 0 <= i + d < n and heights[i + d] <= heights[i]:
+                    if heights[i + d] < heights[i]:
+                        pos = i + d 
+                    i += d 
+                if pos != k:
+                    heights[pos] += 1
+                    find = True
+                    break
+            if not find:
+                heights[pos] += 1
+        return heights
+```
+
+### 927. Three Equal Parts
+
+```python
+class Solution:
+    def threeEqualParts(self, arr: List[int]) -> List[int]:
+        ones = arr.count(1)
+        if ones == 0:
+            return [0, len(arr) - 1]
+        if ones % 3:
+            return [-1, -1] 
+        
+        target = ones // 3 
+        p1 = p2 = p3 = 0
+        cnt = 0
+        for i, num in enumerate(arr):
+            if num == 1:
+                if cnt == 0:
+                    p1 = i 
+                elif cnt == target:
+                    p2 = i 
+                elif cnt == 2 * target:
+                    p3 = i 
+                
+                cnt += 1 
+        
+        origin_p2 = p2 
+        origin_p3 = p3 
+        while p1 < origin_p2 and p2 < origin_p3 and p3 < len(arr):
+            if arr[p1] != arr[p2] or arr[p2] != arr[p3]:
+                return [-1, -1]
+            p1 += 1
+            p2 += 1
+            p3 += 1
+        return [p1 - 1, p2] if p3 == len(arr) else [-1, -1]
+```
+
+### 1121. Divide Array Into Increasing Sequences
+
+```python
+class Solution:
+    def canDivideIntoSubsequences(self, nums: List[int], k: int) -> bool:
+        n = len(nums)
+        c = Counter(nums)
+        mx = max(c.values())
+        return n // mx >= k 
 ```
