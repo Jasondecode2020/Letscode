@@ -54,7 +54,7 @@ class Solution:
         return res
 ```
 
-### Trie(11)
+### Trie(12)
 
 * [14. Longest Common Prefix](#14-Longest-Common-Prefix)
 * [208. Implement Trie](#208-Implement-Trie)
@@ -67,6 +67,7 @@ class Solution:
 * [820. Short Encoding of Words](#820-short-encoding-of-words)
 * [1032. Stream of Characters](#1032-stream-of-characters)
 * [745. Prefix and Suffix Search](#745-prefix-and-suffix-search)
+* [2416. Sum of Prefix Scores of Strings](#2416-sum-of-prefix-scores-of-strings)
 
 ### 14. Longest Common Prefix
 
@@ -641,4 +642,42 @@ class WordFilter:
 # Your WordFilter object will be instantiated and called as such:
 # obj = WordFilter(words)
 # param_1 = obj.f(pref,suff)
+```
+
+### 2416. Sum of Prefix Scores of Strings
+
+```python
+class TrieNode: # has children and endOfWord
+    def __init__(self):
+        self.children = {} # can be 26 for English letters
+        self.endOfWord = False # check if word ends with a letter
+        self.count = 0
+
+class Trie: # a tree like data structure to solve prefix problems in string
+    def __init__(self): # init the node
+        self.root = TrieNode()
+
+    def insert(self, word: str) -> None: # insert a word inside a Trie
+        cur = self.root
+        for c in word:
+            if c not in cur.children:
+                cur.children[c] = TrieNode()
+            cur = cur.children[c]
+            cur.count += 1
+        cur.endOfWord = True
+
+class Solution:
+    def sumPrefixScores(self, words: List[str]) -> List[int]:
+        t = Trie()
+        for word in words:
+            t.insert(word)
+        res = [0] * len(words)
+        for i, word in enumerate(words):
+            cur = t.root 
+            ans = 0
+            for c in word:
+                cur = cur.children[c]
+                ans += cur.count
+            res[i] = ans 
+        return res
 ```

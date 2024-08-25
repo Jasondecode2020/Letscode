@@ -1,7 +1,7 @@
 ## template: bit manipulation
 
 * `421. Maximum XOR of Two Numbers in an Array`
-
+* [2275. Largest Combination With Bitwise AND Greater Than Zero](#2275-largest-combination-with-bitwise-and-greater-than-zero)
 
 ### 292. Nim Game
 
@@ -267,4 +267,19 @@ class Solution:
             if not reverse(a):
                 return False
         return True
+```
+
+### 2275. Largest Combination With Bitwise AND Greater Than Zero
+
+```python
+class Solution:
+    def largestCombination(self, candidates: List[int]) -> int:
+        n = len(candidates)
+        res = [0] * 32
+        for c in candidates:
+            s = bin(c)[2:][::-1]
+            for i, num in enumerate(s):
+                if num == '1':
+                    res[i] += 1
+        return max(res)
 ```
