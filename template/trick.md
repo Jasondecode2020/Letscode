@@ -29,3 +29,25 @@ class Solution:
             res = min(res, max(pre[0][-1] - pre[0][i], pre[1][i - 1]))
         return res
 ```
+
+### 288. Unique Word Abbreviation
+
+```python
+class ValidWordAbbr:
+
+    def __init__(self, dictionary: List[str]):
+        self.d = defaultdict(int)
+        self.word = set(dictionary)
+        for word in self.word:
+            if len(word) <= 2:
+                self.d[word] += 1
+            else:
+                self.d[word[0] + str((len(word) - 2)) + word[-1]] += 1
+
+    def isUnique(self, word: str) -> bool:
+        origin = word
+        word = word if len(word) <= 2 else word[0] + str((len(word) - 2)) + word[-1]
+        if origin in self.word and self.d[word] == 1:
+            return True
+        return not word in self.d
+```

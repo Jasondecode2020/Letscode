@@ -1,6 +1,13 @@
 ## combinatorics
 
-### 3128. Right Triangles
+* [3128. Right Triangles](#3128-right-triangles)
+* [357. Count Numbers with Unique Digits](#357-count-numbers-with-unique-digits)
+* [2928. Distribute Candies Among Children I](#2928-distribute-candies-among-children-i)
+* [2929. Distribute Candies Among Children II](#2929-distribute-candies-among-children-ii)
+* [2927. Distribute Candies Among Children III](#2927-distribute-candies-among-children-iii)
+* [1573. Number of Ways to Split a String](#1573-number-of-ways-to-split-a-string)
+* [1569. Number of Ways to Reorder Array to Get Same BST](#1569-number-of-ways-to-reorder-array-to-get-same-bst)
+* [1411. Number of Ways to Paint N × 3 Grid](#1411-number-of-ways-to-paint-n--3-grid)
 
 ```python
 class Solution:
@@ -105,4 +112,41 @@ class Solution:
             r = [n for n in nums if n > val]
             return comb(len(l) + len(r), len(l)) * f(l) * f(r)
         return (f(nums) - 1) % mod
+```
+
+
+### 1411. Number of Ways to Paint N × 3 Grid
+
+```python
+class Solution:
+    def numOfWays(self, n: int) -> int:
+        mod = 10 ** 9 + 7
+        @cache
+        def dfs(i, p):
+            if i == n:
+                return 1
+            if i == 0:
+                return 6 * (dfs(i + 1, 0) + dfs(i + 1, 1)) % mod
+            else:
+                if p == 0:
+                    return 2 * (dfs(i + 1, 0) + dfs(i + 1, 1)) % mod
+                else:
+                    return (2 * dfs(i + 1, 0) + 3 * dfs(i + 1, 1)) % mod 
+        return dfs(0, -1)
+```
+
+### 1359. Count All Valid Pickup and Delivery Options
+
+```python
+class Solution:
+    def countOrders(self, n: int) -> int:
+        mod = 10 ** 9 + 7
+        @cache
+        def dfs(n):
+            if n == 1:
+                return 1
+            if n == 2:
+                return 6
+            return dfs(n - 1) * ((2 * n - 1) + (2 * (n - 1) * (2 * n - 1) // 2))
+        return dfs(n) % mod
 ```

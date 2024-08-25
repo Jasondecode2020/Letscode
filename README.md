@@ -114,7 +114,7 @@ Practice with ratings (https://huxulm.github.io/lc-rating/zen)
       * [1976. Number of Ways to Arrive at Destination](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/Shortest-path.md#1976-Number-of-Ways-to-Arrive-at-Destination)
       * [505. The Maze II](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/Shortest-path.md#505-The-Maze-II)
 * ### 12 Backtracking
-  * #### 12.1 Select or Not
+  * #### 12.1 Select or Not(12)
     * [257. Binary Tree Paths](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#257-Binary-Tree-Paths)[E]
     * [988. Smallest String Starting From Leaf](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#988-Smallest-String-Starting-From-Leaf)[M][same as 257]
     * [113. Path Sum II](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#113-Path-Sum-II)[M][same as 257]
@@ -124,7 +124,10 @@ Practice with ratings (https://huxulm.github.io/lc-rating/zen)
     * [90. Subsets II](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#90-Subsets-II)[M]
     * [784. Letter Case Permutation](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#784-Letter-Case-Permutation)
     * [1239. Maximum Length of a Concatenated String with Unique Characters](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#784-Letter-Case-Permutation)
-  * #### 12.1 Enumerate
+    * [2044. Count Number of Maximum Bitwise-OR Subsets](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#2044-count-number-of-maximum-bitwise-or-subsets) 1567
+    * [1255. Maximum Score Words Formed by Letters](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#1255-maximum-score-words-formed-by-letters)
+    * [2397. Maximum Rows Covered by Columns](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#2397-maximum-rows-covered-by-columns)
+  * #### 12.1 Enumerate/cut(10)
     * [39. Combination Sum](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#39-Combination-Sum)[M]
     * [40. Combination Sum II](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#40-Combination-Sum-II)[M]
     * [216. Combination Sum III](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#216-Combination-Sum-III)[M]
@@ -134,7 +137,8 @@ Practice with ratings (https://huxulm.github.io/lc-rating/zen)
     * [77. Combinations](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#77-Combinations)[M]
     * [17. Letter Combinations of a Phone Number](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#17-Letter-Combinations-of-a-Phone-Number)[M]
     * [996. Number of Squareful Arrays](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#996-Number-of-Squareful-Arrays)
-  * #### 12.1 Games
+    * [291. Word Pattern II](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#291-word-pattern-ii)
+  * #### 12.1 Games(4)
     * [37. Sudoku Solver](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#37-Sudoku-Solver)
     * [51. N-Queens](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#51-N-Queens)
     * [52. N-Queens II](https://github.com/Jasondecode2020/Letscode/blob/main/template/backtracking.md#52-N-Queens-II)

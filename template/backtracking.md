@@ -32,8 +32,11 @@ class Solution:
 * [90. Subsets II](#90-Subsets-II)[M]
 * [784. Letter Case Permutation](#784-Letter-Case-Permutation)
 * [1239. Maximum Length of a Concatenated String with Unique Characters](#784-Letter-Case-Permutation)
+* [2044. Count Number of Maximum Bitwise-OR Subsets](#2044-count-number-of-maximum-bitwise-or-subsets) 1567
+* [1255. Maximum Score Words Formed by Letters](#1255-maximum-score-words-formed-by-letters)
+* [2397. Maximum Rows Covered by Columns](#2397-maximum-rows-covered-by-columns)
 
-> enumerate pattern (need a for loop to enumerate all conditions)
+> enumerate pattern (cut) (need a for loop to enumerate all conditions)
 
 * [39. Combination Sum](#39-Combination-Sum)[M]
 * [40. Combination Sum II](#40-Combination-Sum-II)[M]
@@ -44,6 +47,7 @@ class Solution:
 * [77. Combinations](#77-Combinations)[M]
 * [17. Letter Combinations of a Phone Number](#17-Letter-Combinations-of-a-Phone-Number)[M]
 * [996. Number of Squareful Arrays](#996-Number-of-Squareful-Arrays)
+* [291. Word Pattern II](#291-word-pattern-ii)
 
 > games (need to find how to play the game)
 
@@ -873,4 +877,129 @@ class Solution:
                 backtrack(valid + c, i + 1)
         backtrack('', 0)
         return sorted(ans)
+```
+
+### 291. Word Pattern II
+
+```python
+class Solution:
+    def wordPatternMatch(self, pattern: str, s: str) -> bool:
+        m = len(pattern)
+        res = []
+        def backtrack(s, ans):
+            if len(ans) == m - 1:
+                ans.append(s)
+                res.append(ans)
+                return 
+            for i in range(1, len(s)):
+                backtrack(s[i:], ans + [s[:i]])
+        backtrack(s, [])
+        
+        def check(words, pattern):
+            d1, d2 = {}, {}
+            for w, p in zip(words, pattern):
+                d1[w] = p 
+                d2[p] = w 
+            return [(k, v) for k, v in d1.items()] == [(v, k) for k, v in d2.items()]
+
+        for words in res:
+            if check(words, pattern):
+                return True
+        return False
+```
+
+### 2397. Maximum Rows Covered by Columns
+
+```python
+class Solution:
+    def maximumRows(self, matrix: List[List[int]], numSelect: int) -> int:
+        R = len(matrix)
+        n = len(matrix[0])
+        res = []
+        def backtrack(i, ans):
+            if len(ans) > numSelect:
+                return 
+            if i == n:
+                if len(ans) == numSelect:
+                    res.append(ans)
+                return 
+            backtrack(i + 1, ans)
+            backtrack(i + 1, ans + [i])
+        backtrack(0, [])
+        
+        d = dict((i, v.count(1)) for i, v in enumerate(matrix))
+        ans = 0
+        for arr in res:
+            c = Counter()
+            for col in arr:
+                for row in range(R):
+                    if matrix[row][col] == 1:
+                        c[row] += 1
+            
+            cnt = 0
+            for k in d:
+                if d[k] == c[k]:
+                    cnt += 1
+            ans = max(ans, cnt)
+        return ans
+```
+
+### 1255. Maximum Score Words Formed by Letters
+
+```python
+class Solution:
+    def maxScoreWords(self, words: List[str], letters: List[str], score: List[int]) -> int:
+        n = len(words)
+        c = Counter(letters)
+        res = []
+        def backtrack(i, ans):
+            if i == n:
+                res.append(ans)
+                return 
+            backtrack(i + 1, ans)
+            if Counter(words[i]) <= c:
+                for letter in words[i]:
+                    c[letter] -= 1
+                backtrack(i + 1, ans + [words[i]])
+                for letter in words[i]:
+                    c[letter] += 1
+        backtrack(0, [])
+        score = dict(zip(ascii_lowercase, score))
+        ans = 0
+        def getScore(a):
+            res = 0
+            for word in a:
+                res += sum(score[c] for c in word)
+            return res
+        for arr in res:
+            ans = max(ans, getScore(arr))
+        return ans
+```
+
+### 2044. Count Number of Maximum Bitwise-OR Subsets
+
+```python
+class Solution:
+    def countMaxOrSubsets(self, nums: List[int]) -> int:
+        n = len(nums)
+        res = []
+        def backtrack(i, ans):
+            if i == n:
+                res.append(ans)
+                return 
+            backtrack(i + 1, ans)
+            backtrack(i + 1, ans + [nums[i]])
+        backtrack(0, [])
+
+        def check(a):
+            ans = 0
+            for n in a:
+                ans |= n 
+            return ans 
+        
+        c = Counter()
+        for arr in res:
+            c[check(arr)] += 1
+        mx = max(c.keys())
+        return c[mx]
 ```
