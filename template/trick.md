@@ -51,3 +51,17 @@ class ValidWordAbbr:
             return True
         return not word in self.d
 ```
+
+### 779. K-th Symbol in Grammar
+
+```python
+class Solution:
+    def kthGrammar(self, n: int, k: int) -> int:
+        def dfs(n, k):
+            if n == 1:
+                return 0
+            if k <= 2 ** (n - 1) // 2:
+                return dfs(n - 1, k)
+            return dfs(n - 1, k - 2 ** (n - 1) // 2) ^ 1
+        return dfs(n, k)
+```

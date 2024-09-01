@@ -387,3 +387,25 @@ class Solution:
         s = s.rstrip('R')
         return len(s) - s.count('S')
 ```
+
+### 1209. Remove All Adjacent Duplicates in String II
+
+```python
+class Solution:
+    def removeDuplicates(self, s: str, k: int) -> str:
+        stack = []
+        cnt = 0
+        for c in s:
+            if stack:
+                if stack[-1][0] == c:
+                    cnt = stack[-1][1] + 1
+                else:
+                    cnt = 1
+            else:
+                cnt += 1
+            stack.append((c, cnt))
+            if cnt == k:
+                for i in range(k):
+                    stack.pop()
+        return ''.join([s[0] for s in stack])
+```

@@ -964,3 +964,20 @@ class Solution:
                     res.append([end, e])
         return res
 ```
+
+### 665. Non-decreasing Array
+
+```python
+class Solution:
+    def checkPossibility(self, nums: List[int]) -> bool:
+        n = len(nums)
+        cnt = 0
+        for i in range(1, n):
+            if nums[i] < nums[i - 1]:
+                cnt += 1
+                if i == 1 or nums[i] >= nums[i - 2]:
+                    nums[i - 1] = nums[i]
+                else:
+                    nums[i] = nums[i - 1]
+        return cnt <= 1
+```

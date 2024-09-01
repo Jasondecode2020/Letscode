@@ -175,3 +175,20 @@ class Solution:
             sl.add(c)
         return res 
 ```
+
+### 3092. Most Frequent IDs
+
+```python
+from sortedcontainers import SortedList
+class Solution:
+    def mostFrequentIDs(self, nums: List[int], freq: List[int]) -> List[int]:
+        sl = SortedList()
+        c = Counter()
+        res = []
+        for n, f in zip(nums, freq):
+            sl.discard(c[n])
+            c[n] += f 
+            sl.add(c[n])
+            res.append(sl[-1])
+        return res 
+```

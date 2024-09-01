@@ -150,3 +150,14 @@ class Solution:
             return dfs(n - 1) * ((2 * n - 1) + (2 * (n - 1) * (2 * n - 1) // 2))
         return dfs(n) % mod
 ```
+
+### 1922. Count Good Numbers
+
+```python
+class Solution:
+    def countGoodNumbers(self, n: int) -> int:
+        mod = 10 ** 9 + 7
+        if n % 2 == 0:
+            return pow(5, n // 2, mod) * pow(4, n // 2, mod) % mod
+        return pow(5, n // 2 + 1, mod) * pow(4, n // 2, mod) % mod
+```

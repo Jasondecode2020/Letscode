@@ -279,3 +279,22 @@ class Solution:
                     direction = 'left'
         return matrix
 ```
+
+### 1329. Sort the Matrix Diagonally
+
+```python
+class Solution:
+    def diagonalSort(self, mat: List[List[int]]) -> List[List[int]]:
+        R, C = len(mat), len(mat[0])
+        d = defaultdict(list)
+        for r in range(R):
+            for c in range(C):
+                d[r - c].append((mat[r][c], r, c))
+        for a in d.values():
+            a.sort()
+            v = [n[0] for n in a]
+            coodinates = sorted([(x, y) for v, x, y in a])
+            for n, (x, y) in zip(v, coodinates):
+                mat[x][y] = n 
+        return mat
+```

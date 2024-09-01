@@ -947,25 +947,6 @@ class Solution:
         return len(s) == 1
 ```
 
-### 872. Leaf-Similar Trees
-
-- post order
-
-```python
-class Solution:
-    def leafSimilar(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> bool:
-        def dfs(node, res):
-            if node:
-                dfs(node.left, res)
-                dfs(node.right, res)
-                if not node.left and not node.right:
-                    res.append(node.val)
-            return res
-        res1 = dfs(root1, [])
-        res2 = dfs(root2, [])
-        return res1 == res2
-```
-
 ### 112. Path Sum
 
 ```python

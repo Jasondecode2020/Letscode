@@ -1780,3 +1780,129 @@ class Solution:
                     sortedList.add(presum)
         return res
 ```
+
+### 361. Bomb Enemy
+
+```python
+class Solution:
+    def maxKilledEnemies(self, grid: List[List[str]]) -> int:
+        # def check(r, c):
+        #     cnt = 0
+        #     for dr in [-1, 1]:
+        #         row = r + dr 
+        #         while 0 <= row < R:
+        #             if grid[row][c] == 'E':
+        #                 cnt += 1
+        #             if grid[row][c] == 'W':
+        #                 break
+        #             row += dr 
+        #     for dc in [-1, 1]:
+        #         col = c + dc 
+        #         while 0 <= col < C:
+        #             if grid[r][col] == 'E':
+        #                 cnt += 1
+        #             if grid[r][col] == 'W':
+        #                 break
+        #             col += dc 
+        #     return cnt
+
+        def check(r, c):
+            return left[r][c] + up[r][c] + right[r][c] + down[r][c]
+
+        R, C = len(grid), len(grid[0])
+        left = [[0] * (C + 1) for r in range(R)]
+        for r in range(R):
+            for c in range(1, C + 1):
+                if grid[r][c - 1] == 'E':
+                    left[r][c] += left[r][c - 1] + 1 
+                if grid[r][c - 1] == '0':
+                    left[r][c] += left[r][c - 1]
+
+        right = [[0] * (C + 1) for r in range(R)]
+        for r in range(R):
+            for c in range(C - 1, -1, -1):
+                if grid[r][c] == 'E':
+                    right[r][c] += right[r][c + 1] + 1 
+                if grid[r][c] == '0':
+                    right[r][c] += right[r][c + 1]
+        
+        up = [[0] * C for r in range(R + 1)]
+        for r in range(1, R + 1):
+            for c in range(C):
+                if grid[r - 1][c] == 'E':
+                    up[r][c] += up[r - 1][c] + 1 
+                if grid[r - 1][c] == '0':
+                    up[r][c] += up[r - 1][c]
+        
+        down = [[0] * C for r in range(R + 1)]
+        for r in range(R - 1, -1, -1):
+            for c in range(C):
+                if grid[r][c] == 'E':
+                    down[r][c] += down[r + 1][c] + 1 
+                if grid[r][c] == '0':
+                    down[r][c] += down[r + 1][c]
+
+        res = 0
+        for r in range(R):
+            for c in range(C):
+                if grid[r][c] == '0':
+                    res = max(res, check(r, c))
+        return res 
+```
+
+### 2257. Count Unguarded Cells in the Grid
+
+```python
+class Solution:
+    def countUnguarded(self, m: int, n: int, guards: List[List[int]], walls: List[List[int]]) -> int:
+        def check(r, c):
+            return left[r][c] + up[r][c] + right[r][c] + down[r][c]
+
+        R, C = m, n
+        grid = [['0'] * C for r in range(R)]
+        for r, c in guards:
+            grid[r][c] = 'E'
+
+        for r, c in walls:
+            grid[r][c] = 'W'
+       
+        left = [[0] * (C + 1) for r in range(R)]
+        for r in range(R):
+            for c in range(1, C + 1):
+                if grid[r][c - 1] == 'E':
+                    left[r][c] += left[r][c - 1] + 1 
+                if grid[r][c - 1] == '0':
+                    left[r][c] += left[r][c - 1]
+
+        right = [[0] * (C + 1) for r in range(R)]
+        for r in range(R):
+            for c in range(C - 1, -1, -1):
+                if grid[r][c] == 'E':
+                    right[r][c] += right[r][c + 1] + 1 
+                if grid[r][c] == '0':
+                    right[r][c] += right[r][c + 1]
+        
+        up = [[0] * C for r in range(R + 1)]
+        for r in range(1, R + 1):
+            for c in range(C):
+                if grid[r - 1][c] == 'E':
+                    up[r][c] += up[r - 1][c] + 1 
+                if grid[r - 1][c] == '0':
+                    up[r][c] += up[r - 1][c]
+        
+        down = [[0] * C for r in range(R + 1)]
+        for r in range(R - 1, -1, -1):
+            for c in range(C):
+                if grid[r][c] == 'E':
+                    down[r][c] += down[r + 1][c] + 1 
+                if grid[r][c] == '0':
+                    down[r][c] += down[r + 1][c]
+
+        res = 0
+        for r in range(R):
+            for c in range(C):
+                if grid[r][c] == '0':
+                    if check(r, c) == 0:
+                        res += 1
+        return res 
+```

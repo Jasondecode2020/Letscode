@@ -565,3 +565,29 @@ class Solution:
             j -= 1
         return i == j
 ```
+
+### 1813. Sentence Similarity III
+
+```python
+class Solution:
+    def areSentencesSimilar(self, sentence1: str, sentence2: str) -> bool:
+        sentence1 = sentence1.split(' ')
+        sentence2 = sentence2.split(' ')
+        if len(sentence1) < len(sentence2):
+            sentence1, sentence2 = sentence2, sentence1 
+        l1, r1 = 0, len(sentence1) - 1
+        l2, r2 = 0, len(sentence2) - 1
+        while l2 <= r2:
+            flag = False
+            if sentence2[l2] == sentence1[l1]:
+                l2 += 1
+                l1 += 1
+                flag = True
+            if sentence2[r2] == sentence1[r1]:
+                r2 -= 1
+                r1 -= 1
+                flag = True
+            if not flag:
+                return False
+        return True
+```

@@ -637,3 +637,32 @@ class Solution:
         mx = max(c.values())
         return n // mx >= k 
 ```
+
+### 2105. Watering Plants II
+
+```python
+class Solution:
+    def minimumRefill(self, plants: List[int], capacityA: int, capacityB: int) -> int:
+        l, r = 0, len(plants) - 1
+        originA, originB = capacityA, capacityB
+        res = 0
+        while l <= r:
+            if l == r:
+                if max(capacityA, capacityB) < plants[l]:
+                    res += 1
+                else:
+                    break
+            else:
+                if capacityA < plants[l]:
+                    capacityA = originA
+                    res += 1
+                capacityA -= plants[l]
+                    
+                if capacityB < plants[r]:
+                    capacityB = originB 
+                    res += 1
+                capacityB -= plants[r]   
+            l += 1
+            r -= 1
+        return res
+```
