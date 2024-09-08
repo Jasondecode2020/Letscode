@@ -1440,3 +1440,57 @@ class Solution:
             return (dfs(r1.left, r2.left) and dfs(r1.right, r2.right)) or (dfs(r1.left, r2.right) and dfs(r1.right, r2.left))
         return dfs(root1, root2) 
 ```
+
+* [386. Lexicographical Numbers](#386-lexicographical-numbers)
+* [563. Binary Tree Tilt](#563-binary-tree-tilt)
+
+### 386. Lexicographical Numbers
+
+```python
+class Solution:
+    def lexicalOrder(self, n: int) -> List[int]:
+        def dfs(cur, limit):
+            if cur > limit:
+                return
+            res.append(cur)
+            for i in range(10):
+                dfs(cur * 10 + i, limit)
+
+        res = []
+        for i in range(1, 10):
+            dfs(i, n)
+        return res
+```
+
+```python
+class Solution:
+    def lexicalOrder(self, n: int) -> List[int]:
+        res = []
+        num = 1
+        for i in range(n):
+            res.append(num)
+            if num * 10 <= n:
+                num *= 10
+            else:
+                while num % 10 == 9 or num + 1 > n:
+                    num //= 10
+                num += 1
+        return res
+```
+
+### 563. Binary Tree Tilt
+
+```python
+class Solution:
+    def findTilt(self, root: Optional[TreeNode]) -> int:
+        self.res = 0
+        def dfs(node):
+            if not node:
+                return 0
+            left_sum = dfs(node.left)
+            right_sum = dfs(node.right)
+            self.res += abs(left_sum - right_sum)
+            return left_sum + right_sum + node.val
+        dfs(root)
+        return self.res
+```
