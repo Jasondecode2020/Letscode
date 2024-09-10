@@ -128,18 +128,18 @@ Practice with ratings (https://huxulm.github.io/lc-rating/zen)
 * ### 10 Tree
   * #### 11.1 DFS
   * #### 11.2 BFS
-  * #### 11.3 LCA [pattern](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/lca.md)
-    * [235. Lowest Common Ancestor of a Binary Search Tree](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/lca.md#235-lowest-common-ancestor-of-a-binary-search-tree) [(video)](https://www.youtube.com/watch?v=Xyvn7r_MnzI)
-    * [236. Lowest Common Ancestor of a Binary Tree](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/lca.md#236-lowest-common-ancestor-of-a-binary-tree) [(video)](https://www.youtube.com/watch?v=VybZmx57J2g)
-    * [1644. Lowest Common Ancestor of a Binary Tree II](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/lca.md#1644-lowest-common-ancestor-of-a-binary-tree-ii) [(video)](https://www.youtube.com/watch?v=x2cDAr-SCP8)
-    * [865. Smallest Subtree with all the Deepest Nodes](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/lca.md#865-smallest-subtree-with-all-the-deepest-nodes) [(video)](https://www.youtube.com/watch?v=FVebr5-SFi4)
-    * [1123. Lowest Common Ancestor of Deepest Leaves](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/lca.md#1123-lowest-common-ancestor-of-deepest-leaves) [(video)](https://www.youtube.com/watch?v=FVebr5-SFi4)
+  * #### 11.3 LCA [pattern](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/LCA.md)
+    * [235. Lowest Common Ancestor of a Binary Search Tree](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/LCA.md#235-lowest-common-ancestor-of-a-binary-search-tree) [(video)](https://www.youtube.com/watch?v=Xyvn7r_MnzI)
+    * [236. Lowest Common Ancestor of a Binary Tree](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/LCA.md#236-lowest-common-ancestor-of-a-binary-tree) [(video)](https://www.youtube.com/watch?v=VybZmx57J2g)
+    * [1644. Lowest Common Ancestor of a Binary Tree II](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/LCA.md#1644-lowest-common-ancestor-of-a-binary-tree-ii) [(video)](https://www.youtube.com/watch?v=x2cDAr-SCP8)
+    * [865. Smallest Subtree with all the Deepest Nodes](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/LCA.md#865-smallest-subtree-with-all-the-deepest-nodes) [(video)](https://www.youtube.com/watch?v=FVebr5-SFi4)
+    * [1123. Lowest Common Ancestor of Deepest Leaves](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/LCA.md#1123-lowest-common-ancestor-of-deepest-leaves) [(video)](https://www.youtube.com/watch?v=FVebr5-SFi4)
     
-    * [1676. Lowest Common Ancestor of a Binary Tree IV](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/lca.md#1676-lowest-common-ancestor-of-a-binary-tree-iv) [(video)](https://www.youtube.com/watch?v=UhWesFwmFGI)
-    * [1257. Smallest Common Region](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/lca.md#1257-smallest-common-region) [(video)](https://www.youtube.com/watch?v=DIONngtI9oY)
-    * [1650. Lowest Common Ancestor of a Binary Tree III](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/lca.md#1650-lowest-common-ancestor-of-a-binary-tree-iii) [(video)](https://www.youtube.com/watch?v=nWeQyddaGyY)
-    * [1740. Find Distance in a Binary Tree](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/lca.md#1740-find-distance-in-a-binary-tree)[(video)](https://www.youtube.com/watch?v=7HgAkUkZSso)
-    * [2096. Step-By-Step Directions From a Binary Tree Node to Another](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/lca.md#2096-step-by-step-directions-from-a-binary-tree-node-to-another)[(video)](https://www.youtube.com/watch?v=LVygy_vI02Y)
+    * [1676. Lowest Common Ancestor of a Binary Tree IV](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/LCA.md#1676-lowest-common-ancestor-of-a-binary-tree-iv) [(video)](https://www.youtube.com/watch?v=UhWesFwmFGI)
+    * [1257. Smallest Common Region](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/LCA.md#1257-smallest-common-region) [(video)](https://www.youtube.com/watch?v=DIONngtI9oY)
+    * [1650. Lowest Common Ancestor of a Binary Tree III](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/LCA.md#1650-lowest-common-ancestor-of-a-binary-tree-iii) [(video)](https://www.youtube.com/watch?v=nWeQyddaGyY)
+    * [1740. Find Distance in a Binary Tree](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/LCA.md#1740-find-distance-in-a-binary-tree)[(video)](https://www.youtube.com/watch?v=7HgAkUkZSso)
+    * [2096. Step-By-Step Directions From a Binary Tree Node to Another](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/LCA.md#2096-step-by-step-directions-from-a-binary-tree-node-to-another)[(video)](https://www.youtube.com/watch?v=LVygy_vI02Y)
     
 * ### 11 Graph
   * #### 11.1 DFS [pattern](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/DFS.md)
