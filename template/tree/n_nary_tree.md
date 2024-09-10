@@ -1,32 +1,11 @@
-* [429. N-ary Tree Level Order Traversal](#429-n-ary-tree-level-order-traversal)
-
-
-### 429. N-ary Tree Level Order Traversal
-
-```python
-class Solution:
-    def levelOrder(self, root: 'Node') -> List[List[int]]:
-        if not root:
-            return []
-        q = deque([root])
-        res = []
-        while q:
-            level = []
-            for i in range(len(q)):
-                node = q.popleft()
-                level.append(node.val)
-                for child in node.children:
-                    q.append(child)
-            res.append(level)
-        return res
-```
-
 ## n-ary tree
 
 * [589. N-ary Tree Preorder Traversal](#589-n-ary-tree-preorder-traversal)
 * [590. N-ary Tree Postorder Traversal](#590-n-ary-tree-postorder-traversal)
 * [559. Maximum Depth of N-ary Tree](#559-maximum-depth-of-n-ary-tree)
 * [429. N-ary Tree Level Order Traversal](#429-n-ary-tree-level-order-traversal)
+* [427. Construct Quad Tree](#427-construct-quad-tree)
+* [558. Logical OR of Two Binary Grids Represented as Quad-Trees](#558-logical-or-of-two-binary-grids-represented-as-quad-trees)
 
 ### 589. N-ary Tree Preorder Traversal
 
@@ -151,3 +130,9 @@ class Solution:
             return Node(topLeft.val, True)
         return Node(False, False, topLeft, topRight, bottomLeft, bottomRight)
 ```
+
+428. 序列化和反序列化 N 叉树（会员题）
+1490. 克隆 N 叉树（会员题）
+1506. 找到 N 叉树的根节点（会员题）
+1522. N 叉树的直径（会员题）
+1516. 移动 N 叉树的子树（会员题）
