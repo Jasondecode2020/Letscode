@@ -126,7 +126,7 @@ Practice with ratings (https://huxulm.github.io/lc-rating/zen)
     * [430. Flatten a Multilevel Doubly Linked List]
     * [1265. Print Immutable Linked List in Reverse]
 * ### 10 Tree
-  * #### 11.1 Traversal [pattern]()
+  * #### 11.1 Traversal [pattern](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/tree_traversal.md)
     * [144. Binary Tree Preorder Traversal](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/tree_traversal.md#144-binary-tree-preorder-traversal)
     * [94. Binary Tree Inorder Traversal](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/tree_traversal.md#94-binary-tree-inorder-traversal)
     * [145. Binary Tree Postorder Traversal](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/tree_traversal.md#145-binary-tree-postorder-traversal)
@@ -136,7 +136,43 @@ Practice with ratings (https://huxulm.github.io/lc-rating/zen)
     * [671. Second Minimum Node In a Binary Tree](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/tree_traversal.md#671-second-minimum-node-in-a-binary-tree)
     * [1469. Find All The Lonely Nodes](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/tree_traversal.md#1469-find-all-the-lonely-nodes)
     * [1214. Two Sum BSTs](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/tree_traversal.md#1214-two-sum-bsts)
-  * #### 11.2 BFS
+  * #### 11.2 BFS(30)
+
+    * [102. Binary Tree Level Order Traversal](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/bfs.md#102-binary-tree-level-order-traversal)
+    * [103. Binary Tree Zigzag Level Order Traversal](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/bfs.md#103-binary-tree-zigzag-level-order-traversal)
+    * [107. Binary Tree Level Order Traversal II](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/bfs.md#107-binary-tree-level-order-traversal-ii)
+    * [199. Binary Tree Right Side View](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/bfs.md#199-binary-tree-right-side-view)
+    * [513. Find Bottom Left Tree Value](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/bfs.md#513-find-bottom-left-tree-value)
+    
+    * [515. Find Largest Value in Each Tree Row](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/bfs.md#515-find-largest-value-in-each-tree-row)
+    * [637. Average of Levels in Binary Tree](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/bfs.md#637-average-of-levels-in-binary-tree)
+    * [1161. Maximum Level Sum of a Binary Tree](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/bfs.md#1161-maximum-level-sum-of-a-binary-tree)
+    * [993. Cousins in Binary Tree](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/bfs.md#993-cousins-in-binary-tree)
+    * [2583. Kth Largest Sum in a Binary Tree](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/bfs.md#2583-kth-largest-sum-in-a-binary-tree)
+    
+    * [1302. Deepest Leaves Sum](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/bfs.md#1302-deepest-leaves-sum)
+    * [2415. Reverse Odd Levels of Binary Tree](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/bfs.md#2415-reverse-odd-levels-of-binary-tree)
+    * [1609. Even Odd Tree](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/bfs.md#1609-even-odd-tree)
+    * [623. Add One Row to Tree](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/bfs.md#623-add-one-row-to-tree)
+    * [662. Maximum Width of Binary Tree](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/bfs.md#662-maximum-width-of-binary-tree)
+    
+    * [2471. Minimum Number of Operations to Sort a Binary Tree by Level](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/bfs.md#2471-minimum-number-of-operations-to-sort-a-binary-tree-by-level)
+    * [1602. Find Nearest Right Node in Binary Tree](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/bfs.md#1602-find-nearest-right-node-in-binary-tree)
+    * [3157. Find the Level of Tree with Minimum Sum](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/bfs.md#3157-find-the-level-of-tree-with-minimum-sum)
+    * [742. Closest Leaf in a Binary Tree](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/bfs.md#742-closest-leaf-in-a-binary-tree)
+    * [863. All Nodes Distance K in Binary Tree](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/bfs.md#863-all-nodes-distance-k-in-binary-tree)
+    
+    * [1660. Correct a Binary Tree](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/bfs.md#1660-correct-a-binary-tree)
+    * [2641. Cousins in Binary Tree II](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/bfs.md#2641-cousins-in-binary-tree-ii)
+    * [919. Complete Binary Tree Inserter](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/bfs.md#919-complete-binary-tree-inserter)
+    * [958. Check Completeness of a Binary Tree](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/bfs.md#958-check-completeness-of-a-binary-tree)
+    * [331. Verify Preorder Serialization of a Binary Tree](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/bfs.md#331-verify-preorder-serialization-of-a-binary-tree)
+    
+    * [117. Populating Next Right Pointers in Each Node II](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/bfs.md#117-populating-next-right-pointers-in-each-node-ii)
+    * [314. Binary Tree Vertical Order Traversal](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/bfs.md#314-binary-tree-vertical-order-traversal)
+    * [1469. Find All The Lonely Nodes](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/bfs.mdhttps://github.com/Jasondecode2020/Letscode/blob/main/template/tree/bfs.md#1469-find-all-the-lonely-nodes)
+    * [987. Vertical Order Traversal of a Binary Tree](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/bfs.md#987-vertical-order-traversal-of-a-binary-tree)
+    * [2368. Reachable Nodes With Restrictions](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/bfs.md#2368-reachable-nodes-with-restrictions)
   * #### 11.3 LCA [pattern](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/LCA.md)
     * [235. Lowest Common Ancestor of a Binary Search Tree](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/LCA.md#235-lowest-common-ancestor-of-a-binary-search-tree) [(video)](https://www.youtube.com/watch?v=Xyvn7r_MnzI)
     * [236. Lowest Common Ancestor of a Binary Tree](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/LCA.md#236-lowest-common-ancestor-of-a-binary-tree) [(video)](https://www.youtube.com/watch?v=VybZmx57J2g)
