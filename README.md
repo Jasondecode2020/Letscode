@@ -126,7 +126,16 @@ Practice with ratings (https://huxulm.github.io/lc-rating/zen)
     * [430. Flatten a Multilevel Doubly Linked List]
     * [1265. Print Immutable Linked List in Reverse]
 * ### 10 Tree
-  * #### 11.1 DFS
+  * #### 11.1 Traversal [pattern]()
+    * [144. Binary Tree Preorder Traversal](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/tree_traversal.md#144-binary-tree-preorder-traversal)
+    * [94. Binary Tree Inorder Traversal](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/tree_traversal.md#94-binary-tree-inorder-traversal)
+    * [145. Binary Tree Postorder Traversal](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/tree_traversal.md#145-binary-tree-postorder-traversal)
+    * [872. Leaf-Similar Trees](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/tree_traversal.md#872-leaf-similar-trees)
+    * [404. Sum of Left Leaves](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/tree_traversal.md#404-sum-of-left-leaves)
+
+    * [671. Second Minimum Node In a Binary Tree](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/tree_traversal.md#671-second-minimum-node-in-a-binary-tree)
+    * [1469. Find All The Lonely Nodes](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/tree_traversal.md#1469-find-all-the-lonely-nodes)
+    * [1214. Two Sum BSTs](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/tree_traversal.md#1214-two-sum-bsts)
   * #### 11.2 BFS
   * #### 11.3 LCA [pattern](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/LCA.md)
     * [235. Lowest Common Ancestor of a Binary Search Tree](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/LCA.md#235-lowest-common-ancestor-of-a-binary-search-tree) [(video)](https://www.youtube.com/watch?v=Xyvn7r_MnzI)
