@@ -15,7 +15,7 @@ class Solution:
         return res if res != inf else -1
 ```
 
-### prefix suffix(9)
+### prefix suffix(10)
 
 * [238. Product of Array Except Self](#238-product-of-array-except-self)
 * [2906. Construct Product Matrix](#209-Minimum-Size-Subarray-Sum)
@@ -26,6 +26,7 @@ class Solution:
 * [2909. Minimum Sum of Mountain Triplets II](#2906-construct-product-matrix)
 * [2055. Plates Between Candles](#2055-plates-between-candles)
 * [2012. Sum of Beauty in the Array](#2012-sum-of-beauty-in-the-array)
+* [915. Partition Array into Disjoint Intervals](#915-partition-array-into-disjoint-intervals)
 
 ### 334. Increasing Triplet Subsequence
 
@@ -355,4 +356,20 @@ class Solution:
             if left[b] != inf and right[a] != inf and pre[left[b] + 1] - pre[right[a]] > 0:
                 res[i] = pre[left[b] + 1] - pre[right[a]]
         return res
+```
+
+### 915. Partition Array into Disjoint Intervals
+
+```python
+class Solution:
+    def partitionDisjoint(self, nums: List[int]) -> int:
+        preMax = nums[::]
+        sufMax = nums[::]
+        for i in range(1, len(nums)):
+            preMax[i] = max(preMax[i - 1], preMax[i])
+        for i in range(len(nums) - 2, -1, -1):
+            sufMax[i] = min(sufMax[i + 1], sufMax[i])
+        for i in range(len(nums) - 1):
+            if preMax[i] <= sufMax[i + 1]:
+                return i + 1
 ```

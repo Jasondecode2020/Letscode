@@ -204,7 +204,65 @@ class Solution:
 
 ### 1028. Recover a Tree From Preorder Traversal
 
+```python
+class Solution:
+    def recoverFromPreorder(self, traversal: str) -> Optional[TreeNode]:
+        stack, i, n = [], 0, len(traversal)
+        while i < n:
+            level = 0
+            while traversal[i] == '-':
+                level += 1
+                i += 1
+            value = 0
+            while i < n and traversal[i].isnumeric():
+                value = value * 10 + int(traversal[i])
+                i += 1
+            node = TreeNode(value)
+            if level == len(stack):
+                if stack:
+                    stack[-1].left = node 
+            else:
+                stack = stack[:level]
+                stack[-1].right = node 
+            stack.append(node)
+        return stack[0]
+```
+
 ### 536. Construct Binary Tree from String
+
+```python
+class Solution:
+    def str2tree(self, s: str) -> Optional[TreeNode]:
+        if not s:
+            return None 
+        stack = []
+        i = 0
+        while i < len(s):
+            cur_char = s[i]
+            if cur_char == '-':
+                i += 1
+                val = 0
+                while i < len(s) and s[i].isdigit():
+                    val = val * 10 + int(s[i])
+                    i += 1
+                i -= 1
+                stack.append(TreeNode(-val))
+            elif cur_char.isdigit():
+                val = 0
+                while i < len(s) and s[i].isdigit():
+                    val = val * 10 + int(s[i])
+                    i += 1
+                i -= 1
+                stack.append(TreeNode(val))
+            elif cur_char == ')':
+                top = stack.pop()
+                if not stack[-1].left:
+                    stack[-1].left = top 
+                else:
+                    stack[-1].right = top 
+            i += 1
+        return stack[-1]
+```
 
 ### 1628. Design an Expression Tree With Evaluate Function
 

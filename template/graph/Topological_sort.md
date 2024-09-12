@@ -1,31 +1,42 @@
-## Topological sort(with dp)
+## Topological sort
 
+* [1557. Minimum Number of Vertices to Reach All Nodes](#1557-minimum-number-of-vertices-to-reach-all-nodes)
 * [207. Course Schedule](#207-course-schedule)
 * [210. Course Schedule II](#210-Course-Schedule-II)
 * [310. Minimum Height Trees](#310-Minimum-Height-Trees)
 * [444. Sequence Reconstruction](#444-Sequence-Reconstruction)
-* [802. Find Eventual Safe States](#802-Find-Eventual-Safe-States)
 
+* [802. Find Eventual Safe States](#802-Find-Eventual-Safe-States)
 * [851. Loud and Rich](#851-loud-and-rich)
 * [1059. All Paths from Source Lead to Destination](#1059-All-Paths-from-Source-Lead-to-Destination)
 * [1136. Parallel Courses](#1136-Parallel-Courses)
 * [1245. Tree Diameter](#1245-tree-diameter)
-* [1462. Course Schedule IV](#1462-Course-Schedule-IV)
 
+* [1462. Course Schedule IV](#1462-Course-Schedule-IV)
 * [2115. Find All Possible Recipes from Given Supplies](#2115-Find-All-Possible-Recipes-from-Given-Supplies)
 * [2192. All Ancestors of a Node in a Directed Acyclic Graph](#2192-all-ancestors-of-a-node-in-a-directed-acyclic-graph)
 * [269. Alien Dictionary](#269-Alien-Dictionary)
 * [329. Longest Increasing Path in a Matrix](#329-Longest-Increasing-Path-in-a-Matrix)
-* [2328. Number of Increasing Paths in a Grid](#2328-number-of-increasing-paths-in-a-grid)
 
-* [2392. Build a Matrix With Conditions](#)
+* [2328. Number of Increasing Paths in a Grid](#2328-number-of-increasing-paths-in-a-grid)
+* [2392. Build a Matrix With Conditions](#2392-build-a-matrix-with-conditions)
 * [1591. Strange Printer II](#1591-strange-printer-ii)
 * [2360. Longest Cycle in a Graph](#2360-Longest-Cycle-in-a-Graph)
 * [2050. Parallel Courses III](#2050-parallel-courses-iii)
-* [1916. Count Ways to Build Rooms in an Ant Colony](#1916)
 
+* [1916. Count Ways to Build Rooms in an Ant Colony](#1916-count-ways-to-build-rooms-in-an-ant-colony)
 * [1857. Largest Color Value in a Directed Graph](#1857-largest-color-value-in-a-directed-graph)
-* [1557. Minimum Number of Vertices to Reach All Nodes](#1557-Minimum-Number-of-Vertices-to-Reach-All-Nodes)
+
+### 1557. Minimum Number of Vertices to Reach All Nodes
+
+```python
+class Solution:
+    def findSmallestSetOfVertices(self, n: int, edges: List[List[int]]) -> List[int]:
+        indegree = [0] * n
+        for u, v in edges:
+            indegree[v] += 1
+        return [i for i, v in enumerate(indegree) if v == 0]
+```
 
 ### 207. Course Schedule
 
@@ -719,3 +730,8 @@ class Solution:
             return -1
         return max(max(item) for item in dp)
 ```
+
+### 1203. Sort Items by Groups Respecting Dependencies
+
+### 2603. Collect Coins in a Tree
+

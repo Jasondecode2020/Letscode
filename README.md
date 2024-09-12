@@ -216,6 +216,32 @@ Practice with ratings (https://huxulm.github.io/lc-rating/zen)
     * ##### 11.2.3 01 BFS [pattern](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/DFS.md)
     * ##### 11.2.4 Bi-directional BFS [pattern](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/DFS.md)
   * #### 11.3 Topological Sort
+    * [1557. Minimum Number of Vertices to Reach All Nodes](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/Topological_sort.md#1557-minimum-number-of-vertices-to-reach-all-nodes)
+    * [207. Course Schedule](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/Topological_sort.md#207-course-schedule)
+    * [210. Course Schedule II](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/Topological_sort.md#210-Course-Schedule-II)
+    * [310. Minimum Height Trees](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/Topological_sort.md#310-Minimum-Height-Trees)
+    * [444. Sequence Reconstruction](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/Topological_sort.md#444-Sequence-Reconstruction)
+    
+    * [802. Find Eventual Safe States](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/Topological_sort.md#802-Find-Eventual-Safe-States)
+    * [851. Loud and Rich](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/Topological_sort.md#851-loud-and-rich)
+    * [1059. All Paths from Source Lead to Destination](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/Topological_sort.md#1059-All-Paths-from-Source-Lead-to-Destination)
+    * [1136. Parallel Courses](#1136-Parallel-Courses)
+    * [1245. Tree Diameter](#1245-tree-diameter)
+    
+    * [1462. Course Schedule IV](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/Topological_sort.md#1462-Course-Schedule-IV)
+    * [2115. Find All Possible Recipes from Given Supplies](#2115-Find-All-Possible-Recipes-from-Given-Supplies)
+    * [2192. All Ancestors of a Node in a Directed Acyclic Graph](#2192-all-ancestors-of-a-node-in-a-directed-acyclic-graph)
+    * [269. Alien Dictionary](#269-Alien-Dictionary)
+    * [329. Longest Increasing Path in a Matrix](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/Topological_sort.md#329-Longest-Increasing-Path-in-a-Matrix)
+    
+    * [2328. Number of Increasing Paths in a Grid](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/Topological_sort.md#2328-number-of-increasing-paths-in-a-grid)
+    * [2392. Build a Matrix With Conditions](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/Topological_sort.md#2392-build-a-matrix-with-conditions)
+    * [1591. Strange Printer II](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/Topological_sort.md#1591-strange-printer-ii)
+    * [2360. Longest Cycle in a Graph](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/Topological_sort.md#2360-Longest-Cycle-in-a-Graph)
+    * [2050. Parallel Courses III](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/Topological_sort.md#2050-parallel-courses-iii)
+    
+    * [1916. Count Ways to Build Rooms in an Ant Colony](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/Topological_sort.md#1916-count-ways-to-build-rooms-in-an-ant-colony)
+    * [1857. Largest Color Value in a Directed Graph](https://github.com/Jasondecode2020/Letscode/blob/main/template/graph/Topological_sort.md#1857-largest-color-value-in-a-directed-graph)
   * #### 11.4 Union Find
   * #### 11.5 Shortest Path
     * ##### 11.5.1 PQ

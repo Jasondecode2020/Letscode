@@ -44,3 +44,30 @@ class MovingAverage:
         self.sum += val 
         return self.sum / self.total 
 ```
+
+### 900. RLE Iterator
+
+```python
+class RLEIterator:
+
+    def __init__(self, encoding: List[int]):
+        self.q = deque()
+        for i in range(0, len(encoding), 2):
+            if encoding[i] != 0:
+                self.q.append((encoding[i], encoding[i + 1]))
+        
+    def next(self, n: int) -> int:
+        res = inf
+        while self.q:
+            num, val = self.q.popleft()
+            if num > n:
+                self.q.appendleft((num - n, val))
+                res = val
+                break 
+            elif num == n:
+                res = val
+                break
+            else:
+                n -= num 
+        return res if res != inf else -1
+```

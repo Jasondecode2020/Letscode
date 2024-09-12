@@ -6,6 +6,9 @@
 * [429. N-ary Tree Level Order Traversal](#429-n-ary-tree-level-order-traversal)
 * [427. Construct Quad Tree](#427-construct-quad-tree)
 * [558. Logical OR of Two Binary Grids Represented as Quad-Trees](#558-logical-or-of-two-binary-grids-represented-as-quad-trees)
+* [1490. Clone N-ary Tree](#1490-clone-n-ary-tree)
+* [1522. Diameter of N-Ary Tree](#1522-diameter-of-n-ary-tree)
+* [1506. Find Root of N-Ary Tree](#1506-find-root-of-n-ary-tree)
 
 ### 589. N-ary Tree Preorder Traversal
 
@@ -131,8 +134,68 @@ class Solution:
         return Node(False, False, topLeft, topRight, bottomLeft, bottomRight)
 ```
 
-428. 序列化和反序列化 N 叉树（会员题）
-1490. 克隆 N 叉树（会员题）
-1506. 找到 N 叉树的根节点（会员题）
-1522. N 叉树的直径（会员题）
+### 1490. Clone N-ary Tree
+
+```python
+class Solution:
+    def cloneTree(self, root: 'Node') -> 'Node':
+        def dfs(node):
+            if not node:
+                return None 
+            cur = Node(node.val)
+            for child in node.children:
+                cur.children.append(dfs(child))
+            return cur
+        return dfs(root)
+```
+
+### 1506. Find Root of N-Ary Tree
+
+```python
+class Solution:
+    def findRoot(self, tree: List['Node']) -> 'Node':
+        child_set = set()
+        for t in tree:
+            for child in t.children:
+                child_set.add(child)
+        for t in tree:
+            if t not in child_set:
+                return t 
+```
+
+```python
+class Solution:
+    def findRoot(self, tree: List['Node']) -> 'Node':
+        res = 0
+        for t in tree:
+            res ^= t.val
+            for child in t.children:
+                res ^= child.val 
+        for t in tree:
+            if t.val == res:
+                return t
+```
+
+### 1522. Diameter of N-Ary Tree
+
+```python
+class Solution:
+    def diameter(self, root: 'Node') -> int:
+        """
+        :type root: 'Node'
+        :rtype: int
+        """
+        self.res = 0
+        def dfs(node):
+            first = 0
+            for child in node.children:
+                second = dfs(child) + 1
+                self.res = max(self.res, first + second)
+                first = max(first, second)
+            return first
+        dfs(root)
+        return self.res
+```
+
 1516. 移动 N 叉树的子树（会员题）
+428. 序列化和反序列化 N 叉树（会员题）
