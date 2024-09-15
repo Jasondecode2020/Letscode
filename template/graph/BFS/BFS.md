@@ -746,3 +746,36 @@ class Solution:
                         q.append((nei, prob * (1 / (len(g[node]) - 1)), time + 1))
         return 0
 ```
+
+### 2608. Shortest Cycle in a Graph
+
+```python
+class Solution:
+    def findShortestCycle(self, n: int, edges: List[List[int]]) -> int:
+        g = defaultdict(list)
+        for u, v in edges:
+            g[u].append(v)
+            g[v].append(u)
+            
+        def bfs(u, v):
+            q = deque([(u, 0)])
+            visited = set([u])
+            while q:
+                node, dist = q.popleft()
+                if node == v:
+                    return dist + 1
+                for nei in g[node]:
+                    if nei not in visited:
+                        visited.add(nei)
+                        q.append((nei, dist + 1))
+            return inf 
+
+        res = inf 
+        for u, v in edges:
+            g[u].remove(v)
+            g[v].remove(u)
+            res = min(res, bfs(u, v))
+            g[u].append(v)
+            g[v].append(u)
+        return res if res != inf else -1
+```

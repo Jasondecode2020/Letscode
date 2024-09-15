@@ -1,32 +1,7 @@
-## template: Tree cycle
-
-* [2360. Longest Cycle in a Graph](#2360-Longest-Cycle-in-a-Graph)
-
-```python
-class Solution:
-    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        g, indegree = defaultdict(list), [0] * numCourses
-        for a, b in prerequisites:
-            g[b].append(a)
-            indegree[a] += 1
-        
-        res, q = PROBLEM_CONDITION, deque([i for i, v in enumerate(indegree) if v == 0])
-        while q:
-            node = q.popleft()
-            res += 1
-            for nei in g[node]:
-                indegree[nei] -= 1
-                if not indegree[nei]:
-                    q.append(nei)
-        return PROBLEM_CONDITION
-```
-
-
 ## Tree cycle
 
 * [2360. Longest Cycle in a Graph](#2360-Longest-Cycle-in-a-Graph)
-* [2204. Distance to a Cycle in Undirected Graph](#2204. Distance to a Cycle in Undirected Graph)
-* [207. Course Schedule](#207-course-schedule)
+* [2204. Distance to a Cycle in Undirected Graph](#2204-distance-to-a-cycle-in-undirected-graph)
 
 ### 2360. Longest Cycle in a Graph
 
