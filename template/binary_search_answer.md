@@ -20,7 +20,8 @@
 * [1642. Furthest Building You Can Reach](#1642-furthest-building-you-can-reach)
 * [2861. Maximum Number of Alloys](#2861-maximum-number-of-alloys)
 * [2258. Escape the Spreading Fire](#2258-escape-the-spreading-fire)
-* [1891. Cutting Ribbons]()
+* [1891. Cutting Ribbons](#1891-cutting-ribbons)
+
 ## 3 minimize max value
 * [410. Split Array Largest Sum](#410)
 * [2064. Minimized Maximum of Products Distributed to Any Store](#2064-minimized-maximum-of-products-distributed-to-any-store)
@@ -47,7 +48,7 @@
 * [373. Find K Pairs with Smallest Sums](#373-find-k-pairs-with-smallest-sums)
 * [1201. Ugly Number III](#1201-ugly-number-iii)
 
-* 2702. Minimum Operations to Make Numbers Non-positive
+* [2702. Minimum Operations to Make Numbers Non-positive](#2702-minimum-operations-to-make-numbers-non-positive)
 
 ### 1283. Find the Smallest Divisor Given a Threshold
 

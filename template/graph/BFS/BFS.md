@@ -779,3 +779,26 @@ class Solution:
             g[v].append(u)
         return res if res != inf else -1
 ```
+
+### 1215. Stepping Numbers
+
+```python
+class Solution:
+    def countSteppingNumbers(self, low: int, high: int) -> List[int]:
+        res = []
+        if low == 0:
+            res.append(0)
+        
+        q = deque([i for i in range(1, 10)])
+        while q:
+            n = q.popleft()
+            if n > high:
+                return res 
+            if n >= low:
+                res.append(n)
+            lastDigit = n % 10
+            if lastDigit > 0:
+                q.append(n * 10 + lastDigit - 1)
+            if lastDigit < 9:
+                q.append(n * 10 + lastDigit + 1)
+```

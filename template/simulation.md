@@ -666,3 +666,23 @@ class Solution:
             r -= 1
         return res
 ```
+
+### 1181. Before and After Puzzle
+
+```python
+class Solution:
+    def beforeAndAfterPuzzles(self, phrases: List[str]) -> List[str]:
+        res = []
+        for phrase in phrases:
+            ans = phrase.split(' ')
+            res.append(ans)
+        n = len(res)
+        ans = []
+        for i in range(n):
+            for j in range(n):
+                if i != j and res[i][-1] == res[j][0]:
+                    ans.append(' '.join(res[i][:-1] + res[j]))
+        ans = list(set(ans))
+        ans.sort()
+        return ans
+```

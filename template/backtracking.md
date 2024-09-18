@@ -35,6 +35,8 @@ class Solution:
 * [2044. Count Number of Maximum Bitwise-OR Subsets](#2044-count-number-of-maximum-bitwise-or-subsets) 1567
 * [1255. Maximum Score Words Formed by Letters](#1255-maximum-score-words-formed-by-letters)
 * [2397. Maximum Rows Covered by Columns](#2397-maximum-rows-covered-by-columns)
+* [1079. Letter Tile Possibilities](#1079-letter-tile-possibilities)
+* [1219. Path with Maximum Gold](#1219-path-with-maximum-gold)
 
 > enumerate pattern (cut) (need a for loop to enumerate all conditions)
 
@@ -942,6 +944,56 @@ class Solution:
                     cnt += 1
             ans = max(ans, cnt)
         return ans
+```
+
+### 1079. Letter Tile Possibilities
+
+```python
+class Solution:
+    def numTilePossibilities(self, tiles: str) -> int:
+        def backtrack(i, res):
+            if i == n:
+                count.add(res)
+                return 
+            backtrack(i + 1, res)
+            backtrack(i + 1, res + perm[i])
+
+        count = set()
+        for perm in permutations(tiles):
+            perm = ''.join(perm)
+            n = len(perm)
+            backtrack(0, '')
+        return len(count) - 1
+```
+
+### 1219. Path with Maximum Gold
+
+```python
+class Solution:
+    def getMaximumGold(self, grid: List[List[int]]) -> int:
+        directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+        def backtrack(r, c, cur):
+            flag = True
+            for dr, dc in directions:
+                row, col = r + dr, c + dc 
+                if 0 <= row < R and 0 <= col < C and grid[row][col] and (row, col) not in visited:
+                    flag = False
+                    visited.add((row, col))
+                    backtrack(row, col, cur + [grid[row][col]])
+                    visited.remove((row, col))
+            if flag:
+                ans.append(cur)
+
+        R, C = len(grid), len(grid[0])
+        res = 0
+        for r in range(R):
+            for c in range(C):
+                if grid[r][c]:
+                    ans = []
+                    visited = set([(r, c)])
+                    backtrack(r, c, [grid[r][c]])
+                    res = max(res, max([sum(i) for i in ans]))
+        return res 
 ```
 
 ### 1255. Maximum Score Words Formed by Letters

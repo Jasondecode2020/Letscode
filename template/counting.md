@@ -211,3 +211,25 @@ class SubrectangleQueries:
     def getValue(self, row: int, col: int) -> int:
         return self.rect[row][col]
 ```
+
+### 2531. Make Number of Distinct Characters Equal
+
+```python
+class Solution:
+    def isItPossible(self, word1: str, word2: str) -> bool:
+        d1, d2 = Counter(word1), Counter(word2)
+        keys1, keys2 = list(d1.keys()), list(d2.keys())
+        for k1 in keys1:
+            for k2 in keys2:
+                d1[k1] -= 1
+                d2[k1] += 1
+                d1[k2] += 1
+                d2[k2] -= 1
+                if len([k for k in d1.keys() if d1[k] != 0]) == len([k for k in d2.keys() if d2[k] != 0]):
+                    return True
+                d1[k1] += 1
+                d2[k1] -= 1
+                d1[k2] -= 1
+                d2[k2] += 1
+        return False
+```

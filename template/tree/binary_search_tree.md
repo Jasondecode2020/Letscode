@@ -332,3 +332,63 @@ class Solution:
 ### 1373. Maximum Sum BST in Binary Tree
 
 ### 1932. Merge BSTs to Create Single BST
+
+### 669. Trim a Binary Search Tree
+
+```python
+class Solution:
+    def trimBST(self, root: Optional[TreeNode], low: int, high: int) -> Optional[TreeNode]:
+        def dfs(node):
+            if not node:
+                return None 
+            left, right = dfs(node.left), dfs(node.right) 
+            if node.val > high:
+                return left
+            if node.val < low:
+                return right
+            node.left, node.right = left, right
+            return node 
+        return dfs(root)
+```
+
+
+### 426. Convert Binary Search Tree to Sorted Doubly Linked List
+
+```python
+class Solution:
+    def treeToDoublyList(self, root: 'Optional[Node]') -> 'Optional[Node]':
+        if not root:
+            return None 
+        self.first = self.last = None 
+        self.inorder(root)
+        self.first.left = self.last 
+        self.last.right = self.first 
+        return self.first 
+    def inorder(self, node):
+        if node:
+            self.inorder(node.left)
+            if not self.last:
+                self.first = node 
+            else:
+                node.left = self.last 
+                self.last.right = node 
+            self.last = node 
+            self.inorder(node.right)
+```
+
+### 776. Split BST
+
+```python
+class Solution:
+    def splitBST(self, root: Optional[TreeNode], target: int) -> List[Optional[TreeNode]]:
+        if not root:
+            return None, None 
+        if root.val <= target:
+            L, R = self.splitBST(root.right, target)
+            root.right = L 
+            return [root, R]
+        else:
+            L, R = self.splitBST(root.left, target)
+            root.left = R 
+            return [L, root]
+```

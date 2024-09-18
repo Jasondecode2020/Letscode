@@ -90,3 +90,25 @@ class Solution:
         mean = total_val / total_num
         return [mn, mx, mean, median, mode]
 ```
+
+### 1247. Minimum Swaps to Make Strings Equal
+
+```python
+class Solution:
+    def minimumSwap(self, s1: str, s2: str) -> int:
+        c = Counter(s1 + s2)
+        if c['x'] % 2 == 1 or c['y'] % 2 == 1:
+            return -1
+        res = 0
+        d = defaultdict(int)
+        for x, y in zip(s1, s2):
+            if x + y == 'xy':
+                d['xy'] += 1
+            if x + y == 'yx':
+                d['yx'] += 1
+        xy = d['xy']
+        yx = d['yx']
+        res += d['xy'] // 2 if d['xy'] % 2 == 0 else d['xy'] // 2 + 1
+        res += d['yx'] // 2 if d['yx'] % 2 == 0 else d['yx'] // 2 + 1
+        return res
+```

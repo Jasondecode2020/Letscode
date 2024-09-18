@@ -19,6 +19,11 @@
 * [2208. Minimum Operations to Halve Array Sum](#2208-minimum-operations-to-halve-array-sum)
 
 * [2233. Maximum Product After K Increments](#2233-maximum-product-after-k-increments)
+* [1942. The Number of the Smallest Unoccupied Chair](#1942-the-number-of-the-smallest-unoccupied-chair)
+* [2462. Total Cost to Hire K Workers](#2462-total-cost-to-hire-k-workers)
+* [253. Meeting Rooms II](#253-meeting-rooms-ii)
+* [1167. Minimum Cost to Connect Sticks](#1167-minimum-cost-to-connect-sticks)
+
 
 ### 215. Kth Largest Element in an Array
 
