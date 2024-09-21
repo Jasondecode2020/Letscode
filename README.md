@@ -168,21 +168,22 @@ Practice with ratings (https://huxulm.github.io/lc-rating/zen)
     * [21. Merge Two Sorted Lists](#21-merge-two-sorted-lists)
     * [369. Plus One Linked List](#369-plus-one-linked-list)
     * [1634. Add Two Polynomials Represented as Linked Lists]()
-  * #### 9. d & q
+  * #### 9. d & q (2)
     * [23. Merge k Sorted Lists](#23-merge-k-sorted-lists)
     * [148. Sort List](#148-sort-list)
-  * #### 10. complicated
+  * #### 10. complicated (7)
+    * [1019. Next Greater Node In Linked List](#1019-next-greater-node-in-linked-list)
     * [707. Design Linked List](#707-design-linked-list)
-    * [1171. Remove Zero Sum Consecutive Nodes from Linked List]()
+    * [1171. Remove Zero Sum Consecutive Nodes from Linked List](#1171-remove-zero-sum-consecutive-nodes-from-linked-list)
     * [146. LRU Cache](#146-lru-cache)
-    * [460. LFU Cache](#460-lfu-cache)
-    * [432. All O`one Data Structure]
-    * [1206. Design Skiplist]
-  * #### 11. others
+    * [460. LFU Cache](#460-lfu-cache) ----- too hard
+    * [432. All O`one Data Structure]()  ----- too hard
+    * [1206. Design Skiplist](#1206-design-skiplist)
+  * #### 11. others (4)
     * [138. Copy List with Random Pointer](#1836-remove-duplicates-from-an-unsorted-linked-list)
-    * [382. Linked List Random Node]
-    * [430. Flatten a Multilevel Doubly Linked List]
-    * [1265. Print Immutable Linked List in Reverse]
+    * [382. Linked List Random Node](#382-linked-list-random-node)
+    * [430. Flatten a Multilevel Doubly Linked List](#430-flatten-a-multilevel-doubly-linked-list)
+    * [1265. Print Immutable Linked List in Reverse](#1265-print-immutable-linked-list-in-reverse)
 * ### 10 Tree
   * #### 11.1 Traversal [pattern](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/tree_traversal.md)
     * [144. Binary Tree Preorder Traversal](https://github.com/Jasondecode2020/Letscode/blob/main/template/tree/tree_traversal.md#144-binary-tree-preorder-traversal)

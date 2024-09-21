@@ -36,7 +36,7 @@
 * [25. Reverse Nodes in k-Group](#708-insert-into-a-sorted-circular-linked-list)
 * [2074. Reverse Nodes in Even Length Groups](#2074-reverse-nodes-in-even-length-groups)
 
-## 5. before after(4)
+## 5. before after pointers(4)
 
 * [19. Remove Nth Node From End of List](#19-remove-nth-node-from-end-of-list)
 * [61. Rotate List](#61-rotate-list)
@@ -67,29 +67,30 @@
 * [2816. Double a Number Represented as a Linked List](#2816-double-a-number-represented-as-a-linked-list)
 * [21. Merge Two Sorted Lists](#21-merge-two-sorted-lists)
 * [369. Plus One Linked List](#369-plus-one-linked-list)
-* [1634. Add Two Polynomials Represented as Linked Lists]()
+* [1634. Add Two Polynomials Represented as Linked Lists](#1634-add-two-polynomials-represented-as-linked-lists)
 
-## 9. d & q
+## 9. d & q (2)
 
 * [23. Merge k Sorted Lists](#23-merge-k-sorted-lists)
 * [148. Sort List](#148-sort-list)
 
-## 10. complicated
+## 10. complicated (7)
 
+* [1019. Next Greater Node In Linked List](#1019-next-greater-node-in-linked-list)
 * [707. Design Linked List](#707-design-linked-list)
-* [1171. Remove Zero Sum Consecutive Nodes from Linked List]()
+* [1171. Remove Zero Sum Consecutive Nodes from Linked List](#1171-remove-zero-sum-consecutive-nodes-from-linked-list)
 * [146. LRU Cache](#146-lru-cache)
-* [460. LFU Cache](#460-lfu-cache)
-* [432. All O`one Data Structure]
-* [1206. Design Skiplist]
+* [460. LFU Cache](#460-lfu-cache) ----- too hard
+* [432. All O`one Data Structure]()  ----- too hard
+* [1206. Design Skiplist](#1206-design-skiplist)
 
 
-## 11. others
+## 11. others (4)
 
 * [138. Copy List with Random Pointer](#1836-remove-duplicates-from-an-unsorted-linked-list)
-* [382. Linked List Random Node]
-* [430. Flatten a Multilevel Doubly Linked List]
-* [1265. Print Immutable Linked List in Reverse]
+* [382. Linked List Random Node](#382-linked-list-random-node)
+* [430. Flatten a Multilevel Doubly Linked List](#430-flatten-a-multilevel-doubly-linked-list)
+* [1265. Print Immutable Linked List in Reverse](#1265-print-immutable-linked-list-in-reverse)
 
 ### 1290. Convert Binary Number in a Linked List to Integer
 
@@ -305,6 +306,86 @@ class Solution:
             else:
                 p = p.next
         return dummy.next
+```
+
+### 382. Linked List Random Node
+
+```python
+class Solution:
+
+    def __init__(self, head: Optional[ListNode]):
+        self.nums = []
+        while head:
+            self.nums.append(head.val)
+            head = head.next 
+
+    def getRandom(self) -> int:
+        return random.choice(self.nums)
+```
+
+### 398. Random Pick Index
+
+```python
+class Solution:
+
+    def __init__(self, nums: List[int]):
+        self.d = defaultdict(list)
+        for i, v in enumerate(nums):
+            self.d[v].append(i)
+
+    def pick(self, target: int) -> int:
+        return choice(self.d[target])
+```
+
+```python
+class Solution:
+
+    def __init__(self, nums: List[int]):
+        self.nums = nums
+
+    def pick(self, target: int) -> int:
+        index = self.d[target]
+        n = len(index)
+        res = 0
+        for i, idx in enumerate(index):
+            if randrange(i + 1) == 0:
+                res = idx
+        return res
+```
+
+### 430. Flatten a Multilevel Doubly Linked List
+
+```python
+class Solution:
+    def flatten(self, head: 'Optional[Node]') -> 'Optional[Node]':
+        p = head 
+        while p:
+            if p.child:
+                nxt = p.next 
+                child = p.child 
+                p.next = child 
+                child.prev = p 
+                p.child = None 
+                while child.next:
+                    child = child.next 
+                if nxt:
+                    nxt.prev = child 
+                child.next = nxt 
+            p = p.next 
+        return head
+```
+
+### 1265. Print Immutable Linked List in Reverse
+
+```python
+class Solution:
+    def printLinkedListInReverse(self, head: 'ImmutableListNode') -> None:
+        stack = []
+        while head:
+            stack.append(head)
+            head = head.getNext()
+        while stack:
+            stack.pop().printValue()
 ```
 
 ### 1669. Merge In Between Linked Lists
@@ -595,6 +676,18 @@ class Solution:
 ### 1721. Swapping Nodes in a Linked List
 
 ```python
+class Solution:
+    def swapNodes(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        res = []
+        while head:
+            res.append(head.val)
+            head = head.next 
+        res[k - 1], res[-k] = res[-k], res[k - 1]
+        dummy = p = ListNode()
+        for n in res:
+            p.next = ListNode(n)
+            p = p.next 
+        return dummy.next
 ```
 
 ### 876. Middle of the Linked List
@@ -964,6 +1057,31 @@ class Solution:
         return  reverseList(None, head)
 ```
 
+### 1634. Add Two Polynomials Represented as Linked Lists
+
+```python
+class Solution:
+    def addPoly(self, poly1: 'PolyNode', poly2: 'PolyNode') -> 'PolyNode':
+        p = dummy = PolyNode()
+        while poly1 and poly2:
+            if poly1.power > poly2.power:
+                p.next = PolyNode(poly1.coefficient, poly1.power)
+                p = p.next 
+                poly1 = poly1.next 
+            elif poly1.power < poly2.power:
+                p.next = PolyNode(poly2.coefficient, poly2.power)
+                p = p.next 
+                poly2 = poly2.next 
+            else:
+                if poly1.coefficient + poly2.coefficient:
+                    p.next = PolyNode(poly1.coefficient + poly2.coefficient, poly1.power)
+                    p = p.next
+                poly1 = poly1.next
+                poly2 = poly2.next
+
+        p.next = poly1 or poly2
+        return dummy.next
+```
 ### 1474. Delete N Nodes After M Nodes of a Linked List
 
 ```python
@@ -1103,61 +1221,68 @@ class MyLinkedList:
         p.next = p.next.next 
 ```
 
+### 1171. Remove Zero Sum Consecutive Nodes from Linked List
+
+```python
+class Solution:
+    def removeZeroSumSublists(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        dummy = ListNode(next = head)
+        presum, p = 0, dummy
+        d = defaultdict(ListNode)
+        while p:
+            presum += p.val 
+            d[presum] = p 
+            p = p.next 
+        presum, p = 0, dummy
+        while p:
+            presum += p.val 
+            p.next = d[presum].next 
+            p = p.next 
+        return dummy.next 
+```
+
 ### 146. LRU Cache
 
 ```python
 class ListNode:
     def __init__(self, key = 0, value = 0):
-        self.key = key
-        self.value = value
+        self.key, self.value = key, value
 
 class LRUCache:
 
     def __init__(self, capacity: int):
         self.cache = {}
-        self.head = self.tail = ListNode()
-        self.head.next = self.tail
-        self.tail.prev = self.head
         self.capacity = capacity
+        self.head = self.tail = ListNode()
+        self.head.next, self.tail.prev = self.tail, self.head 
 
     def get(self, key: int) -> int:
-        if key not in self.cache:
-            return -1
-        node = self.cache[key]
-        self.moveToHead(node)
-        return node.value
+        if key in self.cache:
+            node = self.cache[key]
+            self.remove(node)
+            self.insert(node)
+            return node.value
+        return -1
 
     def put(self, key: int, value: int) -> None:
-        if key not in self.cache:
-            node = ListNode(key, value)
-            self.cache[key] = node
-            self.addToHead(node)
-            self.capacity -= 1
-            if self.capacity < 0:
-                removed = self.removeTail(self.tail.prev)
-                self.cache.pop(removed.key)
-        else:
-            node = self.cache[key]
-            node.value = value
-            self.moveToHead(node)
+        if key in self.cache:
+            self.remove(self.cache[key])
+        node = ListNode(key, value)
+        self.insert(node)
+        self.cache[key] = node
+        if len(self.cache) > self.capacity:
+            lru = self.head.next 
+            self.remove(lru)
+            del self.cache[lru.key]
 
-    def moveToHead(self, node):
-        self.removeNode(node)
-        self.addToHead(node)
+    def remove(self, node):
+        prev, nxt = node.prev, node.next 
+        prev.next, nxt.prev = nxt, prev 
 
-    def removeNode(self, node):
-        node.prev.next = node.next
-        node.next.prev = node.prev
-
-    def addToHead(self, node):
-        node.prev = self.head
-        node.next = self.head.next
-        self.head.next.prev = node
-        self.head.next = node
-
-    def removeTail(self, node):
-        self.removeNode(node)
-        return node
+    def insert(self, node):
+        prev, nxt = self.tail.prev, self.tail 
+        prev.next = nxt.prev = node 
+        node.prev, node.next = prev, nxt 
 ```
 
 ### 460. LFU Cache
@@ -1231,4 +1356,57 @@ class LFUCache:
                 deleted = self.delete(self.freqMap[self.minFreq][0].nex)
                 self.keyMap.pop(deleted)
             self.increase(node)
+```
+
+### 1206. Design Skiplist
+
+```python
+class Node:
+    def __init__(self, val = -1, right = None, down = None):
+        self.val, self.right, self.down = val, right, down 
+
+class Skiplist:
+
+    def __init__(self):
+        self.head = Node()
+
+    def search(self, target: int) -> bool:
+        node = self.head 
+        while node:
+            while node.right and node.right.val < target:
+                node = node.right 
+            if node.right and node.right.val == target:
+                return True 
+            node = node.down 
+        return False
+
+    def add(self, num: int) -> None:
+        nodes = []
+        node = self.head 
+        while node:
+            while node.right and node.right.val < num:
+                node = node.right 
+            nodes.append(node)
+            node = node.down 
+        insert = True 
+        down = None 
+        while insert and nodes:
+            node = nodes.pop()
+            node.right = Node(num, node.right, down)
+            down = node.right
+            insert = (choice([0, 1]) == 0)
+        if insert:
+            self.head = Node(-1, None, self.head)
+
+    def erase(self, num: int) -> bool:
+        node = self.head
+        found = False
+        while node:
+            while node.right and node.right.val < num:
+                node = node.right 
+            if node.right and node.right.val == num:
+                node.right = node.right.right 
+                found = True
+            node = node.down 
+        return found
 ```

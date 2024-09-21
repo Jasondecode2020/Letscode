@@ -4,9 +4,59 @@
 
 * [1833. Maximum Ice Cream Bars](#1833-maximum-ice-cream-bars)
 * [3074. Apple Redistribution into Boxes](#3074-apple-redistribution-into-boxes)
+* [2279. Maximum Bags With Full Capacity of Rocks](#2279-maximum-bags-with-full-capacity-of-rocks)
+* [1005. Maximize Sum Of Array After K Negations](#1005-maximize-sum-of-array-after-k-negations)
+* [1481. Least Number of Unique Integers after K Removals](#1481-least-number-of-unique-integers-after-k-removals)
+* [1403. Minimum Subsequence in Non-Increasing Order](#1403-minimum-subsequence-in-non-increasing-order)
+* [3010. Divide an Array Into Subarrays With Minimum Cost I](#3010-divide-an-array-into-subarrays-with-minimum-cost-i)
+* [1338. Reduce Array Size to The Half](#1338-reduce-array-size-to-the-half)
 * [1262. Greatest Sum Divisible by Three](#1262-greatest-sum-divisible-by-three)
 * [948. Bag of Tokens](#948-bag-of-tokens)
 * [1775. Equal Sum Arrays With Minimum Number of Operations](#1775-equal-sum-arrays-with-minimum-number-of-operations)
+### 2178. Maximum Split of Positive Even Integers
+
+```python
+class Solution:
+    def maximumEvenSplit(self, finalSum: int) -> List[int]:
+        if finalSum % 2:
+            return []
+        res = []
+        step = 2
+        while finalSum:
+            if step <= finalSum:
+                finalSum -= step
+                res.append(step)
+                step += 2
+            else:
+                res[-1] += finalSum
+                break
+        return res
+```
+
+### 2567. Minimum Score by Changing Two Elements
+
+```python
+class Solution:
+    def minimizeSum(self, nums: List[int]) -> int:
+        nums.sort()
+        a, b, c = nums[-1] - nums[2], nums[-2] - nums[1], nums[-3] - nums[0]
+        return min(a, b, c)
+```
+
+### 1509. Minimum Difference Between Largest and Smallest Value in Three Moves
+
+```python
+class Solution:
+    def minDifference(self, nums: List[int]) -> int:
+        if len(nums) <= 4:
+            return 0
+        nums.sort()
+        a = nums[-1] - nums[3]
+        b = nums[-4] - nums[0]
+        c = nums[-3] - nums[1]
+        d = nums[-2] - nums[2]
+        return min(a, b, c, d)
+```
 
 ### 1833. Maximum Ice Cream Bars
 
@@ -39,6 +89,53 @@ class Solution:
             cnt += c 
             if cnt >= total:
                 return i + 1
+```
+
+### 2279. Maximum Bags With Full Capacity of Rocks
+
+```python
+class Solution:
+    def maximumBags(self, capacity: List[int], rocks: List[int], additionalRocks: int) -> int:
+        diff = [c - r for c, r in zip(capacity, rocks)]
+        diff.sort()
+        pre = list(accumulate(diff))
+        for i, n in enumerate(pre):
+            if n > additionalRocks:
+                return i 
+        return len(rocks)
+```
+
+### 1005. Maximize Sum Of Array After K Negations
+
+```python
+class Solution:
+    def largestSumAfterKNegations(self, nums: List[int], k: int) -> int:
+        heapify(nums)
+        while nums[0] < 0 and k > 0: # add k > 0
+            heappush(nums, -heappop(nums))
+            k -= 1
+        if k%2 == 1:
+            nums[0] = -nums[0]
+        return sum(nums)
+```
+
+### 1481. Least Number of Unique Integers after K Removals
+
+```python
+class Solution:
+    def findLeastNumOfUniqueInts(self, arr: List[int], k: int) -> int:
+        c = Counter(arr)
+        pq = []
+        for key, v in c.items():
+            heappush(pq, (v, key))
+
+        while pq:
+            if k - pq[0][0] >= 0:
+                v, key = heappop(pq)
+                k -= v
+            else:
+                break
+        return len(pq)
 ```
 
 ### 1262. Greatest Sum Divisible by Three
@@ -753,6 +850,127 @@ class Solution:
         for i, (n, c) in enumerate(res):
             ans += abs(n - res[idx][0]) * c 
         return ans
+```
+
+### 1403. Minimum Subsequence in Non-Increasing Order
+
+```python
+class Solution:
+    def minSubsequence(self, nums: List[int]) -> List[int]:
+        total = sum(nums)
+        nums.sort(reverse = True)
+        prefix = list(accumulate(nums))
+        for i, n in enumerate(prefix):
+            if n > total - n:
+                return nums[:i + 1]
+```
+
+### 3010. Divide an Array Into Subarrays With Minimum Cost I
+
+```python
+class Solution:
+    def minimumCost(self, nums: List[int]) -> int:
+        res = inf 
+        n = len(nums)
+        for i in range(1, n):
+            for j in range(i + 1, n):
+                res = min(res, nums[0] + nums[i] + nums[j])
+        return res
+```
+
+### 1338. Reduce Array Size to The Half
+
+```python
+class Solution:
+    def minSetSize(self, arr: List[int]) -> int:
+        c = Counter(arr)
+        n = len(arr)
+        res, ans = 0, 0
+        for v in sorted(c.values(), reverse = True):
+            res += v
+            ans += 1
+            if res * 2 >= n:
+                break 
+        return ans
+```
+
+### 3075. Maximize Happiness of Selected Children
+
+```python
+class Solution:
+    def maximumHappinessSum(self, happiness: List[int], k: int) -> int:
+        happiness.sort(reverse = True)
+        res = 0
+        minus = 0
+        for i, h in enumerate(happiness):
+            res += max(h - minus, 0)
+            minus += 1
+            if i == k - 1:
+                break
+        return res
+```
+
+### 2554. Maximum Number of Integers to Choose From a Range I
+
+```python
+class Solution:
+    def maxCount(self, banned: List[int], n: int, maxSum: int) -> int:
+        banned = set(banned)
+        res, count = 0, 0
+        for i in range(1, n + 1):
+            if i not in banned and res + i <= maxSum:
+                res += i
+                count += 1
+            elif res + i > maxSum:
+                break
+        return count
+```
+
+### 2126. Destroying Asteroids
+
+```python
+class Solution:
+    def asteroidsDestroyed(self, mass: int, asteroids: List[int]) -> bool:
+        asteroids.sort()
+        for a in asteroids:
+            if mass < a:
+                return False
+            mass += a 
+        return True
+```
+
+### 2587. Rearrange Array to Maximize Prefix Score
+
+```python
+class Solution:
+    def maxScore(self, nums: List[int]) -> int:
+        prefix = list(accumulate(sorted(nums, reverse = True)))
+        return sum(n > 0 for n in prefix)
+```
+
+### 1846. Maximum Element After Decreasing and Rearranging
+
+```python
+class Solution:
+    def maximumElementAfterDecrementingAndRearranging(self, arr: List[int]) -> int:
+        res = 1
+        arr.sort()
+        for n in arr:
+            if n >= res:
+                res += 1
+        return res - 1
+```
+
+### 976. Largest Perimeter Triangle
+
+```python
+class Solution:
+    def largestPerimeter(self, nums: List[int]) -> int:
+        nums.sort(reverse = True)
+        for i in range(len(nums) - 2):
+            if nums[i + 2] + nums[i + 1] > nums[i]:
+                return sum(nums[i: i + 3])
+        return 0
 ```
 
 ### 2028. Find Missing Observations
