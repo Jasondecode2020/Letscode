@@ -16,9 +16,10 @@
 * [623. Add One Row to Tree](#623-add-one-row-to-tree)
 * [1372. Longest ZigZag Path in a Binary Tree](#1372-longest-zigzag-path-in-a-binary-tree)
 * [1457. Pseudo-Palindromic Paths in a Binary Tree](#1457-pseudo-palindromic-paths-in-a-binary-tree)
-* [2689. Extract Kth Character From The Rope Tree](#2689-extract-kth-character-from-the-rope-tree)
 * [971. Flip Binary Tree To Match Preorder Traversal](#971-flip-binary-tree-to-match-preorder-traversal)
+* [2689. Extract Kth Character From The Rope Tree](#2689-extract-kth-character-from-the-rope-tree)
 
+* [298. Binary Tree Longest Consecutive Sequence](#298-binary-tree-longest-consecutive-sequence)
 * [1430. Check If a String Is a Valid Sequence from Root to Leaves Path in a Binary Tree](#1430-check-if-a-string-is-a-valid-sequence-from-root-to-leaves-path-in-a-binary-tree)
 * [545. Boundary of Binary Tree](#545-boundary-of-binary-tree)
 

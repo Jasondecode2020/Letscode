@@ -1,6 +1,6 @@
 # tree
 
-## 1 Traversal(8)
+## 1 Traversal (8)
 
 * [144. Binary Tree Preorder Traversal](#144-binary-tree-preorder-traversal)
 * [94. Binary Tree Inorder Traversal](#94-binary-tree-inorder-traversal)
@@ -10,7 +10,6 @@
 * [671. Second Minimum Node In a Binary Tree](#671-second-minimum-node-in-a-binary-tree)
 * [1469. Find All The Lonely Nodes](#1469-find-all-the-lonely-nodes)
 * [1214. Two Sum BSTs](#1214-two-sum-bsts)
-
 
 ### 144. Binary Tree Preorder Traversal
 

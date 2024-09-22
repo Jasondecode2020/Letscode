@@ -4,11 +4,42 @@
 * [111. Minimum Depth of Binary Tree](#111-minimum-depth-of-binary-tree)
 * [951. Flip Equivalent Binary Trees](#951-flip-equivalent-binary-trees)
 * [965. Univalued Binary Tree](#965-univalued-binary-tree)
+* [100. Same Tree](#100-same-tree)
 * [663. Equal Tree Partition](#663-equal-tree-partition)
+
+* [101. Symmetric Tree](#101-symmetric-tree)
 * [298. Binary Tree Longest Consecutive Sequence](#298-binary-tree-longest-consecutive-sequence)
+* [1379. Find a Corresponding Node of a Binary Tree in a Clone of That Tree](#1379-find-a-corresponding-node-of-a-binary-tree-in-a-clone-of-that-tree)
+* [1973. Count Nodes Equal to Sum of Descendants](#1973-count-nodes-equal-to-sum-of-descendants)
+* [110. Balanced Binary Tree](#110-balanced-binary-tree)
+
+* [226. Invert Binary Tree](#226-invert-binary-tree)
+* [617. Merge Two Binary Trees](#617-merge-two-binary-trees)
+* [2331. Evaluate Boolean Binary Tree](#2331-evaluate-boolean-binary-tree)
+* [508. Most Frequent Subtree Sum](#508-most-frequent-subtree-sum)
+* [563. Binary Tree Tilt](#563-binary-tree-tilt)
+
+* [606. Construct String from Binary Tree](#606-construct-string-from-binary-tree)
+* [2265. Count Nodes Equal to Average of Subtree](#2265-count-nodes-equal-to-average-of-subtree)
+* [1026. Maximum Difference Between Node and Ancestor](#1026-maximum-difference-between-node-and-ancestor)
+* [1339. Maximum Product of Splitted Binary Tree](#1339-maximum-product-of-splitted-binary-tree)
+* [1372. Longest ZigZag Path in a Binary Tree](#1372-longest-zigzag-path-in-a-binary-tree)
+
+* [1145. Binary Tree Coloring Game](#1145-binary-tree-coloring-game)
+* [572. Subtree of Another Tree](#572-subtree-of-another-tree)
+* [1530. Number of Good Leaf Nodes Pairs](#1530-number-of-good-leaf-nodes-pairs)
+* [298. Binary Tree Longest Consecutive Sequence](#298-binary-tree-longest-consecutive-sequence)
+* [250. Count Univalue Subtrees](#250-count-univalue-subtrees)
 
 * [1973. Count Nodes Equal to Sum of Descendants](#1973-count-nodes-equal-to-sum-of-descendants)
+* [663. Equal Tree Partition](#663-equal-tree-partition)
+* [1120. Maximum Average Subtree](#1120-maximum-average-subtree)
+* [333. Largest BST Subtree](#333-largest-bst-subtree)
+* [366. Find Leaves of Binary Tree](#366-find-leaves-of-binary-tree)
 
+* [156. Binary Tree Upside Down](#156-binary-tree-upside-down)
+* [2792. Count Nodes That Are Great Enough](#2792-count-nodes-that-are-great-enough)
+* [1612. Check If Two Expression Trees are Equivalent](#1612-check-if-two-expression-trees-are-equivalent)
 
 ### 111. Minimum Depth of Binary Tree
 
@@ -450,6 +481,43 @@ class Solution:
         return dfs(root)
 ```
 
+### 2792. Count Nodes That Are Great Enough
+
+```python
+class Solution:
+    def countGreatEnoughNodes(self, root: Optional[TreeNode], k: int) -> int:
+        def dfs(node):
+            if not node:
+                return []
+            ans = sorted(dfs(node.left) + dfs(node.right) + [node.val])[:k]
+            if ans[-1] < node.val:
+                self.res += 1
+            return ans 
+        self.res = 0
+        dfs(root)
+        return self.res 
+```
+
+### 1612. Check If Two Expression Trees are Equivalent
+
+```python
+class Solution:
+    def checkEquivalence(self, root1: 'Node', root2: 'Node') -> bool:
+        def dfs(node):
+            if node:
+                if not node.left and not node.right:
+                    self.res += node.val
+                dfs(node.left)
+                dfs(node.right)
+        self.res = ''
+        dfs(root1)
+        self.res1 = self.res 
+        self.res = ''
+        dfs(root2)
+        self.res2 = self.res 
+        return Counter(self.res1) == Counter(self.res2)
+```
+
 ### 1145. Binary Tree Coloring Game
 
 ```python
@@ -533,10 +601,6 @@ class Solution:
         dfs2(root)
         return self.ans
 ```
-
-### 2792. Count Nodes That Are Great Enough
-
-### 1612. Check If Two Expression Trees are Equivalent
 
 ### 814. Binary Tree Pruning
 
