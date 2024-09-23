@@ -323,16 +323,6 @@ class Solution:
         return None
 ```
 
-- need to do
-
-### 255. Verify Preorder Sequence in Binary Search Tree
-
-### 1902. Depth of BST Given Insertion Order
-
-### 1373. Maximum Sum BST in Binary Tree
-
-### 1932. Merge BSTs to Create Single BST
-
 ### 669. Trim a Binary Search Tree
 
 ```python
@@ -392,3 +382,26 @@ class Solution:
             root.left = R 
             return [L, root]
 ```
+
+- need to do
+
+### 255. Verify Preorder Sequence in Binary Search Tree
+
+```python
+class Solution:
+    def verifyPreorder(self, preorder: List[int]) -> bool:
+        minVal, stack = -inf, []
+        for i, n in enumerate(preorder):
+            if n < minVal:
+                return False
+            while stack and preorder[stack[-1]] < preorder[i]:
+                minVal = preorder[stack.pop()] 
+            stack.append(i)
+        return True
+```
+
+### 1902. Depth of BST Given Insertion Order
+
+### 1373. Maximum Sum BST in Binary Tree
+
+### 1932. Merge BSTs to Create Single BST
