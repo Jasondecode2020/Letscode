@@ -1,4 +1,18 @@
-## Hash
+## Hash Set
+
+### 1461. Check If a String Contains All Binary Codes of Size K
+
+```python
+class Solution:
+    def hasAllCodes(self, s: str, k: int) -> bool:
+        if len(s) < k:
+            return False
+
+        s_set = set()
+        for i in range(len(s) - k + 1):
+            s_set.add(s[i: i + k])
+        return len(s_set) == 2 ** k
+```
 
 ### 336. Palindrome Pairs
 
