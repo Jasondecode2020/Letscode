@@ -89,3 +89,61 @@ class Solution:
                     res = max(res, s[i: j + 1], key = len)
         return res 
 ```
+
+- based on leetcode 5
+
+### 1745. Palindrome Partitioning IV
+
+```python
+class Solution:
+    def checkPartitioning(self, s: str) -> bool:
+        @cache
+        def dfs(i, cnt):
+            if cnt == 3 and i == n:
+                return True
+            if cnt > 2:
+                return False
+            res = False
+            for j in range(i, n):
+                if dp[i][j]:
+                    res = res or dfs(j + 1, cnt + 1)
+            return res
+
+        n = len(s)
+        dp = [[False] * n for r in range(n)]
+        for j in range(n):
+            for i in range(j + 1):
+                if s[i] == s[j] and (j - i <= 2 or dp[i + 1][j - 1]):
+                    dp[i][j] = True
+        return dfs(0, 0)
+```
+
+### 1278. Palindrome Partitioning III
+
+```python
+class Solution:
+    def palindromePartition(self, s: str, k: int) -> int:
+        n = len(s)
+        cnt = [[0] * n for _ in range(n)]
+        for i in range(2 * n - 1):
+            l, r = i // 2, i // 2 + i % 2
+            t = 0
+            while l >= 0 and r < n:
+                if s[l] != s[r]:
+                    t += 1
+                cnt[l][r] = t
+                l -= 1
+                r += 1
+
+        @cache
+        def dfs(i, j):
+            if j == i + 1:
+                return 0
+            if j > i + 1:
+                return inf 
+            res = inf 
+            for x in range(i, -1, -1):
+                res = min(res, dfs(x - 1, j - 1) + cnt[x][i])
+            return res 
+        return dfs(n - 1, k)
+```
