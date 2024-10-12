@@ -1,6 +1,6 @@
 # DP
 
-## 1 Basics (19)
+## 1 Basics (23)
 
 ### 1.1 Climbing Stairs (8)
 
@@ -13,12 +13,18 @@
 * [2266. Count Number of Texts](#2266-count-number-of-texts) 1857
 * [2533. Number of Good Binary Strings](#2533-number-of-good-binary-strings) 1694
 
-### 1.2 House Robber (4)
+### 1.2 House Robber (8)
+
+- f[i] = max(f[i - 1], f[i] + f[i - 2])
 
 * [198. House Robber](#198-house-robber) 1500
 * [740. Delete and Earn](#740-delete-and-earn) 1600
 * [2320. Count Number of Ways to Place Houses](#2320-count-number-of-ways-to-place-houses) 1608
 * [213. House Robber II](#213-house-robber-ii) 1650
+* [3186. Maximum Total Damage With Spell Casting](#3186-maximum-total-damage-with-spell-casting) 1840
+* [256. Paint House](#256-paint-house)
+* [265. Paint House II](#265-paint-house-ii)
+* [276. Paint Fence](#276-paint-fence)
 
 ### 1.3 maximum Subarray sum (7)
 
@@ -220,13 +226,40 @@ class Solution:
 ```python
 class Solution:
     def deleteAndEarn(self, nums: List[int]) -> int:
-        dp = [0] * (max(nums) + 1)
+        # convert to house robber problem
+        arr = [0] * (max(nums) + 1)
         for n in nums:
-            dp[n] += n 
+            arr[n] += n
+        nums = arr[::]
+        nums = [0] + nums 
+        n = len(nums)
+        for i in range(2, n):
+            nums[i] = max(nums[i - 1], nums[i] + nums[i - 2])
+        return nums[-1]
+```
 
-        for i in range(2, len(dp)):
-            dp[i] = max(dp[i - 1], dp[i] + dp[i - 2])
-        return dp[-1]
+### 256. Paint House
+
+```python
+class Solution:
+    def minCost(self, costs: List[List[int]]) -> int:
+        n = len(costs)
+        for i in range(1, n):
+            for j in range(3):
+                costs[i][j] += min(costs[i - 1][:j] + costs[i - 1][j + 1:])
+        return min(costs[-1])
+```
+
+### 265. Paint House II
+
+```python
+class Solution:
+    def minCostII(self, costs: List[List[int]]) -> int:
+        n = len(costs)
+        for i in range(1, n):
+            for j in range(len(costs[0])):
+                costs[i][j] += min(costs[i - 1][:j] + costs[i - 1][j + 1:])
+        return min(costs[-1])
 ```
 
 ### 2320. Count Number of Ways to Place Houses
@@ -254,14 +287,47 @@ class Solution:
 ```python
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        def rob_a_line(nums):
-            dp = [0] + nums 
-            for i in range(2, len(dp)):
-                dp[i] = max(dp[i - 1], dp[i - 2] + nums[i - 1])
-            return dp[-1]
-        if len(nums) == 1:
-            return nums[0]
-        return max(rob_a_line(nums[1: ]), rob_a_line(nums[: -1]))
+        def rob1(nums):
+            nums = [0] + nums 
+            n = len(nums)
+            for i in range(2, n):
+                nums[i] = max(nums[i - 1], nums[i] + nums[i - 2])
+            return nums[-1]
+        return max(rob1(nums[1:]), rob1(nums[:-1])) if len(nums) > 1 else nums[0]
+```
+
+### 3186. Maximum Total Damage With Spell Casting
+
+```python
+class Solution:
+    def maximumTotalDamage(self, power: List[int]) -> int:
+        cnt = Counter(power)
+        a = sorted(cnt.keys())
+        @cache
+        def dfs(i):
+            if i < 0:
+                return 0 
+            x = a[i]
+            j = i - 1 # a number before current
+            while j >= 0 and x - a[j] <= 2: # meet the condition
+                j -= 1 # final j didn't meet the condition and use dfs(j)
+            return max(dfs(i - 1), dfs(j) + x * cnt[x])
+        return dfs(len(a) - 1)
+```
+
+### 276. Paint Fence
+
+```python
+class Solution:
+    def numWays(self, n: int, k: int) -> int:
+        @cache
+        def dfs(i):
+            if i == 1:
+                return k 
+            if i == 2:
+                return k * k
+            return (dfs(i - 1) + dfs(i - 2)) * (k - 1)
+        return dfs(n)
 ```
 
 ### 53. Maximum Subarray
@@ -270,10 +336,9 @@ class Solution:
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
         n = len(nums)
-        dp = [nums[0]] * n 
         for i in range(1, n):
-            dp[i] = max(nums[i], nums[i] + dp[i - 1])
-        return max(dp)
+            nums[i] = max(nums[i], nums[i - 1] + nums[i])
+        return max(nums)
 ```
 
 ```python
@@ -336,20 +401,20 @@ class Solution:
 class Solution:
     def kConcatenationMaxSum(self, arr: List[int], k: int) -> int:
         mod = 10 ** 9 + 7
-        def max_sum(arr):
-            n = len(arr)
-            dp = [arr[0]] * n 
+        def max_subarray_sum(nums):
+            n = len(nums)
             for i in range(1, n):
-                dp[i] = max(arr[i], dp[i - 1] + arr[i])
-            return max(dp + [0])
+                nums[i] = max(nums[i], nums[i - 1] + nums[i])
+            return max(0, *nums)
+        
         if k == 1:
-            return max_sum(arr) % mod 
+            return max_subarray_sum(arr) % mod 
         total = sum(arr)
-        concat_sum = max_sum(arr * 2)
+        arr2 = arr * 2
+        res = max_subarray_sum(arr2)
         if total > 0:
-            return max(concat_sum, total * (k - 2) + concat_sum) % mod
-        else:
-            return concat_sum % mod
+            return ((k - 2) * total + res) % mod
+        return res % mod
 ```
 
 ### 918. Maximum Sum Circular Subarray
@@ -357,15 +422,20 @@ class Solution:
 ```python
 class Solution:
     def maxSubarraySumCircular(self, nums: List[int]) -> int:
-        n = len(nums)
-        maxNum, minNum = [nums[0]] * n, [nums[0]] * n
-        for i in range(1, n):
-            maxNum[i] = max(nums[i], nums[i] + maxNum[i - 1])
-        for i in range(1, n):
-            minNum[i] = min(nums[i], nums[i] + minNum[i - 1])
-        if sum(nums) - min(minNum) == 0:
-            return max(maxNum)
-        return max(max(maxNum), sum(nums) - min(minNum))
+        def max_subarray_sum(nums):
+            n = len(nums)
+            for i in range(1, n):
+                nums[i] = max(nums[i], nums[i - 1] + nums[i])
+            return max(nums)
+        def min_subarray_sum(nums):
+            n = len(nums)
+            for i in range(1, n):
+                nums[i] = min(nums[i], nums[i - 1] + nums[i])
+            return min(nums)
+        total = sum(nums)
+        if all([n < 0 for n in nums]):
+            return max(nums)
+        return max(max_subarray_sum(nums[::]), total - min_subarray_sum(nums[::]))
 ```
 
 ### 2321. Maximum Score Of Spliced Array
@@ -376,11 +446,10 @@ class Solution:
         arr1 = [n1 - n2 for n1, n2 in zip(nums1, nums2)]
         arr2 = [n2 - n1 for n1, n2 in zip(nums1, nums2)]
         n = len(arr1)
-        pre1, pre2 = [arr1[0]] * n, [arr2[0]] * n
         for i in range(1, n):
-            pre1[i] = max(arr1[i], pre1[i - 1] + arr1[i])
-            pre2[i] = max(arr2[i], pre2[i - 1] + arr2[i])
-        return max(max(pre1) + sum(nums2), max(pre2) + sum(nums1))
+            arr1[i] = max(arr1[i], arr1[i - 1] + arr1[i])
+            arr2[i] = max(arr2[i], arr2[i - 1] + arr2[i])
+        return max(max(arr1) + sum(nums2), max(arr2) + sum(nums1))
 ```
 
 ### 152. Maximum Product Subarray
