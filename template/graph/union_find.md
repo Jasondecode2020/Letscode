@@ -1937,7 +1937,7 @@ class Solution:
         return uf.count
 ```
 
-1202. Smallest String With Swaps
+### 1202. Smallest String With Swaps
 
 ```python
 class UF:
