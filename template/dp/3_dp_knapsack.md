@@ -27,91 +27,116 @@ def f(v, w, t, i):
 
 ## 3 Knapsack (18)
 
-### 3.1 0-1 (8)
+### 1 0-1 knapsack
 
-* [62. Unique Paths](#62-unique-paths)
-* [63. Unique Paths II](#63-unique-paths-ii)
-* [64. Minimum Path Sum](#64-minimum-path-sum)
-* [120. Triangle](#120-triangle)
-* [931. Minimum Falling Path Sum](#931-minimum-falling-path-sum)
-* [2684. Maximum Number of Moves in a Grid](#2684-maximum-number-of-moves-in-a-grid)
-* [1289. Minimum Falling Path Sum II](#1289-minimum-falling-path-sum-ii)
-* [2304. Minimum Path Cost in a Grid](#2304-minimum-path-cost-in-a-grid)
-
-### 3.2 unbounded (10)
-
-* [1594. Maximum Non Negative Product in a Matrix](#62-unique-paths)
-* [2435. Paths in Matrix Whose Sum Is Divisible by K](#2435-paths-in-matrix-whose-sum-is-divisible-by-k)
-* [174. Dungeon Game](#174-dungeon-game)
-* [2328. Number of Increasing Paths in a Grid](#2328-number-of-increasing-paths-in-a-grid)
-* [2267. Check if There Is a Valid Parentheses String Path](#2267-check-if-there-is-a-valid-parentheses-string-path)
-* [2328. Number of Increasing Paths in a Grid](#2328-number-of-increasing-paths-in-a-grid)
-* [2510. Check if There is a Path With Equal Number of 0's And 1's](#2510-check-if-there-is-a-path-with-equal-number-of-0s-and-1s)
-* [1463. Cherry Pickup II](#1463-cherry-pickup-ii)
-* [741. Cherry Pickup](#741-cherry-pickup)
-* [1937. Maximum Number of Points with Cost](#1937-maximum-number-of-points-with-cost)
-
-### 3.3 mutiple (1)
-
-* [1594. Maximum Non Negative Product in a Matrix](#62-unique-paths)
-
-### 3.2 group (3)
-
-* [1155. Number of Dice Rolls With Target Sum](#1155-number-of-dice-rolls-with-target-sum)
-* [1981. Minimize the Difference Between Target and Chosen Elements](#2435-paths-in-matrix-whose-sum-is-divisible-by-k)
-* [2218. Maximum Value of K Coins From Piles](#174-dungeon-game)
-
-
-### 0-1 knapsack question list
-
-* [494. Target Sum](#494-Target-Sum)
-* [416. Partition Equal Subset Sum](#2915-Length-of-the-Longest-Subsequence-That-Sums-to-Target)
-* [474. Ones and Zeroes](#2915-Length-of-the-Longest-Subsequence-That-Sums-to-Target)
-* [1049. Last Stone Weight II](#2915-Length-of-the-Longest-Subsequence-That-Sums-to-Target)
-* [879. Profitable Schemes](#2915-Length-of-the-Longest-Subsequence-That-Sums-to-Target)
 * [2915. Length of the Longest Subsequence That Sums to Target](#2915-Length-of-the-Longest-Subsequence-That-Sums-to-Target)
+* [416. Partition Equal Subset Sum](#2915-Length-of-the-Longest-Subsequence-That-Sums-to-Target)
+* [494. Target Sum](#494-Target-Sum)
+* [2787. Ways to Express an Integer as Sum of Powers](#2787-ways-to-express-an-integer-as-sum-of-powers)
+* [3180. Maximum Total Reward Using Operations I](#3180-maximum-total-reward-using-operations-i)
+* [474. Ones and Zeroes](#474-ones-and-zeroes)
+* [1049. Last Stone Weight II](#1049-last-stone-weight-ii)
+
+
+* [879. Profitable Schemes](#2915-Length-of-the-Longest-Subsequence-That-Sums-to-Target)
+
 * [805. Split Array With Same Average](#2915-Length-of-the-Longest-Subsequence-That-Sums-to-Target)
-* [2787. Ways to Express an Integer as Sum of Powers](#2915-Length-of-the-Longest-Subsequence-That-Sums-to-Target)
+
 * [923. 3Sum With Multiplicity](#2915-Length-of-the-Longest-Subsequence-That-Sums-to-Target)
 
-### unbounded knapsack question list
+### 2 unbounded knapsack
 
-* 279. Perfect Squares
-* 322. Coin Change
-* 518. Coin Change II
+* [322. Coin Change](#322-coin-change)
+* [518. Coin Change II](#518-coin-change-ii)
+* [279. Perfect Squares](#279-perfect-squares)
 * 377. Combination Sum IV (unbounded knapsack with sequence)
 
-## multi knapsack
-
-### ###################################################################### 0-1 knapsack
-
-### 494. Target Sum
+### 2915. Length of the Longest Subsequence That Sums to Target
 
 ```python
 class Solution:
-    def findTargetSumWays(self, nums: List[int], target: int) -> int:
+    def lengthOfLongestSubsequence(self, nums: List[int], target: int) -> int:
+        nums.sort(reverse = True)
+        N = len(nums)
         @cache
         def f(t, i):
-            if i == len(nums):
-                return 1 if t == target else 0 
-            return f(t - nums[i], i + 1) + f(t + nums[i], i + 1)
-        return f(0, 0)
+            if t > target:
+                return -inf
+            if i == N:
+                return 0 if t == target else -inf 
+            return max(f(t, i + 1), f(t + nums[i], i + 1) + 1)
+        res = f(0, 0)
+        f.cache_clear()
+        return res if res != -inf else -1
 ```
+
 
 ### 416. Partition Equal Subset Sum
 
 ```python
 class Solution:
     def canPartition(self, nums: List[int]) -> bool:
-        if sum(nums) % 2 == 1:
-            return False
-        half = sum(nums) // 2
+        n = len(nums)
+        total = sum(nums)
+        if total % 2:
+            return False 
+        total //= 2
         @cache
-        def f(t, i):
-            if i == len(nums):
-                return True if t == half else False
-            return f(t, i + 1) or f(t + nums[i], i + 1)
-        return f(0, 0)
+        def dfs(i, t):
+            if i == n:
+                return True if t == total else False 
+            return dfs(i + 1, t) or dfs(i + 1, t + nums[i])
+        return dfs(0, 0)
+```
+
+### 494. Target Sum
+
+```python
+class Solution:
+    def findTargetSumWays(self, nums: List[int], target: int) -> int:
+        n = len(nums)
+        @cache
+        def dfs(i, t):
+            if i == n:
+                return 1 if t == target else 0
+            return dfs(i + 1, t - nums[i]) + dfs(i + 1, t + nums[i])
+        return dfs(0, 0)
+```
+
+### 2787. Ways to Express an Integer as Sum of Powers
+
+```python
+class Solution:
+    def numberOfWays(self, n: int, x: int) -> int:
+        nums = list(range(1, n + 1))[::-1]
+        N = len(nums)
+        mod = 10 ** 9 + 7
+        @cache
+        def dfs(i, t):
+            if t > n:
+                return 0 
+            if i == n:
+                return 1 if t == n else 0
+            return (dfs(i + 1, t) + dfs(i + 1, t + nums[i] ** x)) % mod 
+        return dfs(0, 0)
+```
+
+### 3180. Maximum Total Reward Using Operations I
+
+```python
+rewardValues.sort()
+        n = len(rewardValues)
+        @cache
+        def dfs(i, t):
+            if i == n:
+                return t
+            res = dfs(i + 1, t)
+            if rewardValues[i] > t:
+                res = max(res, dfs(i + 1, t + rewardValues[i]))
+            return res
+        res = dfs(0, 0)
+        dfs.cache_clear()
+        return res
 ```
 
 ### 474. Ones and Zeroes (multi knapsacks)
@@ -170,24 +195,7 @@ class Solution:
         return f(0, 0, 0) % mod
 ```
 
-### 2915. Length of the Longest Subsequence That Sums to Target
 
-```python
-class Solution:
-    def lengthOfLongestSubsequence(self, nums: List[int], target: int) -> int:
-        nums.sort(reverse = True)
-        N = len(nums)
-        @cache
-        def f(t, i):
-            if t > target:
-                return -inf
-            if i == N:
-                return 0 if t == target else -inf 
-            return max(f(t, i + 1), f(t + nums[i], i + 1) + 1)
-        res = f(0, 0)
-        f.cache_clear()
-        return res if res != -inf else -1
-```
 
 ### 805. Split Array With Same Average
 
@@ -214,10 +222,6 @@ class Solution:
         return f(0, 0, 0)
 ```
 
-### 2787. Ways to Express an Integer as Sum of Powers
-
-```python
-```
 
 ### 923. 3Sum With Multiplicity
 
@@ -375,24 +379,6 @@ class Solution:
         return f(0, 0)
 ```
 
-### 2787. Ways to Express an Integer as Sum of Powers
-
-```python
-mod = 10 ** 9 + 7
-class Solution:
-    def numberOfWays(self, n: int, x: int) -> int:
-        nums = [i for i in range(n, 0, -1)]
-        N = len(nums)
-        @cache
-        def f(t, i):
-            if t > n:
-                return 0
-            if i == N:
-                return 1 if t == n else 0
-            return (f(t, i + 1) + f(t + nums[i] ** x, i + 1)) % mod
-        res = f(0, 0)
-        return res
-```
 
 ### 474. Ones and Zeroes
 
@@ -411,6 +397,8 @@ class Solution:
         return res if res != -inf else 0
 ```
 
+
+
 ### 1049. Last Stone Weight II
 
 ```python
@@ -427,19 +415,6 @@ class Solution:
 
         return f(0, 0)
 ```
-
-1774. 最接近目标价格的甜点成本
-879. 盈利计划 2204
-3082. 求出所有子序列的能量和 2242
-956. 最高的广告牌 2381
-2518. 好分区的数目 2415
-2742. 给墙壁刷油漆 2425
-LCP 47. 入场安检
-2291. 最大股票收益（会员题）
-2431. 最大限度地提高购买水果的口味（会员题）
-
-# ###################################################################################
-
 
 ### 279. Perfect Squares
 
@@ -575,156 +550,3 @@ class Solution:
 ### 1981. Minimize the Difference Between Target and Chosen Elements
 
 ### 2218. Maximum Value of K Coins From Piles
-
-## 5 State Machine (18)
-
-* [121. Best Time to Buy and Sell Stock](#121-best-time-to-buy-and-sell-stock)
-* [122. Best Time to Buy and Sell Stock II](#122-best-time-to-buy-and-sell-stock-ii)
-* [123. Best Time to Buy and Sell Stock III](#123-best-time-to-buy-and-sell-stock-iii)
-* [188. Best Time to Buy and Sell Stock IV](#188-best-time-to-buy-and-sell-stock-iv)
-* [309. Best Time to Buy and Sell Stock with Cooldown](#309-best-time-to-buy-and-sell-stock-with-cooldown)
-* [714. Best Time to Buy and Sell Stock with Transaction Fee](#714-best-time-to-buy-and-sell-stock-with-transaction-fee)
-
-### 121. Best Time to Buy and Sell Stock
-
-```python
-class Solution:
-    def maxProfit(self, prices: List[int]) -> int:
-        lowest, profit = prices[0], 0
-        for price in prices:
-            lowest = min(lowest, price)
-            profit = max(profit, price - lowest)
-        return profit
-```
-
-### 122. Best Time to Buy and Sell Stock II
-
-```python
-class Solution:
-    def maxProfit(self, prices: List[int]) -> int:
-        # [7,1,5,3,6,4]
-        res = 0
-        for i in range(1, len(prices)):
-            if prices[i] > prices[i - 1]:
-                res += prices[i] - prices[i - 1]
-        return res
-```
-
-### 123. Best Time to Buy and Sell Stock III
-
-```python
-class Solution:
-    def maxProfit(self, prices: List[int]) -> int:
-        n = len(prices)
-        @cache
-        def dfs(i, holding, count):
-            if i >= n or count == 2:
-                return 0
-            cooldown = dfs(i + 1, holding, count)
-            if holding:
-                sell = dfs(i + 1, False, count + 1) + prices[i]
-                res = max(cooldown, sell)
-            else:
-                buy = dfs(i + 1, True, count) - prices[i]
-                res = max(cooldown, buy)
-            return res 
-        return dfs(0, False, 0)
-```
-
-### 188. Best Time to Buy and Sell Stock IV
-
-```python
-class Solution:
-    def maxProfit(self, k: int, prices: List[int]) -> int:
-        n = len(prices)
-        @cache
-        def dfs(i, holding, count):
-            if i >= n or count == k:
-                return 0
-            cooldown = dfs(i + 1, holding, count)
-            if holding:
-                sell = dfs(i + 1, False, count + 1) + prices[i]
-                res = max(cooldown, sell)
-            else:
-                buy = dfs(i + 1, True, count) - prices[i]
-                res = max(cooldown, buy)
-            return res 
-        return dfs(0, False, 0)
-```
-
-### 309. Best Time to Buy and Sell Stock with Cooldown
-
-```python
-class Solution:
-    def maxProfit(self, prices: List[int]) -> int:
-        n = len(prices)
-        @cache
-        def dfs(i, holding):
-            if i >= n:
-                return 0
-            cooldown = dfs(i + 1, holding)
-            if holding:
-                sell = dfs(i + 2, False) + prices[i]
-                res = max(cooldown, sell)
-            else:
-                buy = dfs(i + 1, True) - prices[i]
-                res = max(cooldown, buy)
-            return res
-        return dfs(0, False)
-```
-
-### 714. Best Time to Buy and Sell Stock with Transaction Fee
-
-```python
-class Solution:
-    def maxProfit(self, prices: List[int], fee: int) -> int:
-        n = len(prices)
-        @cache
-        def dfs(i, holding):
-            if i >= n:
-                return 0
-            cooldown = dfs(i + 1, holding)
-            if holding:
-                sell = dfs(i + 1, False) + prices[i] - fee 
-                res = max(cooldown, sell)
-            else:
-                buy = dfs(i + 1, True) - prices[i]
-                res = max(cooldown, buy)
-            return res 
-        return dfs(0, False)
-```
-
-### 1493. Longest Subarray of 1's After Deleting One Element
-
-```python
-class Solution:
-    def longestSubarray(self, nums: List[int]) -> int:
-        l, res = 0, 0
-        zero = 0
-        for r, n in enumerate(nums):
-            if n == 0:
-                zero += 1
-            while zero > 1:
-                if nums[l] == 0:
-                    zero -= 1
-                l += 1
-            res = max(res, r - l)
-        return res 
-```
-
-### 1395. Count Number of Teams
-
-```python
-class Solution:
-    def numTeams(self, rating: List[int]) -> int:
-        res = 0
-        n = len(rating)
-        for i in range(1, n - 1):
-            left = sum(rating[j] < rating[i] for j in range(i))
-            right = sum(rating[j] > rating[i] for j in range(i + 1, n))
-            res += left * right
-            left = sum(rating[j] > rating[i] for j in range(i))
-            right = sum(rating[j] < rating[i] for j in range(i + 1, n))
-            res += left * right
-        return res
-```
