@@ -76,7 +76,7 @@ class Solution:
 
 * [1187. Make Array Strictly Increasing](#1187-make-array-strictly-increasing)
 * [1713. Minimum Operations to Make a Subsequence](#1713-minimum-operations-to-make-a-subsequence)
-
+* [3288. Length of the Longest Increasing Path]()
 ### 300. Longest Increasing Subsequence
 
 - binary search: O(nlog(n))
@@ -451,4 +451,22 @@ class Solution:
                 if all(row[j] <= row[i] for row in strs):
                     f[i] = max(f[i], f[j] + 1)
         return n - max(f)
+```
+
+### 3288. Length of the Longest Increasing Path
+
+```python
+class Solution:
+    def maxPathLength(self, coordinates: List[List[int]], k: int) -> int:
+        kx, ky = coordinates[k]
+        coordinates.sort(key = lambda x: (x[0], -x[1]))
+        g = []
+        for x, y in coordinates:
+            if x < kx and y < ky or (x > kx and y > ky):
+                i = bisect_left(g, y)
+                if i < len(g):
+                    g[i] = y 
+                else:
+                    g.append(y)
+        return len(g) + 1
 ```

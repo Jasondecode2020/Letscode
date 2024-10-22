@@ -36,20 +36,29 @@ def f(v, w, t, i):
 * [3180. Maximum Total Reward Using Operations I](#3180-maximum-total-reward-using-operations-i)
 * [474. Ones and Zeroes](#474-ones-and-zeroes)
 * [1049. Last Stone Weight II](#1049-last-stone-weight-ii)
-
-
+* [1774. Closest Dessert Cost](#1774-closest-dessert-cost)
 * [879. Profitable Schemes](#2915-Length-of-the-Longest-Subsequence-That-Sums-to-Target)
-
 * [805. Split Array With Same Average](#2915-Length-of-the-Longest-Subsequence-That-Sums-to-Target)
-
 * [923. 3Sum With Multiplicity](#2915-Length-of-the-Longest-Subsequence-That-Sums-to-Target)
+* [2291. Maximum Profit From Trading Stocks](#2291-maximum-profit-from-trading-stocks)
+* [3082. Find the Sum of the Power of All Subsequences](#3082-find-the-sum-of-the-power-of-all-subsequences)
 
 ### 2 unbounded knapsack
 
 * [322. Coin Change](#322-coin-change)
 * [518. Coin Change II](#518-coin-change-ii)
 * [279. Perfect Squares](#279-perfect-squares)
-* 377. Combination Sum IV (unbounded knapsack with sequence)
+* [377. Combination Sum IV](#377-combination-sum-iv-unbounded-knapsack-with-sequence)
+* [1449. Form Largest Integer With Digits That Add up to Target](#1449-form-largest-integer-with-digits-that-add-up-to-target)
+* [3183. The Number of Ways to Make the Sum](#3183-the-number-of-ways-to-make-the-sum)
+
+### 3 mutiple knapsack
+
+### 4 group knapsack
+
+* [1155. Number of Dice Rolls With Target Sum](#1155-number-of-dice-rolls-with-target-sum)
+* [1981. Minimize the Difference Between Target and Chosen Elements](#1981-minimize-the-difference-between-target-and-chosen-elements)
+* [2218. Maximum Value of K Coins From Piles](#2218-maximum-value-of-k-coins-from-piles)
 
 ### 2915. Length of the Longest Subsequence That Sums to Target
 
@@ -172,6 +181,69 @@ class Solution:
         return f(0, 0)
 ```
 
+### 2291. Maximum Profit From Trading Stocks
+
+```python
+class Solution:
+    def maximumProfit(self, present: List[int], future: List[int], budget: int) -> int:
+        @cache
+        def dfs(i, b):
+            if b > budget:
+                return -inf 
+            if i == n:
+                return 0 if b <= budget else -inf 
+            res = dfs(i + 1, b)
+            if future[i] > present[i]:
+                res = max(res, dfs(i + 1, b + present[i]) + future[i] - present[i])
+            return res 
+
+        n = len(present)
+        res = dfs(0, 0)
+        dfs.cache_clear()
+        return res if res != -inf else 0
+```
+
+### 3082. Find the Sum of the Power of All Subsequences
+
+```python
+class Solution:
+    def sumOfPower(self, nums: List[int], k: int) -> int:
+        @cache
+        def dfs(i, t, selected):
+            if t > k:
+                return 0
+            if i == n:
+                return 2 ** (n - selected) if t == k else 0 
+            return dfs(i + 1, t, selected) + dfs(i + 1, t + nums[i], selected + 1)
+        
+        n = len(nums)
+        mod = 10 ** 9 + 7
+        res = dfs(0, 0, 0)
+        dfs.cache_clear()
+        return res % mod
+```
+
+### 1774. Closest Dessert Cost
+
+```python
+class Solution:
+    def closestCost(self, baseCosts: List[int], toppingCosts: List[int], target: int) -> int:
+        def dfs(i, cost):
+            if i == len(toppingCosts):
+                if abs(cost - target) < abs(self.res - target) or (abs(cost - target) == abs(self.res - target) and cost < target):
+                    self.res = cost 
+                return
+
+            dfs(i + 1, cost)
+            dfs(i + 1, cost + toppingCosts[i])
+            dfs(i + 1, cost + toppingCosts[i] * 2)
+        
+        self.res = inf 
+        for base in baseCosts:
+            dfs(0, base)
+        return self.res 
+```
+
 ### 879. Profitable Schemes (multi dimentional)
 
 ```python
@@ -242,8 +314,6 @@ class Solution:
 
 ```
 
-### ###################################################################### unbounded knapsack
-
 ### 279. Perfect Squares
 
 ```python
@@ -310,6 +380,51 @@ class Solution:
                 return 1
             return sum(f(t + n) for n in nums)
         return f(0)
+```
+
+### 1449. Form Largest Integer With Digits That Add up to Target
+
+```python
+class Solution:
+    def largestNumber(self, cost: List[int], target: int) -> str:
+        @cache
+        def dfs(t):
+            if t == 0:
+                return ""
+            ans = "0"
+            for c in cost:
+                if t >= c:
+                    res = dfs(t - c)
+                    if res != '0':
+                        if len(res) + 1 > len(ans):
+                            ans = d[c] + res
+                        elif len(res) + 1 == len(ans):
+                            ans = max(ans, d[c] + res, key = int)
+            return ans
+
+        d = dict((c, str(i)) for i, c in enumerate(cost, 1))
+        cost = sorted(d.keys())
+        return dfs(target)
+```
+
+### 3183. The Number of Ways to Make the Sum
+
+```python
+class Solution:
+    def numberOfWays(self, n: int) -> int:
+        mod = 10**9 + 7
+        coins = [1, 2, 6]
+        f = [0] * (n + 1)
+        f[0] = 1
+        for x in coins:
+            for j in range(x, n + 1):
+                f[j] = (f[j] + f[j - x]) % mod
+        ans = f[n]
+        if n >= 4:
+            ans = (ans + f[n - 4]) % mod
+        if n >= 8:
+            ans = (ans + f[n - 8]) % mod
+        return ans
 ```
 
 ### 2585. Number of Ways to Earn Points
@@ -434,79 +549,8 @@ class Solution:
         return res
 ```
 
-### 322. Coin Change
-
-```python
-class Solution:
-    def coinChange(self, coins: List[int], amount: int) -> int:
-        coins.sort(reverse = True)
-        @cache
-        def f(t, i):
-            if t > amount:
-                return inf 
-            if i == len(coins):
-                return 0 if t == amount else inf 
-            return min(f(t, i + 1), f(t + coins[i], i) + 1) 
-        res = f(0, 0)
-        return res if res != inf else -1
-```
-
-### 518. Coin Change II
-
-```python
-class Solution:
-    def change(self, amount: int, coins: List[int]) -> int:
-        coins.sort(reverse = True)
-        N = len(coins)
-        @cache
-        def f(t, i):
-            if t > amount:
-                return 0
-            if i == N:
-                return 1 if t == amount else 0
-            return f(t, i + 1) + f(t + coins[i], i)
-        res = f(0, 0)
-        return res if res != inf else -1
-```
-
-### 377. Combination Sum IV (unbounded knapsack with sequence)
-
-```python
-class Solution:
-    def combinationSum4(self, nums: List[int], target: int) -> int:
-        @cache
-        def f(t):
-            if t > target:
-                return 0
-            if t == target:
-                return 1
-            return sum(f(t + n) for n in nums)
-        return f(0)
-```
-
-### 2585. Number of Ways to Earn Points
-
-```python
-mod = 10 ** 9 + 7
-class Solution:
-    def waysToReachTarget(self, target: int, types: List[List[int]]) -> int:
-        n = len(types)
-        @cache
-        def f(i, t):
-            if i < 0:
-                return 1 if t == 0 else 0
-            count, mark = types[i]
-            res = 0
-            for k in range(min(count, t // mark) + 1):
-                res += f(i - 1, t - k * mark)
-            return res
-        return f(n - 1, target) % mod
-```
-
 ### 1449. Form Largest Integer With Digits That Add up to Target
 
-###########################################################################################
-
 ### 2585. Number of Ways to Earn Points
 
 ```python
@@ -525,8 +569,6 @@ class Solution:
             return res
         return f(n - 1, target) % mod
 ```
-
-#####################################################################################################
 
 ### 1155. Number of Dice Rolls With Target Sum
 
@@ -549,4 +591,44 @@ class Solution:
 
 ### 1981. Minimize the Difference Between Target and Chosen Elements
 
+```python
+class Solution:
+    def minimizeTheDifference(self, mat: List[List[int]], target: int) -> int:
+        # R, C = len(mat), len(mat[0])
+        # self.res = inf 
+        # @cache
+        # def dfs(r, t):
+        #     if r == R:
+        #         self.res = min(self.res, abs(t - target))
+        #         return
+        #     for c in range(C):
+        #         dfs(r + 1, t + mat[r][c])
+        # dfs(0, 0)
+        # return self.res
+        @cache
+        def f(i):
+            if i == 0:
+                return set(mat[0])
+            return set(x + y for x in mat[i] for y in f(i - 1))
+        R = len(mat)
+        return min(abs(target - v) for v in f(R - 1))
+```
+
 ### 2218. Maximum Value of K Coins From Piles
+
+```python
+class Solution:
+    def maxValueOfCoins(self, piles: List[List[int]], k: int) -> int:
+        n = len(piles)
+        @cache
+        def f(i, k):
+            if i == n or k == 0:
+                return 0
+            res = f(i + 1, k)
+            pre = 0
+            for j in range(min(k, len(piles[i]))):
+                pre += piles[i][j]
+                res = max(res, f(i + 1, k - j - 1) + pre)
+            return res 
+        return f(0, k)
+```

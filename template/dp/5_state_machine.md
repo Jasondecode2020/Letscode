@@ -8,6 +8,9 @@
 * [309. Best Time to Buy and Sell Stock with Cooldown](#309-best-time-to-buy-and-sell-stock-with-cooldown)
 * [714. Best Time to Buy and Sell Stock with Transaction Fee](#714-best-time-to-buy-and-sell-stock-with-transaction-fee)
 
+* [1493. Longest Subarray of 1's After Deleting One Element](#1493-longest-subarray-of-1s-after-deleting-one-element)
+* [1395. Count Number of Teams](#1395-count-number-of-teams)
+
 ### 121. Best Time to Buy and Sell Stock
 
 ```python
@@ -150,4 +153,74 @@ class Solution:
             right = sum(rating[j] < rating[i] for j in range(i + 1, n))
             res += left * right
         return res
+```
+
+### 3259. Maximum Energy Boost From Two Drinks
+
+```python
+class Solution:
+    def maxEnergyBoost(self, energyDrinkA: List[int], energyDrinkB: List[int]) -> int:
+        @cache
+        def f(i, A):
+            if i >= n:
+                return 0
+            res = 0
+            if A:
+                res = max(f(i + 1, True), f(i + 2, False)) + energyDrinkA[i]
+            else:
+                res = max(f(i + 2, True), f(i + 1, False)) + energyDrinkB[i]
+            return res 
+        n = len(energyDrinkA)
+        return max(f(0, True), f(0, False))
+```
+
+### 2745. Construct the Longest New String
+
+```python
+class Solution:
+    def longestString(self, x: int, y: int, z: int) -> int:
+        res = 0
+        if y > x:
+            res = (x + x + 1 + z) * 2
+        elif y < x:
+            res = (y + y + 1 + z) * 2 
+        else:
+            res = (x + y + z) * 2
+        return res
+```
+
+### 2222. Number of Ways to Select Buildings
+
+```python
+class Solution:
+    def numberOfWays(self, s: str) -> int:
+        zero, one = s.count('0'), s.count('1')
+        def check(b, total):
+            left, right, res = 0, 0, 0
+            for i, c in enumerate(s):
+                if c == b:
+                    right = total - left
+                    res += left * right
+                else:
+                    left += 1
+            return res 
+        return check('0', one) + check('1', zero)
+```
+
+### 3290. Maximum Multiplication Score
+
+```python
+class Solution:
+    def maxScore(self, a: List[int], b: List[int]) -> int:
+        @cache
+        def dfs(i, N):
+            if i == n:
+                return 0 if N == 4 else -inf
+            res = dfs(i + 1, N)
+            if N < 4:
+                res = max(res, dfs(i + 1, N + 1) + b[i] * a[N])
+            return res
+            
+        n = len(b)
+        return dfs(0, 0)
 ```
