@@ -354,3 +354,22 @@ class Solution:
         mx_plus2, mx_minus2 = sl4[-1] - sl4[0], sl3[-1] - sl3[0]
         return max(mx_plus, mx_minus, mx_plus2, mx_minus2)
 ```
+
+### 2249. Count Lattice Points Inside a Circle
+
+```python
+class Solution:
+    def countLatticePoints(self, circles: List[List[int]]) -> int:
+        R, C = max(x for x, y, r in circles) * 2 + 1, max(y for x, y, r in circles) * 2 + 1
+        res = 0
+        for x1 in range(R):
+            for y1 in range(C):
+                flag = False
+                for x2, y2, r in circles:
+                    if (x1 - x2) ** 2 + (y1 - y2) ** 2 <= r ** 2:
+                        flag = True
+                        break
+                if flag:
+                    res += 1
+        return res 
+```

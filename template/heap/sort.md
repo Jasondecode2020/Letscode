@@ -69,3 +69,20 @@ class Solution:
         count = lst.count(max_freq)
         return max(len(tasks), (max_freq - 1) * (n + 1) + count)
 ```
+
+### 2611. Mice and Cheese
+
+```python
+class Solution:
+    def miceAndCheese(self, reward1: List[int], reward2: List[int], k: int) -> int:
+        nums = [(i, r1 - r2) for i, (r1, r2) in enumerate(zip(reward1, reward2))]
+        nums.sort(key = lambda x: -x[1])
+        idx = set(i for i, n in nums[:k])
+        res = 0
+        for i, n in enumerate(reward2):
+            if i in idx:
+                res += reward1[i]
+            else:
+                res += reward2[i]
+        return res
+```

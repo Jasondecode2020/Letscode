@@ -1,3 +1,51 @@
+### 2944. Minimum Number of Coins for Fruits
+
+- house robber
+
+```python
+class Solution:
+    def minimumCoins(self, prices: List[int]) -> int:
+        @cache
+        def f(i):
+            if i >= n:
+                return 0
+            return min(f(j) for j in range(i + 1, i + i + 3)) + prices[i]
+        n = len(prices)
+        return f(0)
+```
+
+### 2140. Solving Questions With Brainpower
+
+```python
+class Solution:
+    def mostPoints(self, questions: List[List[int]]) -> int:
+        @cache
+        def dfs(i):
+            if i >= n:
+                return 0
+            return max(dfs(i + 1), dfs(i + questions[i][1] + 1) + questions[i][0])
+
+        n = len(questions)
+        return dfs(0)
+```
+
+### 983. Minimum Cost For Tickets
+
+```python
+class Solution:
+    def mincostTickets(self, days: List[int], costs: List[int]) -> int:
+        last_day = days[-1]
+        days = set(days)
+        @cache
+        def dfs(i):
+            if i <= 0:
+                return 0 
+            if i not in days:
+                return dfs(i - 1)
+            return min(dfs(i - 1) + costs[0], dfs(i - 7) + costs[1], dfs(i - 30) + costs[2])
+        return dfs(last_day)
+```
+
 ### 651. 4 Keys Keyboard
 
 ```python
@@ -303,3 +351,68 @@ class Solution:
             res += dfs(i + 1, k)
             return res 
         return dfs(0, 0) % mod
+```
+
+### 576. Out of Boundary Paths
+
+```python
+class Solution:
+    def findPaths(self, m: int, n: int, maxMove: int, startRow: int, startColumn: int) -> int:
+        @cache
+        def dfs(r, c, move):
+            if move > maxMove:
+                return 0
+            if r < 0 or r == R or c < 0 or c == C:
+                return 1
+            res = 0
+            for dr, dc in directions:
+                row, col = r + dr, c + dc 
+                res += dfs(row, col, move + 1)
+            return res % mod 
+
+        mod = 10 ** 9 + 7
+        R, C = m, n 
+        directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+        return dfs(startRow, startColumn, 0)
+```
+
+### 2318. Number of Distinct Roll Sequences
+
+```python
+class Solution:
+    def distinctSequences(self, n: int) -> int:
+        @cache
+        def dfs(i, j, prev_j):
+            if i == n:
+                return 1
+            res = 0
+            for k in range(1, 7):
+                if gcd(j, k) == 1 and k != j and k != prev_j:
+                    res += dfs(i + 1, k, j)
+            return res % mod 
+        
+        mod = 10 ** 9 + 7
+        return dfs(0, -1, -1) % mod 
+```
+
+### 1223. Dice Roll Simulation
+
+```python
+class Solution:
+    def dieSimulator(self, n: int, rollMax: List[int]) -> int:
+        @cache
+        def dfs(i, last, cnt):
+            if i == n:
+                return 1
+            res = 0
+            for j in range(1, 7):
+                if j != last:
+                    res += dfs(i + 1, j, 1)
+                elif cnt < rollMax[j - 1]:
+                    res += dfs(i + 1, j, cnt + 1)
+            return res % mod
+        
+        mod = 10 ** 9 + 7
+        res = dfs(0, -1, 0)
+        return res 
+```

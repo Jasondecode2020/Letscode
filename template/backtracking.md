@@ -1055,3 +1055,24 @@ class Solution:
         mx = max(c.keys())
         return c[mx]
 ```
+
+### 247. Strobogrammatic Number II
+
+```python
+class Solution:
+    def findStrobogrammatic(self, n: int) -> List[str]:
+        pairs = [('1', '1'), ('8', '8'), ('6', '9'), ('9', '6')]
+        def dfs(x):
+            if x == 0:
+                return ['']
+            if x == 1:
+                return ['0', '1', '8']
+            res = []
+            for num in dfs(x - 2):
+                for a, b in pairs:
+                    res.append(a + num + b)
+                if x != n:
+                    res.append('0' + num + '0')
+            return res 
+        return dfs(n)
+```

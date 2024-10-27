@@ -219,20 +219,6 @@ class Solution:
         return max(dp)
 ```
 
-### 2944. Minimum Number of Coins for Fruits
-
-```python
-class Solution:
-    def minimumCoins(self, prices: List[int]) -> int:
-        n = len(prices)
-        @cache
-        def dfs(i):
-            if i >= n + 1:
-                return 0
-            return min(dfs(j) for j in range(i + 1, 2 * i + 2)) + prices[i - 1]
-        return dfs(1)
-```
-
 ### 1696. Jump Game VI
 
 ```python
