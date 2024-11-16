@@ -27,7 +27,7 @@ def f(v, w, t, i):
 
 ## 3 Knapsack (18)
 
-### 1 0-1 knapsack
+### 1 0-1 knapsack(13)
 
 * [2915. Length of the Longest Subsequence That Sums to Target](#2915-Length-of-the-Longest-Subsequence-That-Sums-to-Target)
 * [416. Partition Equal Subset Sum](#2915-Length-of-the-Longest-Subsequence-That-Sums-to-Target)
@@ -43,7 +43,7 @@ def f(v, w, t, i):
 * [2291. Maximum Profit From Trading Stocks](#2291-maximum-profit-from-trading-stocks)
 * [3082. Find the Sum of the Power of All Subsequences](#3082-find-the-sum-of-the-power-of-all-subsequences)
 
-### 2 unbounded knapsack
+### 2 unbounded knapsack(6)
 
 * [322. Coin Change](#322-coin-change)
 * [518. Coin Change II](#518-coin-change-ii)
@@ -54,7 +54,7 @@ def f(v, w, t, i):
 
 ### 3 mutiple knapsack
 
-### 4 group knapsack
+### 4 group knapsack(3)
 
 * [1155. Number of Dice Rolls With Target Sum](#1155-number-of-dice-rolls-with-target-sum)
 * [1981. Minimize the Difference Between Target and Chosen Elements](#1981-minimize-the-difference-between-target-and-chosen-elements)

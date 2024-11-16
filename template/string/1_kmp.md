@@ -3,6 +3,7 @@
 ### https://www.youtube.com/watch?v=V5-7GzOfADQ (best video about kmp)
 
 ```python
+# consider using nxt = [-1] * n 
 def nxt(s):
     nxt, j = [-1], -1
     for i in range(len(s)):
@@ -13,7 +14,7 @@ def nxt(s):
     return nxt
 ```
 
-## Question list
+## Question list(12)
 
 * [28. Find the Index of the First Occurrence in a String](#28-find-the-index-of-the-first-occurrence-in-a-string)
 * [796. Rotate String](#796-rotate-string)
@@ -27,8 +28,8 @@ def nxt(s):
 * [214. Shortest Palindrome](#214-shortest-palindrome)
 * [686. Repeated String Match](#686-repeated-string-match)
 
-* [3008. Find Beautiful Indices in the Given Array II](#3008-find-beautiful-indices-in-the-given-array-ii)
-* [1397. Find All Good Strings](#1397-find-all-good-strings) 2666 (TODO: digit dp first)
+* [3008. Find Beautiful Indices in the Given Array II](#3008-find-beautiful-indices-in-the-given-array-ii)(kmp + binary search)
+* [1397. Find All Good Strings](#1397-find-all-good-strings) 2666 (TODO: kmp + digit dp)
 
 ### 28. Find the Index of the First Occurrence in a String
 
@@ -336,6 +337,8 @@ class Solution:
 ```
 
 ### 1397. Find All Good Strings
+
+- learn digit dp first 
 
 ```python
 

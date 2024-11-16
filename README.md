@@ -407,7 +407,15 @@ Practice with ratings (https://huxulm.github.io/lc-rating/zen)
 
 * ### 13 Dynamic Programming
   * #### 13.1 Basics
-    * ##### 13.1.1 Climbing Stairs
+    * ##### 13.1.1 Climbing Stairs (8)
+      * [70. Climbing Stairs](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#70-climbing-stairs) 1300
+      * [509. Fibonacci Number](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#509-fibonacci-number) 1300
+      * [1137. N-th Tribonacci Number](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#1137-n-th-tribonacci-number) 1400
+      * [746. Min Cost Climbing Stairs](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#746-min-cost-climbing-stairs) 1500
+      * [377. Combination Sum IV](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#377-combination-sum-iv) 1600
+      * [2466. Count Ways To Build Good Strings](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#2466-count-ways-to-build-good-strings) 1694
+      * [2533. Number of Good Binary Strings](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#2533-number-of-good-binary-strings) 1694
+      * [2266. Count Number of Texts](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#2266-count-number-of-texts) 1857 (one more time)
     * ##### 13.1.2 House Robber
   * #### 13.2 LCS (15) [pattern](https://github.com/Jasondecode2020/Letscode/blob/main/pattern/lcs.md)
     * [1143. Longest Common Subsequence](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/LCS.md#1143-longest-common-subsequence)

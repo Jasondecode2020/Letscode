@@ -416,3 +416,19 @@ class Solution:
         res = dfs(0, -1, 0)
         return res 
 ```
+
+## Number of subsequences
+
+3351. Sum of Good Subsequences
+
+```python
+class Solution:
+    def sumOfGoodSubsequences(self, nums: List[int]) -> int:
+        f, cnt = defaultdict(int), defaultdict(int)
+        mod = 10 ** 9 + 7
+        for x in nums:
+            c = cnt[x - 1] + cnt[x + 1] + 1
+            f[x] = (f[x] + f[x - 1] + f[x + 1] + c * x) % mod 
+            cnt[x] = (cnt[x] + c) % mod
+        return sum(f.values()) % mod 
+```

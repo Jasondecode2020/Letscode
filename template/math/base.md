@@ -1,3 +1,9 @@
+## Question list
+
+* [504. Base 7](#504-base-7)
+* [405. Convert a Number to Hexadecimal](#405-convert-a-number-to-hexadecimal)
+* [166. Fraction to Recurring Decimal](#166-fraction-to-recurring-decimal)
+
 ### 504. Base 7
 
 ```python
@@ -39,4 +45,32 @@ class Solution:
             return check(2 ** 32 + num)
         else:
             return '0'
+```
+
+### 166. Fraction to Recurring Decimal
+
+```python
+class Solution:
+    def fractionToDecimal(self, numerator: int, denominator: int) -> str:
+        a, b = numerator, denominator
+        if a % b == 0:  
+            return str(a // b)
+        
+        res = ''
+        if a * b < 0: 
+            res += '-' 
+        
+        a, b = abs(a), abs(b)
+        res += str(a // b) + '.'
+        a %= b
+        d = {}
+        while a != 0:
+            if a in d:
+                u = d[a]  # 如果出现了就是循环小数
+                return res[:u] + f'({res[u:]})'
+            d[a] = len(res)
+            a *= 10
+            res += str(a // b)
+            a %= b
+        return res
 ```

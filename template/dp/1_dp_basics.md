@@ -10,8 +10,8 @@
 * [746. Min Cost Climbing Stairs](#746-min-cost-climbing-stairs) 1500
 * [377. Combination Sum IV](#377-combination-sum-iv) 1600
 * [2466. Count Ways To Build Good Strings](#2466-count-ways-to-build-good-strings) 1694
-* [2266. Count Number of Texts](#2266-count-number-of-texts) 1857
 * [2533. Number of Good Binary Strings](#2533-number-of-good-binary-strings) 1694
+* [2266. Count Number of Texts](#2266-count-number-of-texts) 1857 (one more time)
 
 ### 1.2 House Robber (8)
 
@@ -44,9 +44,9 @@
 class Solution:
     def climbStairs(self, n: int) -> int:
         first, second = 1, 2
-        for i in range(3, n + 1):
+        for n in range(3, n + 1):
             second, first = second + first, second 
-        return second if n >= 2 else first 
+        return second if n >= 2 else 1
 ```
 
 ### 509. Fibonacci Number
@@ -56,8 +56,8 @@ class Solution:
     def fib(self, n: int) -> int:
         first, second = 0, 1
         for i in range(2, n + 1):
-            second, first = second + first, second 
-        return second if n >= 1 else first 
+            second, first = first + second, second
+        return second if n >= 1 else 0
 ```
 
 ### 1137. N-th Tribonacci Number
@@ -68,7 +68,7 @@ class Solution:
         first, second, third = 0, 1, 1
         for i in range(3, n + 1):
             third, second, first = third + second + first, third, second 
-        return third if n >= 2 else n
+        return third if n >= 1 else 0
 ```
 
 ### 746. Min Cost Climbing Stairs
@@ -78,7 +78,7 @@ class Solution:
     def minCostClimbingStairs(self, cost: List[int]) -> int:
         n = len(cost)
         for i in range(2, n):
-            cost[i] += min(cost[i - 2: i])
+            cost[i] += min(cost[i - 2], cost[i - 1])
         return min(cost[-2:])
 ```
 
@@ -86,41 +86,64 @@ class Solution:
 
 - (unbounded knapsack)
 
+- climbing stairs idea
+
 ```python
 class Solution:
     def combinationSum4(self, nums: List[int], target: int) -> int:
         @cache
-        def dfs(t):
-            if t > target:
-                return 0
-            if t == target:
+        def f(x):
+            if x == target:
                 return 1
+            if x > target:
+                return 0
             res = 0
             for n in nums:
-                res += dfs(n + t)
+                res += f(x + n)
             return res 
-        return dfs(0)
+        return f(0)
 ```
 
 ### 2466. Count Ways To Build Good Strings
 
-- same as 2466 (unbounded knapsack)
+- same as 2533 (unbounded knapsack), use t from low to high is better
 
 ```python
 class Solution:
     def countGoodStrings(self, low: int, high: int, zero: int, one: int) -> int:
         mod = 10 ** 9 + 7
         @cache
-        def dfs(t):
+        def f(t):
             if t == 0:
                 return 1
             if t < 0:
-                return 0 
+                return 0
             res = 0
             for n in [zero, one]:
-                res = (res + dfs(t - n)) % mod
-            return res % mod
-        return sum(dfs(t) for t in range(high, low - 1, -1)) % mod
+                res = (res + f(t - n)) % mod
+            return res 
+        return sum(f(i) for i in range(low, high + 1)) % mod
+```
+
+### 2533. Number of Good Binary Strings
+
+- same as 2466 (unbounded knapsack)
+
+```python
+class Solution:
+    def goodBinaryStrings(self, minLength: int, maxLength: int, oneGroup: int, zeroGroup: int) -> int:
+        mod = 10 ** 9 + 7
+        @cache
+        def f(t):
+            if t == 0:
+                return 1
+            if t < 0:
+                return 0
+            res = 0
+            for x in [oneGroup, zeroGroup]:
+                res = (res + f(t - x)) % mod
+            return res
+        return sum(f(i) for i in range(minLength, maxLength + 1)) % mod 
 ```
 
 ### 2266. Count Number of Texts
@@ -128,24 +151,27 @@ class Solution:
 ```python
 class Solution:
     def countTexts(self, pressedKeys: str) -> int:
-        mod = 10 ** 9 + 7 
+        mod = 10 ** 9 + 7
         @cache
-        def dp(c, count):
-            first, second, third, fourth = 1, 1, 2, 4 
-            for _ in range(4, count + 1):
-                if c in '234568':
+        def f(n, c):
+            first, second, third, fourth = 1, 1, 2, 4
+            for i in range(4, c + 1):
+                if n in '234568':
                     fourth, third, second = fourth + third + second, fourth, third 
                 else:
-                    fourth, third, second, first = fourth + third + second + first, fourth, third, second
-            if count <= 2:
-                return count 
-            return fourth 
+                    fourth, third, second, first = fourth + third + second + first, fourth, third, second 
+            if c == 1:
+                return second
+            elif c == 2:
+                return third
+            else:
+                return fourth % mod
 
         res = 1
-        for c, s in groupby(pressedKeys):
-            count = len(list(s))
-            res = (res * dp(c, count)) % mod 
-        return res 
+        for n, s in groupby(pressedKeys):
+            c = len(list(s))
+            res = (res * f(n, c)) % mod
+        return res
 ```
 
 ```python
@@ -181,33 +207,18 @@ class Solution:
         return res
 ```
 
-### 2533. Number of Good Binary Strings
+### 1.2 House Robber (8)
 
-- same as 2466 (unbounded knapsack)
+- f[i] = max(f[i - 1], f[i] + f[i - 2])
 
-```python
-class Solution:
-    def goodBinaryStrings(self, minLength: int, maxLength: int, oneGroup: int, zeroGroup: int) -> int:
-        mod = 10 ** 9 + 7
-        @cache
-        def dfs(t):
-            if t == 0:
-                return 1
-            if t < 0:
-                return 0
-            res = 0
-            for n in [oneGroup, zeroGroup]:
-                res = (res + dfs(t - n)) % mod 
-            return res 
-        return sum(dfs(t) for t in range(minLength, maxLength + 1)) % mod
-```
-
-### 1.2 House Robber (4)
-
-* [198. House Robber](#198-house-robber)
-* [740. Delete and Earn](#740-delete-and-earn)
+* [198. House Robber](#198-house-robber) 1500
+* [740. Delete and Earn](#740-delete-and-earn) 1600
 * [2320. Count Number of Ways to Place Houses](#2320-count-number-of-ways-to-place-houses) 1608
-* [213. House Robber II](#213-house-robber-ii)
+* [213. House Robber II](#213-house-robber-ii) 1650
+* [3186. Maximum Total Damage With Spell Casting](#3186-maximum-total-damage-with-spell-casting) 1840
+* [256. Paint House](#256-paint-house)
+* [265. Paint House II](#265-paint-house-ii)
+* [276. Paint Fence](#276-paint-fence)
 
 ### 198. House Robber
 

@@ -802,3 +802,67 @@ class Solution:
             if lastDigit < 9:
                 q.append(n * 10 + lastDigit + 1)
 ```
+
+### 127. Word Ladder
+
+```python
+class Solution:
+    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        wordSet = set(wordList)
+        if endWord not in wordSet:
+            return 0
+        l, s1, s2 = len(beginWord), {beginWord}, {endWord}
+        wordSet.remove(endWord)
+
+        step = 1
+        while s1:
+            step += 1
+            s = set()
+            for w in s1:
+                words = [w[:i] + c + w[i + 1:] for c in ascii_lowercase for i in range(l)]
+                for word in words:
+                    if word in s2:
+                        return step
+                    if word in wordSet:
+                        s.add(word)
+            for word in s:
+                wordSet.remove(word)
+            s1 = s 
+        return 0
+```
+
+### 126. Word Ladder II
+
+```python
+class Solution:
+    def findLadders(self, beginWord: str, endWord: str, wordList: List[str]) -> List[List[str]]:
+        wordSet = set(wordList)
+        ans = []
+        if endWord not in wordSet:
+            return ans
+        l, s1, s2 = len(beginWord), {beginWord}, {endWord}
+        flag, d = False, defaultdict(list)
+        while s1:
+            s = set()
+            for w in s1:
+                words = [w[:i] + c + w[i + 1:] for c in ascii_lowercase for i in range(l)]
+                for word in words:
+                    if word in s2:
+                        flag = True
+                    if word in wordSet:
+                        s.add(word)
+                        d[word].append(w)
+            for word in s:
+                wordSet.remove(word)
+            s1 = s 
+            if flag:
+                break 
+        def backtrack(cur, res):
+            if cur == beginWord:
+                ans.append(res[::-1])
+                return 
+            for word in d[cur]:
+                backtrack(word, res + [word])
+            return ans 
+        return backtrack(endWord, [endWord])
+```
