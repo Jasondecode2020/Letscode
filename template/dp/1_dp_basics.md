@@ -152,59 +152,21 @@ class Solution:
 class Solution:
     def countTexts(self, pressedKeys: str) -> int:
         mod = 10 ** 9 + 7
-        @cache
-        def f(n, c):
+        def f(c, count):
             first, second, third, fourth = 1, 1, 2, 4
-            for i in range(4, c + 1):
-                if n in '234568':
-                    fourth, third, second = fourth + third + second, fourth, third 
+            for _ in range(4, count + 1):
+                if c in '234568':
+                    fourth, third, second, first = fourth + third + second, fourth, third, second 
                 else:
                     fourth, third, second, first = fourth + third + second + first, fourth, third, second 
-            if c == 1:
-                return second
-            elif c == 2:
-                return third
-            else:
-                return fourth % mod
-
+            if count <= 2:
+                return count 
+            return fourth % mod 
         res = 1
-        for n, s in groupby(pressedKeys):
-            c = len(list(s))
-            res = (res * f(n, c)) % mod
-        return res
-```
-
-```python
-class Solution:
-    def countTexts(self, pressedKeys: str) -> int:
-        mod = 10 ** 9 + 7
-        arr = []
-        i = 0
-        n = len(pressedKeys)
-        while i < n:
-            j = i
-            while j < n and pressedKeys[j] == pressedKeys[i]:
-                j += 1
-            arr.append((pressedKeys[i], j - i))
-            i = j
-        
-        def dp(c, count):
-            first, second, third, fourth = 1, 1, 2, 4
-            for i in range(4, count + 1):
-                if c in '234568':
-                    fourth, third, second = fourth + third + second, fourth, third
-                else:
-                    fourth, third, second, first = fourth + third + second + first, fourth, third, second
-            if count <= 1:
-                return second
-            elif count == 2:
-                return third
-            elif count >= 3:
-                return fourth % mod
-        res = 1
-        for c, count in arr:
-            res = (res * dp(c, count)) % mod
-        return res
+        for c, s in groupby(pressedKeys):
+            count = len(list(s))
+            res = (res * f(c, count)) % mod 
+        return res 
 ```
 
 ### 1.2 House Robber (8)
@@ -225,11 +187,11 @@ class Solution:
 ```python
 class Solution:
     def rob(self, nums: List[int]) -> int:
+        nums = [0] + nums
         n = len(nums)
-        dp = [0] + nums 
-        for i in range(2, n + 1):
-            dp[i] = max(dp[i - 1], dp[i - 2] + nums[i - 1])
-        return dp[-1]
+        for i in range(2, n):
+            nums[i] = max(nums[i - 1], nums[i] + nums[i - 2])
+        return nums[-1]
 ```
 
 ### 740. Delete and Earn
@@ -237,16 +199,33 @@ class Solution:
 ```python
 class Solution:
     def deleteAndEarn(self, nums: List[int]) -> int:
-        # convert to house robber problem
-        arr = [0] * (max(nums) + 1)
+        f = [0] * (max(nums) + 1)
         for n in nums:
-            arr[n] += n
-        nums = arr[::]
-        nums = [0] + nums 
-        n = len(nums)
-        for i in range(2, n):
-            nums[i] = max(nums[i - 1], nums[i] + nums[i - 2])
-        return nums[-1]
+            f[n] += n 
+        f = [0] + f 
+        for i in range(2, len(f)):
+            f[i] = max(f[i - 1], f[i - 2] + f[i])
+        return f[-1]
+```
+
+### 2320. Count Number of Ways to Place Houses
+
+```python
+class Solution:
+    def countHousePlacements(self, n: int) -> int:
+        mod = 10 ** 9 + 7
+        @cache
+        def f(i, rob):
+            if i == n:
+                return 1
+            res = 0
+            if rob:
+                res += f(i + 1, not rob)
+            else:
+                res += f(i + 1, rob) + f(i + 1, not rob)
+            return res 
+        res = f(-1, True) % mod 
+        return (res * res) % mod
 ```
 
 ### 256. Paint House
@@ -271,26 +250,6 @@ class Solution:
             for j in range(len(costs[0])):
                 costs[i][j] += min(costs[i - 1][:j] + costs[i - 1][j + 1:])
         return min(costs[-1])
-```
-
-### 2320. Count Number of Ways to Place Houses
-
-```python
-class Solution:
-    def countHousePlacements(self, n: int) -> int:
-        mod = 10 ** 9 + 7
-        @cache
-        def dfs(i, rob):
-            if i == n - 1:
-                return 1
-            res = 0
-            if rob:
-                res += dfs(i + 1, not rob)
-            else:
-                res += dfs(i + 1, rob) + dfs(i + 1, not rob)
-            return res % mod
-        res = (dfs(0, True) + dfs(0, False)) % mod
-        return (res * res) % mod
 ```
 
 ### 213. House Robber II
