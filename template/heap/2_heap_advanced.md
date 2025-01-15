@@ -1,6 +1,26 @@
+## heap advanced
+
+* [23. Merge k Sorted Lists]()
 * [1834. Single-Threaded CPU](#1834-single-threaded-cpu)
 * [2931. Maximum Spending After Buying Items](#2931-maximum-spending-after-buying-items)
 * [1705. Maximum Number of Eaten Apples](#1705-maximum-number-of-eaten-apples)
+
+### 23. Merge k Sorted Lists
+
+```python
+class Solution:
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        p = dummy = ListNode()
+        pq = []
+        for l in lists:
+            while l:
+                heappush(pq, l.val)
+                l = l.next 
+        while pq:
+            p.next = ListNode(heappop(pq))
+            p = p.next 
+        return dummy.next 
+```
 
 ### 1834. Single-Threaded CPU
 

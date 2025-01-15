@@ -3,6 +3,7 @@
 - 2 types, with leading zerp or without leading zero
 - the state is prev state, is_num for prev has set a num, limit for lower and upper boundary
 
+* [2376. Count Special Integers](#2376-count-special-integers)
 * [357. Count Numbers with Unique Digits](#357-count-numbers-with-unique-digits)
 * [233. Number of Digit One](#233-number-of-digit-one)
 * [面试题 17.06. Number Of 2s In Range LCCI](#面试题-1706-number-of-2s-in-range-lcci)
@@ -16,6 +17,76 @@
 * [2719. Count of Integers](#2719-count-of-integers)
 * [600. Non-negative Integers without Consecutive Ones](#600-non-negative-integers-without-consecutive-ones)
 * [788. Rotated Digits](#788-rotated-digits)
+
+### 2376. Count Special Integers
+
+```python
+class Solution:
+    def countSpecialNumbers(self, n: int) -> int:
+        s = str(n)
+        @cache
+        def f(i, mask, is_limit, is_num):
+            if i == len(s):
+                return int(is_num)
+            res = 0
+            if not is_num:
+                res = f(i + 1, mask, False, False)
+            low = 0 if is_num else 1
+            high = int(s[i]) if is_limit else 9 
+            for d in range(low, high + 1):
+                if (mask >> d) & 1 == 0:
+                    res += f(i + 1, mask | (1 << d), is_limit and d == high, True)
+            return res 
+        return f(0, 0, True, False)
+```
+
+- v1 template 
+
+```python
+class Solution:
+    def countSpecialNumbers(self, n: int) -> int:
+        @cache
+        def f(i, mask, is_limit, is_num):
+            if i == len(s):
+                return int(is_num)
+            res = 0
+            if not is_num:
+                res = f(i + 1, mask, False, False)
+            up = int(s[i]) if is_limit else 9
+            for d in range(1 - int(is_num), up + 1):
+                if (1 << d) & mask == 0:
+                    res += f(i + 1, mask | (1 << d), is_limit and d == up, True)
+            return res
+
+        s = str(n)
+        return f(0, 0, True, False)
+```
+- v2 template
+
+```python
+class Solution:
+    def countSpecialNumbers(self, n: int) -> int:
+        low = str(1)
+        high = str(n)
+        n = len(high)
+        low = '0' * (n - len(low)) + low # alignment of low and high
+        @cache
+        def f(i, mask, limit_low, limit_high, is_num):
+            if i == n:
+                return int(is_num)
+            res = 0
+            if not is_num and low[i] == '0':
+                res += f(i + 1, mask, True, False, False)
+            # range of the ith number, i start from 0
+            lo = int(low[i]) if limit_low else 0
+            hi = int(high[i]) if limit_high else 9
+            d0 = 0 if is_num else 1
+            for d in range(max(lo, d0), hi + 1):
+                if (1 << d) & mask == 0:
+                    res += f(i + 1, (1 << d) | mask, limit_low and d == lo, limit_high and d == hi, True)
+            return res
+        return f(0, 0, True, True, False)
+```
 
 ### 357. Count Numbers with Unique Digits
 
@@ -162,56 +233,6 @@ class Solution:
         return check(high) - check(low - 1)
 ```
 
-### 2376. Count Special Integers
-f
-- v1 template 
-
-```python
-class Solution:
-    def countSpecialNumbers(self, n: int) -> int:
-        @cache
-        def f(i, mask, is_limit, is_num):
-            if i == len(s):
-                return int(is_num)
-            res = 0
-            if not is_num:
-                res = f(i + 1, mask, False, False)
-            up = int(s[i]) if is_limit else 9
-            for d in range(1 - int(is_num), up + 1):
-                if (1 << d) & mask == 0:
-                    res += f(i + 1, mask | (1 << d), is_limit and d == up, True)
-            return res
-
-        s = str(n)
-        return f(0, 0, True, False)
-```
-- v2 template
-
-```python
-class Solution:
-    def countSpecialNumbers(self, n: int) -> int:
-        low = str(1)
-        high = str(n)
-        n = len(high)
-        low = '0' * (n - len(low)) + low # alignment of low and high
-        @cache
-        def f(i, mask, limit_low, limit_high, is_num):
-            if i == n:
-                return int(is_num)
-            res = 0
-            if not is_num and low[i] == '0':
-                res += f(i + 1, mask, True, False, False)
-            # range of the ith number, i start from 0
-            lo = int(low[i]) if limit_low else 0
-            hi = int(high[i]) if limit_high else 9
-            d0 = 0 if is_num else 1
-            for d in range(max(lo, d0), hi + 1):
-                if (1 << d) & mask == 0:
-                    res += f(i + 1, (1 << d) | mask, limit_low and d == lo, limit_high and d == hi, True)
-            return res
-        return f(0, 0, True, True, False)
-```
-
 ### 1012. Numbers With Repeated Digits
 
 ```python
@@ -263,21 +284,20 @@ class Solution:
 ### 902. Numbers At Most N Given Digit Set
 
 ```python
-class Solution:
-    def atMostNGivenDigitSet(self, digits: List[str], n: int) -> int:
+        s = str(n)
         @cache
         def f(i, is_limit, is_num):
             if i == len(s):
                 return int(is_num)
-            res = f(i + 1, False, False) if not is_num else 0
-            up = s[i] if is_limit else '9'
+            res = 0
+            if not is_num:
+                res = f(i + 1, False, False)
+            high = s[i] if is_limit else '9'
             for d in digits:
-                if d > up:
+                if d > high:
                     break
-                res += f(i + 1, is_limit and d == up, True)
-            return res
-
-        s = str(n)
+                res += f(i + 1, is_limit and d == high, True)
+            return res 
         return f(0, True, False)
 ```
 

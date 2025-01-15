@@ -298,3 +298,23 @@ class Solution:
                 mat[x][y] = n 
         return mat
 ```
+
+### 498. Diagonal Traverse
+
+```python
+class Solution:
+    def findDiagonalOrder(self, mat: List[List[int]]) -> List[int]:
+        R, C = len(mat), len(mat[0])
+        d = defaultdict(list)
+        for r in range(R):
+            for c in range(C):
+                d[r + c].append(mat[r][c])
+        
+        res = []
+        for i in range(R + C - 1):
+            if i % 2 == 0:
+                res.extend(d[i][::-1])
+            else:
+                res.extend(d[i])
+        return res
+```

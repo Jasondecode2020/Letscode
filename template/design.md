@@ -169,3 +169,208 @@ class BrowserHistory:
 # param_2 = obj.back(steps)
 # param_3 = obj.forward(steps)
 ```
+
+### 622. Design Circular Queue
+
+```python
+class MyCircularQueue:
+
+    def __init__(self, k: int):
+        self.front = 0
+        self.rear = 0
+        self.capacity = k + 1
+        self.arr = [0 for _ in range(self.capacity)]
+
+    def enQueue(self, value: int) -> bool:
+        if self.isFull():
+            return False 
+        self.arr[self.rear] = value 
+        self.rear = (self.rear + 1) % self.capacity
+        return True
+
+    def deQueue(self) -> bool:
+        if self.isEmpty():
+            return False 
+        self.front = (self.front + 1) % self.capacity
+        return True
+
+    def Front(self) -> int:
+        if self.isEmpty():
+            return -1
+        return self.arr[self.front]
+
+    def Rear(self) -> int:
+        if self.isEmpty():
+            return -1
+        return self.arr[(self.rear - 1 + self.capacity) % self.capacity]
+
+    def isEmpty(self) -> bool:
+        return self.front == self.rear 
+
+    def isFull(self) -> bool:
+        return (self.rear + 1) % self.capacity == self.front 
+```
+
+### 641. Design Circular Deque
+
+```python
+class MyCircularDeque:
+
+    def __init__(self, k: int):
+        self.front = self.rear = 0
+        self.capacity = k + 1
+        self.arr = [0 for i in range(self.capacity)]
+
+    def insertFront(self, value: int) -> bool:
+        if self.isFull():
+            return False 
+        self.front = (self.front - 1 + self.capacity) % self.capacity
+        self.arr[self.front] = value 
+        return True
+
+    def insertLast(self, value: int) -> bool:
+        if self.isFull():
+            return False 
+        self.arr[self.rear] = value 
+        self.rear = (self.rear + 1) % self.capacity
+        return True
+
+    def deleteFront(self) -> bool:
+        if self.isEmpty():
+            return False 
+        self.front = (self.front + 1) % self.capacity
+        return True
+
+    def deleteLast(self) -> bool:
+        if self.isEmpty():
+            return False 
+        self.rear = (self.rear - 1 + self.capacity) % self.capacity
+        return True
+
+    def getFront(self) -> int:
+        if self.isEmpty():
+            return -1
+        return self.arr[self.front]
+
+    def getRear(self) -> int:
+        if self.isEmpty():
+            return -1
+        return self.arr[(self.rear - 1 + self.capacity) % self.capacity]
+
+    def isEmpty(self) -> bool:
+        return self.front == self.rear 
+
+    def isFull(self) -> bool:
+        return (self.rear + 1) % self.capacity == self.front 
+```
+
+### 1670. Design Front Middle Back Queue
+
+```python
+class FrontMiddleBackQueue:
+
+    def __init__(self):
+        self.left = deque()
+        self.right = deque()
+
+    def balance(self):
+        if len(self.left) > len(self.right):
+            self.right.appendleft(self.left.pop())
+        elif len(self.right) > len(self.left) + 1:
+            self.left.append(self.right.popleft())
+
+    def pushFront(self, val: int) -> None:
+        self.left.appendleft(val)
+        self.balance()
+
+    def pushMiddle(self, val: int) -> None:
+        if len(self.left) < len(self.right):
+            self.left.append(val)
+        else:
+            self.right.appendleft(val)
+
+    def pushBack(self, val: int) -> None:
+        self.right.append(val)
+        self.balance()
+
+    def popFront(self) -> int:
+        if not self.right:
+            return -1
+        val = self.left.popleft() if self.left else self.right.popleft()
+        self.balance()
+        return val 
+
+    def popMiddle(self) -> int:
+        if not self.right:
+            return -1
+        if len(self.left) == len(self.right):
+            return self.left.pop()
+        return self.right.popleft()
+
+    def popBack(self) -> int:
+        if not self.right:
+            return -1
+        val = self.right.pop()
+        self.balance()
+        return val 
+```
+
+### 716. Max Stack
+
+```python
+from sortedcontainers import SortedList
+
+class MaxStack:
+
+    def __init__(self):
+        self.stack = SortedList()
+        self.values = SortedList()
+        self.i = 0
+
+    def push(self, x: int) -> None:
+        self.stack.add((self.i, x))
+        self.values.add((x, self.i))
+        self.i += 1
+
+    def pop(self) -> int:
+        idx, val = self.stack.pop()
+        self.values.remove((val, idx))
+        return val 
+
+    def top(self) -> int:
+        return self.stack[-1][1]
+
+    def peekMax(self) -> int:
+        return self.values[-1][0]
+
+    def popMax(self) -> int:
+        val, idx = self.values.pop()
+        self.stack.remove((idx, val))
+        return val 
+```
+
+### 895. Maximum Frequency Stack
+
+```python
+from sortedcontainers import SortedList
+
+class FreqStack:
+
+    def __init__(self):
+        self.stack = SortedList()
+        self.d = defaultdict(int)
+        self.i = 0
+
+    def push(self, val: int) -> None:
+        if val in self.d:
+            self.d[val] += 1
+        else:
+            self.d[val] = 1
+        self.stack.add((self.d[val], self.i, val))
+        self.i += 1
+
+    def pop(self) -> int:
+        cnt, i, val = self.stack.pop()
+        self.d[val] -= 1
+        return val 
+```

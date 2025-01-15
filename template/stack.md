@@ -409,3 +409,42 @@ class Solution:
                     stack.pop()
         return ''.join([s[0] for s in stack])
 ```
+
+### 439. Ternary Expression Parser
+
+```python
+class Solution:
+    def parseTernary(self, expression: str) -> str:
+        n = len(expression)
+        i = n - 1
+        stack = []
+        while i >= 0:
+            if expression[i].isalnum():
+                stack.append(expression[i])
+            elif expression[i] == '?':
+                i -= 1
+                left = stack.pop()
+                right = stack.pop()
+                if expression[i] == 'T':
+                    stack.append(left)
+                else:
+                    stack.append(right)
+            i -= 1
+        return stack.pop()
+```
+
+### 484. Find Permutation
+
+```python
+class Solution:
+    def findPermutation(self, s: str) -> List[int]:
+        s += 'I'
+        res = []
+        stack = []
+        for i, c in enumerate(s):
+            stack.append(i + 1)
+            if c == 'I':
+                res += stack[::-1]
+                stack = []
+        return res
+```

@@ -1076,3 +1076,27 @@ class Solution:
             return res 
         return dfs(n)
 ```
+
+### 2698. Find the Punishment Number of an Integer
+
+```python
+class Solution:
+    def punishmentNumber(self, n: int) -> int:
+        def dfs(s, res):
+            if res > i:
+                return 
+            if res == i and not s:
+                self.ans = True 
+            for j in range(1, len(s) + 1):
+                dfs(s[j:], res + int(s[:j]))
+           
+
+        res = 0
+        for i in range(1, n + 1):
+            num = i * i 
+            self.ans = False
+            dfs(str(num), 0)
+            if self.ans:
+                res += num 
+        return res 
+```

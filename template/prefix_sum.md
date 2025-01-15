@@ -1906,3 +1906,19 @@ class Solution:
                         res += 1
         return res 
 ```
+
+### 3381. Maximum Subarray Sum With Length Divisible by K
+
+```python
+class Solution:
+    def maxSubarraySum(self, nums: List[int], k: int) -> int:
+        prefix_sum = list(accumulate(nums, initial = 0))
+        min_s = [inf] * k 
+        res = -inf 
+        for j, s in enumerate(prefix_sum):
+            i = j % k 
+            res = max(res, s - min_s[i])
+            min_s[i] = min(min_s[i], s)
+        return res 
+```
+

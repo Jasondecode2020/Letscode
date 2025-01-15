@@ -1407,3 +1407,45 @@ class Solution:
         return res 
 ```
 
+### 2271. Maximum White Tiles Covered by a Carpet
+
+```python
+class Solution:
+    def maximumWhiteTiles(self, tiles: List[List[int]], carpetLen: int) -> int:
+        res = cover = left = 0
+        tiles.sort()
+        for tl, tr in tiles:
+            cover += tr - tl + 1
+            carpetLeft = tr - carpetLen + 1
+            while tiles[left][1] < carpetLeft:
+                cover -= tiles[left][1] - tiles[left][0] + 1
+                left += 1
+            uncover = max(carpetLeft - tiles[left][0], 0)
+            res = max(res, cover - uncover)
+        return res 
+```
+
+### 3413. Maximum Coins From K Consecutive Bags
+
+```python
+class Solution:
+    def maximumCoins(self, coins: List[List[int]], k: int) -> int:
+        def maxCover(tiles, carpetLen):
+            res = cover = left = 0
+            tiles.sort()
+            for tl, tr, c in tiles:
+                cover += (tr - tl + 1) * c
+                carpetLeft = tr - carpetLen + 1
+                while tiles[left][1] < carpetLeft:
+                    cover -= (tiles[left][1] - tiles[left][0] + 1) * tiles[left][2]
+                    left += 1
+                uncover = max((carpetLeft - tiles[left][0]) * tiles[left][2], 0)
+                res = max(res, cover - uncover)
+            return res 
+        coins.sort()
+        res = maxCover(coins, k)
+        coins.reverse()
+        for c in coins:
+            c[0], c[1] = -c[1], -c[0]
+        return max(res, maxCover(coins, k))
+```

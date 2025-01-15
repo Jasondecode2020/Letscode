@@ -241,3 +241,23 @@ class Solution:
         return -1
 ```
 
+### 1986. Minimum Number of Work Sessions to Finish the Tasks
+
+```python
+class Solution:
+    def minSessions(self, tasks: List[int], sessionTime: int) -> int:
+        n = len(tasks)
+        @cache
+        def f(state, time):
+            if state == 2 ** n - 1:
+                return 1
+            res = inf
+            for i in range(n):
+                if state & 1 << i == 0:
+                    if time < tasks[i]:
+                        res = min(res, f(state | (1 << i), sessionTime - tasks[i]) + 1)
+                    else:
+                        res = min(res, f(state | (1 << i), time - tasks[i]))
+            return res
+        return f(0, sessionTime)
+```

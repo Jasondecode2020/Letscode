@@ -432,3 +432,41 @@ class Solution:
             cnt[x] = (cnt[x] + c) % mod
         return sum(f.values()) % mod 
 ```
+
+### 1269. Number of Ways to Stay in the Same Place After Some Steps
+
+```python
+class Solution:
+    def numWays(self, steps: int, arrLen: int) -> int:
+        mod = 10 ** 9 + 7
+        mx = steps // 2
+        @cache
+        def dfs(pos, left):
+            if left == 0:
+                return pos == 0 
+            if pos > mx:
+                return 0 
+            a = dfs(pos - 1, left - 1) if pos - 1 >= 0 else 0
+            b = dfs(pos + 1, left - 1) if pos + 1 < arrLen else 0
+            c = dfs(pos, left - 1)
+            return (a + b + c) % mod 
+        return dfs(0, steps)
+```
+
+### 2400. Number of Ways to Reach a Position After Exactly k Steps
+
+```python
+class Solution:
+    def numberOfWays(self, startPos: int, endPos: int, k: int) -> int:
+        mod = 10 ** 9 + 7
+        @cache
+        def dfs(pos, left):
+            if left == 0:
+                return pos == endPos
+            if abs(pos - endPos) > left:
+                return 0
+            a = dfs(pos + 1, left - 1)
+            b = dfs(pos - 1, left - 1)
+            return (a + b) % mod 
+        return dfs(startPos, k)
+```

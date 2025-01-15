@@ -16,11 +16,11 @@
 ```python
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        lowest, profit = prices[0], 0
-        for price in prices:
-            lowest = min(lowest, price)
-            profit = max(profit, price - lowest)
-        return profit
+        res, lowest = 0, prices[0]
+        for p in prices:
+            lowest = min(lowest, p)
+            res = max(res, p - lowest)
+        return res 
 ```
 
 ### 122. Best Time to Buy and Sell Stock II
@@ -28,12 +28,12 @@ class Solution:
 ```python
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        # [7,1,5,3,6,4]
+        n = len(prices)
         res = 0
-        for i in range(1, len(prices)):
+        for i in range(1, n):
             if prices[i] > prices[i - 1]:
                 res += prices[i] - prices[i - 1]
-        return res
+        return res 
 ```
 
 ### 123. Best Time to Buy and Sell Stock III
@@ -223,4 +223,90 @@ class Solution:
             
         n = len(b)
         return dfs(0, 0)
+```
+
+### 1363. Largest Multiple of Three
+
+- greedy
+
+```python
+class Solution:
+    def largestMultipleOfThree(self, digits: List[int]) -> str:
+        d = defaultdict(list)
+        for n in digits:
+            d[n % 3].append(n)
+        if (len(d[1]) + 2 * len(d[2])) % 3 == 1:
+            if len(d[1]) >= 1:
+                num = sorted(d[1])[0]
+                d[1].remove(num)
+            elif len(d[2]) >= 2:
+                nums = sorted(d[2])[:2]
+                for num in nums:
+                    d[2].remove(num)
+            else:
+                return ''
+        if (len(d[1]) + 2 * len(d[2])) % 3 == 2:
+            if len(d[2]) >= 1:
+                num = sorted(d[2])[0]
+                d[2].remove(num)
+            elif len(d[1]) >= 2:
+                nums = sorted(d[1])[:2]
+                for num in nums:
+                    d[1].remove(num)
+            else:
+                return ''
+        arr = d[0] + d[1] + d[2]
+        arr.sort(reverse = True)
+        if arr and arr[0] == 0:
+            return '0'
+        s = [str(i) for i in arr]
+        res = ''.join(s)
+        return res
+```
+
+### 1186. Maximum Subarray Sum with One Deletion
+
+### 801. Minimum Swaps To Make Sequences Increasing
+
+```python
+class Solution:
+    def minSwap(self, nums1: List[int], nums2: List[int]) -> int:
+        n = len(nums1)
+        f = [[inf, inf] for i in range(n)]
+        f[0] = [0, 1]
+        for i in range(1, n):
+            if nums1[i - 1] < nums1[i] and nums2[i - 1] < nums2[i]:
+                f[i][0] = f[i - 1][0]
+                f[i][1] = f[i - 1][1] + 1
+            if nums2[i - 1] < nums1[i] and nums1[i - 1] < nums2[i]:
+                f[i][0] = min(f[i][0], f[i - 1][1])
+                f[i][1] = min(f[i][1], f[i - 1][0] + 1)
+        return min(f[-1])
+```
+
+### 2036. Maximum Alternating Subarray Sum
+
+```python
+class Solution:
+    def maximumAlternatingSubarraySum(self, nums: List[int]) -> int:
+        n = len(nums)
+        f = [[-inf, -inf] for i in range(n)]
+        f[0] = [-inf, nums[0]]
+        res = nums[0]
+        for i in range(1, n):
+            f[i][0] = f[i - 1][1] - nums[i]
+            f[i][1] = max(f[i - 1][0] + nums[i], nums[i])
+            res = max(res, max(f[i]))
+        return res 
+```
+
+### 1911. Maximum Alternating Subsequence Sum
+
+```python
+class Solution:
+    def maxAlternatingSum(self, nums: List[int]) -> int:
+        even, odd = nums[0], 0
+        for i in range(1, len(nums)):
+            even, odd = max(even, odd + nums[i]), max(odd, even - nums[i])
+        return even 
 ```

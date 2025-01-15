@@ -1100,3 +1100,62 @@ class Solution:
                     res += 1
         return res
 ```
+
+### 1340. Jump Game V
+
+```python
+class Solution:
+    def maxJumps(self, arr: List[int], d: int) -> int:
+        g = defaultdict(list)
+        n = len(arr)
+        for i in range(n):
+            for j in range(i + 1, n):
+                if arr[j] < arr[i] and abs(j - i) <= d:
+                    g[i].append(j)
+                else:
+                    break
+            for j in range(i - 1, -1, -1):
+                if arr[j] < arr[i] and abs(j - i) <= d:
+                    g[i].append(j)
+                else:
+                    break
+        @cache
+        def dfs(i):
+            res = 1
+            for j in g[i]:
+                res = max(res, 1 + dfs(j))
+            return res 
+            
+        res = 0
+        for i in range(n):
+            res = max(res, dfs(i))
+        return res
+```
+
+### 3249. Count the Number of Good Nodes
+
+```python
+class Solution:
+    def countGoodNodes(self, edges: List[List[int]]) -> int:
+        g = defaultdict(list)
+        for a, b in edges:
+            g[a].append(b)
+            g[b].append(a)
+
+        def dfs(x, fa):
+            size, sz0, ok = 1, 0, True
+            for y in g[x]:
+                if y == fa:
+                    continue
+                sz = dfs(y, x)
+                if sz0  == 0:
+                    sz0 = sz 
+                elif sz != sz0:
+                    ok = False 
+                size += sz 
+            self.res += ok
+            return size 
+        self.res = 0
+        dfs(0, -1)
+        return self.res
+```

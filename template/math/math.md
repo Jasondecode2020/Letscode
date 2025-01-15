@@ -112,3 +112,77 @@ class Solution:
         res += d['yx'] // 2 if d['yx'] % 2 == 0 else d['yx'] // 2 + 1
         return res
 ```
+
+### 670. Maximum Swap
+
+```python
+class Solution:
+    def maximumSwap(self, num: int) -> int:
+        s = [int(i) for i in str(num)]
+        n = len(s)
+        for i in range(n):
+            flag = False
+            mx = s[i]
+            mx_idx = 0
+            for j in range(i + 1, n):
+                if s[j] >= mx and s[j] != s[i]:
+                    mx = s[j]
+                    mx_idx = j 
+                    flag = True
+            
+            if flag:
+                s[mx_idx], s[i] = s[i], s[mx_idx]
+                break 
+        s = [str(i) for i in s]
+        return int(''.join(s))
+```
+
+### 400. Nth Digit
+
+```python
+class Solution:
+    def findNthDigit(self, n: int) -> int:
+        cur, base = 1, 9
+        while n - cur * base > 0:
+            n -= cur * base 
+            cur += 1
+            base *= 10
+        n -= 1
+        num = 10 ** (cur - 1) + n // cur 
+        idx = n % cur 
+        return int(str(num)[idx])
+```
+
+### 1104. Path In Zigzag Labelled Binary Tree
+
+```python
+class Solution:
+    def pathInZigZagTree(self, label: int) -> List[int]:
+        row = int(log2(label)) + 1
+        res = [0] * row
+        while row:
+            res[row-1] = label
+            label = (2 ** row - 1 - label + 2 ** (row - 1)) // 2
+            row -= 1
+        return res
+```
+
+### 1963. Minimum Number of Swaps to Make the String Balanced
+
+```python
+class Solution:
+    def minSwaps(self, s: str) -> int:
+        diff = 0
+        res = 0
+        for c in s:
+            if c == ']':
+                diff += 1
+            else:
+                diff -= 1
+            if diff > 0:
+                if diff % 2 == 0:
+                    res = max(res, abs(diff // 2))
+                else:
+                    res = max(res, abs(diff // 2) + 1)
+        return res 
+```

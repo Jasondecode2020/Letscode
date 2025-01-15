@@ -360,3 +360,47 @@ class Solution:
                     res.append(i - d[c][-1])
         return res 
 ```
+
+### 1095. Find in Mountain Array
+
+```python
+class Solution:
+    def findInMountainArray(self, target: int, mountainArr: 'MountainArray') -> int:
+        def findPeak():
+            l, r = 1, mountainArr.length() - 2
+            res = 0
+            while l <= r:
+                m = (l + r) // 2
+                if mountainArr.get(m) > mountainArr.get(m + 1):
+                    res = m 
+                    r = m - 1
+                else:
+                    l = m + 1
+            return res 
+        pIndex = findPeak()
+        def binary_search(l, r):
+            while l <= r:
+                m = (l + r) // 2
+                if mountainArr.get(m) > target:
+                    r = m - 1
+                elif mountainArr.get(m) < target:
+                    l = m + 1
+                else:
+                    return m 
+            return -1
+        def binary_search2(l, r):
+            while l <= r:
+                m = (l + r) // 2
+                if mountainArr.get(m) > target:
+                    l = m + 1
+                elif mountainArr.get(m) < target:
+                    r = m - 1
+                else:
+                    return m 
+            return -1
+        idx = -1
+        idx = binary_search(0, pIndex)
+        if idx != -1:
+            return idx
+        return binary_search2(pIndex, mountainArr.length() - 1)
+```

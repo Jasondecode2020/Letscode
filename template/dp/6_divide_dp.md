@@ -147,3 +147,24 @@ class Solution:
             return res 
         return dfs(n - 1, k)
 ```
+
+### 2430. Maximum Deletions on a String
+
+```python
+class Solution:
+    def deleteString(self, s: str) -> int:
+        @cache
+        def dfs(i):
+            if i == n:
+                return 0 
+            res = 1
+            for j in range(i + 1, n):
+                d = j - i 
+                if i + 2 * d > n:
+                    break
+                if s[i: i + d] == s[i + d: i + 2 * d]:
+                    res = max(res, 1 + dfs(i + d))
+            return res 
+        n = len(s)
+        return dfs(0)
+```

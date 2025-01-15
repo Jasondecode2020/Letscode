@@ -373,3 +373,23 @@ class Solution:
             if preMax[i] <= sufMax[i + 1]:
                 return i + 1
 ```
+
+### ### 2680. Maximum OR
+
+```python
+class Solution:
+    def maximumOr(self, nums: List[int], k: int) -> int:
+        n = len(nums)
+        pre = nums[::]
+        suf = nums[::]
+        for i in range(1, n):
+            pre[i] |= pre[i - 1]
+        for i in range(n - 2, -1, -1):
+            suf[i] |= suf[i + 1]
+        pre = [0] + pre + [0]
+        suf = [0] + suf + [0]
+        res = 0
+        for i in range(0, n):
+            res = max(res, pre[i] | suf[i + 2] | (nums[i] << k))
+        return res 
+```
