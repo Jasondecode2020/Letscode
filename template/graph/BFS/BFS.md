@@ -46,37 +46,6 @@ def fn(q):
 * [631. Design Excel Sum Formula](#631-design-excel-sum-formula)
 * [1377. Frog Position After T Seconds](#1377-frog-position-after-t-seconds)
 
-## Grid DFS
-
-* [200. Number of Islands](#200-Number-of-Islands)
-* [695. Max Area of Island](#695-max-area-of-island)
-* [面试题 16.19. Pond Sizes LCCI](#面试题-1619-pond-sizes-lcci)
-* [463. Island Perimeter](#463-island-perimeter)
-* [2658. Maximum Number of Fish in a Grid](#2658-maximum-number-of-fish-in-a-grid)
-* [1034. Coloring A Border](#1034-coloring-a-border)
-* [1020. Number of Enclaves](#1020-number-of-enclaves)
-* [1254. Number of Closed Islands](#1254-number-of-closed-islands)
-* [130. Surrounded Regions](#130-surrounded-regions)
-* [1391. Check if There is a Valid Path in a Grid](#130-surrounded-regions)
-* [417. Pacific Atlantic Water Flow](#417-pacific-atlantic-water-flow)
-* 529. Minesweeper
-* 827. Making A Large Island
-* [1905. Count Sub Islands]()
-* [1559. Detect Cycles in 2D Grid](#1559-detect-cycles-in-2d-grid)
-
-* [542. 01 Matrix](#542-01-matrix)
-* [994. Rotting Oranges]()
-* [2684. Maximum Number of Moves in a Grid](#2684-maximum-number-of-moves-in-a-grid) 1626
-* [1926. Nearest Exit from Entrance in Maze](#1926-nearest-exit-from-entrance-in-maze) 1638
-* [1162. As Far from Land as Possible](#1162-as-far-from-land-as-possible) 1666
-* [934. Shortest Bridge]() 1826
-2146. 价格范围内最高排名的 K 样物品 1837
-* [1293. Shortest Path in a Grid with Obstacles Elimination]()
-1210. 穿过迷宫的最少移动次数 2022
-317. 离建筑物最近的距离（会员题）
-490. 迷宫（会员题）
-505. 迷宫 II（会员题）
-
 ### 542. 01 Matrix
 
 ```python
@@ -865,4 +834,36 @@ class Solution:
                 backtrack(word, res + [word])
             return ans 
         return backtrack(endWord, [endWord])
+```
+
+### 675. Cut Off Trees for Golf Event
+
+```python
+class Solution:
+    def cutOffTree(self, forest: List[List[int]]) -> int:
+        def bfs(startX, startY, targetX, targetY):
+            queue = deque([(startX, startY, 0)])
+            visited = set([(startX, startY)])
+            while queue:
+                r, c, steps = queue.popleft()
+                if r == targetX and c == targetY:
+                    return steps
+                for dr, dc in directions:
+                    row, col = r + dr, c + dc
+                    if 0 <= row < R and 0 <= col < C and forest[row][col] != 0 and (row, col) not in visited:
+                        queue.append((row, col, steps + 1))
+                        visited.add((row, col))
+            return -1
+
+        R, C = len(forest), len(forest[0])
+        directions = [(0, 1), (0, -1), (-1, 0), (1, 0)]
+        trees = sorted([(forest[r][c], r, c) for r in range(R) for c in range(C) if forest[r][c] > 1])
+        res = 0
+        trees = [(0, 0, 0)] + trees
+        for a, b in pairwise(trees):
+            steps = bfs(a[1], a[2], b[1], b[2])
+            if steps == -1:
+                return -1
+            res += steps
+        return res
 ```

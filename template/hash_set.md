@@ -215,3 +215,23 @@ class Solution:
                 s.add(i + 1)
         return res 
 ```
+
+### 2061. Number of Spaces Cleaning Robot Cleaned
+
+```python
+class Solution:
+    def numberOfCleanRooms(self, room: List[List[int]]) -> int:
+        directions = [[0, 1], [1, 0], [0, -1], [-1, 0]]
+        R, C = len(room), len(room[0])
+        visited = set()
+        r, c, d = 0, 0, 0
+        while (r, c, d) not in visited:
+            visited.add((r, c, d))
+            dr, dc = directions[d]
+            row, col = r + dr, c + dc 
+            if 0 <= row < R and 0 <= col < C and room[row][col] == 0:
+                r, c = row, col 
+            else:
+                d = (d + 1) % 4
+        return len(set((r, c) for r, c, d in visited))
+```
