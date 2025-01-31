@@ -186,3 +186,20 @@ class Solution:
                     res = max(res, abs(diff // 2) + 1)
         return res 
 ```
+
+### 3195. Find the Minimum Area to Cover All Ones I
+
+```python 
+class Solution:
+    def minimumArea(self, grid: List[List[int]]) -> int:
+        R, C = len(grid), len(grid[0])
+        top, bottom, left, right = inf, -inf, inf, -inf
+        for r in range(R):
+            for c in range(C):
+                if grid[r][c] == 1:
+                    top = min(top, c)
+                    bottom = max(bottom, c)
+                    left = min(left, r)
+                    right = max(right, r)
+        return (bottom - top + 1) * (right - left + 1)
+```

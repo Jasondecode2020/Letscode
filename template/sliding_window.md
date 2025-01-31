@@ -14,32 +14,46 @@ def fn(arr):
 
 ## Question list
 
-### 1 fixed
+### fixed sliding window
 
-* [1456. Maximum Number of Vowels in a Substring of Given Length 1263](#1456-maximum-number-of-vowels-in-a-substring-of-given-length)
-* [2269. Find the K-Beauty of a Number 1280](#2269-find-the-k-beauty-of-a-number)
-* [1984. Minimum Difference Between Highest and Lowest of K Scores 1306](#1984-minimum-difference-between-highest-and-lowest-of-k-scores)
+### 1.1 basics (16)
+
+* [1456. Maximum Number of Vowels in a Substring of Given Length](#1456-maximum-number-of-vowels-in-a-substring-of-given-length)
 * [643. Maximum Average Subarray I 1350](#643-maximum-average-subarray-i)
-* [1343. Number of Sub-arrays of Size K and Average Greater than or Equal to Threshold 1317](#1343-number-of-sub-arrays-of-size-k-and-average-greater-than-or-equal-to-threshold)
+* [1343. Number of Sub-arrays of Size K and Average Greater than or Equal to Threshold](#1343-number-of-sub-arrays-of-size-k-and-average-greater-than-or-equal-to-threshold)
 * [2090. K Radius Subarray Averages 1358](#2090-k-radius-subarray-averages)
 * [2379. Minimum Recolors to Get K Consecutive Black Blocks 1360](#2379-minimum-recolors-to-get-k-consecutive-black-blocks)
+
 * [1052. Grumpy Bookstore Owner 1418](#1052-grumpy-bookstore-owner)
+* [1461. Check If a String Contains All Binary Codes of Size K](#1461-check-if-a-string-contains-all-binary-codes-of-size-k)
 * [2841. Maximum Sum of Almost Unique Subarray 1546](#2841-maximum-sum-of-almost-unique-subarray)
 * [2461. Maximum Sum of Distinct Subarrays With Length K 1553](#2461-maximum-sum-of-distinct-subarrays-with-length-k)
+* [1652. Defuse the Bomb](#1652-defuse-the-bomb)
+
+* [1297. Maximum Number of Occurrences of a Substring](#1297-maximum-number-of-occurrences-of-a-substring)
+* [1176. Diet Plan Performance](#1176-diet-plan-performance)
+* [1100. Find K-Length Substrings With No Repeated Characters](#1100-find-k-length-substrings-with-no-repeated-characters)
+* [1852. Distinct Numbers in Each Subarray](#1852-distinct-numbers-in-each-subarray)
+* [1151. Minimum Swaps to Group All 1's Together](#1151-minimum-swaps-to-group-all-1s-together)
+
+* [2107. Number of Unique Flavors After Sharing K Candies](#2107-number-of-unique-flavors-after-sharing-k-candies)
+
+### 1.2 advanced (16)
+
+* [2269. Find the K-Beauty of a Number 1280](#2269-find-the-k-beauty-of-a-number)
+* [1984. Minimum Difference Between Highest and Lowest of K Scores 1306](#1984-minimum-difference-between-highest-and-lowest-of-k-scores)
 * [1423. Maximum Points You Can Obtain from Cards 1574](#1423-maximum-points-you-can-obtain-from-cards)
 * [2134. Minimum Swaps to Group All 1's Together II 1748](#2134-minimum-swaps-to-group-all-1s-together-ii)
 * [2653. Sliding Subarray Beauty 1786](#2653-sliding-subarray-beauty)
 * [438. Find All Anagrams in a String 1750](#438-find-all-anagrams-in-a-string)
 * [567. Permutation in String 1750](#567-permutation-in-string)
+
 2156. 查找给定哈希值的子串 2063
 2953. 统计完全子字符串 2449
 346. 数据流中的移动平均值（会员题）
-1100. 长度为 K 的无重复字符子串（会员题）
-1852. 每个子数组的数字种类数（会员题）
 2067. 等计数子串的数量（会员题）
-2107. 分享 K 个糖果后独特口味的数量（会员题）
 
-### 2 non-fixed (longest or largest)
+### 2 flexed sliding window (longest or largest)
 
 * [3. Longest Substring Without Repeating Characters 1500](#3-Longest-Substring-Without-Repeating-Characters)
 * [1493. Longest Subarray of 1's After Deleting One Element 1423](#1493-longest-subarray-of-1s-after-deleting-one-element)
@@ -77,15 +91,13 @@ def fn(arr):
 * [487. Max Consecutive Ones II](#487-Max-Consecutive-Ones-II)
 * [1004. Max Consecutive Ones III](#1004-Max-Consecutive-Ones-III)[same as 487]
 
-### fixed
-
 ### 1456. Maximum Number of Vowels in a Substring of Given Length
 
 ```python
 class Solution:
     def maxVowels(self, s: str, k: int) -> int:
         vowels = set('aeiou')
-        res = cnt = l = 0
+        l, cnt, res = 0, 0, 0
         for r, c in enumerate(s):
             if c in vowels:
                 cnt += 1
@@ -95,34 +107,6 @@ class Solution:
                     cnt -= 1
                 l += 1
         return res
-```
-
-### 2269. Find the K-Beauty of a Number
-
-```python
-class Solution:
-    def divisorSubstrings(self, num: int, k: int) -> int:
-        s = str(num)
-        n, res = len(s), 0
-        for i in range(n - k + 1):
-            ans = int(s[i: i + k])
-            if ans and num % ans == 0:
-                res += 1
-        return res 
-```
-
-### 1984. Minimum Difference Between Highest and Lowest of K Scores
-
-```python
-class Solution:
-    def minimumDifference(self, nums: List[int], k: int) -> int:
-        nums.sort()
-        res, l = inf, 0
-        for r, n in enumerate(nums):
-            if r - l + 1 == k:
-                res = min(res, nums[r] - nums[l])
-                l += 1
-        return res 
 ```
 
 ### 643. Maximum Average Subarray I
@@ -145,12 +129,15 @@ class Solution:
 ```python
 class Solution:
     def numOfSubarrays(self, arr: List[int], k: int, threshold: int) -> int:
-        arr = list(accumulate(arr, initial = 0))
-        res = 0
-        for i in range(k, len(arr)):
-            if arr[i] - arr[i - k] >= threshold * k:
-                res += 1
-        return res
+        res, total, l = 0, 0, 0
+        for r, n in enumerate(arr):
+            total += n 
+            if r - l + 1 == k:
+                if total / k >= threshold:
+                    res += 1
+                total -= arr[l]
+                l += 1
+        return res 
 ```
 
 ### 2090. K Radius Subarray Averages
@@ -158,14 +145,16 @@ class Solution:
 ```python
 class Solution:
     def getAverages(self, nums: List[int], k: int) -> List[int]:
-        n = len(nums)
-        l, res = 0, [-1] * n
-        total = sum(nums[: 2 * k])
-        for r in range(k, n - k):
-            total += nums[r + k]
-            res[r] = total // (2 * k + 1)
-            total -= nums[r - k]
-        return res
+        W = 2 * k + 1
+        res = [-1] * len(nums)
+        l, total = 0, 0
+        for r, n in enumerate(nums):
+            total += n
+            if r - l + 1 == 2 * k + 1:
+                res[r - k] = total // (r - l + 1)
+                total -= nums[l]
+                l += 1
+        return res 
 ```
 
 ### 2379. Minimum Recolors to Get K Consecutive Black Blocks
@@ -173,15 +162,14 @@ class Solution:
 ```python
 class Solution:
     def minimumRecolors(self, blocks: str, k: int) -> int:
-        d, res, l = defaultdict(int), inf, 0
-        count = 0
+        res, cnt, l = inf, 0, 0
         for r, c in enumerate(blocks):
             if c == 'W':
-                count += 1
+                cnt += 1
             if r - l + 1 == k:
-                res = min(res, count)
+                res = min(res, cnt)
                 if blocks[l] == 'W':
-                    count -= 1
+                    cnt -= 1
                 l += 1
         return res
 ```
@@ -191,21 +179,35 @@ class Solution:
 ```python
 class Solution:
     def maxSatisfied(self, customers: List[int], grumpy: List[int], minutes: int) -> int:
-        total = 0
+        res = 0
         for c, g in zip(customers, grumpy):
             if g == 0:
-                total += c
-        l, res, mx = 0, 0, 0
+                res += c 
+
+        l, ans = 0, 0
         for r, c in enumerate(customers):
             if grumpy[r] == 1:
-                mx += customers[r]
+                res += c 
             if r - l + 1 == minutes:
-                res = max(res, mx)
+                ans = max(ans, res)
                 if grumpy[l] == 1:
-                    mx -= customers[l]
+                    res -= customers[l]
                 l += 1
-        return total + res
+        return ans 
 ```
+
+### 1461. Check If a String Contains All Binary Codes of Size K
+
+```python 
+class Solution:
+    def hasAllCodes(self, s: str, k: int) -> bool:
+        total = 2 ** k 
+        nums = set()
+        for i in range(k, len(s) + 1):
+            nums.add(s[i - k: i])
+        return len(nums) == total
+```
+
 
 ### 2841. Maximum Sum of Almost Unique Subarray
 
@@ -234,39 +236,201 @@ class Solution:
 class Solution:
     def maximumSubarraySum(self, nums: List[int], k: int) -> int:
         d = Counter()
-        l, res = 0, 0
-        total = 0
+        l, total, res = 0, 0, 0
         for r, n in enumerate(nums):
-            total += n
+            total += n 
             d[n] += 1
             if r - l + 1 == k:
                 if len(d) == k:
                     res = max(res, total)
+                total -= nums[l]
                 d[nums[l]] -= 1
                 if d[nums[l]] == 0:
                     d.pop(nums[l])
-                total -= nums[l]
+                l += 1
+        return res 
+```
+
+### 1652. Defuse the Bomb
+
+```python
+class Solution:
+    def decrypt(self, code: List[int], k: int) -> List[int]:
+        n = len(code)
+        code *= 2 
+        res = [0] * n
+        l, total = 0, 0
+        for r, v in enumerate(code):
+            total += v 
+            if r - l + 1 == abs(k):
+                if k >= 0:
+                    res[(l - 1) % n] = total
+                else:
+                    res[(r + 1) % n] = total
+                total -= code[l]
+                l += 1
+        return res 
+```
+
+### 1297. Maximum Number of Occurrences of a Substring
+
+```python 
+class Solution:
+    def maxFreq(self, s: str, maxLetters: int, minSize: int, maxSize: int) -> int:
+        freq, res = Counter(), 0
+        for w in range(minSize, maxSize + 1):
+            d = Counter()
+            l = 0
+            for r, c in enumerate(s):
+                d[c] += 1
+                if r - l + 1 == w:
+                    if len(d) <= maxLetters:
+                        freq[s[l: r + 1]] += 1
+                        res = max(res, freq[s[l: r + 1]])
+                    d[s[l]] -= 1
+                    if d[s[l]] == 0:
+                        d.pop(s[l])
+                    l += 1
+        return res
+```
+
+### 1176. Diet Plan Performance
+
+```python 
+class Solution:
+    def dietPlanPerformance(self, calories: List[int], k: int, lower: int, upper: int) -> int:
+        res = 0
+        l, total = 0, 0
+        for r, n in enumerate(calories):
+            total += n 
+            if r - l + 1 == k:
+                if total < lower:
+                    res -= 1
+                elif total > upper:
+                    res += 1
+                total -= calories[l]
+                l += 1
+        return res 
+```
+
+### 1100. Find K-Length Substrings With No Repeated Characters
+
+```python 
+class Solution:
+    def numKLenSubstrNoRepeats(self, s: str, k: int) -> int:
+        d = Counter()
+        l, res = 0, 0
+        for r, c in enumerate(s):
+            d[c] += 1
+            if r - l + 1 == k:
+                if len(d) == k:
+                    res += 1
+                d[s[l]] -= 1
+                if d[s[l]] == 0:
+                    d.pop(s[l])
+                l += 1
+        return res 
+```
+
+### 1852. Distinct Numbers in Each Subarray
+
+```python
+class Solution:
+    def distinctNumbers(self, nums: List[int], k: int) -> List[int]:
+        res, d = [], Counter()
+        l = 0
+        for r, n in enumerate(nums):
+            d[n] += 1
+            if r - l + 1 == k:
+                res.append(len(d))
+                d[nums[l]] -= 1
+                if d[nums[l]] == 0:
+                    d.pop(nums[l])
+                l += 1
+        return res 
+```
+
+### 1151. Minimum Swaps to Group All 1's Together
+
+```python
+class Solution:
+    def minSwaps(self, data: List[int]) -> int:
+        W = data.count(1)
+        res, total, l = 0, 0, 0
+        for r, n in enumerate(data):
+            total += n 
+            if r - l + 1 == W:
+                res = max(res, total)
+                total -= data[l]
+                l += 1
+        return W - res
+```
+
+### 2107. Number of Unique Flavors After Sharing K Candies
+
+```python
+class Solution:
+    def shareCandies(self, candies: List[int], k: int) -> int:
+        d = Counter(candies)
+        if k == 0:
+            return len(d)
+        l, res = 0, 0
+        for r, n in enumerate(candies):
+            d[n] -= 1
+            if d[n] == 0:
+                d.pop(n)
+            if r - l + 1 == k:
+                res = max(res, len(d))
+                d[candies[l]] += 1
                 l += 1
         return res
 ```
 
 ### 1423. Maximum Points You Can Obtain from Cards
 
-- reverse 
-
 ```python
 class Solution:
     def maxScore(self, cardPoints: List[int], k: int) -> int:
-        n = len(cardPoints)
-        window = n - k
-        l, res, total = 0, inf, 0
-        for r, c in enumerate(cardPoints):
-            total += c
-            if r - l + 1 == window:
+        W = len(cardPoints) - k
+        ans = sum(cardPoints)
+        if W <= 0:
+            return ans 
+        res, total, l = inf, 0, 0
+        for r, n in enumerate(cardPoints):
+            total += n 
+            if r - l + 1 == W:
                 res = min(res, total)
                 total -= cardPoints[l]
                 l += 1
-        return sum(cardPoints) - res if window else sum(cardPoints)
+        return ans - res 
+```
+
+### 2269. Find the K-Beauty of a Number
+
+```python
+class Solution:
+    def divisorSubstrings(self, num: int, k: int) -> int:
+        s = str(num)
+        n, res = len(s), 0
+        for i in range(n - k + 1):
+            ans = int(s[i: i + k])
+            if ans and num % ans == 0:
+                res += 1
+        return res 
+```
+
+### 1984. Minimum Difference Between Highest and Lowest of K Scores
+
+```python
+class Solution:
+    def minimumDifference(self, nums: List[int], k: int) -> int:
+        nums.sort()
+        res, l = inf, 0
+        for r, n in enumerate(nums):
+            if r - l + 1 == k:
+                res = min(res, nums[r] - nums[l])
+                l += 1
+        return res 
 ```
 
 ### 2134. Minimum Swaps to Group All 1's Together II
@@ -907,47 +1071,6 @@ class Solution:
             if times >= k:
                 res += l + 1
         return res
-```
-
-### 1151. Minimum Swaps to Group All 1's Together
-
-- fix window
-
-```python
-class Solution:
-    def minSwaps(self, data: List[int]) -> int:
-        window = data.count(1)
-        zeros = 0
-        l, res, n = 0, inf, len(data)
-        for r in range(n):
-            if data[r] == 0:
-                zeros += 1
-            if r - l + 1 == window:
-                res = min(res, zeros)
-                if data[l] == 0:
-                    zeros -= 1
-                l += 1
-        return res if res != inf else 0
-```
-
-
-### 2107. Number of Unique Flavors After Sharing K Candies
-
-```python
-class Solution:
-    def shareCandies(self, candies: List[int], k: int) -> int:
-        res = -inf
-        d = Counter(candies)
-        l, n = 0, len(candies)
-        for r in range(n):
-            d[candies[r]] -= 1
-            if d[candies[r]] == 0:
-                d.pop(candies[r])
-            if r - l + 1 == k:
-                res = max(res, len(d))
-                d[candies[l]] += 1
-                l += 1
-        return res if res != -inf else len(set(candies))
 ```
 
 ### 1031. Maximum Sum of Two Non-Overlapping Subarrays

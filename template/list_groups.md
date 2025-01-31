@@ -1,13 +1,18 @@
 ## template 1: start any position
 
-### 228, 1446, 1578, 1759, 1839, 1869, 1957, 2038, 2110
+### 1446
 
 ```python
-i, n = 0, len(nums)
-while i < n:
-    start = i
-    while i < n - 1 and ...:
-        i += 1
+class Solution:
+    def maxPower(self, s: str) -> int:
+        res, i, n = 0, 0, len(s)
+        while i < n:
+            j = i + 1
+            while j < n and s[j] == s[j - 1]:
+                j += 1
+            res = max(res, j - i)
+            i = j 
+        return res
 ```
 
 ## template 2: start with condition
@@ -27,28 +32,88 @@ while i < n or i < n - 1:
 
 ### list groups
 
-- 11 similar questions
-
-* [228. Summary Ranges](#228-summary-ranges)
 * [1446. Consecutive Characters](#1446-consecutive-characters)
+* [1869. Longer Contiguous Segments of Ones than Zeros](#1869-longer-contiguous-segments-of-ones-than-zeros)
+* [1957. Delete Characters to Make Fancy String](#1957-delete-characters-to-make-fancy-string)
+* [2414. Length of the Longest Alphabetical Continuous Substring](#2414-length-of-the-longest-alphabetical-continuous-substring)
+
 * [1578. Minimum Time to Make Rope Colorful](#1578-minimum-time-to-make-rope-colorful)
-### 1759. Count Number of Homogenous Substrings
-### 1839. Longest Substring Of All Vowels in Order
+* [1759. Count Number of Homogenous Substrings](#1759-count-number-of-homogenous-substrings)
+* [1839. Longest Substring Of All Vowels in Order](#1839-longest-substring-of-all-vowels-in-order)
+* [228. Summary Ranges](#228-summary-ranges)
+
+* [2038. Remove Colored Pieces if Both Neighbors are the Same Color](#2038-remove-colored-pieces-if-both-neighbors-are-the-same-color)
+* [2110. Number of Smooth Descent Periods of a Stock](#2110-number-of-smooth-descent-periods-of-a-stock)
+* [2760. Longest Even Odd Subarray With Threshold](#2760-longest-even-odd-subarray-with-threshold)
+* [2765. Longest Alternating Subarray](#2765-longest-alternating-subarray)
+* [186. Reverse Words in a String II](#186-reverse-words-in-a-string-ii)
+* [2943. Maximize Area of Square Hole in Grid](#2943-maximize-area-of-square-hole-in-grid)
+* [2981. Find Longest Special Substring That Occurs Thrice I](#2981-find-longest-special-substring-that-occurs-thrice-i)
+* [2982. Find Longest Special Substring That Occurs Thrice II](#2982-find-longest-special-substring-that-occurs-thrice-ii)
+* [2110. Number of Smooth Descent Periods of a Stock](#2110-number-of-smooth-descent-periods-of-a-stock)
+* [1578. Minimum Time to Make Rope Colorful](#1578-minimum-time-to-make-rope-colorful)
+
+
+### 1446. Consecutive Characters
+
+```python
+class Solution:
+    def maxPower(self, s: str) -> int:
+        res, i, n = 0, 0, len(s)
+        while i < n:
+            j = i + 1
+            while j < n and s[j] == s[j - 1]:
+                j += 1
+            res = max(res, j - i)
+            i = j 
+        return res
+```
+
 ### 1869. Longer Contiguous Segments of Ones than Zeros
+
+```python
+class Solution:
+    def checkZeroOnes(self, s: str) -> bool:
+        d = Counter()
+        i, n = 0, len(s)
+        while i < n:
+            j = i + 1
+            while j < n and s[j] == s[j - 1]:
+                j += 1
+            d[s[i]] = max(d[s[i]], j - i)
+            i = j 
+        return d['1'] > d['0']
+```
+
 ### 1957. Delete Characters to Make Fancy String
-### 2038. Remove Colored Pieces if Both Neighbors are the Same Color
-### 2110. Number of Smooth Descent Periods of a Stock
-### 2760. Longest Even Odd Subarray With Threshold
-### 2765. Longest Alternating Subarray
-### 186. Reverse Words in a String II
-### 2943. Maximize Area of Square Hole in Grid
-### 2981. Find Longest Special Substring That Occurs Thrice I
-### 2982. Find Longest Special Substring That Occurs Thrice II
-### 2110. Number of Smooth Descent Periods of a Stock
 
+```python
+class Solution:
+    def makeFancyString(self, s: str) -> str:
+        res, i, n = '', 0, len(s)
+        while i < n:
+            j = i + 1
+            while j < n and s[j] == s[j - 1]:
+                j += 1
+            res += s[i: min(i + 2, j)]
+            i = j 
+        return res
+```
 
-### 1578. Minimum Time to Make Rope Colorful
+### 2414. Length of the Longest Alphabetical Continuous Substring
 
+```python
+class Solution:
+    def longestContinuousSubstring(self, s: str) -> int:
+        res, i, n = 0, 0, len(s)
+        while i < n:
+            j = i + 1
+            while j < n and ord(s[j]) == ord(s[j - 1]) + 1:
+                j += 1
+            res = max(res, j - i)
+            i = j 
+        return res
+```
 
 ### 228. Summary Ranges
 
@@ -68,20 +133,6 @@ class Solution:
         return res
 ```
 
-### 1446. Consecutive Characters
-
-```python
-class Solution:
-    def maxPower(self, s: str) -> int:
-        res, i, n = 1, 0, len(s)
-        while i < n:
-            start = i
-            while i < n - 1 and s[i] == s[i + 1]:
-                i += 1
-            res = max(res, i - start + 1)
-            i += 1
-        return res
-```
 
 ### 1578. Minimum Time to Make Rope Colorful
 
@@ -137,39 +188,6 @@ class Solution:
         return res
 ```
 
-### 1869. Longer Contiguous Segments of Ones than Zeros
-
-```python
-class Solution:
-    def checkZeroOnes(self, s: str) -> bool:
-        ones, zeros, i, n = 0, 0, 0, len(s)
-        while i < n:
-            start = i
-            while i < n - 1 and s[i] == s[i + 1]:
-                i += 1
-            if s[start] == '1':
-                ones = max(ones, i - start + 1)
-            else:
-                zeros = max(zeros, i - start + 1)
-            i += 1
-        return ones > zeros
-```
-
-### 1957. Delete Characters to Make Fancy String
-
-```python
-class Solution:
-    def makeFancyString(self, s: str) -> str:
-        res, i, n = '', 0, len(s)
-        while i < n:
-            start = i
-            while i < n - 1 and s[i] == s[i + 1]:
-                i += 1
-            ans = s[start: min(start + 2, i + 1)]
-            res += ans
-            i += 1
-        return res
-```
 
 ### 2038. Remove Colored Pieces if Both Neighbors are the Same Color
 
@@ -492,22 +510,6 @@ class Solution:
         for n in arr:
             res += n * (n + 1) // 2
         return res % mod
-```
-
-### 2414. Length of the Longest Alphabetical Continuous Substring
-
-```python
-class Solution:
-    def longestContinuousSubstring(self, s: str) -> int:
-        i, res = 0, 0
-        while i < len(s):
-            start = i 
-            j = start + 1
-            while j < len(s) and ord(s[j]) - ord(s[j - 1]) == 1:
-                j += 1
-            res = max(res, j - start)
-            i = j 
-        return res
 ```
 
 ### 2348. Number of Zero-Filled Subarrays

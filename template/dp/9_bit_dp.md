@@ -261,3 +261,51 @@ class Solution:
             return res
         return f(0, sessionTime)
 ```
+
+### 1066. Campus Bikes II
+
+```python
+class Solution:
+    def assignBikes(self, workers: List[List[int]], bikes: List[List[int]]) -> int:
+        def dist(x, y):
+            return abs(workers[x][0] - bikes[y][0]) + abs(workers[x][1] - bikes[y][1])
+
+        n, m=len(workers), len(bikes)
+        @cache
+        def dfs(i, mask):
+            if i == n: 
+                return 0
+            res = inf
+            for j in range(m):
+                if mask & (1 << j) == 0:
+                    res = min(res, dfs(i + 1, mask | (1 << j)) + dist(i, j))
+            return res
+        return dfs(0, 0)
+```
+
+### 1538. Guess the Majority in a Hidden Array
+
+```python 
+class Solution:
+    def guessMajority(self, reader: 'ArrayReader') -> int:
+        def compare(i, j):
+            ans = []
+            for k in range(n):
+                if k != i and k != j:
+                    ans.append(k)
+                    if len(ans) == 3:
+                        break 
+            a, b, c, d = sorted(ans + [i])
+            x = reader.query(a, b, c, d)
+            a, b, c, d = sorted(ans + [j])
+            y = reader.query(a, b, c, d)
+            return 1 if x == y else 0
+
+        n = reader.length()
+        nums = [1] * n 
+        for i in range(1, n):
+            nums[i] = compare(0, i)
+        
+        d = Counter(nums)
+        return nums.index(0) if d[0] > d[1] else nums.index(1) if d[0] < d[1] else -1
+```

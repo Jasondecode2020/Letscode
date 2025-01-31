@@ -46,6 +46,7 @@ def numIslands(self, grid: List[List[str]]) -> int:
 * [827. Making A Large Island](#827-making-a-large-island)
 * [1905. Count Sub Islands](#1905-count-sub-islands)
 * [1559. Detect Cycles in 2D Grid](#1559-detect-cycles-in-2d-grid)
+* [302. Smallest Rectangle Enclosing Black Pixels]()
 
 ## Grid BFS
 
@@ -487,6 +488,29 @@ class Solution:
                         else:
                             return True
         return False
+```
+
+### 302. Smallest Rectangle Enclosing Black Pixels
+
+```python 
+class Solution:
+    def minArea(self, image: List[List[str]], x: int, y: int) -> int:
+        R, C = len(image), len(image[0])
+        directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+        self.left, self.right = C - 1, 0
+        self.up, self.down = R - 1, 0
+        def dfs(r, c):
+            image[r][c] = '0'
+            self.left = min(self.left, c)
+            self.right = max(self.right, c)
+            self.up = min(self.up, r)
+            self.down = max(self.down, r)
+            for dr, dc in directions:
+                row, col = r + dr, c + dc 
+                if 0 <= row < R and 0 <= col < C and image[row][col] == '1':
+                    dfs(row, col)
+        dfs(x, y)
+        return (self.right - self.left + 1) * (self.down - self.up + 1)
 ```
 
 ### 529. Minesweeper
