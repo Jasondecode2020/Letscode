@@ -470,3 +470,14 @@ class Solution:
             return (a + b) % mod 
         return dfs(startPos, k)
 ```
+
+### 1955. Count Number of Special Subsequences
+
+```python 
+class Solution:
+    def countSpecialSubsequences(self, nums: List[int]) -> int:
+        f, mod = [0, 0, 0, 1], 10 ** 9 + 7
+        for n in nums:
+            f[n] = (2 * f[n] + f[n - 1]) % mod
+        return f[2]
+```

@@ -89,7 +89,7 @@ class Solution:
 * [2943. Maximize Area of Square Hole in Grid](#2943-maximize-area-of-square-hole-in-grid)
 * [2981. Find Longest Special Substring That Occurs Thrice I](#2981-find-longest-special-substring-that-occurs-thrice-i)
 * [2982. Find Longest Special Substring That Occurs Thrice II](#2982-find-longest-special-substring-that-occurs-thrice-ii)
-* [2948. Make Lexicographically Smallest Array by Swapping Elements]()
+* [2948. Make Lexicographically Smallest Array by Swapping Elements](#2948-make-lexicographically-smallest-array-by-swapping-elements)
 
 ### 1446. Consecutive Characters
 

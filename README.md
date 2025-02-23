@@ -108,6 +108,7 @@ All questions are solved by patterns, and the learning sequence is listed below.
 * ### 7 Two Pointers
   * #### Basics
   * #### Fast Slow Pointers
+  * #### Three Pointers
   * #### List Groups
     * [1446. Consecutive Characters](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#1446-consecutive-characters)
     * [1869. Longer Contiguous Segments of Ones than Zeros](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#1869-longer-contiguous-segments-of-ones-than-zeros)

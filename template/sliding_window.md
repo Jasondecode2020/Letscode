@@ -48,11 +48,6 @@ def fn(arr):
 * [438. Find All Anagrams in a String 1750](#438-find-all-anagrams-in-a-string)
 * [567. Permutation in String 1750](#567-permutation-in-string)
 
-2156. 查找给定哈希值的子串 2063
-2953. 统计完全子字符串 2449
-346. 数据流中的移动平均值（会员题）
-2067. 等计数子串的数量（会员题）
-
 ### 2 flexed sliding window (longest or largest)
 
 * [3. Longest Substring Without Repeating Characters 1500](#3-Longest-Substring-Without-Repeating-Characters)

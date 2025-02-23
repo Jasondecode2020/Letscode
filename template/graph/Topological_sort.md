@@ -26,6 +26,7 @@
 
 * [1916. Count Ways to Build Rooms in an Ant Colony](#1916-count-ways-to-build-rooms-in-an-ant-colony)
 * [1857. Largest Color Value in a Directed Graph](#1857-largest-color-value-in-a-directed-graph)
+* [1273. Delete Tree Nodes]()
 
 ### 1557. Minimum Number of Vertices to Reach All Nodes
 
@@ -729,6 +730,30 @@ class Solution:
         if found != n:
             return -1
         return max(max(item) for item in dp)
+```
+
+### 1273. Delete Tree Nodes
+
+```python 
+class Solution:
+    def deleteTreeNodes(self, nodes: int, parent: List[int], value: List[int]) -> int:
+        indegree = [0] * nodes 
+        for p in parent:
+            if p != -1:
+                indegree[p] += 1
+        number_of_nodes = [1] * nodes 
+        q = deque([i for i, d in enumerate(indegree) if d == 0])
+        while q:
+            node = q.popleft()
+            if value[node] == 0:
+                number_of_nodes[node] = 0
+            par = parent[node]
+            value[par] += value[node]
+            number_of_nodes[par] += number_of_nodes[node]
+            indegree[par] -= 1
+            if indegree[par] == 0:
+                q.append(par)
+        return number_of_nodes[0]
 ```
 
 ### 1203. Sort Items by Groups Respecting Dependencies

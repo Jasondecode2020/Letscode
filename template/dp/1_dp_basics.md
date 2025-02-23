@@ -11,7 +11,7 @@
 * [377. Combination Sum IV](#377-combination-sum-iv) 1600
 * [2466. Count Ways To Build Good Strings](#2466-count-ways-to-build-good-strings) 1694
 * [2533. Number of Good Binary Strings](#2533-number-of-good-binary-strings) 1694
-* [2266. Count Number of Texts](#2266-count-number-of-texts) 1857 (one more time)
+* [2266. Count Number of Texts](#2266-count-number-of-texts) 1857
 
 ### 1.2 House Robber (8)
 
@@ -159,13 +159,14 @@ class Solution:
                     fourth, third, second, first = fourth + third + second, fourth, third, second 
                 else:
                     fourth, third, second, first = fourth + third + second + first, fourth, third, second 
-            if count <= 2:
-                return count 
             return fourth % mod 
         res = 1
         for c, s in groupby(pressedKeys):
             count = len(list(s))
-            res = (res * f(c, count)) % mod 
+            if count <= 2:
+                res = (res * count) % mod 
+            else:
+                res = (res * f(c, count)) % mod 
         return res 
 ```
 

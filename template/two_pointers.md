@@ -31,16 +31,139 @@ def fn(arr1, arr2):
     return res
 ```
 
-* [167. Two Sum II - Input Array Is Sorted](#167-Two-Sum-II---Input-Array-Is-Sorted)
-* [1099. Two Sum Less Than K](#1099-Two-Sum-Less-Than-K)
-* [15. 3Sum](#15-3Sum)
-* [16. 3Sum Closest](#16-3Sum-Closest)
-* [259. 3Sum Smaller](#259-3Sum-Smaller)
-* [18. 4Sum](#18-4Sum)
-* [11. Container With Most Water](#11-Container-With-Most-Water)
-* [1679. Max Number of K-Sum Pairs]()
-* [844. Backspace String Compare](#881-boats-to-save-people)
+* [344. Reverse String](#344-reverse-string)
+* [125. Valid Palindrome](#125-valid-palindrome)
+* [1750. Minimum Length of String After Deleting Similar Ends](#1750-minimum-length-of-string-after-deleting-similar-ends)
+* [977. Squares of a Sorted Array](#977-squares-of-a-sorted-array)
+* [2105. Watering Plants II](#2105-watering-plants-ii)
 
+* [167. Two Sum II - Input Array Is Sorted](#167-Two-Sum-II---Input-Array-Is-Sorted)
+* [633. Sum of Square Numbers](#633-sum-of-square-numbers)
+* [1471. The k Strongest Values in an Array](#1471-the-k-strongest-values-in-an-array)
+* [658. Find K Closest Elements](#658-find-k-closest-elements)
+* [15. 3Sum](#15-3Sum)
+
+* [16. 3Sum Closest](#16-3Sum-Closest)
+* [18. 4Sum](#18-4Sum)
+* [259. 3Sum Smaller](#259-3Sum-Smaller)
+* [2824. Count Pairs Whose Sum is Less than Target](#259-3sum-smaller)
+* [1099. Two Sum Less Than K](#1099-Two-Sum-Less-Than-K)
+
+* [11. Container With Most Water](#11-Container-With-Most-Water)
+* [1679. Max Number of K-Sum Pairs](#1679-max-number-of-k-sum-pairs)
+* [881. Backspace String Compare](#881-boats-to-save-people)
+* [360. Sort Transformed Array](#360-sort-transformed-array)
+* [2422. Merge Operations to Turn Array Into a Palindrome](#2422-merge-operations-to-turn-array-into-a-palindrome)
+
+* [611. Valid Triangle Number](#611-valid-triangle-number)
+* [844. Backspace String Compare](#844-backspace-string-compare)
+* [1813. Sentence Similarity III](#1813-sentence-similarity-iii)
+* [1616. Split Two Strings to Make Palindrome](#1616-split-two-strings-to-make-palindrome)
+* [1498. Number of Subsequences That Satisfy the Given Sum Condition](#1498-number-of-subsequences-that-satisfy-the-given-sum-condition)
+
+## same directon
+
+* [1574. Shortest Subarray to be Removed to Make Array Sorted](#1574-shortest-subarray-to-be-removed-to-make-array-sorted)
+* [2972. Count the Number of Incremovable Subarrays II](#2972-count-the-number-of-incremovable-subarrays-ii)
+
+## in-place
+
+* [26. Remove Duplicates from Sorted Array](#26-remove-duplicates-from-sorted-array)
+* [80. Remove Duplicates from Sorted Array II](#80-remove-duplicates-from-sorted-array-ii)
+* [283. Move Zeroes](#283-move-zeroes)
+* [905. Sort Array By Parity](#905-sort-array-by-parity)
+* [922. Sort Array By Parity II](#922-sort-array-by-parity-ii)
+
+### 344. Reverse String
+
+```python 
+class Solution:
+    def reverseString(self, s: List[str]) -> None:
+        """
+        Do not return anything, modify s in-place instead.
+        """
+        l, r = 0, len(s) - 1
+        while l < r:
+            s[r], s[l] = s[l], s[r]
+            l += 1
+            r -= 1
+```
+
+### 125. Valid Palindrome
+
+```python 
+class Solution:
+    def isPalindrome(self, s: str) -> bool:
+        res = ''
+        for c in s:
+            if c.isalnum():
+                res += c.lower()
+        l, r = 0, len(res) - 1
+        while l < r:
+            if res[l] != res[r]:
+                return False 
+            l += 1
+            r -= 1
+        return True
+```
+
+### 1750. Minimum Length of String After Deleting Similar Ends
+
+```python 
+class Solution:
+    def minimumLength(self, s: str) -> int:
+        n = len(s)
+        l, r = 0, n - 1
+        while l < r:
+            if s[l] == s[r]:
+                c = s[l]
+                while l < n and s[l] == c: 
+                    l += 1
+                while r >= 0 and s[r] == c:
+                    r -= 1
+            else:
+                break
+        return max(0, r - l + 1)
+```
+
+### 977. Squares of a Sorted Array
+
+```python 
+class Solution:
+    def sortedSquares(self, nums: List[int]) -> List[int]:
+        nums.sort(key = lambda x: x ** 2)
+        nums = [i ** 2 for i in nums]
+        return nums
+```
+
+### 2105. Watering Plants II
+
+```python 
+class Solution:
+    def minimumRefill(self, plants: List[int], capacityA: int, capacityB: int) -> int:
+        l, r = 0, len(plants) - 1
+        originA, originB = capacityA, capacityB
+        res = 0
+        while l <= r:
+            if l == r:
+                if max(capacityA, capacityB) < plants[l]:
+                    res += 1
+                else:
+                    break
+            else:
+                if capacityA < plants[l]:
+                    capacityA = originA
+                    res += 1
+                capacityA -= plants[l]
+                    
+                if capacityB < plants[r]:
+                    capacityB = originB 
+                    res += 1
+                capacityB -= plants[r]   
+            l += 1
+            r -= 1
+        return res
+```
 
 ### 1. Two Sum
 
@@ -83,6 +206,56 @@ class Solution:
                 l += 1
             else:
                 return [l + 1, r + 1]
+```
+
+### 633. Sum of Square Numbers
+
+```python 
+class Solution:
+    def judgeSquareSum(self, c: int) -> bool:
+        a, b = 0, isqrt(c)
+        while a <= b:
+            s = a * a + b * b
+            if s == c:
+                return True
+            if s < c:
+                a += 1
+            else:
+                b -= 1
+        return False
+```
+
+### 1471. The k Strongest Values in an Array
+
+```python 
+class Solution:
+    def getStrongest(self, arr: List[int], k: int) -> List[int]:
+        n = len(arr)
+        arr.sort()
+        median = arr[(n - 1) // 2]
+        res = []
+        for n in arr:
+            res.append((abs(n - median), n))
+        res.sort(reverse = True)
+        return [item[1] for item in res[:k]]
+```
+
+### 658. Find K Closest Elements
+
+```python 
+class Solution:
+    def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
+        l, left, right, total = 0, -1, -1, 0
+        ans = inf
+        for r, n in enumerate(arr):
+            total += abs(n - x)
+            if r - l + 1 == k:
+                if total < ans:
+                    ans = total
+                    left, right = l, r
+                total -= abs(arr[l] - x)
+                l += 1
+        return arr[left: right + 1]
 ```
 
 ### 15. 3Sum
@@ -191,6 +364,35 @@ class Solution:
                     res += r - l
                     l += 1
         return res
+```
+
+### 2824. Count Pairs Whose Sum is Less than Target
+
+```python 
+class Solution:
+    def countPairs(self, nums: List[int], target: int) -> int:
+        n = len(nums)
+        res = 0
+        for i in range(n):
+            for j in range(i + 1, n):
+                if nums[i] + nums[j] < target:
+                    res += 1
+        return res
+
+class Solution:
+    def countPairs(self, nums: List[int], target: int) -> int:
+        nums.sort()
+        n = len(nums)
+        res = 0
+        l, r = 0, len(nums) - 1
+        while l < r:
+            s = nums[l] + nums[r]
+            if s < target:
+                res += r - l
+                l += 1
+            else:
+                r -= 1
+        return res 
 ```
 
 ### 1099. Two Sum Less Than K
@@ -465,6 +667,61 @@ class Solution:
         return res
 ```
 
+### 360. Sort Transformed Array
+
+```python 
+class Solution:
+    def sortTransformedArray(self, nums: List[int], a: int, b: int, c: int) -> List[int]:
+        res = []
+        for x in nums:
+            y = a * x * x + b * x + c 
+            res.append(y)
+        res.sort()
+        return res 
+```
+
+### 2422. Merge Operations to Turn Array Into a Palindrome
+
+```python 
+class Solution:
+    def minimumOperations(self, nums: List[int]) -> int:
+        n = len(nums)
+        l, r = 0, n - 1
+        res = 0
+        while l < r:
+            if nums[l] == nums[r]:
+                l += 1
+                r -= 1
+            elif nums[l] < nums[r]:
+                res += 1
+                nums[l + 1] += nums[l]
+                l += 1
+            elif nums[l] > nums[r]:
+                res += 1
+                nums[r - 1] += nums[r]
+                r -= 1
+        return res
+```
+
+### 611. Valid Triangle Number
+
+```python 
+class Solution:
+    def triangleNumber(self, nums: List[int]) -> int:
+        nums.sort()
+        n = len(nums)
+        res = 0
+        for i in range(2, n):
+            l, r = 0, i - 1
+            while l < r:
+                if nums[l] + nums[r] > nums[i]:
+                    res += r - l 
+                    r -= 1
+                else:
+                    l += 1
+        return res
+```
+
 ### 2486. Append Characters to String to Make Subsequence
 
 ```python
@@ -590,4 +847,163 @@ class Solution:
             if not flag:
                 return False
         return True
+```
+
+### 1616. Split Two Strings to Make Palindrome
+
+```python 
+class Solution:
+    def checkPalindromeFormation(self, a: str, b: str) -> bool:
+        def check(a, b):
+            i, j = 0, len(b) - 1
+            while i < j and a[i] == b[j]:
+                i, j = i + 1, j - 1
+            return i >= j or isPalindrome(a, i, j) or isPalindrome(b, i, j)
+
+        def isPalindrome(s, i, j) -> bool:
+            return s[i: j + 1] == s[i: j + 1][::-1]
+
+        return check(a, b) or check(b, a)
+```
+
+### 1498. Number of Subsequences That Satisfy the Given Sum Condition
+
+```python 
+class Solution:
+    def numSubseq(self, nums: List[int], target: int) -> int:
+        nums.sort()
+        l, r = 0, len(nums) - 1
+        mod = 10 ** 9 + 7 
+        res = 0
+        while l <= r:
+            ans = nums[l] + nums[r]
+            if ans > target:
+                r -= 1
+            else:
+                res += 2 ** (r - l)
+                l += 1
+        return res % mod
+```
+
+### 1574. Shortest Subarray to be Removed to Make Array Sorted
+
+```python
+class Solution:
+    def findLengthOfShortestSubarray(self, arr: List[int]) -> int:
+        n = len(arr)
+        i, j = 0, n - 1
+        while i + 1 < n and arr[i] <= arr[i + 1]:
+            i += 1
+        while j - 1 >= 0 and arr[j] >= arr[j - 1]:
+            j -= 1
+        res = min(n - i - 1, j)
+        if i >= j:
+            return 0
+        
+        r = j 
+        for l in range(i + 1):
+            while r < n and arr[l] > arr[r]:
+                r += 1
+            res = min(res, r - l - 1)
+        return res 
+```
+
+### 2972. Count the Number of Incremovable Subarrays II
+
+```python 
+class Solution:
+    def incremovableSubarrayCount(self, nums: List[int]) -> int:
+        n = len(nums)
+        i = 0
+        while i + 1 < n and nums[i] < nums[i + 1]:
+            i += 1
+        if i == n - 1:
+            return n * (n + 1) // 2
+        res = i + 2 
+        j = n - 1
+        while j == n - 1 or nums[j] < nums[j + 1]:
+            while i >= 0 and nums[i] >= nums[j]:
+                i -= 1
+            res += i + 2
+            j -= 1
+        return res 
+```
+
+### 26. Remove Duplicates from Sorted Array
+
+```python 
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        k = 1
+        for i in range(1, len(nums)):
+            if nums[i] != nums[i - 1]:
+                nums[k] = nums[i]
+                k += 1
+        return k
+```
+
+### 80. Remove Duplicates from Sorted Array II
+
+```python 
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        i = 0
+        for n in nums:
+            if i < 2 or nums[i - 2] != n:
+                nums[i] = n 
+                i += 1
+        return i
+```
+
+### 283. Move Zeroes
+
+```python 
+class Solution:
+    def moveZeroes(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        l = 0
+        for n in nums:
+            if n:
+                nums[l] = n 
+                l += 1
+        for i in range(l, len(nums)):
+            nums[i] = 0
+```
+
+### 905. Sort Array By Parity
+
+```python 
+class Solution:
+    def sortArrayByParity(self, nums: List[int]) -> List[int]:
+        l, r = 0, len(nums) - 1
+        while l < r: 
+            if nums[l] % 2 == 0:
+                l += 1
+            elif nums[r] % 2 == 1:
+                r -= 1
+            else:
+                nums[l], nums[r] = nums[r], nums[l]
+                l += 1
+                r -= 1
+        return nums
+```
+
+### 922. Sort Array By Parity II
+
+```python 
+class Solution:
+    def sortArrayByParityII(self, nums: List[int]) -> List[int]:
+        i, j = 0, 1
+        while i < len(nums):
+            if nums[i] % 2 == 0:
+                i += 2
+            elif nums[j] % 2 == 1:
+                j += 2 
+            else:
+                nums[i], nums[j] = nums[j], nums[i]
+                i += 2
+                j += 2
+        return nums
 ```

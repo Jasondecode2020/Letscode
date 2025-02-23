@@ -10,6 +10,8 @@
 * [1482. Minimum Number of Days to Make m Bouquets](#1482-minimum-number-of-days-to-make-m-bouquets)
 * [2604. Minimum Time to Eat All Grains](#2604-minimum-time-to-eat-all-grains)
 * [2702. Minimum Operations to Make Numbers Non-positive](#2702-minimum-operations-to-make-numbers-non-positive)
+* [3296. Minimum Number of Seconds to Make Mountain Height Zero](#3296-minimum-number-of-seconds-to-make-mountain-height-zero)
+* [3048. Earliest Second to Mark Indices I]
 
 ## 2 Maximum Value
 
@@ -45,9 +47,11 @@
 
 * [378. Kth Smallest Element in a Sorted Matrix](#378-kth-smallest-element-in-a-sorted-matrix)
 * [668. Kth Smallest Number in Multiplication Table](#668-kth-smallest-number-in-multiplication-table)
-* [373. Find K Pairs with Smallest Sums](#373-find-k-pairs-with-smallest-sums)
+* [719. Find K-th Smallest Pair Distance](#719-find-k-th-smallest-pair-distance)
+* [878. Nth Magical Number](#878-nth-magical-number)
 * [1201. Ugly Number III](#1201-ugly-number-iii)
 
+* [373. Find K Pairs with Smallest Sums](#373-find-k-pairs-with-smallest-sums)
 * [2702. Minimum Operations to Make Numbers Non-positive](#2702-minimum-operations-to-make-numbers-non-positive)
 
 ### 1283. Find the Smallest Divisor Given a Threshold
@@ -303,6 +307,23 @@ class Solution:
             else:
                 l = m + 1
         return res
+```
+
+### 3296. Minimum Number of Seconds to Make Mountain Height Zero
+
+```python 
+class Solution:
+    def minNumberOfSeconds(self, mountainHeight: int, workerTimes: List[int]) -> int:
+        res = 0
+        workerTimes = [(unit, unit, 1) for unit in workerTimes]
+        heapify(workerTimes)
+        while mountainHeight > 0:
+            t, unit, cnt = heappop(workerTimes)
+            res = max(res, t)
+            mountainHeight -= 1
+            cnt += 1
+            heappush(workerTimes, (t + unit * cnt, unit, cnt))
+        return res 
 ```
 
 ### 274. H-Index
@@ -1036,26 +1057,26 @@ class Solution:
 ```python
 class Solution:
     def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
-        R, C = len(matrix), len(matrix[0])
         def check(threshold):
-            r, c, count = R - 1, 0, 0
-            while r >= 0 and c < C:
-                if matrix[r][c] <= threshold:
-                    count += r + 1
+            r, c, count = R, 1, 0
+            while r >= 1 and c <= C:
+                if matrix[r - 1][c - 1] <= threshold:
+                    count += r 
                     c += 1
                 else:
                     r -= 1
-            return count >= k
-        # n * log(r - l)
-        l, r, res = matrix[0][0], matrix[-1][-1], matrix[0][0]
+            return count >= k 
+            
+        R, C = len(matrix), len(matrix[0])
+        l, r, res = -10 ** 9, 10 ** 9, 1
         while l <= r:
-            m = l + (r - l) // 2
+            m = (l + r) // 2
             if check(m):
-                res = m
+                res = m 
                 r = m - 1
             else:
                 l = m + 1
-        return res
+        return res 
 ```
 
 ### 668. Kth Smallest Number in Multiplication Table
@@ -1063,26 +1084,73 @@ class Solution:
 ```python
 class Solution:
     def findKthNumber(self, m: int, n: int, k: int) -> int:
-        R, C = m, n
         def check(threshold):
-            r, c, count = R - 1, 0, 0
-            while r >= 0 and c < C:
-                if (r + 1) * (c + 1) <= threshold:
-                    count += r + 1
+            r, c, count = R, 1, 0
+            while r >= 1 and c <= C:
+                if r * c <= threshold:
+                    count += r 
                     c += 1
                 else:
                     r -= 1
-            return count >= k
-        # n * log(r - l)
+            return count >= k 
+            
+        R, C = m, n 
         l, r, res = 1, R * C, 1
         while l <= r:
-            m = l + (r - l) // 2
+            m = (l + r) // 2
             if check(m):
-                res = m
+                res = m 
                 r = m - 1
             else:
                 l = m + 1
-        return res
+        return res 
+```
+
+### 719. Find K-th Smallest Pair Distance
+
+```python 
+class Solution:
+    def smallestDistancePair(self, nums: List[int], k: int) -> int:
+        n = len(nums)
+        def check(threshold):
+            count = 0
+            for i, x in enumerate(nums):
+                count += bisect_right(nums, x + threshold, i + 1, n) - (i + 1)
+            return count >= k
+        nums.sort()
+        l, r, res = 0, max(nums) - min(nums), 0
+        while l <= r:
+            m = (l + r) // 2
+            if check(m):
+                res = m 
+                r = m - 1
+            else:
+                l = m + 1
+        return res 
+```
+
+### 878. Nth Magical Number
+
+```python 
+class Solution:
+    def nthMagicalNumber(self, n: int, a: int, b: int) -> int:
+        def check(threshold):
+            count = 0
+            count += threshold // a 
+            count += threshold // b 
+            count -= threshold // lcm(a, b)
+            return count >= n 
+
+        l, r, res = 2, 10 ** 18, 2
+        mod = 10 ** 9 + 7
+        while l <= r:
+            m = (l + r) // 2
+            if check(m):
+                res = m 
+                r = m - 1
+            else:
+                l = m + 1
+        return res % mod
 ```
 
 ### 373. Find K Pairs with Smallest Sums

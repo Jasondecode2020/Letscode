@@ -4,6 +4,7 @@
 * [1834. Single-Threaded CPU](#1834-single-threaded-cpu)
 * [2931. Maximum Spending After Buying Items](#2931-maximum-spending-after-buying-items)
 * [1705. Maximum Number of Eaten Apples](#1705-maximum-number-of-eaten-apples)
+* [659. Split Array into Consecutive Subsequences]()
 
 ### 23. Merge k Sorted Lists
 
@@ -80,4 +81,22 @@ class Solution:
                     heappop(pq)
             i += 1
         return res
+```
+
+### 659. Split Array into Consecutive Subsequences
+
+```python 
+class Solution:
+    def isPossible(self, nums: List[int]) -> bool:
+        d = defaultdict(list)
+        for n in nums:
+            if not d[n - 1]:
+                heappush(d[n], 1)
+            else:
+                min_len = heappop(d[n - 1])
+                heappush(d[n], min_len + 1)
+        for _, a in d.items():
+            if a and a[0] < 3:
+                return False 
+        return True 
 ```

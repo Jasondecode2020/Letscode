@@ -1199,3 +1199,27 @@ class Solution:
                     nums[i] = nums[i - 1]
         return cnt <= 1
 ```
+
+### 1717. Maximum Score From Removing Substrings
+
+```python 
+class Solution:
+    def maximumGain(self, s: str, x: int, y: int) -> int:
+        def remove_pair(pair, val):
+            stack = []
+            res = 0
+            for c in self.s:
+                if c == pair[1] and stack and stack[-1] == pair[0]:
+                    stack.pop()
+                    res += val 
+                else:
+                    stack.append(c)
+            self.s = ''.join(stack)
+            return res 
+        pair = 'ab' if x > y else 'ba'
+        self.s = s 
+        res = 0
+        res += remove_pair(pair, max(x, y))
+        res += remove_pair(pair[::-1], min(x, y))
+        return res 
+```

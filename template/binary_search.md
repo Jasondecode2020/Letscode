@@ -5,17 +5,32 @@
 * [704. Binary Search](#704-binary-search)
 * [744. Find Smallest Letter Greater Than Target](#744-find-smallest-letter-greater-than-target)
 * [2529. Maximum Count of Positive Integer and Negative Integer](#2529-maximum-count-of-positive-integer-and-negative-integer)
+
 * [1385. Find the Distance Value Between Two Arrays](#1385-find-the-distance-value-between-two-arrays)
 * [2300. Successful Pairs of Spells and Potions](#2300-successful-pairs-of-spells-and-potions)
 * [2389. Longest Subsequence With Limited Sum](#2389-longest-subsequence-with-limited-sum)
+* [1170. Compare Strings by Frequency of the Smallest Character](#1170-compare-strings-by-frequency-of-the-smallest-character)
 * [2080. Range Frequency Queries](#2080-range-frequency-queries)
+
 * [2563. Count the Number of Fair Pairs](#2563-count-the-number-of-fair-pairs)
+* [981. Time Based Key-Value Store](#981-time-based-key-value-store)
+* [1146. Snapshot Array](#1146-snapshot-array)
+* [1818. Minimum Absolute Sum Difference](#1818-minimum-absolute-sum-difference)
+* [911. Online Election](#911-online-election)
+
+* [658. Find K Closest Elements](#658-find-k-closest-elements)
+* [1064. Fixed Point](#1064-fixed-point)
+* [1150. Check If a Number Is Majority Element in a Sorted Array](#1150-check-if-a-number-is-majority-element-in-a-sorted-array)
+* [1182. Shortest Distance to Target Color](#1182-shortest-distance-to-target-color)
+* [702. Search in a Sorted Array of Unknown Size]()
+
 * [2856. Minimum Array Length After Pair Removals](#2856-minimum-array-length-after-pair-removals)
 * [243. Shortest Word Distance](#243-shortest-word-distance)
 * [244. Shortest Word Distance II](#244-shortest-word-distance-ii)
 * [245. Shortest Word Distance III](#245-shortest-word-distance-iii)
 * [374. Guess Number Higher or Lower](#374-guess-number-higher-or-lower)
-* [1182. Shortest Distance to Target Color](#1182-shortest-distance-to-target-color)
+
+* [1095. Find in Mountain Array](#1095-find-in-mountain-array)
 
 ### 34. Find First and Last Position of Element in Sorted Array
 
@@ -42,14 +57,12 @@ class Solution:
 ```python
 class Solution:
     def searchRange(self, nums: List[int], target: int) -> List[int]:
-        n = len(nums)
-        start = bisect_left(nums, target)
-        if start == n or nums[start] != target:
+        l = bisect_left(nums, target)
+        if l == len(nums) or nums[l] != target:
             return [-1, -1]
-        return [bisect_left(nums, target), bisect_right(nums, target) - 1]
+        r = bisect_right(nums, target) - 1
+        return [l, r]
 ```
-
-### 35. Search Insert Position
 
 ```python
 class Solution:
@@ -62,6 +75,21 @@ class Solution:
         return [start, end]
 ```
 
+### 35. Search Insert Position
+
+```python
+class Solution:
+    def searchInsert(self, nums: List[int], target: int) -> int:
+        l, r = 0, len(nums) - 1
+        while l <= r:
+            m = (l + r) // 2
+            if nums[m] < target:
+                l = m + 1
+            else:
+                r = m - 1
+        return l 
+```
+
 ```python
 class Solution:
     def searchInsert(self, nums: List[int], target: int) -> int:
@@ -69,6 +97,21 @@ class Solution:
 ```
 
 ### 704. Binary Search
+
+```python 
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        l, r = 0, len(nums) - 1
+        while l <= r:
+            m = (l + r) // 2
+            if nums[m] < target:
+                l = m + 1
+            elif nums[m] > target:
+                r = m - 1
+            else:
+                return m 
+        return -1
+```
 
 ```python
 class Solution:
@@ -87,6 +130,13 @@ class Solution:
         n = len(letters)
         i = bisect_left(letters, chr(ord(target) + 1))
         return letters[i] if i < n else letters[0]
+
+class Solution:
+    def nextGreatestLetter(self, letters: List[str], target: str) -> str:
+        i = bisect_right(letters, target)
+        if i == len(letters):
+            return letters[0]
+        return letters[i]
 ```
 
 ### 2529. Maximum Count of Positive Integer and Negative Integer
@@ -97,7 +147,8 @@ class Solution:
         n = len(nums)
         i = bisect_left(nums, 0)
         j = bisect_right(nums, 0)
-        pos, neg = n - j, n - (n - j) - (j - i) 
+        pos = n - j
+        neg = i
         return max(pos, neg)
 ```
 
@@ -106,14 +157,14 @@ class Solution:
 ```python
 class Solution:
     def findTheDistanceValue(self, arr1: List[int], arr2: List[int], d: int) -> int:
-        arr2.sort()
         arr2 = [-inf] + arr2 + [inf]
+        arr2.sort()
         res = 0
         for n in arr1:
             i = bisect_left(arr2, n)
-            if abs(arr2[i] - n) > d and abs(arr2[i - 1] - n) > d:
+            if n - arr2[i - 1] > d and arr2[i] - n > d:
                 res += 1
-        return res
+        return res 
 ```
 
 ### 2300. Successful Pairs of Spells and Potions
@@ -122,12 +173,12 @@ class Solution:
 class Solution:
     def successfulPairs(self, spells: List[int], potions: List[int], success: int) -> List[int]:
         n = len(spells)
-        res = [0] * n
+        pairs = []
         potions.sort()
-        for i, v in enumerate(spells):
-            j = bisect_left(potions, ceil(success / v))
-            res[i] = len(potions) - j 
-        return res 
+        for n in spells:
+            i = bisect_left(potions, ceil(success / n))
+            pairs.append(len(potions) - i)
+        return pairs
 ```
 
 ### 2389. Longest Subsequence With Limited Sum
@@ -167,6 +218,21 @@ class Solution:
                     cnt += 1
             res.append(cnt)
         return res
+
+class Solution:
+    def numSmallerByFrequency(self, queries: List[str], words: List[str]) -> List[int]:
+        def f(word):
+            d = Counter(word)
+            return d[sorted(d.keys())[0]]
+
+        count = [f(w) for w in words]
+        count.sort()
+        res = []
+        for q in queries:
+            q = f(q)
+            i = bisect_right(count, q)
+            res.append(len(count) - i)
+        return res 
 ```
 
 ### 2080. Range Frequency Queries
@@ -180,10 +246,10 @@ class RangeFreqQuery:
             self.d[n].append(i)
 
     def query(self, left: int, right: int, value: int) -> int:
-        a = self.d[value]
-        l = bisect_left(a, left)
-        r = bisect_right(a, right)
-        return r - l
+        arr = self.d[value]
+        l = bisect_left(arr, left)
+        r = bisect_right(arr, right)
+        return r - l 
 ```
 
 ### 2563. Count the Number of Fair Pairs
@@ -198,6 +264,24 @@ class Solution:
             r = bisect_right(nums, upper - v, 0, i)
             res += r - l 
         return res 
+```
+
+### 981. Time Based Key-Value Store
+
+```python 
+class TimeMap:
+
+    def __init__(self):
+        self.d = defaultdict(list)
+
+    def set(self, key: str, value: str, timestamp: int) -> None:
+        self.d[key].append((timestamp, value))
+
+    def get(self, key: str, timestamp: int) -> str:
+        i = bisect_right(self.d[key], timestamp, key = lambda x: x[0])
+        if i != 0:
+            return self.d[key][i - 1][-1]
+        return ''
 ```
 
 ### 2856. Minimum Array Length After Pair Removals
@@ -236,7 +320,7 @@ class SnapshotArray:
             return self.snaps[index][snap_id]
         arr = list(self.snaps[index].keys())
         i = bisect_left(arr, snap_id)
-        return self.snaps[index][arr[i - 1]]
+        return self.snaps[index][arr[i - 1]] if i > 0 else 0
 ```
 
 ### 1818. Minimum Absolute Sum Difference
@@ -255,9 +339,110 @@ class Solution:
             mx = max(mx, abs(b - a) - mn)
         return (res - mx) % mod
 ```
-### 981. Time Based Key-Value Store
 
 ### 911. Online Election
+
+```python 
+class TopVotedCandidate:
+
+    def __init__(self, persons: List[int], times: List[int]):
+        n = len(times)
+        self.res, self.times = [-1] * n, times 
+        self.d, cur = defaultdict(int), None
+        for i in range(n):
+            self.d[persons[i]] += 1
+            if cur is None or self.d[persons[i]] >= self.d[cur]:
+                cur = persons[i]
+            self.res[i] = cur 
+        
+    def q(self, t: int) -> int:
+        return self.res[bisect_right(self.times, t) - 1]
+```
+
+### 658. Find K Closest Elements
+
+```python
+class Solution:
+    def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
+        l, left, right, total = 0, -1, -1, 0
+        ans = inf
+        for r, n in enumerate(arr):
+            total += abs(n - x)
+            if r - l + 1 == k:
+                if total < ans:
+                    ans = total
+                    left, right = l, r
+                total -= abs(arr[l] - x)
+                l += 1
+        return arr[left: right + 1]
+```
+
+### 1064. Fixed Point
+
+```python 
+class Solution:
+    def fixedPoint(self, arr: List[int]) -> int:
+        l, r = 0, len(arr) - 1
+        res = inf 
+        while l <= r:
+            m = (l + r) // 2
+            if arr[m] == m:
+                res = min(res, m)
+            if arr[m] >= m:
+                r = m - 1
+            else:
+                l = m + 1
+        return res if res != inf else -1
+```
+
+### 1150. Check If a Number Is Majority Element in a Sorted Array
+
+```python 
+class Solution:
+    def isMajorityElement(self, nums: List[int], target: int) -> bool:
+        l = bisect_left(nums, target)
+        r = bisect_right(nums, target)
+        return r - l > len(nums) // 2
+```
+
+
+### 1182. Shortest Distance to Target Color
+
+```python
+class Solution:
+    def shortestDistanceColor(self, colors: List[int], queries: List[List[int]]) -> List[int]:
+        d = defaultdict(list)
+        for i, color in enumerate(colors):
+            d[color].append(i)
+        res = []
+        for i, c in queries:
+            j = bisect_left(d[c], i)
+            if len(d[c]) == 0:
+                res.append(-1)
+            else:
+                if j < len(d[c]):
+                    res.append(min(abs(i - d[c][j - 1]), abs(d[c][j] - i)))
+                else:
+                    res.append(i - d[c][-1])
+        return res 
+```
+
+### 702. Search in a Sorted Array of Unknown Size
+
+```python 
+class Solution:
+    def search(self, reader: 'ArrayReader', target: int) -> int:
+        l, r = 0, 10 ** 4 - 1
+        while l <= r:
+            m = (l + r) // 2
+            if reader.get(m) < target:
+                l = m + 1
+            elif reader.get(m) > target:
+                r = m - 1
+            else:
+                return m 
+        return -1
+```
 
 ### 243. Shortest Word Distance
 
@@ -338,27 +523,6 @@ class Solution:
                 r = m - 1
             else:
                 return m
-```
-
-### 1182. Shortest Distance to Target Color
-
-```python
-class Solution:
-    def shortestDistanceColor(self, colors: List[int], queries: List[List[int]]) -> List[int]:
-        d = defaultdict(list)
-        for i, color in enumerate(colors):
-            d[color].append(i)
-        res = []
-        for i, c in queries:
-            j = bisect_left(d[c], i)
-            if len(d[c]) == 0:
-                res.append(-1)
-            else:
-                if j < len(d[c]):
-                    res.append(min(abs(i - d[c][j - 1]), abs(d[c][j] - i)))
-                else:
-                    res.append(i - d[c][-1])
-        return res 
 ```
 
 ### 1095. Find in Mountain Array
