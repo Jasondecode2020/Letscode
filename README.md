@@ -478,14 +478,13 @@ All questions are solved by patterns, and the learning sequence is listed below.
       * [276. Paint Fence](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#276-paint-fence) 1700
       * [3186. Maximum Total Damage With Spell Casting](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#3186-maximum-total-damage-with-spell-casting) 1840
     * ##### 13.1.3 Maximum Subarray Sum
-      * [198. House Robber](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#198-house-robber) 1500
-      * [740. Delete and Earn](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#740-delete-and-earn) 1600
-      * [2320. Count Number of Ways to Place Houses](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#2320-count-number-of-ways-to-place-houses) 1608
-      * [213. House Robber II](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#213-house-robber-ii) 1650
-      * [256. Paint House](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#256-paint-house) 1700
-      * [265. Paint House II](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#265-paint-house-ii) 1700
-      * [276. Paint Fence](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#276-paint-fence) 1700
-      * [3186. Maximum Total Damage With Spell Casting](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#3186-maximum-total-damage-with-spell-casting) 1840
+      * [53. Maximum Subarray](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#53-maximum-subarray) 1400
+      * [2606. Find the Substring With Maximum Cost](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#2606-find-the-substring-with-maximum-cost) 1422
+      * [1749. Maximum Absolute Sum of Any Subarray](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#1749-maximum-absolute-sum-of-any-subarray) 1542
+      * [1191. K-Concatenation Maximum Sum](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#1191-k-concatenation-maximum-sum) 1748
+      * [918. Maximum Sum Circular Subarray](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#918-maximum-sum-circular-subarray) 1777
+      * [2321. Maximum Score Of Spliced Array](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#2321-maximum-score-of-spliced-array) 1791
+      * [152. Maximum Product Subarray](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#152-maximum-product-subarray) 1800
   * #### 13.2 LCS (15) [pattern](https://github.com/Jasondecode2020/Letscode/blob/main/pattern/lcs.md)
     * [1143. Longest Common Subsequence](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/LCS.md#1143-longest-common-subsequence)
     * [583. Delete Operation for Two Strings](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/LCS.md#583-delete-operation-for-two-strings)
