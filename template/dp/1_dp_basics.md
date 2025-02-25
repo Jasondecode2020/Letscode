@@ -2,6 +2,12 @@
 
 ## 1 Basics (23)
 
+### 3 types of questions of linear dp 
+
+- Climbing Stairs
+- House Robber
+- Maximum Subarray sum
+
 ### 1.1 Climbing Stairs (8)
 
 * [70. Climbing Stairs](#70-climbing-stairs) 1300
@@ -21,22 +27,22 @@
 * [740. Delete and Earn](#740-delete-and-earn) 1600
 * [2320. Count Number of Ways to Place Houses](#2320-count-number-of-ways-to-place-houses) 1608
 * [213. House Robber II](#213-house-robber-ii) 1650
+* [256. Paint House](#256-paint-house) 1700
+* [265. Paint House II](#265-paint-house-ii) 1700
+* [276. Paint Fence](#276-paint-fence) 1700
 * [3186. Maximum Total Damage With Spell Casting](#3186-maximum-total-damage-with-spell-casting) 1840
-* [256. Paint House](#256-paint-house)
-* [265. Paint House II](#265-paint-house-ii)
-* [276. Paint Fence](#276-paint-fence)
 
-### 1.3 maximum Subarray sum (7)
+### 1.3 Maximum Subarray sum (7)
 
-- f[i] = f[i−1] + a[i]
+- nums[i] = max(nums[i], nums[i - 1] + nums[i])
 
-* [53. Maximum Subarray](#53-maximum-subarray)
+* [53. Maximum Subarray](#53-maximum-subarray) 1400
 * [2606. Find the Substring With Maximum Cost](#2606-find-the-substring-with-maximum-cost) 1422
 * [1749. Maximum Absolute Sum of Any Subarray](#1749-maximum-absolute-sum-of-any-subarray) 1542
 * [1191. K-Concatenation Maximum Sum](#1191-k-concatenation-maximum-sum) 1748
 * [918. Maximum Sum Circular Subarray](#918-maximum-sum-circular-subarray) 1777
 * [2321. Maximum Score Of Spliced Array](#2321-maximum-score-of-spliced-array) 1791
-* [152. Maximum Product Subarray](#152-maximum-product-subarray)
+* [152. Maximum Product Subarray](#152-maximum-product-subarray) 1800
 
 ### 70. Climbing Stairs
 
@@ -67,8 +73,8 @@ class Solution:
     def tribonacci(self, n: int) -> int:
         first, second, third = 0, 1, 1
         for i in range(3, n + 1):
-            third, second, first = third + second + first, third, second 
-        return third if n >= 1 else 0
+            third, second, first = third + second + first, third, second
+        return third if n >= 1 else first
 ```
 
 ### 746. Min Cost Climbing Stairs
@@ -175,9 +181,9 @@ class Solution:
 - f[i] = max(f[i - 1], f[i] + f[i - 2])
 
 * [198. House Robber](#198-house-robber) 1500
+* [213. House Robber II](#213-house-robber-ii) 1600
 * [740. Delete and Earn](#740-delete-and-earn) 1600
 * [2320. Count Number of Ways to Place Houses](#2320-count-number-of-ways-to-place-houses) 1608
-* [213. House Robber II](#213-house-robber-ii) 1650
 * [3186. Maximum Total Damage With Spell Casting](#3186-maximum-total-damage-with-spell-casting) 1840
 * [256. Paint House](#256-paint-house)
 * [265. Paint House II](#265-paint-house-ii)
@@ -195,17 +201,33 @@ class Solution:
         return nums[-1]
 ```
 
+### 213. House Robber II
+
+```python
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        def rob1(nums):
+            nums = [0] + nums 
+            n = len(nums)
+            for i in range(2, n):
+                nums[i] = max(nums[i - 1], nums[i] + nums[i - 2])
+            return nums[-1]
+        return max(rob1(nums[1:]), rob1(nums[:-1])) if len(nums) > 1 else nums[0]
+```
+
 ### 740. Delete and Earn
 
 ```python
 class Solution:
     def deleteAndEarn(self, nums: List[int]) -> int:
+        # turn to house robber
         f = [0] * (max(nums) + 1)
         for n in nums:
-            f[n] += n 
-        f = [0] + f 
-        for i in range(2, len(f)):
-            f[i] = max(f[i - 1], f[i - 2] + f[i])
+            f[n] += n
+        # use house robber
+        n = len(f)
+        for i in range(2, n):
+            f[i] = max(f[i] + f[i - 2], f[i - 1])
         return f[-1]
 ```
 
@@ -225,7 +247,7 @@ class Solution:
             else:
                 res += f(i + 1, rob) + f(i + 1, not rob)
             return res 
-        res = f(-1, True) % mod 
+        res = f(0, False) % mod 
         return (res * res) % mod
 ```
 
@@ -253,18 +275,19 @@ class Solution:
         return min(costs[-1])
 ```
 
-### 213. House Robber II
+### 276. Paint Fence
 
 ```python
 class Solution:
-    def rob(self, nums: List[int]) -> int:
-        def rob1(nums):
-            nums = [0] + nums 
-            n = len(nums)
-            for i in range(2, n):
-                nums[i] = max(nums[i - 1], nums[i] + nums[i - 2])
-            return nums[-1]
-        return max(rob1(nums[1:]), rob1(nums[:-1])) if len(nums) > 1 else nums[0]
+    def numWays(self, n: int, k: int) -> int:
+        @cache
+        def dfs(i):
+            if i == 1:
+                return k 
+            if i == 2:
+                return k * k
+            return (dfs(i - 1) + dfs(i - 2)) * (k - 1)
+        return dfs(n)
 ```
 
 ### 3186. Maximum Total Damage With Spell Casting
@@ -284,21 +307,6 @@ class Solution:
                 j -= 1 # final j didn't meet the condition and use dfs(j)
             return max(dfs(i - 1), dfs(j) + x * cnt[x])
         return dfs(len(a) - 1)
-```
-
-### 276. Paint Fence
-
-```python
-class Solution:
-    def numWays(self, n: int, k: int) -> int:
-        @cache
-        def dfs(i):
-            if i == 1:
-                return k 
-            if i == 2:
-                return k * k
-            return (dfs(i - 1) + dfs(i - 2)) * (k - 1)
-        return dfs(n)
 ```
 
 ### 53. Maximum Subarray
@@ -337,20 +345,17 @@ class Solution:
 ```python
 class Solution:
     def maximumCostSubstring(self, s: str, chars: str, vals: List[int]) -> int:
-        n = len(s)
-        d = Counter()
-        for c, v in zip(chars, vals):
-            d[c] = v 
-        nums = [0] * n 
+        f = [0] * len(s)
+        d = {c: v for c, v in zip(chars, vals)}
         for i, c in enumerate(s):
-            if c not in d:
-                nums[i] = ord(c) - ord('a') + 1
+            if c in chars:
+                f[i] = d[c]
             else:
-                nums[i] = d[c]
-        dp = [nums[0]] * n 
+                f[i] = ord(c) - ord('a') + 1
+        n = len(f)
         for i in range(1, n):
-            dp[i] = max(nums[i], dp[i - 1] + nums[i])
-        return max(0, max(dp))
+            f[i] = max(f[i], f[i] + f[i - 1])
+        return max(f + [0])
 ```
 
 ### 1749. Maximum Absolute Sum of Any Subarray
@@ -371,21 +376,18 @@ class Solution:
 ```python
 class Solution:
     def kConcatenationMaxSum(self, arr: List[int], k: int) -> int:
-        mod = 10 ** 9 + 7
         def max_subarray_sum(nums):
             n = len(nums)
             for i in range(1, n):
                 nums[i] = max(nums[i], nums[i - 1] + nums[i])
-            return max(0, *nums)
-        
+            return max(nums + [0])
         if k == 1:
-            return max_subarray_sum(arr) % mod 
+            return max_subarray_sum(arr)
+        arr2 = arr * 2 
         total = sum(arr)
-        arr2 = arr * 2
         res = max_subarray_sum(arr2)
-        if total > 0:
-            return ((k - 2) * total + res) % mod
-        return res % mod
+        mod = 10 ** 9 + 7
+        return ((k - 2) * total + res) % mod if total > 0 else res % mod 
 ```
 
 ### 918. Maximum Sum Circular Subarray

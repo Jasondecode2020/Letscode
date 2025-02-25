@@ -469,6 +469,23 @@ All questions are solved by patterns, and the learning sequence is listed below.
       * [2533. Number of Good Binary Strings](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#2533-number-of-good-binary-strings) 1694
       * [2266. Count Number of Texts](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#2266-count-number-of-texts) 1857 (one more time)
     * ##### 13.1.2 House Robber
+      * [198. House Robber](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#198-house-robber) 1500
+      * [740. Delete and Earn](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#740-delete-and-earn) 1600
+      * [2320. Count Number of Ways to Place Houses](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#2320-count-number-of-ways-to-place-houses) 1608
+      * [213. House Robber II](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#213-house-robber-ii) 1650
+      * [256. Paint House](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#256-paint-house) 1700
+      * [265. Paint House II](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#265-paint-house-ii) 1700
+      * [276. Paint Fence](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#276-paint-fence) 1700
+      * [3186. Maximum Total Damage With Spell Casting](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#3186-maximum-total-damage-with-spell-casting) 1840
+    * ##### 13.1.3 Maximum Subarray Sum
+      * [198. House Robber](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#198-house-robber) 1500
+      * [740. Delete and Earn](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#740-delete-and-earn) 1600
+      * [2320. Count Number of Ways to Place Houses](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#2320-count-number-of-ways-to-place-houses) 1608
+      * [213. House Robber II](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#213-house-robber-ii) 1650
+      * [256. Paint House](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#256-paint-house) 1700
+      * [265. Paint House II](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#265-paint-house-ii) 1700
+      * [276. Paint Fence](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#276-paint-fence) 1700
+      * [3186. Maximum Total Damage With Spell Casting](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/1_dp_basics.md#3186-maximum-total-damage-with-spell-casting) 1840
   * #### 13.2 LCS (15) [pattern](https://github.com/Jasondecode2020/Letscode/blob/main/pattern/lcs.md)
     * [1143. Longest Common Subsequence](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/LCS.md#1143-longest-common-subsequence)
     * [583. Delete Operation for Two Strings](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/LCS.md#583-delete-operation-for-two-strings)
