@@ -1,29 +1,33 @@
-## 2 Grid (19)
+## 2 Grid (23)
 
-### 2.1 Basics (8)
+### 2.1 Basics (10)
 
 * [62. Unique Paths](#62-unique-paths)
 * [63. Unique Paths II](#63-unique-paths-ii)
 * [64. Minimum Path Sum](#64-minimum-path-sum)
 * [120. Triangle](#120-triangle)
+* [3393. Count Paths With the Given XOR Value](#3393-count-paths-with-the-given-xor-value)
 * [931. Minimum Falling Path Sum](#931-minimum-falling-path-sum)
 * [2684. Maximum Number of Moves in a Grid](#2684-maximum-number-of-moves-in-a-grid)
 * [1289. Minimum Falling Path Sum II](#1289-minimum-falling-path-sum-ii)
 * [2304. Minimum Path Cost in a Grid](#2304-minimum-path-cost-in-a-grid)
+* [3418. Maximum Amount of Money Robot Can Earn](#3418-maximum-amount-of-money-robot-can-earn)
 
-### 2.2 Advanced (11)
+### 2.2 Advanced (13)
 
 * [1594. Maximum Non Negative Product in a Matrix](#1594-maximum-non-negative-product-in-a-matrix)
 * [1301. Number of Paths with Max Score](#1301-number-of-paths-with-max-score)
 * [2435. Paths in Matrix Whose Sum Is Divisible by K](#2435-paths-in-matrix-whose-sum-is-divisible-by-k) 1951
 * [174. Dungeon Game](#174-dungeon-game)
+* [329. Longest Increasing Path in a Matrix](#329-longest-increasing-path-in-a-matrix)
 * [2328. Number of Increasing Paths in a Grid](#2328-number-of-increasing-paths-in-a-grid)
 * [2267. Check if There Is a Valid Parentheses String Path](#2267-check-if-there-is-a-valid-parentheses-string-path)
-* [2328. Number of Increasing Paths in a Grid](#2328-number-of-increasing-paths-in-a-grid)
 * [2510. Check if There is a Path With Equal Number of 0's And 1's](#2510-check-if-there-is-a-path-with-equal-number-of-0s-and-1s)
+* [1937. Maximum Number of Points with Cost](#1937-maximum-number-of-points-with-cost)
 * [1463. Cherry Pickup II](#1463-cherry-pickup-ii)
 * [741. Cherry Pickup](#741-cherry-pickup)
-* [1937. Maximum Number of Points with Cost](#1937-maximum-number-of-points-with-cost)
+* [3363. Find the Maximum Number of Fruits Collected](#3363-find-the-maximum-number-of-fruits-collected) 2400
+* [3459. Length of Longest V-Shaped Diagonal Segment](#3459-length-of-longest-v-shaped-diagonal-segment) 2500
 
 ### 62. Unique Paths
 
@@ -84,6 +88,33 @@ class Solution:
         return triangle[0][0]
 ```
 
+### 3393. Count Paths With the Given XOR Value
+
+```python 
+class Solution:
+    def countPathsWithXorValue(self, grid: List[List[int]], k: int) -> int:
+        R, C = len(grid), len(grid[0])
+        mod = 10 ** 9 + 7 
+        @cache
+        # def f(r, c, x):
+        #     if r < 0 or c < 0:
+        #         return 0 
+        #     val = grid[r][c]
+        #     if r == 0 and c == 0:
+        #         return 1 if x == val else 0
+        #     return (f(r, c - 1, x ^ val) + f(r - 1, c, x ^ val)) % mod 
+        # return f(R - 1, C - 1, k)
+        @cache
+        def f(r, c, x):
+            if r == R or c == C:
+                return 0 
+            x ^= grid[r][c]
+            if r == R - 1 and c == C - 1:
+                return 1 if x == k else 0
+            return (f(r, c + 1, x) + f(r + 1, c, x)) % mod 
+        return f(0, 0, 0)
+```
+
 ### 931. Minimum Falling Path Sum
 
 ```python
@@ -139,6 +170,26 @@ class Solution:
             for c in range(C):
                 grid[r][c] += min(n + c for n, c in zip(grid[r + 1], moveCost[grid[r][c]]))
         return min(grid[0])
+```
+
+### 3418. Maximum Amount of Money Robot Can Earn
+
+```python
+class Solution:
+    def maximumAmount(self, coins: List[List[int]]) -> int:
+        R, C = len(coins), len(coins[0])
+        @cache
+        def f(r, c, k):
+            if r < 0 or c < 0:
+                return -inf 
+            x = coins[r][c]
+            if r == 0 and c == 0:
+                return max(x, 0) if k else x 
+            res = max(f(r - 1, c, k), f(r, c - 1, k)) + coins[r][c]
+            if k and x < 0:
+                res = max(res, f(r - 1, c, k - 1), f(r, c - 1, k - 1))
+            return res 
+        return f(R - 1, C - 1, 2)
 ```
 
 ### 1594. Maximum Non Negative Product in a Matrix
@@ -243,6 +294,28 @@ class Solution:
         return res 
 ```
 
+### 329. Longest Increasing Path in a Matrix
+
+```python 
+class Solution:
+    def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
+        @cache
+        def dfs(r, c):
+            res = 1
+            for dr, dc in directions:
+                row, col = r + dr, c + dc 
+                if 0 <= row < R and 0 <= col < C and matrix[r][c] < matrix[row][col]:
+                    res = max(res, dfs(row, col) + 1)
+            return res 
+        R, C = len(matrix), len(matrix[0])
+        directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+        res = 1
+        for r in range(R):
+            for c in range(C):
+                res = max(res, dfs(r, c))
+        return res
+```
+
 ### 2328. Number of Increasing Paths in a Grid
 
 ```python
@@ -339,6 +412,7 @@ class Solution:
         return res
 ```
 
+
 ### 2510. Check if There is a Path With Equal Number of 0's And 1's
 
 - same as 2267. Check if There Is a Valid Parentheses String Path
@@ -364,6 +438,29 @@ class Solution:
         res = dfs(0, 0, 0, 0)
         dfs.cache_clear()
         return res
+```
+
+### 1937. Maximum Number of Points with Cost
+
+```python
+class Solution:
+    def maxPoints(self, points: List[List[int]]) -> int:
+        R, C = len(points), len(points[0])
+        dp = deepcopy(points)
+        for r in range(1, R):
+            preMax, sufMax = -inf, -inf
+            for c in range(C):
+                preMax = max(preMax, dp[r - 1][c] + c)
+                dp[r][c] = max(dp[r][c], points[r][c] - c + preMax)
+            for c in range(C - 1, -1, -1):
+                sufMax = max(sufMax, dp[r - 1][c] - c)
+                dp[r][c] = max(dp[r][c], points[r][c] + c + sufMax)
+        return max(dp[-1])
+# points[r][c] = points[r][c] + max(points[r - 1][k] + k - c) k <= c
+# points[r][c] = points[r][c] + max(points[r - 1][k] - k + c) k >= c
+
+# points[r][c] = points[r][c] - c + max(points[r - 1][k] + k) k <= c
+# points[r][c] = points[r][c] + c + max(points[r - 1][k] - k) k >= c
 ```
 
 ### 1463. Cherry Pickup II
@@ -415,25 +512,50 @@ class Solution:
         return res if res != -inf else 0
 ```
 
-### 1937. Maximum Number of Points with Cost
+### 3363. Find the Maximum Number of Fruits Collected
 
 ```python
 class Solution:
-    def maxPoints(self, points: List[List[int]]) -> int:
-        R, C = len(points), len(points[0])
-        dp = deepcopy(points)
-        for r in range(1, R):
-            preMax, sufMax = -inf, -inf
-            for c in range(C):
-                preMax = max(preMax, dp[r - 1][c] + c)
-                dp[r][c] = max(dp[r][c], points[r][c] - c + preMax)
-            for c in range(C - 1, -1, -1):
-                sufMax = max(sufMax, dp[r - 1][c] - c)
-                dp[r][c] = max(dp[r][c], points[r][c] + c + sufMax)
-        return max(dp[-1])
-# points[r][c] = points[r][c] + max(points[r - 1][k] + k - c) k <= c
-# points[r][c] = points[r][c] + max(points[r - 1][k] - k + c) k >= c
+    def maxCollectedFruits(self, fruits: List[List[int]]) -> int:
+        n = len(fruits)
+        @cache
+        def dfs(i, j):
+            if not (n - 1 - i <= j < n):
+                return -inf
+            if i == 0:
+                return fruits[i][j]
+            return max(dfs(i - 1, j - 1), dfs(i - 1, j), dfs(i - 1, j + 1)) + fruits[i][j]
 
-# points[r][c] = points[r][c] - c + max(points[r - 1][k] + k) k <= c
-# points[r][c] = points[r][c] + c + max(points[r - 1][k] - k) k >= c
+        ans = sum(row[i] for i, row in enumerate(fruits))
+        ans += dfs(n - 2, n - 1) 
+        dfs.cache_clear()
+        fruits = list(zip(*fruits))
+        return ans + dfs(n - 2, n - 1)
+```
+
+### 3459. Length of Longest V-Shaped Diagonal Segment
+
+```python
+class Solution:
+    def lenOfVDiagonal(self, grid: List[List[int]]) -> int:
+        directions = [(1, 1), (1, -1), (-1, -1), (-1, 1)]
+        R, C = len(grid), len(grid[0])
+        @cache 
+        def dfs(r, c, k, can_turn, target):
+            r += directions[k][0]
+            c += directions[k][1]
+            if not (0 <= r < R and 0 <= c < C) or grid[r][c] != target:
+                return 0
+            res = dfs(r, c, k, can_turn, 2 - target)
+            if can_turn:
+                res = max(res, dfs(r, c, (k + 1) % 4, False, 2 - target))
+            return res + 1
+
+        res = 0
+        for i, row in enumerate(grid):
+            for j, x in enumerate(row):
+                if x == 1:
+                    for k in range(4):
+                        res = max(res, dfs(i, j, k, True, 2) + 1)
+        return res  
 ```
