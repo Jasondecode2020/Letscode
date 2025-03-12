@@ -24,11 +24,12 @@ class Solution:
 
 ## 1 Longest Panlindrome (7)
 
-* [516. Longest Palindromic Subsequence 1700](#516-longest-palindromic-subsequence) vip
-* [1312. Minimum Insertion Steps to Make a String Palindrome 1787](#1312-minimum-insertion-steps-to-make-a-string-palindrome)
+* [516. Longest Palindromic Subsequence](#516-longest-palindromic-subsequence)
+* [1216. Valid Palindrome III](#1216-valid-palindrome-iii)
+* [1312. Minimum Insertion Steps to Make a String Palindrome](#1312-minimum-insertion-steps-to-make-a-string-palindrome)
 * [1771. Maximize Palindrome Length From Subsequences 2186](#1771-maximize-palindrome-length-from-subsequences)
 * [1682. Longest Palindromic Subsequence II 2100](#1682-longest-palindromic-subsequence-ii)
-* [1216. Valid Palindrome III 1753](#1216-valid-palindrome-iii)
+
 
 * [1246. Palindrome Removal 2203](#1246-palindrome-removal)
 * [730. Count Different Palindromic Subsequences](#730-count-different-palindromic-subsequences)

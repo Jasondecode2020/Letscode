@@ -168,3 +168,19 @@ class Solution:
         n = len(s)
         return dfs(0)
 ```
+
+### 2209. Minimum White Tiles After Covering With Carpets
+
+```python 
+class Solution:
+    def minimumWhiteTiles(self, floor: str, numCarpets: int, carpetLen: int) -> int:
+        floor = list(map(int, floor))
+        @cache
+        def f(i, j):
+            if j < i * carpetLen:
+                return 0
+            if i == 0:
+                return floor[:j + 1].count(1)
+            return min(f(i - 1, j - carpetLen), f(i, j - 1) + floor[j])
+        return f(numCarpets, len(floor) - 1)
+```
