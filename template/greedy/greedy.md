@@ -1223,3 +1223,21 @@ class Solution:
         res += remove_pair(pair[::-1], min(x, y))
         return res 
 ```
+
+### 2193. Minimum Number of Moves to Make Palindrome
+
+```python 
+class Solution:
+    def minMovesToMakePalindrome(self, s: str) -> int:
+        s = list(s)
+        res = 0
+        while s:
+            l = s.index(s[-1])
+            if l == len(s) - 1:
+                res += l // 2
+            else:
+                s.pop(l)
+                res += l
+            s.pop()
+        return res 
+```

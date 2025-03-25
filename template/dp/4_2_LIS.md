@@ -470,3 +470,15 @@ class Solution:
                     g.append(y)
         return len(g) + 1
 ```
+
+### 2370. Longest Ideal Subsequence
+
+```python 
+class Solution:
+    def longestIdealString(self, s: str, k: int) -> int:
+        f = [0] * 26
+        for c in s:
+            i = ord(c) - ord('a')
+            f[i] = max(f[max(0, i - k): i + k + 1]) + 1
+        return max(f)
+```

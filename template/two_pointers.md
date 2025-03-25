@@ -1007,3 +1007,48 @@ class Solution:
                 j += 2
         return nums
 ```
+
+### 1163. Last Substring in Lexicographical Order
+
+```python 
+class Solution:
+    def lastSubstring(self, s: str) -> str:
+        i, j, k = 0, 1, 0
+        while j + k < len(s):
+            if s[i + k] == s[j + k]:
+                k += 1
+            elif s[i + k] < s[j + k]:
+                t = i 
+                i = j 
+                j = max(j + 1, t + k + 1)
+                k = 0
+            else:
+                j += 1
+                k = 0
+        return s[i:]
+```
+
+
+### 3403. Find the Lexicographically Largest String From the Box I
+
+```python 
+class Solution:
+    def answerString(self, word: str, numFriends: int) -> str:
+        s = word 
+        i, j, k = 0, 1, 0
+        while j + k < len(s):
+            if s[i + k] == s[j + k]:
+                k += 1
+            elif s[i + k] < s[j + k]:
+                t = i 
+                i = j 
+                j = max(j + 1, t + k + 1)
+                k = 0
+            else:
+                j += 1
+                k = 0
+        mx_len = len(word) - numFriends + 1
+        if mx_len == len(word):
+            return s 
+        return s[i:][:mx_len]
+```

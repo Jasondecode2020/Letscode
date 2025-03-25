@@ -1,5 +1,7 @@
 # Template
 
+- check if a number if prime number 
+
 ## 1 Euler
 
 ```python
@@ -23,7 +25,9 @@ def ePrime(n): # include n
 primes = ePrime(100)
 ```
 
-## 3 Prime factors of n
+- check prime factors of a number/array
+
+## 3 Prime factors of n (all factors)
 
 ```python
 def primeFactors(n):
@@ -37,24 +41,26 @@ def primeFactors(n):
     return res
 ```
 
-## 4 Prime factors of array
+## 4 Prime factors of array(unique)
 
 ```python
-divisors = defaultdict(list)
+factors = defaultdict(list)
 def ePrimeFactors(n): # include n
     primes = [False] * 2 + [True] * (n - 1)
     for i in range(2, n + 1):
         if primes[i]:
             for j in range(i, n + 1, i): # starting from i 
-                divisors[j].append(i)
+                factors[j].append(i)
                 primes[j] = False
 ePrimeFactors(1000)
 ```
 
+- check divisors of a number/array
+
 ## 5 Divisors of n
 
 ```python
-def divisorsN(self, n):
+def divisors(self, n):
     res = 0
     for i in range(1, int(sqrt(n)) + 1):
         if n % i == 0:
@@ -68,11 +74,13 @@ def divisorsN(self, n):
 ## 6 Divisors of array
 
 ```python
-N = 10 ** 5 + 1
-divisors = [[] for i in range(N)]
-for i in range(1, N):
-    for j in range(i, N, i):
-        divisors[j].append(i)
+factors = defaultdict(list)
+def eFactors(n):
+    for i in range(1, n + 1):
+        for j in range(i, n + 1, i):
+            factors[j].append(i)
+
+eFactors(10 ** 5)
 ```
 
 ## 1 check prime numbers (6)
@@ -83,6 +91,64 @@ for i in range(1, N):
 * [1175. Prime Arrangements 1489](#1175-prime-arrangements)
 * [3044. Most Frequent Prime 1737](#3044-most-frequent-prime)
 * [866. Prime Palindrome 1938](#866-prime-palindrome)
+
+## 2 preprocessing of prime numbers (5)
+
+* [204. Count Primes 1400](#204-count-primes)
+* [2761. Prime Pairs With Target Sum 1505](#2761-prime-pairs-with-target-sum)
+* [3233. Find the Count of Numbers Which Are Not Special](#3233-find-the-count-of-numbers-which-are-not-special)
+* [2523. Closest Prime Numbers in Range 1650](#2523-closest-prime-numbers-in-range)
+* [2601. Prime Subtraction Operation 1779](#2601-prime-subtraction-operation)
+
+## 3 prime factors(10)
+
+* [2521. Distinct Prime Factors of Product of Array](#2521-distinct-prime-factors-of-product-of-array)
+* [2507. Smallest Value After Replacing With Sum of Prime Factors](#2507-smallest-value-after-replacing-with-sum-of-prime-factors)
+* [3326. Minimum Division Operations to Make Array Non Decreasing](#3326-minimum-division-operations-to-make-array-non-decreasing)
+* [2584. Split the Array to Make Coprime Products 2159](#2584-split-the-array-to-make-coprime-products)
+* [2709. Greatest Common Divisor Traversal](#2709-greatest-common-divisor-traversal)
+
+* [952. Largest Component Size by Common Factor 2272](#952-largest-component-size-by-common-factor)
+* [1998. GCD Sort of an Array](#1998-gcd-sort-of-an-array)
+* [2862. Maximum Element-Sum of a Complete Subset of Indices](#2862-maximum-element-sum-of-a-complete-subset-of-indices)
+* [2818. Apply Operations to Maximize Score]()
+* [1735. Count Ways to Make Array With Product]()
+* [2338. Count the Number of Ideal Arrays 2665](#2338-count-the-number-of-ideal-arrays)
+
+## 4 factorial
+
+* [172. Factorial Trailing Zeroes](#172-factorial-trailing-zeroes)
+* [793. Preimage Size of Factorial Zeroes Function](#793-preimage-size-of-factorial-zeroes-function)
+
+## 5 divisors
+
+* [2427. Number of Common Factors](#2427-number-of-common-factors)
+* [1952. Three Divisors](#1952-three-divisors)
+* [1492. The kth Factor of n](#1492-the-kth-factor-of-n)
+* [507. Perfect Number](#507-perfect-number)
+* [1390. Four Divisors](#1390-four-divisors)
+* [1362. Closest Divisors](#1362-closest-divisors)
+* [829. Consecutive Numbers Sum](#829-consecutive-numbers-sum)
+* [952. Largest Component Size by Common Factor](#952-largest-component-size-by-common-factor)
+* [1627. Graph Connectivity With Threshold](#1627-graph-connectivity-with-threshold)
+* [2183. Count Array Pairs Divisible by K](#)
+
+## 6 gcd
+
+## 7 lcm
+
+* [2413. Smallest Even Multiple](#2413-smallest-even-multiple)
+* [2470. Number of Subarrays With LCM Equal to K](#2470-number-of-subarrays-with-lcm-equal-to-k)
+* [2447. Number of Subarrays With GCD Equal to K](#2447-number-of-subarrays-with-gcd-equal-to-k)
+* [2197. Replace Non-Coprime Numbers in Array](#2197-replace-non-coprime-numbers-in-array)
+
+## 8 prime with each other
+
+* [2748. Number of Beautiful Pairs](#2748-number-of-beautiful-pairs)
+
+## 9 mod
+
+## 10 others
 
 ### 3115. Maximum Prime Difference
 
@@ -213,26 +279,34 @@ def ePrime(n): # include n
             for j in range(i * i, n + 1, i):
                 primes[j] = False
     return primes
+primes = ePrime(100)
 
 class Solution:
     def numPrimeArrangements(self, n: int) -> int:
+        def factorial(n):
+            res = 1
+            for i in range(1, n + 1):
+                res *= i 
+                res %= mod 
+            return res 
         mod = 10 ** 9 + 7
-        primeCount = ePrime(n).count(True)
-        return factorial(primeCount) * factorial(n - primeCount) % mod
+        x = primes[:n + 1].count(True)
+        return (factorial(x) * factorial(n - x)) % mod 
 ```
 
 ### 3044. Most Frequent Prime
 
 ```python
-def ePrime(n): # include n
+def ePrime(n):
     primes = [False] * 2 + [True] * (n - 1)
     for i in range(2, n + 1):
         if primes[i]:
             for j in range(i * i, n + 1, i):
-                primes[j] = False
-    return primes
+                primes[j] = False 
+    return primes 
+
 primes = ePrime(10 ** 6)
-directions = [(1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (-1, 1), (-1, -1), (1, -1)]
+directions = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]
 
 class Solution:
     def mostFrequentPrime(self, mat: List[List[int]]) -> int:
@@ -240,54 +314,44 @@ class Solution:
         d = Counter()
         for r in range(R):
             for c in range(C):
-                num = mat[r][c]
-                if primes[num] and num > 10:
-                    d[num] += 1
                 for dr, dc in directions:
-                    num, row, col  = mat[r][c], r, c
-                    for i in range(6):
-                        row, col = row + dr, col + dc
+                    num, row, col = mat[r][c], r, c 
+                    for i in range(5):
+                        row, col = row + dr, col + dc 
                         if 0 <= row < R and 0 <= col < C:
                             num = num * 10 + mat[row][col]
                             if primes[num]:
                                 d[num] += 1
-        if not d.values():
+        if not d:
             return -1
         mx = max(d.values())
         res = sorted([k for k, v in d.items() if v == mx], reverse = True)
-        return res[0]            
+        return res[0]
 ```
 
 ### 866. Prime Palindrome
 
-- All palindrome with even digits is multiple of 11
-
 ```python
+palindrome = list(range(1, 10))
+for i in range(1, 10000):
+    s1 = str(i) + str(i)[::-1]
+    palindrome.append(int(s1))
+    for j in range(10):
+        s2 = str(i) + str(j) + str(i)[::-1]
+        palindrome.append(int(s2))
+
+def isPrime(n):
+    for i in range(2, int(sqrt(n)) + 1):
+        if n % i == 0:
+            return False 
+    return n >= 2 
+
 class Solution:
     def primePalindrome(self, n: int) -> int:
-        def isPalindrome(n):
-            return str(n) == str(n)[::-1]
-        
-        def isPrime(n): # include n
-            for i in range(2, int(sqrt(n)) + 1):
-                if n % i == 0:
-                    return False
-            return n >= 2
-        
-        while True:
-            if isPalindrome(n) and isPrime(n):
-                return n
-            n += 1
-            if len(str(n)) in [4, 6, 8]:
-                n = 10 ** len(str(n)) + 1
+        for p in palindrome:
+            if p >= n and isPrime(p):
+                return p
 ```
-
-## 2 preprocess of prime numbers (4)
-
-* [204. Count Primes 1400](#204-count-primes)
-* [2761. Prime Pairs With Target Sum 1505](#2761-prime-pairs-with-target-sum)
-* [2523. Closest Prime Numbers in Range 1650](#2523-closest-prime-numbers-in-range)
-* [2601. Prime Subtraction Operation 1779](#2601-prime-subtraction-operation)
 
 ### 204. Count Primes
 
@@ -327,6 +391,28 @@ class Solution:
         return res
 ```
 
+### 3233. Find the Count of Numbers Which Are Not Special
+
+```python 
+def ePrime(n): # include n
+    primes = [False] * 2 + [True] * (n - 1)
+    for i in range(2, n + 1):
+        if primes[i]:
+            for j in range(i * i, n + 1, i):
+                primes[j] = False
+    return primes
+primes = ePrime(100000)
+class Solution:
+    def nonSpecialCount(self, l: int, r: int) -> int:
+        res = 0
+        for i, b in enumerate(primes):
+            if b:
+                n = i * i
+                if l <= n <= r:
+                    res += 1
+        return r - l + 1 - res
+```
+
 ### 2523. Closest Prime Numbers in Range
 
 ```python
@@ -349,38 +435,26 @@ class Solution:
 ### 2601. Prime Subtraction Operation
 
 ```python
-def ePrime(n): # include n
+def ePrime(n):
     primes = [False] * 2 + [True] * (n - 1)
     for i in range(2, n + 1):
         if primes[i]:
             for j in range(i * i, n + 1, i):
-                primes[j] = False
+                primes[j] = False 
     return primes
+primes = ePrime(1000)
 
 class Solution:
     def primeSubOperation(self, nums: List[int]) -> bool:
+        arr = [i for i, b in enumerate(primes) if b][::-1]
         nums = [0] + nums
-        primes = ePrime(max(nums))
-        for i in range(len(nums)):
-            for n in range(nums[i] - 1, 1, -1):
-                if primes[n] and nums[i] - n > nums[i - 1]:
-                    nums[i] -= n
-                    break
+        for i in range(1, len(nums)):
+            for n in arr:
+                if nums[i] - n > nums[i - 1]:
+                    nums[i] -= n 
+                    break 
         return len(nums) == len(set(nums)) and nums == sorted(nums)
 ```
-
-## 3 prime factors
-
-* [2521. Distinct Prime Factors of Product of Array](#2521-distinct-prime-factors-of-product-of-array)
-* [2507. Smallest Value After Replacing With Sum of Prime Factors 1499](#2507-smallest-value-after-replacing-with-sum-of-prime-factors)
-* [2584. Split the Array to Make Coprime Products 2159](#2584-split-the-array-to-make-coprime-products)
-* [2709. Greatest Common Divisor Traversal 2173](#2709-greatest-common-divisor-traversal)
-* [952. Largest Component Size by Common Factor 2272](#952-largest-component-size-by-common-factor)
-* [1998. GCD Sort of an Array](#1998-gcd-sort-of-an-array)
-* [2862. Maximum Element-Sum of a Complete Subset of Indices](#2862-maximum-element-sum-of-a-complete-subset-of-indices)
-* [2818. Apply Operations to Maximize Score]
-* [1735. Count Ways to Make Array With Product]
-* [2338. Count the Number of Ideal Arrays 2665](#2338-count-the-number-of-ideal-arrays)
 
 ### 2521. Distinct Prime Factors of Product of Array
 
@@ -405,21 +479,21 @@ class Solution:
 ```
 
 ```python
-divisors = defaultdict(list)
-def ePrimeFactors(n): # include n
+factors = defaultdict(list)
+def ePrimeFactors(n):
     primes = [False] * 2 + [True] * (n - 1)
     for i in range(2, n + 1):
         if primes[i]:
-            for j in range(i, n + 1, i): # starting from i 
-                divisors[j].append(i)
-                primes[j] = False
+            for j in range(i, n + 1, i):
+                primes[j] = False 
+                factors[j].append(i)
 ePrimeFactors(1000)
 
 class Solution:
     def distinctPrimeFactors(self, nums: List[int]) -> int:
         s = set()
         for n in nums:
-            for f in divisors[n]:
+            for f in factors[n]:
                 s.add(f)
         return len(s)
 ```
@@ -438,10 +512,34 @@ class Solution:
             if n >= 2:
                 res.append(n)
             return sum(res)
-
         while n != primeFactors(n):
             n = primeFactors(n)
-        return n
+        return n 
+```
+
+### 3326. Minimum Division Operations to Make Array Non Decreasing
+
+```python
+factors = defaultdict(list)
+def eFactors(n):
+    for i in range(2, n + 1):
+        for j in range(i, n + 1, i):
+            if not factors[j]:
+                factors[j].append(i)
+eFactors(10 ** 6)
+
+class Solution:
+    def minOperations(self, nums: List[int]) -> int:
+        n = len(nums)
+        res = 0
+        for i in range(n - 2, -1, -1):
+            if nums[i] > nums[i + 1]:
+                if nums[i] != factors[nums[i]][0]:
+                    nums[i] = factors[nums[i]][0]
+                if nums[i] > nums[i + 1]:
+                    return -1
+                res += 1
+        return res 
 ```
 
 ### 2584. Split the Array to Make Coprime Products
@@ -472,51 +570,45 @@ class Solution:
 class UF:
     def __init__(self, n):
         self.parent = list(range(n))
-        self.rank = [1] * n
-    
+
     def find(self, n):
         while n != self.parent[n]:
-            self.parent[n] = self.parent[self.parent[n]]
             n = self.parent[n]
         return n 
 
     def union(self, n1, n2):
         p1, p2 = self.find(n1), self.find(n2)
-        if self.rank[p1] > self.rank[p2]:
-            self.parent[p2] = p1
-            self.rank[p1] += self.rank[p2]
-        else:
-            self.parent[p1] = p2 
-            self.rank[p2] += self.rank[p1]
+        self.parent[p2] = p1 
 
     def isConnected(self, n1, n2):
         return self.find(n1) == self.find(n2)
 
-divisors = defaultdict(list)
-def ePrime(n):
-    primes = [False] * 2 + [True] * (n - 1)
-    for i in range(n + 1):
-        if primes[i]:
-            for j in range(i, n + 1, i):
-                divisors[j].append(i)
-                primes[j] = False
-ePrime(100001)  
+factors = defaultdict(list)
+def eFactors(n):
+    for i in range(2, n + 1):
+        for j in range(i, n + 1, i):
+            factors[j].append(i)
+
+eFactors(10 ** 5)
 
 class Solution:
     def canTraverseAllPairs(self, nums: List[int]) -> bool:
         uf = UF(max(nums) + 1)
         for n in nums:
-            for a, b in pairwise(divisors[n]):
+            for a, b in pairwise(factors[n]):
                 uf.union(a, b)
+
         d = Counter()
         if len(nums) == 1:
-            return True
+            return True 
         for n in nums:
             if n == 1:
-                return False
-            res = uf.find(divisors[n][0])
-            d[res] += 1
-        return max(list(d.values())) == len(nums)
+                return False 
+            p = uf.find(n)
+            d[p] += 1
+            if d[p] == len(nums):
+                return True 
+        return False
 ```
 
 ### 952. Largest Component Size by Common Factor
@@ -689,18 +781,39 @@ class Solution:
         return res 
 ```
 
-## 5 divisors
+```python
+class Solution:
+    def trailingZeroes(self, n: int) -> int:
+        res = 0
+        while n:
+            res += n // 5
+            n //= 5
+        return res
+```
 
-* [2427. Number of Common Factors](#2427-number-of-common-factors)
-* [1952. Three Divisors](#1952-three-divisors)
-* [1492. The kth Factor of n](#1492-the-kth-factor-of-n)
-* [507. Perfect Number](#507-perfect-number)
-* [1390. Four Divisors](#1390-four-divisors)
-* [1362. Closest Divisors](#1362-closest-divisors)
-* [829. Consecutive Numbers Sum](#829-consecutive-numbers-sum)
-* [952. Largest Component Size by Common Factor](#952-largest-component-size-by-common-factor)
-* [1627. Graph Connectivity With Threshold](#1627-graph-connectivity-with-threshold)
-* [2183. Count Array Pairs Divisible by K](#)
+### 793. Preimage Size of Factorial Zeroes Function
+
+```python 
+class Solution:
+    def preimageSizeFZF(self, k: int) -> int:
+        def check(threshold, k):
+            res = 0
+            while threshold:
+                res += threshold // 5 
+                threshold //= 5 
+            return res >= k
+        def f(k):
+            l, r, res = 0, 10 ** 10, 0
+            while l <= r:
+                m = (l + r) // 2
+                if check(m, k):
+                    res = m
+                    r = m - 1
+                else:
+                    l = m + 1
+            return res 
+        return f(k + 1) - f(k)
+```
 
 ### 2427. Number of Common Factors
 
@@ -929,9 +1042,6 @@ class Solution:
         return res
 ```
 
-
-## 6 gcd
-
 ### 1979. Find Greatest Common Divisor of Array
 
 ```python
@@ -987,13 +1097,6 @@ class Solution:
             res += n * (n - 1) // 2
         return res
 ```
-
-## 7 lcm
-
-* [2413. Smallest Even Multiple](#2413-smallest-even-multiple)
-* [2470. Number of Subarrays With LCM Equal to K](#2470-number-of-subarrays-with-lcm-equal-to-k)
-* [2447. Number of Subarrays With GCD Equal to K](#2447-number-of-subarrays-with-gcd-equal-to-k)
-* [2197. Replace Non-Coprime Numbers in Array](#2197-replace-non-coprime-numbers-in-array)
 
 ### 2413. Smallest Even Multiple
 
@@ -1055,10 +1158,6 @@ class Solution:
         return stack
 ```
 
-## 8 prime with each other
-
-* [2748. Number of Beautiful Pairs](#2748-number-of-beautiful-pairs)
-
 ### 2748. Number of Beautiful Pairs
 
 ```python
@@ -1085,10 +1184,6 @@ class Solution:
                     res.append(str(i) + '/' + str(j))
         return res
 ```
-
-## 9 mod
-
-## 10 others
 
 ### 2001. Number of Pairs of Interchangeable Rectangles
 

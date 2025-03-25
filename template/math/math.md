@@ -203,3 +203,61 @@ class Solution:
                     right = max(right, r)
         return (bottom - top + 1) * (right - left + 1)
 ```
+
+### 440. K-th Smallest in Lexicographical Order
+
+```python 
+class Solution:
+    def findKthNumber(self, n: int, k: int) -> int:
+        i, cur = 1, 1
+        def count(cur):
+            nei = cur + 1
+            cnt = 0
+            while cur <= n:
+                cnt += min(nei, n + 1) - cur 
+                nei *= 10
+                cur *= 10 
+            return cnt 
+
+        while i < k:
+            steps = count(cur)
+            if steps + i <= k:
+                cur += 1
+                i += steps 
+            else:
+                cur *= 10
+                i += 1
+        return cur 
+```
+
+### 2081. Sum of k-Mirror Numbers
+
+```python
+palindrome = list(range(1, 10))
+for i in range(1, 100000):
+    s1 = str(i) + str(i)[::-1]
+    palindrome.append(int(s1))
+    for j in range(10):
+        s2 = str(i) + str(j) + str(i)[::-1]
+        palindrome.append(int(s2))
+palindrome.sort()
+
+class Solution:
+    def kMirror(self, k: int, n: int) -> int:
+        def check(n, k):
+            res = ''
+            while n:
+                d, m = divmod(n, k)
+                res = str(m) + res 
+                n = d 
+            return res == res[::-1]
+
+        cnt = res = 0
+        for p in palindrome:
+            if check(p, k):
+                res += p 
+                cnt += 1
+                if cnt == n:
+                    break 
+        return res
+```
