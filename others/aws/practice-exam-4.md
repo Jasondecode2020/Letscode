@@ -416,7 +416,7 @@ layout: exam
     - E. Conversion.
 
     <details markdown=1><summary markdown='span'>Answer</summary>
-      Correct answer: A, C
+      Correct answer: A, D
     </details>
 
 41. As part of the AWS Migration Acceleration Program (MAP), what does AWS provide to accelerate Enterprise adoption of AWS? (Choose TWO)

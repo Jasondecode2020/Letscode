@@ -83,6 +83,15 @@ def eFactors(n):
 eFactors(10 ** 5)
 ```
 
+## 7 gcd
+
+```python
+def gcd(a, b):
+    if b == 0:
+        return a
+    return gcd(b, a % b)
+```
+
 ## 1 check prime numbers (6)
 
 * [3115. Maximum Prime Difference 1294](#3115-maximum-prime-difference)
@@ -107,20 +116,18 @@ eFactors(10 ** 5)
 * [3326. Minimum Division Operations to Make Array Non Decreasing](#3326-minimum-division-operations-to-make-array-non-decreasing)
 * [2584. Split the Array to Make Coprime Products 2159](#2584-split-the-array-to-make-coprime-products)
 * [2709. Greatest Common Divisor Traversal](#2709-greatest-common-divisor-traversal)
-
-* [952. Largest Component Size by Common Factor 2272](#952-largest-component-size-by-common-factor)
-* [1998. GCD Sort of an Array](#1998-gcd-sort-of-an-array)
 * [2862. Maximum Element-Sum of a Complete Subset of Indices](#2862-maximum-element-sum-of-a-complete-subset-of-indices)
-* [2818. Apply Operations to Maximize Score]()
-* [1735. Count Ways to Make Array With Product]()
+* [2818. Apply Operations to Maximize Score]()-----
+* [1998. GCD Sort of an Array](#1998-gcd-sort-of-an-array)
+* [1735. Count Ways to Make Array With Product]()-----
 * [2338. Count the Number of Ideal Arrays 2665](#2338-count-the-number-of-ideal-arrays)
 
-## 4 factorial
+## 4 factorial(2)
 
 * [172. Factorial Trailing Zeroes](#172-factorial-trailing-zeroes)
 * [793. Preimage Size of Factorial Zeroes Function](#793-preimage-size-of-factorial-zeroes-function)
 
-## 5 divisors
+## 5 divisors(14)
 
 * [2427. Number of Common Factors](#2427-number-of-common-factors)
 * [1952. Three Divisors](#1952-three-divisors)
@@ -129,22 +136,36 @@ eFactors(10 ** 5)
 * [1390. Four Divisors](#1390-four-divisors)
 * [1362. Closest Divisors](#1362-closest-divisors)
 * [829. Consecutive Numbers Sum](#829-consecutive-numbers-sum)
+* [3447. Assign Elements to Groups with Constraints](#3447-assign-elements-to-groups-with-constraints)
+* [3164. Find the Number of Good Pairs II](#3164-find-the-number-of-good-pairs-ii)
 * [952. Largest Component Size by Common Factor](#952-largest-component-size-by-common-factor)
 * [1627. Graph Connectivity With Threshold](#1627-graph-connectivity-with-threshold)
-* [2183. Count Array Pairs Divisible by K](#)
+* [2198. Number of Single Divisor Triplets](#2198-number-of-single-divisor-triplets)
+* [625. Minimum Factorization](#625-minimum-factorization)
+* [2847. Smallest Number With Given Digit Product]()
+* [492. Construct the Rectangle](#492-construct-the-rectangle)
 
-## 6 gcd
+## 6 GCD
 
-## 7 lcm
+* [1979. Find Greatest Common Divisor of Array](#1979-find-greatest-common-divisor-of-array-1)
+* [914. X of a Kind in a Deck of Cards](#914-x-of-a-kind-in-a-deck-of-cards)
+* [2807. Insert Greatest Common Divisors in Linked List](#2807-insert-greatest-common-divisors-in-linked-list)
+* [1250. Check If It Is a Good Array](#1250-check-if-it-is-a-good-array)
+* [2344. Minimum Deletions to Make Array Divisible](#2344-minimum-deletions-to-make-array-divisible)
+* [1447. Simplified Fractions](#1447-simplified-fractions)
+* [2183. Count Array Pairs Divisible by K](#2183-count-array-pairs-divisible-by-k)
+* [2447. Number of Subarrays With GCD Equal to K](#2447-number-of-subarrays-with-gcd-equal-to-k)
+
+## 7 LCM
 
 * [2413. Smallest Even Multiple](#2413-smallest-even-multiple)
 * [2470. Number of Subarrays With LCM Equal to K](#2470-number-of-subarrays-with-lcm-equal-to-k)
-* [2447. Number of Subarrays With GCD Equal to K](#2447-number-of-subarrays-with-gcd-equal-to-k)
 * [2197. Replace Non-Coprime Numbers in Array](#2197-replace-non-coprime-numbers-in-array)
 
 ## 8 prime with each other
 
 * [2748. Number of Beautiful Pairs](#2748-number-of-beautiful-pairs)
+* [1447. Simplified Fractions](#1447-simplified-fractions)
 
 ## 9 mod
 
@@ -829,6 +850,19 @@ class Solution:
                 else:
                     res += 1
         return res
+
+factors = defaultdict(list)
+def divisors(n):
+    for i in range(1, n + 1):
+        for j in range(i, n + 1, i):
+            factors[j].append(i)
+
+divisors(1000)
+
+class Solution:
+    def commonFactors(self, a: int, b: int) -> int:
+        n = gcd(a, b)
+        return len(factors[n])
 ```
 
 ### 1952. Three Divisors
@@ -844,6 +878,19 @@ class Solution:
                 else:
                     res += 1
         return res == 3
+
+factors = defaultdict(list)
+def divisors(n):
+    for i in range(1, n + 1):
+        for j in range(i, n + 1, i):
+            factors[j].append(i)
+
+divisors(10000)
+
+class Solution:
+    def isThree(self, n: int) -> bool:
+        res = 0
+        return len(factors[n]) == 3
 ```
 
 ### 1492. The kth Factor of n
@@ -862,6 +909,18 @@ class Solution:
             return sorted(res)
         res = divisorsN(n)
         return res[k - 1] if k <= len(res) else -1
+
+factors = defaultdict(list)
+def divisors(n):
+    for i in range(1, n + 1):
+        for j in range(i, n + 1, i):
+            factors[j].append(i)
+
+divisors(1000)
+
+class Solution:
+    def kthFactor(self, n: int, k: int) -> int:
+        return factors[n][k - 1] if len(factors[n]) >= k else -1
 ```
 
 ### 507. Perfect Number
@@ -876,7 +935,7 @@ class Solution:
                     res += i + num // i
                 else:
                     res += i
-        return res - num == num
+        return res == num * 2
 ```
 
 ### 1390. Four Divisors
@@ -902,6 +961,24 @@ class Solution:
         return res
 ```
 
+```python 
+factors = defaultdict(list)
+def divisors(n):
+    for i in range(1, n + 1):
+        for j in range(i, n + 1, i):
+            factors[j].append(i)
+
+divisors(10 ** 5)
+
+class Solution:
+    def sumFourDivisors(self, nums: List[int]) -> int:
+        res = 0
+        for n in nums:
+            if len(factors[n]) == 4:
+                res += sum(factors[n])
+        return res 
+```
+
 ### 1362. Closest Divisors
 
 ```python
@@ -920,15 +997,74 @@ class Solution:
 ### 829. Consecutive Numbers Sum
 
 ```python
+# a1 + a2 + ... + ak = n
+# k * a1 + (k * (k - 1)) // 2 = n 
+# 2 * k * a1 + k * (k - 1) = 2 * n
+# 2n >= 2k + k(k - 1) = k(k + 1) (1)
+# 2n >= k(k + 1) (1) => 2n > k * k
+# 2k * a1 + k(k - 1) = 2n (2)
+# 2n // k = (k - 1) + 2 * a1
 class Solution:
     def consecutiveNumbersSum(self, n: int) -> int:
-        res, n = 0, n * 2
+        res = 0
         k = 1
-        while k * k < n:
-            if n % k == 0 and (n // k - (k - 1)) % 2 == 0:
+        while k * k < n * 2:
+            if (2 * n) % k == 0 and (2 * n // k - (k - 1)) % 2 == 0:
                 res += 1
             k += 1
         return res
+```
+
+### 3447. Assign Elements to Groups with Constraints
+
+```python 
+factors = defaultdict(list)
+def divisors(n):
+    for i in range(1, n + 1):
+        for j in range(i, n + 1, i):
+            factors[j].append(i)
+
+divisors(10 ** 5)
+
+class Solution:
+    def assignElements(self, groups: List[int], elements: List[int]) -> List[int]:
+        d = defaultdict(list)
+        for i, v in enumerate(elements):
+            d[v].append(i)
+        res = [-1] * len(groups)
+        
+        for i, n in enumerate(groups):
+            mn_idx = inf
+            for m in factors[n]:
+                if m in d:
+                    mn_idx = min(mn_idx, d[m][0])
+                    res[i] = mn_idx 
+        return res
+```
+
+### 3164. Find the Number of Good Pairs II
+
+```python 
+factors = defaultdict(list)
+def divisors(n):
+    for i in range(1, n + 1):
+        for j in range(i, n + 1, i):
+            factors[j].append(i)
+
+divisors(10 ** 6)
+
+class Solution:
+    def numberOfPairs(self, nums1: List[int], nums2: List[int], k: int) -> int:
+        d = defaultdict(list)
+        for i, n in enumerate(nums2):
+            d[n * k].append(i)
+
+        res = 0
+        for n in nums1:
+            for m in factors[n]:
+                if m in d:
+                    res += len(d[m])
+        return res 
 ```
 
 ### 952. Largest Component Size by Common Factor
@@ -1017,6 +1153,154 @@ class Solution:
                 uf.union(i, j)
         for x, y in queries:                       
             res.append(uf.isConnected(x, y))
+        return res
+```
+
+### 2198. Number of Single Divisor Triplets
+
+```python 
+class Solution:
+    def singleDivisorTriplet(self, nums: List[int]) -> int:
+        cnt = [0 for _ in range(max(nums) + 1)]
+        for c in nums:
+            cnt[c] += 1
+        
+        ans = 0
+        mx = max(nums)
+        for i in range(1,mx + 1):
+            for j in range(i,mx + 1):
+                for k in range(j,mx + 1):
+                    if i == j == k:
+                        continue
+                    cur = i + j + k
+                    flag = (cur % i == 0) + (cur % j == 0) + (cur % k == 0)
+                    if flag == 1:
+                        if i != j != k:
+                            ans += cnt[i] * cnt[j] * cnt[k] * 6
+                        elif i == j != k and cnt[i] > 1:
+                            ans += cnt[k] * cnt[j] * (cnt[j] - 1) * 3
+                        elif i == k != j and cnt[i] > 1:
+                            ans += cnt[j] * cnt[i] * (cnt[i] - 1) * 3
+                        elif j == k != i and cnt[j] > 1:
+                            ans += cnt[i] * cnt[j] * (cnt[j] - 1) * 3
+        return ans
+```
+
+### 625. Minimum Factorization
+
+```python 
+class Solution:
+    def smallestFactorization(self, num: int) -> int:
+        if num == 1:
+            return 1
+        divisors = list(range(9, 1, -1))
+        res = []
+        for i in divisors:
+            while num % i == 0:
+                res.append(i)
+                num //= i 
+            if num == 1:
+                t = int(''.join(str(i) for i in res[::-1]))
+                if t <= 2 ** 31 -1:
+                    return t
+        return 0
+```
+
+### 2847. Smallest Number With Given Digit Product
+
+```python 
+class Solution:
+    def smallestNumber(self, n: int) -> str:
+        if n < 10:
+            return str(n)
+        nums = list(range(2, 10))[::-1]
+        res = ''
+        while n != 1:
+            flag = False
+            for v in nums:
+                while n % v == 0:
+                    flag = True
+                    res += str(v)
+                    n //= v 
+            if not flag:
+                return str(-1)
+        return res[::-1]
+```
+
+### 492. Construct the Rectangle
+
+```python
+class Solution:
+    def constructRectangle(self, area: int) -> List[int]:
+        ans = inf 
+        res = []
+        for i in range(1, int(sqrt(area)) + 1):
+            if area % i == 0 and abs(i - area // i) < ans:
+                res = [area // i, i]
+        return res
+```
+
+### 914. X of a Kind in a Deck of Cards
+
+```python
+class Solution:
+    def hasGroupsSizeX(self, deck: List[int]) -> bool:
+        v = Counter(deck).values()
+        x = reduce(gcd, v)
+        return x > 1
+```
+
+### 1979. Find Greatest Common Divisor of Array
+
+```python
+class Solution:
+    def findGCD(self, nums: List[int]) -> int:
+        return gcd(max(nums), min(nums))
+```
+
+### 2807. Insert Greatest Common Divisors in Linked List
+
+```python
+class Solution:
+    def insertGreatestCommonDivisors(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        cur = head
+        while cur.next:
+            cur.next = ListNode(gcd(cur.val, cur.next.val), cur.next)
+            cur = cur.next.next
+        return head
+```
+
+### 1250. Check If It Is a Good Array
+
+```python
+class Solution:
+    def isGoodArray(self, nums: List[int]) -> bool:
+        return reduce(gcd, nums) == 1
+```
+
+### 2344. Minimum Deletions to Make Array Divisible
+
+```python
+class Solution:
+    def minOperations(self, nums: List[int], numsDivide: List[int]) -> int:
+        nums.sort()
+        g = reduce(gcd, numsDivide)
+        for i, v in enumerate(nums):
+            if g % v == 0:
+                return i
+        return -1
+```
+
+### 1447. Simplified Fractions
+
+```python
+class Solution:
+    def simplifiedFractions(self, n: int) -> List[str]:
+        res = []
+        for i in range(1, n):
+            for j in range(i + 1, n + 1):
+                if gcd(i, j) == 1:
+                    res.append(str(i) + '/' + str(j))
         return res
 ```
 
