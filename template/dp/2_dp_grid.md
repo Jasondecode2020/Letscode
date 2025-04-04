@@ -1,5 +1,23 @@
 ## 2 Grid (23)
 
+### 2.0 Warm up ()
+
+* [3417. Zigzag Grid Traversal With Skip](#3417-zigzag-grid-traversal-with-skip)
+
+### 3417. Zigzag Grid Traversal With Skip
+
+```python
+class Solution:
+    def zigzagTraversal(self, grid: List[List[int]]) -> List[int]:
+        res = []
+        for i, row in enumerate(grid):
+            if i % 2 == 0:
+                res += row
+            else:
+                res += row[::-1]
+        return [n for i, n in enumerate(res) if i % 2 == 0]
+```
+
 ### 2.1 Basics (10)
 
 * [62. Unique Paths](#62-unique-paths)

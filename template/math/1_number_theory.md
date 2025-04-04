@@ -117,9 +117,9 @@ def gcd(a, b):
 * [2584. Split the Array to Make Coprime Products 2159](#2584-split-the-array-to-make-coprime-products)
 * [2709. Greatest Common Divisor Traversal](#2709-greatest-common-divisor-traversal)
 * [2862. Maximum Element-Sum of a Complete Subset of Indices](#2862-maximum-element-sum-of-a-complete-subset-of-indices)
-* [2818. Apply Operations to Maximize Score]()-----
+* [2818. Apply Operations to Maximize Score]()-----TODO:
 * [1998. GCD Sort of an Array](#1998-gcd-sort-of-an-array)
-* [1735. Count Ways to Make Array With Product]()-----
+* [1735. Count Ways to Make Array With Product]()-----TODO:
 * [2338. Count the Number of Ideal Arrays 2665](#2338-count-the-number-of-ideal-arrays)
 
 ## 4 factorial(2)
@@ -142,34 +142,161 @@ def gcd(a, b):
 * [1627. Graph Connectivity With Threshold](#1627-graph-connectivity-with-threshold)
 * [2198. Number of Single Divisor Triplets](#2198-number-of-single-divisor-triplets)
 * [625. Minimum Factorization](#625-minimum-factorization)
-* [2847. Smallest Number With Given Digit Product]()
+* [2847. Smallest Number With Given Digit Product](#2847-smallest-number-with-given-digit-product)
 * [492. Construct the Rectangle](#492-construct-the-rectangle)
 
 ## 6 GCD
 
 * [1979. Find Greatest Common Divisor of Array](#1979-find-greatest-common-divisor-of-array-1)
-* [914. X of a Kind in a Deck of Cards](#914-x-of-a-kind-in-a-deck-of-cards)
 * [2807. Insert Greatest Common Divisors in Linked List](#2807-insert-greatest-common-divisors-in-linked-list)
-* [1250. Check If It Is a Good Array](#1250-check-if-it-is-a-good-array)
+* [914. X of a Kind in a Deck of Cards](#914-x-of-a-kind-in-a-deck-of-cards)
+* [1071. Greatest Common Divisor of Strings](#1071-greatest-common-divisor-of-strings)
 * [2344. Minimum Deletions to Make Array Divisible](#2344-minimum-deletions-to-make-array-divisible)
+* [365. Water and Jug Problem](#365-water-and-jug-problem)
+* [858. Mirror Reflection](#858-mirror-reflection)
+* [2654. Minimum Number of Operations to Make All Array Elements Equal to 1](#2654-minimum-number-of-operations-to-make-all-array-elements-equal-to-1)
+* [1250. Check If It Is a Good Array](#1250-check-if-it-is-a-good-array)
+* [149. Max Points on a Line](#149-max-points-on-a-line)
 * [1447. Simplified Fractions](#1447-simplified-fractions)
 * [2183. Count Array Pairs Divisible by K](#2183-count-array-pairs-divisible-by-k)
 * [2447. Number of Subarrays With GCD Equal to K](#2447-number-of-subarrays-with-gcd-equal-to-k)
+* [2607. Make K-Subarray Sums Equal]() TODO:
+* [2543. Check if Point Is Reachable]() TODO:
+* [2183. Count Array Pairs Divisible by K](#2183-count-array-pairs-divisible-by-k)
+* [3312. Sorted GCD Pair Queries]() TODO:
+* [1819. Number of Different Subsequences GCDs]()TODO:
+* [2436. Minimum Split Into Subarrays With GCD Greater Than One](#2436-minimum-split-into-subarrays-with-gcd-greater-than-one)
 
 ## 7 LCM
 
 * [2413. Smallest Even Multiple](#2413-smallest-even-multiple)
-* [2470. Number of Subarrays With LCM Equal to K](#2470-number-of-subarrays-with-lcm-equal-to-k)
 * [2197. Replace Non-Coprime Numbers in Array](#2197-replace-non-coprime-numbers-in-array)
+* [2470. Number of Subarrays With LCM Equal to K](#2470-number-of-subarrays-with-lcm-equal-to-k)
+* [3334. Find the Maximum Factor Score of Array](#3334-find-the-maximum-factor-score-of-array)
 
 ## 8 prime with each other
 
 * [2748. Number of Beautiful Pairs](#2748-number-of-beautiful-pairs)
 * [1447. Simplified Fractions](#1447-simplified-fractions)
+* [3411. Maximum Subarray With Equal Products](#3411-maximum-subarray-with-equal-products)
+* [1766. Tree of Coprimes]() -----TODO:
 
 ## 9 mod
 
+* [2453. Destroy Sequential Targets](#2453-destroy-sequential-targets)
+* [2598. Smallest Missing Non-negative Integer After Operations](#2598-smallest-missing-non-negative-integer-after-operations)
+* [1590. Make Sum Divisible by P](#1590-make-sum-divisible-by-p)
+
 ## 10 others
+
+* [326. Power of Three](#326-power-of-three)
+* [633. Sum of Square Numbers](#633-sum-of-square-numbers)
+* [279. Perfect Squares](#279-perfect-squares)
+* [2240. Number of Ways to Buy Pens and Pencils]()
+* [1015. Smallest Integer Divisible by K]()
+* [2221. Find Triangular Sum of an Array](#2221-find-triangular-sum-of-an-array)
+
+### 326. Power of Three
+
+```python
+class Solution:
+    def isPowerOfThree(self, n: int) -> bool:
+        power_of_three = set([3 ** i for i in range(31)])
+        return n in power_of_three
+```
+
+### 633. Sum of Square Numbers
+
+```python
+class Solution:
+    def judgeSquareSum(self, c: int) -> bool:
+        a = 0
+        while a * a * 2 <= c:
+            b = isqrt(c - a * a)
+            if a * a == c - b * b:
+                return True
+            a += 1
+        return False
+```
+### 279. Perfect Squares
+
+```python
+square = [i * i for i in range(100, 0, -1)]
+class Solution:
+    def numSquares(self, n: int) -> int:
+        @cache
+        def f(t, i):
+            if t > n:
+                return inf 
+            if i == len(square):
+                return 0 if t == n else inf
+            return min(f(t, i + 1), f(t + square[i], i) + 1) 
+        res = f(0, 0)
+        f.cache_clear()
+        return res
+```
+
+### 2240. Number of Ways to Buy Pens and Pencils
+
+```python
+class Solution:
+    def waysToBuyPensPencils(self, total: int, cost1: int, cost2: int) -> int:
+        res, penscost = 0, 0
+        while penscost <= total:
+            remaining = total - penscost
+            pencils = remaining // cost2 + 1
+            res += pencils
+            penscost += cost1
+        return res
+```
+
+### 1015. Smallest Integer Divisible by K
+
+```python
+class Solution:
+    def smallestRepunitDivByK(self, k: int) -> int:
+        # 1 11 111 1111
+        # cur: a, next: a * 10 + 1
+        # a % k = x,  (a * 10 + 1) % k = ((a * 10) % k + 1 % k) % k = ((a * 10) % k + 1) % k
+        # ((a * 10) % k + 1) % k = ((a % k + 10 % k) % k + 1) % k = ((x % k + 10 % k) % k + 1) % k
+        # ((x % k + 10 % k) % k + 1) % k = (x * 10 + 1) % k 
+        # x = (x * 10 + 1) % k 
+        # k = 3, 1 % 3 = 1, 11 % 3 = 2, 21 % 3 == 0
+        s = set()
+        x = 1 % k 
+        while x and x not in s:
+            s.add(x)
+            x = (x * 10 + 1) % k 
+        return -1 if x else len(s) + 1
+```
+
+### 2221. Find Triangular Sum of an Array
+
+```python
+class Solution:
+    def triangularSum(self, nums: List[int]) -> int:
+        while len(nums) > 1:
+            res = []
+            for i in range(1, len(nums)):
+                res.append((nums[i] + nums[i - 1]) % 10)
+            nums = res 
+        return nums[0]
+```
+
+## 11 Median theorem
+
+* [462. Minimum Moves to Equal Array Elements II](#462-minimum-moves-to-equal-array-elements-ii)
+
+### 462. Minimum Moves to Equal Array Elements II
+
+```python
+class Solution:
+    def minMoves2(self, nums: List[int]) -> int:
+        n = len(nums)
+        nums.sort()
+        mid_num = nums[n // 2]
+        return sum(abs(n - mid_num) for n in nums)
+```
 
 ### 3115. Maximum Prime Difference
 
@@ -1278,6 +1405,25 @@ class Solution:
         return reduce(gcd, nums) == 1
 ```
 
+### 149. Max Points on a Line
+
+```python
+class Solution:
+    def maxPoints(self, points: List[List[int]]) -> int:
+        res, n = 1, len(points)
+        for i in range(n):
+            x1, y1 = points[i]
+            d = defaultdict(int)
+            for j in range(n):
+                if i != j:
+                    x2, y2 = points[j]
+                    factor = gcd(x2 - x1, y2 - y1)
+                    d[((x2 - x1) // factor, (y2 - y1) // factor)] += 1
+            if d.values():
+                res = max(res, max(d.values()) + 1)
+        return res
+```
+
 ### 2344. Minimum Deletions to Make Array Divisible
 
 ```python
@@ -1291,6 +1437,62 @@ class Solution:
         return -1
 ```
 
+### 365. Water and Jug Problem
+
+```python
+class Solution:
+    def canMeasureWater(self, x: int, y: int, targetCapacity: int) -> bool:
+        directions = [x, -x, y, -y]
+        q = deque([0])
+        s = set([0])
+        while q:
+            node = q.popleft()
+            if node == targetCapacity:
+                return True
+            for d in directions:
+                n = node + d 
+                if 0 <= n <= x + y:
+                    if n not in s:
+                        s.add(n)
+                        q.append(n)
+        return False
+```
+
+### 858. Mirror Reflection
+
+```python
+class Solution:
+    def mirrorReflection(self, p: int, q: int) -> int:
+        g = gcd(p, q)
+        m, n = q // g, p // g 
+        if n % 2 == 0:
+            return 2
+        elif m % 2 == 0:
+            return 0
+        else:
+            return 1
+```
+
+### 2654. Minimum Number of Operations to Make All Array Elements Equal to 1
+
+```python
+class Solution:
+    def minOperations(self, nums: List[int]) -> int:
+        if reduce(gcd, nums) != 1:
+            return -1 
+        
+        n = len(nums)
+        if nums.count(1) > 0:
+            return sum(1 for n in nums if n != 1)
+
+        mn_size = inf 
+        for i in range(n):
+            for j in range(i + 1, n):
+                if reduce(gcd, nums[i: j + 1]) == 1:
+                    mn_size = min(mn_size, j - i + 1)
+        return mn_size + n - 2
+```
+
 ### 1447. Simplified Fractions
 
 ```python
@@ -1302,6 +1504,83 @@ class Solution:
                 if gcd(i, j) == 1:
                     res.append(str(i) + '/' + str(j))
         return res
+```
+
+### 3411. Maximum Subarray With Equal Products
+
+```python 
+class Solution:
+    def maxLength(self, nums: List[int]) -> int:
+        res = 0
+        n = len(nums)
+        for i in range(n):
+            for j in range(i, n):
+                if prod(nums[i: j + 1]) == reduce(gcd, nums[i: j + 1]) * reduce(lcm, nums[i: j + 1]):
+                    res = max(res, j - i + 1)
+        return res 
+```
+
+
+### 2453. Destroy Sequential Targets
+
+```python
+class Solution:
+    def destroyTargets(self, nums: List[int], space: int) -> int:
+        d = defaultdict(list)
+        for n in nums:
+            d[n % space].append(n)
+
+        mx_group, res = 0, 0
+        for a in d.values():
+            L, mn = len(a), min(a)
+            if L > mx_group or (L == mx_group and mn < res):
+                mx_group, res = L, mn
+        return res 
+```
+
+### 2598. Smallest Missing Non-negative Integer After Operations
+
+```python 
+class Solution:
+    def findSmallestInteger(self, nums: List[int], value: int) -> int:
+        d = defaultdict(int)
+        for n in nums:
+            d[n % value] += 1
+        
+        for i in range(10 ** 5 + 1):
+            val = i % value
+            if val in d:
+                d[val] -= 1
+                if d[val] == 0:
+                    d.pop(val)
+            else:
+                return i 
+```
+
+### 1590. Make Sum Divisible by P
+
+```python
+class Solution:
+    def minSubarray(self, nums: List[int], p: int) -> int:
+        # [3,1,4,2]
+        # [0, 3, 4, 5, 9, 18, 100]
+        # 10 % 6 = 4, p = 4
+        # (a - b) % p = 0 => a % p = b % p
+        # (15 - 9) % 3 = 0 => 15 % 3 = 9 % 3
+        prefix = list(accumulate(nums, initial = 0))
+        m = prefix[-1] % p 
+        if m == 0:
+            return 0 
+
+        d = defaultdict(int)
+        n = len(nums)
+        res = n
+        for i, v in enumerate(prefix):
+            d[v % p] = i 
+            if (v - m) % p in d:
+                j = d[(v - m) % p]
+                res = min(res, i - j)
+        return res if res < n else -1
 ```
 
 ### 2183. Count Array Pairs Divisible by K
@@ -1424,6 +1703,61 @@ class Solution:
         return ans
 ```
 
+### 2436. Minimum Split Into Subarrays With GCD Greater Than One
+
+```python
+class Solution:
+    def minimumSplits(self, nums: List[int]) -> int:
+        n = len(nums)
+        res = 0
+        for i in range(1, n):
+            if gcd(nums[i - 1], nums[i]) > 1:
+                nums[i] = gcd(nums[i - 1], nums[i])
+            else:
+                res += 1
+        return res + 1
+```
+
+### 2464. Minimum Subarrays in a Valid Split
+
+```python
+class Solution:
+    def validSubarraySplit(self, nums: List[int]) -> int:
+        n = len(nums)
+        @cache
+        def dfs(i):
+            if i == n:
+                return 0
+            res = inf 
+            for j in range(i, n):
+                if gcd(nums[i], nums[j]) > 1:
+                    res = min(res, dfs(j + 1) + 1)
+            return res 
+        return dfs(0) if dfs(0) != inf else -1
+```
+
+### 2183. Count Array Pairs Divisible by K
+
+```python
+N = 10 ** 5 + 1
+divisors = [[] for i in range(N)]
+for i in range(1, N):
+    for j in range(i, N, i):
+        divisors[j].append(i)
+
+class Solution:
+    def countPairs(self, nums: List[int], k: int) -> int:
+        # [6,3,3,4,5], k = 6, gcd(4, 6) = 2, k = 3
+        # a * b = k
+        res = 0
+        c = Counter()
+        for n in nums:
+            res += c[k // gcd(n, k)]
+            for factor in divisors[n]:
+                c[factor] += 1
+        return res
+```
+
 ### 2197. Replace Non-Coprime Numbers in Array
 
 ```python
@@ -1440,6 +1774,21 @@ class Solution:
                 x = stack.pop()
                 stack[-1] = lcm(x, stack[-1])
         return stack
+```
+
+### 3334. Find the Maximum Factor Score of Array
+
+```python 
+class Solution:
+    def maxScore(self, nums: List[int]) -> int:
+        if len(nums) == 1:
+            return nums[0] * nums[0]
+        res = reduce(gcd, nums) * reduce(lcm, nums)
+        for n in set(nums):
+            copy_nums = nums[::]
+            copy_nums.remove(n)
+            res = max(res, reduce(gcd, copy_nums) * reduce(lcm, copy_nums))
+        return res 
 ```
 
 ### 2748. Number of Beautiful Pairs
