@@ -37,6 +37,7 @@ class Solution:
 * [2397. Maximum Rows Covered by Columns](#2397-maximum-rows-covered-by-columns)
 * [1079. Letter Tile Possibilities](#1079-letter-tile-possibilities)
 * [1219. Path with Maximum Gold](#1219-path-with-maximum-gold)
+* [2048. Next Greater Numerically Balanced Number]()
 
 > enumerate pattern (cut) (need a for loop to enumerate all conditions)
 
@@ -50,6 +51,7 @@ class Solution:
 * [17. Letter Combinations of a Phone Number](#17-Letter-Combinations-of-a-Phone-Number)[M]
 * [996. Number of Squareful Arrays](#996-Number-of-Squareful-Arrays)
 * [291. Word Pattern II](#291-word-pattern-ii)
+* [1849. Splitting a String Into Descending Consecutive Values]()
 
 > games (need to find how to play the game)
 
@@ -910,6 +912,34 @@ class Solution:
         return False
 ```
 
+### 1849. Splitting a String Into Descending Consecutive Values
+
+```python
+class Solution:
+    def splitString(self, s: str) -> bool:
+        def check(res):
+            a = [int(i) for i in res]
+            if len(a) == 1:
+                return False
+            return all(a - b == 1 for a, b in pairwise(a))
+
+        def backtrack(s, ans):
+            if not s:
+                if check(ans):
+                    self.res = True
+                return
+            for i in range(len(s)):
+                if ans and int(ans[-1]) - int(s[:i + 1]) != 1:
+                    continue
+                backtrack(s[i+1:], ans + [s[:i+1]])
+            return False
+        
+        n = len(s)
+        self.res = False
+        backtrack(s, [])
+        return self.res
+```
+
 ### 2397. Maximum Rows Covered by Columns
 
 ```python
@@ -994,6 +1024,27 @@ class Solution:
                     backtrack(r, c, [grid[r][c]])
                     res = max(res, max([sum(i) for i in ans]))
         return res 
+```
+
+### 2048. Next Greater Numerically Balanced Number
+
+```python
+class Solution:
+    def nextBeautifulNumber(self, n: int) -> int:
+        a = [str(i) * i for i in range(1, 7)]
+        def backtrack(i, s):
+            if len(s) > len(str(n)) + 1:
+                return 
+            if s and len(s) >= len(str(n)):
+                for perm in permutations(s):
+                    x = int(''.join(perm))
+                    if x > n:
+                        self.res = min(self.res, x)
+            for j in range(i, len(a)):
+                backtrack(j + 1, s + a[j])
+        self.res = inf 
+        backtrack(0, '')
+        return self.res
 ```
 
 ### 1255. Maximum Score Words Formed by Letters

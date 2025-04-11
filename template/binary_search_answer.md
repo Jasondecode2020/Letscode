@@ -11,7 +11,8 @@
 * [2604. Minimum Time to Eat All Grains](#2604-minimum-time-to-eat-all-grains)
 * [2702. Minimum Operations to Make Numbers Non-positive](#2702-minimum-operations-to-make-numbers-non-positive)
 * [3296. Minimum Number of Seconds to Make Mountain Height Zero](#3296-minimum-number-of-seconds-to-make-mountain-height-zero)
-* [3048. Earliest Second to Mark Indices I]
+* [3048. Earliest Second to Mark Indices I]()
+* [1954. Minimum Garden Perimeter to Collect Enough Apples]()
 
 ## 2 Maximum Value
 
@@ -324,6 +325,26 @@ class Solution:
             cnt += 1
             heappush(workerTimes, (t + unit * cnt, unit, cnt))
         return res 
+```
+
+### 1954. Minimum Garden Perimeter to Collect Enough Apples
+
+```python
+class Solution:
+    def minimumPerimeter(self, neededApples: int) -> int:
+        def check(threshold):
+            n = threshold
+            return 2 * n * (n + 1) * (2 * n + 1) >= neededApples 
+
+        l, r, res = 1, 10 ** 15, 1
+        while l <= r:
+            m = (l + r) // 2
+            if check(m):
+                res = m * 8
+                r = m - 1
+            else:
+                l = m + 1
+        return res
 ```
 
 ### 274. H-Index
