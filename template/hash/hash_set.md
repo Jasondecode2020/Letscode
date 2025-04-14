@@ -235,3 +235,17 @@ class Solution:
                 d = (d + 1) % 4
         return len(set((r, c) for r, c, d in visited))
 ```
+
+### 2354. Number of Excellent Pairs
+
+```python
+class Solution:
+    def countExcellentPairs(self, nums: List[int], k: int) -> int:
+        d = Counter([n.bit_count() for n in set(nums)])
+        res = 0
+        for k1, v1 in d.items():
+            for k2, v2 in d.items():
+                if k1 + k2 >= k:
+                    res += v1 * v2 
+        return res
+```

@@ -18,6 +18,7 @@
 * [2971. Find Polygon With the Largest Perimeter](#2971-find-polygon-with-the-largest-perimeter)
 * [1679. Max Number of K-Sum Pairs](#1679-max-number-of-k-sum-pairs)
 * [2964. Number of Divisible Triplet Sums](#2964-number-of-divisible-triplet-sums)
+* [533. Lonely Pixel II](#533-lonely-pixel-ii)
 
 ### 1. Two Sum
 
@@ -314,6 +315,38 @@ class Solution:
                 two %= d
                 c[two] += 1
         return res 
+```
+
+### 533. Lonely Pixel II
+
+```python
+class Solution:
+    def findBlackPixel(self, picture: List[List[str]], target: int) -> int:
+        rows, cols = Counter(), Counter()
+        R, C = len(picture), len(picture[0])
+        for r in range(R):
+            for c in range(C):
+                if picture[r][c] == 'B':
+                    rows[r] += 1
+                    cols[c] += 1
+        d = defaultdict(bool)
+        for r1, row1 in enumerate(picture):
+            for r2, row2 in enumerate(picture):
+                d[(r1, r2)] = row1 == row2
+                
+        res = 0
+        for r in range(R):
+            for c in range(C):
+                if rows[r] == cols[c] == target:
+                    state = True
+                    for i in range(R):
+                        if picture[i][c] == 'B':
+                            if not d[(r, i)]:
+                                state = False
+                                break 
+                    if state:
+                        res += 1
+        return res
 ```
 
 ### 336. Palindrome Pairs
