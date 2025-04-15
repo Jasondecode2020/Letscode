@@ -40,11 +40,30 @@
 * [1442. Count Triplets That Can Form Two Arrays of Equal XOR](#1442-count-triplets-that-can-form-two-arrays-of-equal-xor)
 * [2527. Find Xor-Beauty of Array](#2527-find-xor-beauty-of-array)
 * [2317. Maximum XOR After Operations](#2317-maximum-xor-after-operations)
-* [2433. Find The Original Array of Prefix Xor](#2433-find-the-original-array-of-prefix-xor)
-* [2588. Count the Number of Beautiful Subarrays]()
+* [2588. Count the Number of Beautiful Subarrays](#2588-count-the-number-of-beautiful-subarrays)
+* [2564. Substring XOR Queries](#2564-substring-xor-queries)
+* [1734. Decode XORed Permutation](#1734-decode-xored-permutation)
+* [2857. Count Pairs of Points With Distance k](#2857-count-pairs-of-points-with-distance-k)
+* [3215. Count Triplets with Even XOR Set Bits II](#3215-count-triplets-with-even-xor-set-bits-ii)
+* [2429. Minimize XOR](#2429-minimize-xor)
+
 
 ### 3 or/and
 
+* [2980. Check if Bitwise OR Has Trailing Zeros](#2980-check-if-bitwise-or-has-trailing-zeros)
+* [1318. Minimum Flips to Make a OR b Equal to c](#1318-minimum-flips-to-make-a-or-b-equal-to-c)
+* [2419. Longest Subarray With Maximum Bitwise AND](#2419-longest-subarray-with-maximum-bitwise-and)
+* [2871. Split Array Into Maximum Number of Subarrays](#2871-split-array-into-maximum-number-of-subarrays)
+* [2401. Longest Nice Subarray](#2401-longest-nice-subarray)
+* [2680. Maximum OR](#2680-maximum-or)
+* [3125. Maximum Number That Makes Result of Bitwise AND Zero](#3215-count-triplets-with-even-xor-set-bits-ii)
+* [3133. Minimum Array End](#3133-minimum-array-end)
+* [3108. Minimum Cost Walk in Weighted Graph]() TODO:
+
+### 4 LogTrick
+
+* [1521. Find a Value of a Mysterious Function Closest to Target](#1521-find-a-value-of-a-mysterious-function-closest-to-target)
+* [3171. Find Subarray With Bitwise OR Closest to K]()
 
 * [421. Maximum XOR of Two Numbers in an Array](#421-maximum-xor-of-two-numbers-in-an-array)
 * [2275. Largest Combination With Bitwise AND Greater Than Zero](#2275-largest-combination-with-bitwise-and-greater-than-zero)
@@ -52,14 +71,11 @@
 
 ### 3370. Smallest Number With All Set Bits
 
-<details markdown=1><summary markdown='span'>Answer</summary>
 ```python
 class Solution:
     def smallestNumber(self, n: int) -> int:
         return (1 << n.bit_length()) - 1
 ```
-</details>
-
 
 ### 461. Hamming Distance
 
@@ -410,6 +426,266 @@ class Solution:
         return res 
 ```
 
+### 2564. Substring XOR Queries
+
+```python
+class Solution:
+    def substringXorQueries(self, s: str, queries: List[List[int]]) -> List[List[int]]:
+        d = defaultdict(list)
+        n = len(s)
+        for i in range(n):
+            for j in range(i + 1, min(n + 1, i + 31)):
+                d[int(s[i: j], 2)].append((j - i, i, j - 1))
+        for k, v in d.items():
+            d[k] = sorted(v)[0]
+        
+        res = []
+        for a, b in queries:
+            x = a ^ b 
+            if x in d:
+                res.append(d[x][1:])
+            else:
+                res.append([-1, -1])
+        return res
+```
+
+### 1734. Decode XORed Permutation
+
+```python
+class Solution:
+    def decode(self, encoded: List[int]) -> List[int]:
+        n = len(encoded)
+        # ABCDE
+        x = 0
+        for i in range(1, n + 2):
+            x ^= i 
+        # BCDE
+        y = 0
+        for i in range(1, n, 2):
+            y ^= encoded[i]
+        
+        first = x ^ y
+        res = [first]
+        for n in encoded:
+            x = n ^ res[-1]
+            res.append(x)
+        return res 
+```
+
+### 2857. Count Pairs of Points With Distance k
+
+```python
+class Solution:
+    def countPairs(self, coordinates: List[List[int]], k: int) -> int:
+        # x1 ^ x2 + y1 ^ y2 = k
+        # 0 <= x1 ^ x2 <= k
+        # 0 <= y1 ^ y2 <= k 
+        # x1 ^ x2 = i => y1 ^ y2 = k - i 
+        # x1 = x2 ^ i, y1 = y2 ^ (k - i)
+        res = 0
+        d = Counter()
+        for x, y in coordinates:
+            for i in range(k + 1):
+                res += d[(x ^ i, y ^ (k - i))]
+            d[(x, y)] += 1
+        return res 
+```
+
+### 3215. Count Triplets with Even XOR Set Bits II
+
+```python
+class Solution:
+    def tripletCount(self, a: List[int], b: List[int], c: List[int]) -> int:
+        c1, c2, c3 = Counter(), Counter(), Counter()
+        def check(x, c):
+            for n in x:
+                x = n.bit_count()
+                if x % 2 == 0:
+                    c[2] += 1
+                else:
+                    c[1] += 1
+
+        for x, c in [(a, c1), (b, c2), (c, c3)]:
+            check(x, c)
+
+        res = c1[2] * c2[2] * c3[2]
+        res += c1[1] * c2[1] * c3[2] + c1[1] * c2[2] * c3[1] + c1[2] * c2[1] * c3[1]
+        return res
+```
+
+### 2429. Minimize XOR
+
+```python
+class Solution:
+    def minimizeXor(self, num1: int, num2: int) -> int:
+        ones = num2.bit_count()
+        a = list(bin(num1)[2:].zfill(32))
+        res = 0
+        for i, c in enumerate(a):
+            if c == '1' and ones:
+                res += 1 << (32 - i - 1)
+                ones -= 1
+        if ones == 0:
+            return res 
+        for i, n in enumerate(a[::-1]):
+            if n == '0' and ones:
+                res += 1 << i
+                ones -= 1 
+        return res
+```
+
+### 2980. Check if Bitwise OR Has Trailing Zeros
+
+```python
+class Solution:
+    def hasTrailingZeros(self, nums: List[int]) -> bool:
+        return sum(1 for n in nums if n % 2 == 0) > 1
+```
+
+
+### 1318. Minimum Flips to Make a OR b Equal to c
+
+```python
+class Solution:
+    def minFlips(self, a: int, b: int, c: int) -> int:
+        res = 0
+        for i in range(32):
+            z = c & (1 << i)
+            x = a & (1 << i)
+            y = b & (1 << i)
+            if z and x == 0 and y == 0:
+                res += 1
+            if not z and (x or y):
+                if x:
+                    res += 1
+                if y:
+                    res += 1
+        return res
+```
+
+### 2419. Longest Subarray With Maximum Bitwise AND
+
+```python
+class Solution:
+    def longestSubarray(self, nums: List[int]) -> int:
+        res = 0
+        mx = max(nums)
+        for a, b in groupby(nums):
+            if a == mx:
+                res = max(res, len(list(b)))
+        return res 
+```
+
+### 2871. Split Array Into Maximum Number of Subarrays
+
+```python
+class Solution:
+    def maxSubarrays(self, nums: List[int]) -> int:
+        # nums = [1,0,2,0,1,2]
+        mask = (1 << 32) - 1
+        ans, res = mask, 0
+        for i, n in enumerate(nums):
+            ans &= n
+            if ans == 0:
+                res += 1
+                ans = mask
+        return res if res != 0 else 1
+```
+
+### 2401. Longest Nice Subarray
+
+```python
+class Solution:
+    def longestNiceSubarray(self, nums: List[int]) -> int:
+        count = [0] * 32
+        l, res = 0, 0
+        for r, n in enumerate(nums):
+            for i in range(32):
+                if n & (1 << i):
+                    count[i] += 1
+            while any(x > 1 for x in count):
+                for i in range(32):
+                    if nums[l] & (1 << i):
+                        count[i] -= 1
+                l += 1
+            res = max(res, r - l + 1)
+        return res
+```
+
+### 2680. Maximum OR
+
+```python
+class Solution:
+    def maximumOr(self, nums: List[int], k: int) -> int:
+        n = len(nums)
+        pre, suf = nums[::], nums[::]
+        for i in range(1, n):
+            pre[i] |= pre[i - 1]
+        for i in range(n - 2, -1, -1):
+            suf[i] |= suf[i + 1]
+        pre, suf = [0] + pre + [0], [0] + suf + [0]
+        res = 0
+        for i in range(n):
+            for j in range(k + 1):
+                res = max(res, pre[i] | suf[i + 2] | (nums[i] << k))
+        return res
+```
+
+### 3133. Minimum Array End
+
+```python
+class Solution:
+    def minEnd(self, n: int, x: int) -> int:
+        l = bin(x)[2:].zfill(64)
+        a = list(l)
+        L = len(l)
+        s = bin(n - 1)[2:]
+        i, j = L - 1, len(s) - 1
+        while i >= 0 and j >= 0:
+            if a[i] == '0' and s[j] == '0':
+                i -= 1
+                j -= 1
+            elif a[i] == '0' and s[j] == '1':
+                a[i] = '1'
+                i -= 1
+                j -= 1
+            else:
+                i -= 1
+        return int(''.join(a), 2)
+```
+
+### 1521. Find a Value of a Mysterious Function Closest to Target
+
+```python
+class Solution:
+    def closestToTarget(self, arr: List[int], target: int) -> int:
+        ans = inf
+        for i, x in enumerate(arr):
+            ans = min(ans, abs(x - target))  # 单个元素也算子数组
+            j = i - 1
+            while j >= 0 and arr[j] & x != arr[j]:
+                arr[j] &= x
+                ans = min(ans, abs(arr[j] - target))
+                j -= 1
+        return ans
+```
+
+### 3171. Find Subarray With Bitwise OR Closest to K
+
+```python
+class Solution:
+    def minimumDifference(self, nums: List[int], k: int) -> int:
+        ans = inf
+        for i, x in enumerate(nums):
+            ans = min(ans, abs(x - k))  # 单个元素也算子数组
+            j = i - 1
+            while j >= 0 and nums[j] | x != nums[j]:
+                nums[j] |= x
+                ans = min(ans, abs(nums[j] - k))
+                j -= 1
+        return ans
+```
+
 ### 292. Nim Game
 
 ```python
@@ -566,72 +842,6 @@ class Solution:
                 if((bin(i)+bin(j)).count('1')==turnedOn): # light number
                    res.append((str(i)+":"+str(j).zfill(2))) # fill zero for minutes  
         return res 
-```
-
-### 1318. Minimum Flips to Make a OR b Equal to c
-
-```python
-class Solution:
-    def minFlips(self, a: int, b: int, c: int) -> int:
-        res = 0
-        for i in range(32):
-            z = c & (1 << i)
-            x = a & (1 << i)
-            y = b & (1 << i)
-            if z and x == 0 and y == 0:
-                res += 1
-            if not z and (x or y):
-                if x:
-                    res += 1
-                if y:
-                    res += 1
-        return res
-```
-
-## xor
-
-### 2683. Neighboring Bitwise XOR
-
-```python
-class Solution:
-    def doesValidArrayExist(self, derived: List[int]) -> bool:
-        res = 0
-        for n in derived:
-            res ^= n 
-        return res == 0
-```
-
-### 2429. Minimize XOR
-
-```python
-class Solution:
-    def minimizeXor(self, num1: int, num2: int) -> int:
-        ones = num2.bit_count()
-        a = list(bin(num1)[2:].zfill(32))
-        res = 0
-        for i, c in enumerate(a):
-            if c == '1' and ones:
-                res += 1 << (32 - i - 1)
-                ones -= 1
-        if ones == 0:
-            return res 
-        for i, n in enumerate(a[::-1]):
-            if n == '0' and ones:
-                res += 1 << i
-                ones -= 1 
-        return res
-```
-
-### 2433. Find The Original Array of Prefix Xor
-
-```python
-class Solution:
-    def findArray(self, pref: List[int]) -> List[int]:
-        n, prev = len(pref), 0
-        for i in range(1, n):
-            prev ^= pref[i - 1]
-            pref[i] ^= prev
-        return pref
 ```
 
 ### 2396. Strictly Palindromic Number
