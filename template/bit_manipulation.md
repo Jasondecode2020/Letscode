@@ -1,13 +1,16 @@
 ## bit manipulation
 
+<details markdown=1>
+<summary markdown='span'>Answer</summary>
 1. n.bit_length(): the length of the binary number
 2. n.bit_count(): the number of set bits
 3. num1 |= num1 + 1: set lowbit of 0 to 1
 4. num1 &= num1 - 1: set lowbit of 1 to 0
-5. x & (-x): lowbit 
+5. x & (-x): lowbit
+</details>
 
 
-### 1 basic
+### 1 basic (19)
 
 * [3370. Smallest Number With All Set Bits](#3370-smallest-number-with-all-set-bits)
 * [461. Hamming Distance](#461-hamming-distance)
@@ -29,7 +32,7 @@
 * [338. Counting Bits](#338-counting-bits)
 * [2997. Minimum Number of Operations to Make Array XOR Equal to K](#2997-minimum-number-of-operations-to-make-array-xor-equal-to-k)
 
-### 2 xor
+### 2 xor (15)
 
 * [1486. XOR Operation in an Array](#1486-xor-operation-in-an-array)
 * [1720. Decode XORed Array](#1720-decode-xored-array)
@@ -48,7 +51,7 @@
 * [2429. Minimize XOR](#2429-minimize-xor)
 
 
-### 3 or/and
+### 3 or/and (9)
 
 * [2980. Check if Bitwise OR Has Trailing Zeros](#2980-check-if-bitwise-or-has-trailing-zeros)
 * [1318. Minimum Flips to Make a OR b Equal to c](#1318-minimum-flips-to-make-a-or-b-equal-to-c)
@@ -60,10 +63,55 @@
 * [3133. Minimum Array End](#3133-minimum-array-end)
 * [3108. Minimum Cost Walk in Weighted Graph]() TODO:
 
-### 4 LogTrick
+### 4 LogTrick (7)
 
 * [1521. Find a Value of a Mysterious Function Closest to Target](#1521-find-a-value-of-a-mysterious-function-closest-to-target)
-* [3171. Find Subarray With Bitwise OR Closest to K]()
+* [3171. Find Subarray With Bitwise OR Closest to K](#3171-find-subarray-with-bitwise-or-closest-to-k)
+* [3209. Number of Subarrays With AND Value of K](#3209-number-of-subarrays-with-and-value-of-k)
+* [3097. Shortest Subarray With OR at Least K II](#3097-shortest-subarray-with-or-at-least-k-ii)
+* [898. Bitwise ORs of Subarrays](#898-bitwise-ors-of-subarrays)
+* [2411. Smallest Subarrays With Maximum Bitwise OR](#2411-smallest-subarrays-with-maximum-bitwise-or)
+* [2654. Minimum Number of Operations to Make All Array Elements Equal to 1](#2654-minimum-number-of-operations-to-make-all-array-elements-equal-to-1)
+
+### 5 split bit/check together
+
+* [477. Total Hamming Distance](#477-total-hamming-distance)
+* [1863. Sum of All Subset XOR Totals](#1863-sum-of-all-subset-xor-totals)
+* [2425. Bitwise XOR of All Pairings](#2425-bitwise-xor-of-all-pairings)
+* [2275. Largest Combination With Bitwise AND Greater Than Zero](#2275-largest-combination-with-bitwise-and-greater-than-zero)
+* [3153. Sum of Digit Differences of All Pairs](#3153-sum-of-digit-differences-of-all-pairs)
+* [1835. Find XOR Sum of All Pairs Bitwise AND](#1835-find-xor-sum-of-all-pairs-bitwise-and)
+
+### 6 try and put
+
+* [421. Maximum XOR of Two Numbers in an Array](#421-maximum-xor-of-two-numbers-in-an-array)
+* [2935. Maximum Strong Pair XOR II](#2935-maximum-strong-pair-xor-ii)
+
+### 7 equation
+
+* [1835. Find XOR Sum of All Pairs Bitwise AND](#1835-find-xor-sum-of-all-pairs-bitwise-and)
+* [2354. Number of Excellent Pairs](#2354-number-of-excellent-pairs)
+
+### 8 skill
+
+* [2546. Apply Bitwise Operations to Make Strings Equal](#2546-apply-bitwise-operations-to-make-strings-equal)
+* [1558. Minimum Numbers of Function Calls to Make Target Array](#1558-minimum-numbers-of-function-calls-to-make-target-array)
+* [2571. Minimum Operations to Reduce an Integer to 0](#2571-minimum-operations-to-reduce-an-integer-to-0)
+* [3315. Construct the Minimum Bitwise Array II](#3315-construct-the-minimum-bitwise-array-ii)
+* [2568. Minimum Impossible OR](#2568-minimum-impossible-or)
+* [2509. Cycle Length Queries in a Tree](#2509-cycle-length-queries-in-a-tree)
+
+### 9 others
+
+* [136. Single Number](#136-single-number)
+
+### 136. Single Number
+
+```python
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        return reduce(xor, nums)
+```
 
 * [421. Maximum XOR of Two Numbers in an Array](#421-maximum-xor-of-two-numbers-in-an-array)
 * [2275. Largest Combination With Bitwise AND Greater Than Zero](#2275-largest-combination-with-bitwise-and-greater-than-zero)
@@ -686,6 +734,313 @@ class Solution:
         return ans
 ```
 
+### 3209. Number of Subarrays With AND Value of K
+
+```python
+class Solution:
+    def countSubarrays(self, nums: List[int], k: int) -> int:
+        res = 0
+        for i, x in enumerate(nums):
+            j = i - 1
+            while j >= 0 and nums[j] & x != nums[j]:
+                nums[j] &= x 
+                j -= 1
+            res += bisect_right(nums, k, 0, i + 1) - bisect_left(nums, k, 0, i + 1)
+        return res
+```
+
+### 3097. Shortest Subarray With OR at Least K II
+
+```python
+class Solution:
+    def minimumSubarrayLength(self, nums: List[int], k: int) -> int:
+        res = inf 
+        for i, x in enumerate(nums):
+            if x >= k:
+                return 1
+            j = i - 1
+            while j >= 0 and nums[j] | x != nums[j]:
+                nums[j] |= x
+                if nums[j] >= k:
+                    res = min(res, i - j + 1)
+                j -= 1
+        return res if res != inf else -1
+```
+
+### 898. Bitwise ORs of Subarrays
+
+```python
+class Solution:
+    def subarrayBitwiseORs(self, arr: List[int]) -> int:
+        res = set()
+        for i, x in enumerate(arr):
+            res.add(x)
+            j = i - 1
+            while j >= 0 and arr[j] | x != arr[j]:
+                arr[j] |= x
+                res.add(arr[j])
+                j -= 1
+        return len(res)
+```
+
+### 2411. Smallest Subarrays With Maximum Bitwise OR
+
+```python
+class Solution:
+    def smallestSubarrays(self, nums: List[int]) -> List[int]:
+        res = [0] * len(nums)
+        for i, x in enumerate(nums):
+            res[i] = 1
+            j = i - 1
+            while j >= 0 and nums[j] | x != nums[j]:
+                nums[j] |= x 
+                res[j] = i - j + 1
+                j -= 1
+        return res 
+```
+
+### 2654. Minimum Number of Operations to Make All Array Elements Equal to 1
+
+```python
+class Solution:
+    def minOperations(self, nums: List[int]) -> int:
+        if reduce(gcd, nums) != 1:
+            return -1
+
+        n = len(nums)
+        if nums.count(1) > 0:
+            return sum(1 for n in nums if n != 1)
+
+        mn_size = inf 
+        for i in range(n):
+            for j in range(i + 1, n):
+                if reduce(gcd, nums[i: j + 1]) == 1:
+                    mn_size = min(mn_size, j - i + 1)
+        return mn_size + n - 2 
+```
+
+### 477. Total Hamming Distance
+
+```python
+class Solution:
+    def totalHammingDistance(self, nums: List[int]) -> int:
+        n = len(nums)
+        res = 0
+        for i in range(30):
+            v = sum((val >> i) & 1 for val in nums)
+            res += v * (n - v)
+        return res
+```
+
+### 1863. Sum of All Subset XOR Totals
+
+```python
+class Solution:
+    def subsetXORSum(self, nums: List[int]) -> int:
+        self.res, n = 0, len(nums)
+        def backtrack(idx, val):
+            if idx == n:
+                self.res += val
+                return
+            backtrack(idx + 1, val)
+            backtrack(idx + 1, val ^ nums[idx])
+        backtrack(0, 0)
+        return self.res
+```
+
+### 2425. Bitwise XOR of All Pairings
+
+```python
+class Solution:
+    def xorAllNums(self, nums1: List[int], nums2: List[int]) -> int:
+        nums = nums1 * (len(nums2) % 2) + nums2 * (len(nums1) % 2)
+        res = 0
+        for n in nums:
+            res ^= n 
+        return res 
+```
+
+### 2275. Largest Combination With Bitwise AND Greater Than Zero
+
+```python
+class Solution:
+    def largestCombination(self, candidates: List[int]) -> int:
+        res = 0
+        for i in range(30):
+            c = sum((c >> i) & 1 for c in candidates)
+            res = max(res, c)
+        return res
+```
+
+### 3153. Sum of Digit Differences of All Pairs
+
+```python
+class Solution:
+    def sumDigitDifferences(self, nums: List[int]) -> int:
+        # nums = [13,23,12]
+        n = len(str(nums[0]))
+        dp = [[0] * 10 for i in range(n)]
+        nums = [str(n) for n in nums]
+        for num in nums:
+            for i, c in enumerate(num[::-1]):
+                dp[i][int(c)] += 1
+        res = 0 
+        for arr in dp:
+            for i in range(len(arr)):
+                for j in range(i + 1, len(arr)):
+                    res += arr[i] * arr[j]
+        return res
+```
+
+### 1835. Find XOR Sum of All Pairs Bitwise AND
+
+```python
+class Solution:
+    def getXORSum(self, arr1: List[int], arr2: List[int]) -> int:
+        res = 0
+        for k in range(30, -1, -1):
+            c1 = sum(1 for n in arr1 if n & (1 << k))
+            c2 = sum(1 for n in arr2 if n & (1 << k))
+            if c1 % 2 and c2 % 2:
+                res |= (1 << k)
+        return res
+```
+
+### 421. Maximum XOR of Two Numbers in an Array
+
+```python
+class Solution:
+    def findMaximumXOR(self, nums: List[int]) -> int:
+        res = mask = 0
+        for i in range(32, -1, -1):
+            mask |= (1 << i)
+            ans = res | (1 << i)
+            s = set()
+            for n in nums:
+                n &= mask 
+                if n ^ ans in s:
+                    res = ans 
+                    break
+                s.add(n)
+        return res 
+```
+
+### 2935. Maximum Strong Pair XOR II
+
+```python
+class Solution:
+    def maximumStrongPairXor(self, nums: List[int]) -> int:
+        nums.sort()
+        res = mask = 0
+        for i in range(20, -1, -1):
+            mask |= (1 << i)
+            ans = res | (1 << i)
+            d = {}
+            for n in nums:
+                new_n = n & mask 
+                if new_n ^ ans in d and 2 * d[new_n ^ ans] >= n:
+                    res = ans 
+                    break
+                d[new_n] = n 
+        return res 
+```
+
+### 2354. Number of Excellent Pairs
+
+```python
+class Solution:
+    def countExcellentPairs(self, nums: List[int], k: int) -> int:
+        d = Counter([n.bit_count() for n in set(nums)])
+        res = 0
+        for k1, v1 in d.items():
+            for k2, v2 in d.items():
+                if k1 + k2 >= k:
+                    res += v1 * v2 
+        return res
+```
+
+### 2546. Apply Bitwise Operations to Make Strings Equal
+
+```python
+class Solution:
+    def makeStringsEqual(self, s: str, target: str) -> bool:
+        return ('1' in s) == ('1' in target)
+```
+
+### 1558. Minimum Numbers of Function Calls to Make Target Array
+
+```python
+class Solution:
+    def minOperations(self, nums: List[int]) -> int:
+        res = 0
+        while sum(nums):
+            if all(n % 2 == 0 for n in nums):
+                res += 1
+                nums = [n // 2 for n in nums]
+            else:
+                res += sum(1 for n in nums if n % 2)
+                nums = [n - 1 if n % 2 else n for n in nums]
+        return res
+```
+
+### 2571. Minimum Operations to Reduce an Integer to 0
+
+```python
+class Solution:
+    def minOperations(self, n: int) -> int:
+        @cache
+        def dfs(x):
+            if x & (x - 1) == 0:
+                return 1
+            lowbit = x & -x 
+            return 1 + min(dfs(x + lowbit), dfs(x - lowbit))
+        return dfs(n)
+```
+
+### 3315. Construct the Minimum Bitwise Array II
+
+```python
+class Solution:
+    def minBitwiseArray(self, nums: List[int]) -> List[int]:
+        for i, n in enumerate(nums):
+            if n == 2:
+                nums[i] = -1
+            else:
+                t = ~n
+                lowbit = t & (-t)
+                nums[i] ^= lowbit >> 1
+        return nums
+```
+
+### 2568. Minimum Impossible OR
+
+```python
+class Solution:
+    def minImpossibleOR(self, nums: List[int]) -> int:
+        s = set(nums)
+        for i in range(32):
+            x = 1 << i
+            if x not in s:
+                return x
+```
+
+### 2509. Cycle Length Queries in a Tree
+
+```python
+class Solution:
+    def cycleLengthQueries(self, n: int, queries: List[List[int]]) -> List[int]:
+        for i, (a, b) in enumerate(queries):
+            res = 1
+            while a != b:
+                if a > b:
+                    a //= 2
+                else:
+                    b //= 2
+                res += 1
+            queries[i] = res
+        return queries 
+```
+
 ### 292. Nim Game
 
 ```python
@@ -769,34 +1124,6 @@ class Solution:
         if maxChoosableInteger * (maxChoosableInteger + 1) // 2 < desiredTotal:
             return False
         return dfs(0, 0)
-```
-
-### 2411. Smallest Subarrays With Maximum Bitwise OR
-
-```python
-class Solution:
-    def smallestSubarrays(self, nums: List[int]) -> List[int]:
-        def ok2remove(count, num):
-            for i in range(32):
-                if count[i] == 1 and ((num >> i) & 1):
-                    return False
-            return True
-
-        count = [0] * 32
-        n = len(nums)
-        res = [0] * n
-        j = n - 1
-        for i in range(n - 1, -1, -1):
-            for k in range(32):
-                if (nums[i] >> k) & 1:
-                    count[k] += 1
-            while j > i and ok2remove(count, nums[j]):
-                for k in range(32):
-                    if (nums[j] >> k) & 1:
-                        count[k] -= 1
-                j -= 1
-            res[i] = j - i + 1
-        return res
 ```
 
 ### 260. Single Number III
