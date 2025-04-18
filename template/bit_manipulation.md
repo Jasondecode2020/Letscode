@@ -2,11 +2,11 @@
 
 <details markdown=1>
 <summary markdown='span'>Answer</summary>
-1. n.bit_length(): the length of the binary number
-2. n.bit_count(): the number of set bits
-3. num1 |= num1 + 1: set lowbit of 0 to 1
-4. num1 &= num1 - 1: set lowbit of 1 to 0
-5. x & (-x): lowbit
+<li>1. n.bit_length(): the length of the binary number</li>
+<li>2. n.bit_count(): the number of set bits</li>
+<li>3. num1 |= num1 + 1: set lowbit of 0 to 1</li>
+<li>4. num1 &= num1 - 1: set lowbit of 1 to 0</li>
+<li>5. x & (-x): lowbit</li>
 </details>
 
 
