@@ -106,66 +106,67 @@ All questions are solved by patterns, and the learning sequence is listed below.
       * [1201. Ugly Number III](#1201-ugly-number-iii)
       * [2702. Minimum Operations to Make Numbers Non-positive](#2702-minimum-operations-to-make-numbers-non-positive)
 * ### 7 Two Pointers
-  * ##### 7.1 Basics
-  * ##### 7.2 Fast Slow Pointers
-  * ##### 7.3 Three Pointers
-  * ##### 7.4 List Groups(47)
-      * [1446. Consecutive Characters](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#1446-consecutive-characters)
-      * [1869. Longer Contiguous Segments of Ones than Zeros](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#1869-longer-contiguous-segments-of-ones-than-zeros)
-      * [1957. Delete Characters to Make Fancy String](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#1957-delete-characters-to-make-fancy-string)
-      * [2414. Length of the Longest Alphabetical Continuous Substring](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#2414-length-of-the-longest-alphabetical-continuous-substring)
-      * [674. Longest Continuous Increasing Subsequence](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#674-longest-continuous-increasing-subsequence)
-      
-      * [978. Longest Turbulent Subarray](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#978-longest-turbulent-subarray)
-      * [2110. Number of Smooth Descent Periods of a Stock](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#2110-number-of-smooth-descent-periods-of-a-stock)
-      * [228. Summary Ranges](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#228-summary-ranges)
-      * [2760. Longest Even Odd Subarray With Threshold](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#2760-longest-even-odd-subarray-with-threshold)
-      * [1887. Reduction Operations to Make the Array Elements Equal](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#1887-reduction-operations-to-make-the-array-elements-equal)
-      
-      * [845. Longest Mountain in Array](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#845-longest-mountain-in-array)
-      * [2038. Remove Colored Pieces if Both Neighbors are the Same Color](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#2038-remove-colored-pieces-if-both-neighbors-are-the-same-color)
-      * [1759. Count Number of Homogenous Substrings](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#1759-count-number-of-homogenous-substrings)
-      * [3011. Find if Array Can Be Sorted](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#3011-find-if-array-can-be-sorted)
-      * [1578. Minimum Time to Make Rope Colorful](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#1578-minimum-time-to-make-rope-colorful)
-      
-      * [1839. Longest Substring Of All Vowels in Order](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#1839-longest-substring-of-all-vowels-in-order)
-      * [2765. Longest Alternating Subarray](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#2765-longest-alternating-subarray)
-      * [3255. Find the Power of K-Size Subarrays II](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#3255-find-the-power-of-k-size-subarrays-ii)
-      * [3350. Adjacent Increasing Subarrays Detection II](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#3350-adjacent-increasing-subarrays-detection-ii)
-      * [3105. Longest Strictly Increasing or Strictly Decreasing Subarray](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#3105-longest-strictly-increasing-or-strictly-decreasing-subarray)
-      
-      * [2393. Count Strictly Increasing Subarrays](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#2393-count-strictly-increasing-subarrays)
-      * [2436. Minimum Split Into Subarrays With GCD Greater Than One](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#2436-minimum-split-into-subarrays-with-gcd-greater-than-one)
-      * [3063. Linked List Frequency](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#3063-linked-list-frequency)
-      * [2495. Number of Subarrays Having Even Product](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#2495-number-of-subarrays-having-even-product)
-      * [467. Unique Substrings in Wraparound String](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#467-unique-substrings-in-wraparound-string)
-      
-      * [2593. Find Score of an Array After Marking All Elements](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#2593-find-score-of-an-array-after-marking-all-elements)
-      * [186. Reverse Words in a String II](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#186-reverse-words-in-a-string-ii)
-      * [1784. Check if Binary String Has at Most One Segment of Ones](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#1784-check-if-binary-string-has-at-most-one-segment-of-ones)
-      * [551. Student Attendance Record I](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#551-student-attendance-record-i)
-      * [1933. Check if String Is Decomposable Into Value-Equal Substrings](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#1933-check-if-string-is-decomposable-into-value-equal-substrings)
-      
-      * [408. Valid Word Abbreviation](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#408-valid-word-abbreviation)
-      * [1513. Number of Substrings With Only 1s](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#1513-number-of-substrings-with-only-1s)
-      * [2348. Number of Zero-Filled Subarrays](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#2348-number-of-zero-filled-subarrays)
-      * [2405. Optimal Partition of String](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#2405-optimal-partition-of-string)
-      * [1529. Minimum Suffix Flips](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#1529-minimum-suffix-flips)
-      
-      * [758. Bold Words in String](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#408-valid-word-abbreviation)
-      * [2419. Longest Subarray With Maximum Bitwise AND](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#2419-longest-subarray-with-maximum-bitwise-and)
-      * [2645. Minimum Additions to Make Valid String](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#2645-minimum-additions-to-make-valid-string)
-      * [809. Expressive Words](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#809-expressive-words)
-      * [1807. Evaluate the Bracket Pairs of a String](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#1807-evaluate-the-bracket-pairs-of-a-string)
-      
-      * [830. Positions of Large Groups](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#830-positions-of-large-groups)
-      * [2943. Maximize Area of Square Hole in Grid](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#2943-maximize-area-of-square-hole-in-grid)
-      * [2981. Find Longest Special Substring That Occurs Thrice I](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#2981-find-longest-special-substring-that-occurs-thrice-i)
-      * [2982. Find Longest Special Substring That Occurs Thrice II](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#2982-find-longest-special-substring-that-occurs-thrice-ii)
-      * [2948. Make Lexicographically Smallest Array by Swapping Elements](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#2948-make-lexicographically-smallest-array-by-swapping-elements)
+  * #### 7.1 Basics
+  * #### 7.2 Fast Slow Pointers
+  * #### 7.3 Three Pointers
+  * #### 7.4 List Groups(47)
+  
+    * [1446. Consecutive Characters](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#1446-consecutive-characters)
+    * [1869. Longer Contiguous Segments of Ones than Zeros](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#1869-longer-contiguous-segments-of-ones-than-zeros)
+    * [1957. Delete Characters to Make Fancy String](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#1957-delete-characters-to-make-fancy-string)
+    * [2414. Length of the Longest Alphabetical Continuous Substring](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#2414-length-of-the-longest-alphabetical-continuous-substring)
+    * [674. Longest Continuous Increasing Subsequence](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#674-longest-continuous-increasing-subsequence)
+    
+    * [978. Longest Turbulent Subarray](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#978-longest-turbulent-subarray)
+    * [2110. Number of Smooth Descent Periods of a Stock](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#2110-number-of-smooth-descent-periods-of-a-stock)
+    * [228. Summary Ranges](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#228-summary-ranges)
+    * [2760. Longest Even Odd Subarray With Threshold](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#2760-longest-even-odd-subarray-with-threshold)
+    * [1887. Reduction Operations to Make the Array Elements Equal](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#1887-reduction-operations-to-make-the-array-elements-equal)
+    
+    * [845. Longest Mountain in Array](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#845-longest-mountain-in-array)
+    * [2038. Remove Colored Pieces if Both Neighbors are the Same Color](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#2038-remove-colored-pieces-if-both-neighbors-are-the-same-color)
+    * [1759. Count Number of Homogenous Substrings](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#1759-count-number-of-homogenous-substrings)
+    * [3011. Find if Array Can Be Sorted](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#3011-find-if-array-can-be-sorted)
+    * [1578. Minimum Time to Make Rope Colorful](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#1578-minimum-time-to-make-rope-colorful)
+    
+    * [1839. Longest Substring Of All Vowels in Order](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#1839-longest-substring-of-all-vowels-in-order)
+    * [2765. Longest Alternating Subarray](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#2765-longest-alternating-subarray)
+    * [3255. Find the Power of K-Size Subarrays II](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#3255-find-the-power-of-k-size-subarrays-ii)
+    * [3350. Adjacent Increasing Subarrays Detection II](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#3350-adjacent-increasing-subarrays-detection-ii)
+    * [3105. Longest Strictly Increasing or Strictly Decreasing Subarray](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#3105-longest-strictly-increasing-or-strictly-decreasing-subarray)
+    
+    * [2393. Count Strictly Increasing Subarrays](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#2393-count-strictly-increasing-subarrays)
+    * [2436. Minimum Split Into Subarrays With GCD Greater Than One](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#2436-minimum-split-into-subarrays-with-gcd-greater-than-one)
+    * [3063. Linked List Frequency](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#3063-linked-list-frequency)
+    * [2495. Number of Subarrays Having Even Product](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#2495-number-of-subarrays-having-even-product)
+    * [467. Unique Substrings in Wraparound String](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#467-unique-substrings-in-wraparound-string)
+    
+    * [2593. Find Score of an Array After Marking All Elements](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#2593-find-score-of-an-array-after-marking-all-elements)
+    * [186. Reverse Words in a String II](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#186-reverse-words-in-a-string-ii)
+    * [1784. Check if Binary String Has at Most One Segment of Ones](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#1784-check-if-binary-string-has-at-most-one-segment-of-ones)
+    * [551. Student Attendance Record I](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#551-student-attendance-record-i)
+    * [1933. Check if String Is Decomposable Into Value-Equal Substrings](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#1933-check-if-string-is-decomposable-into-value-equal-substrings)
+    
+    * [408. Valid Word Abbreviation](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#408-valid-word-abbreviation)
+    * [1513. Number of Substrings With Only 1s](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#1513-number-of-substrings-with-only-1s)
+    * [2348. Number of Zero-Filled Subarrays](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#2348-number-of-zero-filled-subarrays)
+    * [2405. Optimal Partition of String](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#2405-optimal-partition-of-string)
+    * [1529. Minimum Suffix Flips](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#1529-minimum-suffix-flips)
+    
+    * [758. Bold Words in String](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#408-valid-word-abbreviation)
+    * [2419. Longest Subarray With Maximum Bitwise AND](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#2419-longest-subarray-with-maximum-bitwise-and)
+    * [2645. Minimum Additions to Make Valid String](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#2645-minimum-additions-to-make-valid-string)
+    * [809. Expressive Words](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#809-expressive-words)
+    * [1807. Evaluate the Bracket Pairs of a String](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#1807-evaluate-the-bracket-pairs-of-a-string)
+    
+    * [830. Positions of Large Groups](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#830-positions-of-large-groups)
+    * [2943. Maximize Area of Square Hole in Grid](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#2943-maximize-area-of-square-hole-in-grid)
+    * [2981. Find Longest Special Substring That Occurs Thrice I](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#2981-find-longest-special-substring-that-occurs-thrice-i)
+    * [2982. Find Longest Special Substring That Occurs Thrice II](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#2982-find-longest-special-substring-that-occurs-thrice-ii)
+    * [2948. Make Lexicographically Smallest Array by Swapping Elements](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#2948-make-lexicographically-smallest-array-by-swapping-elements)
 
-      * [3456. Find Special Substring of Length K](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#3456-find-special-substring-of-length-k)
-      * [3499. Maximize Active Section with Trade I](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#3499-maximize-active-section-with-trade-i)
+    * [3456. Find Special Substring of Length K](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#3456-find-special-substring-of-length-k)
+    * [3499. Maximize Active Section with Trade I](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#3499-maximize-active-section-with-trade-i)
 * ### 8 Sliding Window
   * #### Fixed Window
   * #### Flex Window
