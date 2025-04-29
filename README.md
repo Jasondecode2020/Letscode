@@ -106,10 +106,10 @@ All questions are solved by patterns, and the learning sequence is listed below.
       * [1201. Ugly Number III](#1201-ugly-number-iii)
       * [2702. Minimum Operations to Make Numbers Non-positive](#2702-minimum-operations-to-make-numbers-non-positive)
 * ### 7 Two Pointers
-  * #### 7.1 Basics
-  * #### 7.2 Fast Slow Pointers
-  * #### 7.3 Three Pointers
-  * #### 7.4 List Groups(47)
+  * ##### 7.1 Basics
+  * ##### 7.2 Fast Slow Pointers
+  * ##### 7.3 Three Pointers
+  * ##### 7.4 List Groups(47)
       * [1446. Consecutive Characters](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#1446-consecutive-characters)
       * [1869. Longer Contiguous Segments of Ones than Zeros](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#1869-longer-contiguous-segments-of-ones-than-zeros)
       * [1957. Delete Characters to Make Fancy String](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#1957-delete-characters-to-make-fancy-string)
