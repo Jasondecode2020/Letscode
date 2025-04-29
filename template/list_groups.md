@@ -35,61 +35,65 @@ class Solution:
         return res
 ```
 
-### list groups(45)
+### list groups(47)
 
 * [1446. Consecutive Characters](#1446-consecutive-characters)
 * [1869. Longer Contiguous Segments of Ones than Zeros](#1869-longer-contiguous-segments-of-ones-than-zeros)
-* [1957. Delete Characters to Make Fancy String](#1957-delete-characters-to-make-fancy-string)
 * [2414. Length of the Longest Alphabetical Continuous Substring](#2414-length-of-the-longest-alphabetical-continuous-substring)
-* [674. Longest Continuous Increasing Subsequence](#674-longest-continuous-increasing-subsequence)
+* [3456. Find Special Substring of Length K](#3456-find-special-substring-of-length-k)
+* [1957. Delete Characters to Make Fancy String](#1957-delete-characters-to-make-fancy-string)
 
+* [674. Longest Continuous Increasing Subsequence](#674-longest-continuous-increasing-subsequence)
 * [978. Longest Turbulent Subarray](#978-longest-turbulent-subarray)
 * [2110. Number of Smooth Descent Periods of a Stock](#2110-number-of-smooth-descent-periods-of-a-stock)
 * [228. Summary Ranges](#228-summary-ranges)
 * [2760. Longest Even Odd Subarray With Threshold](#2760-longest-even-odd-subarray-with-threshold)
-* [1887. Reduction Operations to Make the Array Elements Equal](#1887-reduction-operations-to-make-the-array-elements-equal)
 
+* [1887. Reduction Operations to Make the Array Elements Equal](#1887-reduction-operations-to-make-the-array-elements-equal)
 * [845. Longest Mountain in Array](#845-longest-mountain-in-array)
 * [2038. Remove Colored Pieces if Both Neighbors are the Same Color](#2038-remove-colored-pieces-if-both-neighbors-are-the-same-color)
 * [1759. Count Number of Homogenous Substrings](#1759-count-number-of-homogenous-substrings)
 * [3011. Find if Array Can Be Sorted](#3011-find-if-array-can-be-sorted)
-* [1578. Minimum Time to Make Rope Colorful](#1578-minimum-time-to-make-rope-colorful)
 
+* [1578. Minimum Time to Make Rope Colorful](#1578-minimum-time-to-make-rope-colorful)
 * [1839. Longest Substring Of All Vowels in Order](#1839-longest-substring-of-all-vowels-in-order)
 * [2765. Longest Alternating Subarray](#2765-longest-alternating-subarray)
 * [3255. Find the Power of K-Size Subarrays II](#3255-find-the-power-of-k-size-subarrays-ii)
 * [3350. Adjacent Increasing Subarrays Detection II](#3350-adjacent-increasing-subarrays-detection-ii)
+
 * [3105. Longest Strictly Increasing or Strictly Decreasing Subarray](#3105-longest-strictly-increasing-or-strictly-decreasing-subarray)
+* [467. Unique Substrings in Wraparound String](#467-unique-substrings-in-wraparound-string)
+* [3499. Maximize Active Section with Trade I](#3499-maximize-active-section-with-trade-i)
+* [2948. Make Lexicographically Smallest Array by Swapping Elements](#2948-make-lexicographically-smallest-array-by-swapping-elements)
+* [2593. Find Score of an Array After Marking All Elements](#2593-find-score-of-an-array-after-marking-all-elements)
 
 * [2393. Count Strictly Increasing Subarrays](#2393-count-strictly-increasing-subarrays)
 * [2436. Minimum Split Into Subarrays With GCD Greater Than One](#2436-minimum-split-into-subarrays-with-gcd-greater-than-one)
-* [3063. Linked List Frequency](#3063-linked-list-frequency)
 * [2495. Number of Subarrays Having Even Product](#2495-number-of-subarrays-having-even-product)
-* [467. Unique Substrings in Wraparound String](#467-unique-substrings-in-wraparound-string)
-
-* [2593. Find Score of an Array After Marking All Elements](#2593-find-score-of-an-array-after-marking-all-elements)
+* [3063. Linked List Frequency](#3063-linked-list-frequency)
 * [186. Reverse Words in a String II](#186-reverse-words-in-a-string-ii)
+
 * [1784. Check if Binary String Has at Most One Segment of Ones](#1784-check-if-binary-string-has-at-most-one-segment-of-ones)
 * [551. Student Attendance Record I](#551-student-attendance-record-i)
 * [1933. Check if String Is Decomposable Into Value-Equal Substrings](#1933-check-if-string-is-decomposable-into-value-equal-substrings)
-
 * [408. Valid Word Abbreviation](#408-valid-word-abbreviation)
 * [1513. Number of Substrings With Only 1s](#1513-number-of-substrings-with-only-1s)
+
 * [2348. Number of Zero-Filled Subarrays](#2348-number-of-zero-filled-subarrays)
 * [2405. Optimal Partition of String](#2405-optimal-partition-of-string)
 * [1529. Minimum Suffix Flips](#1529-minimum-suffix-flips)
-
 * [758. Bold Words in String](#408-valid-word-abbreviation)
 * [2419. Longest Subarray With Maximum Bitwise AND](#2419-longest-subarray-with-maximum-bitwise-and)
+
 * [2645. Minimum Additions to Make Valid String](#2645-minimum-additions-to-make-valid-string)
 * [809. Expressive Words](#809-expressive-words)
 * [1807. Evaluate the Bracket Pairs of a String](#1807-evaluate-the-bracket-pairs-of-a-string)
-
 * [830. Positions of Large Groups](#830-positions-of-large-groups)
 * [2943. Maximize Area of Square Hole in Grid](#2943-maximize-area-of-square-hole-in-grid)
+
 * [2981. Find Longest Special Substring That Occurs Thrice I](#2981-find-longest-special-substring-that-occurs-thrice-i)
 * [2982. Find Longest Special Substring That Occurs Thrice II](#2982-find-longest-special-substring-that-occurs-thrice-ii)
-* [2948. Make Lexicographically Smallest Array by Swapping Elements](#2948-make-lexicographically-smallest-array-by-swapping-elements)
+
 
 ### 1446. Consecutive Characters
 
@@ -135,6 +139,22 @@ class Solution:
             res += s[i: min(i + 2, j)]
             i = j 
         return res
+```
+
+### 3456. Find Special Substring of Length K
+
+```python
+class Solution:
+    def hasSpecialSubstring(self, s: str, k: int) -> bool:
+        i, n = 0, len(s)
+        while i < n:
+            j = i
+            while j < n and s[j] == s[i]:
+                j += 1
+            if j - i == k:
+                return True
+            i = j 
+        return False
 ```
 
 ### 2414. Length of the Longest Alphabetical Continuous Substring
@@ -525,6 +545,26 @@ class Solution:
                 j += 1
             i = j
         return sum(d.values())
+```
+
+### 3499. Maximize Active Section with Trade I
+
+```python
+class Solution:
+    def maxActiveSectionsAfterTrade(self, s: str) -> int:
+        i, n = 0, len(s)
+        res = []
+        while i < n:
+            j = i
+            while j < n and s[j] == s[i]:
+                j += 1
+            res.append((j - i, s[i]))
+            i = j 
+        ans = sum(a for a, b in res if b == '1')
+        res2 = [a for a, b in res if b == '0']
+        if len(res2) > 1:
+            ans += max(sum(res2[i: i + 2]) for i in range(len(res) - 1))
+        return ans
 ```
 
 ### 2593. Find Score of an Array After Marking All Elements

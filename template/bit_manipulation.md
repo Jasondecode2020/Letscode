@@ -7,16 +7,48 @@
 <li>3. num1 |= num1 + 1: set lowbit of 0 to 1</li>
 <li>4. num1 &= num1 - 1: set lowbit of 1 to 0</li>
 <li>5. x & (-x): lowbit</li>
+<li>6. 01-Trie</li>
+<pre>
+class TrieNode:
+    __slots__ = ("children",)
+
+    def __init__(self):
+        self.children = [None, None]
+
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+
+    def insert(self, x):
+        cur = self.root
+        for i in range(30, -1, -1):
+            n = x >> i & 1
+            if cur.children[n] is None:
+                cur.children[n] = TrieNode()
+            cur = cur.children[n]
+
+    def search(self, x):
+        cur = self.root
+        res = 0
+        for i in range(30, -1, -1):
+            n = x >> i & 1
+            if cur.children[n ^ 1]:
+                res |= 1 << i
+                cur = cur.children[n ^ 1]
+            else:
+                cur = cur.children[n]
+        return res
+</pre>
 </details>
 
 
-### 1 basic (19)
+### 1 basic (18)
 
 * [3370. Smallest Number With All Set Bits](#3370-smallest-number-with-all-set-bits)
+* [3226. Number of Bit Changes to Make Two Integers Equal](#3226-number-of-bit-changes-to-make-two-integers-equal)
+* [1356. Sort Integers by The Number of 1 Bits](#1356-sort-integers-by-the-number-of-1-bits)
 * [461. Hamming Distance](#461-hamming-distance)
 * [2220. Minimum Bit Flips to Convert Number](#2220-minimum-bit-flips-to-convert-number)
-* [1356. Sort Integers by The Number of 1 Bits](#1356-sort-integers-by-the-number-of-1-bits)
-* [3226. Number of Bit Changes to Make Two Integers Equal](#3226-number-of-bit-changes-to-make-two-integers-equal)
 * [1342. Number of Steps to Reduce a Number to Zero](#1342-number-of-steps-to-reduce-a-number-to-zero)
 * [476. Number Complement](#476-number-complement)
 * [1009. Complement of Base 10 Integer](#1009-complement-of-base-10-integer)
@@ -30,7 +62,6 @@
 * [191. Number of 1 Bits](#191-number-of-1-bits)
 * [2595. Number of Even and Odd Bits](#2595-number-of-even-and-odd-bits)
 * [338. Counting Bits](#338-counting-bits)
-* [2997. Minimum Number of Operations to Make Array XOR Equal to K](#2997-minimum-number-of-operations-to-make-array-xor-equal-to-k)
 
 ### 2 xor (15)
 
@@ -40,16 +71,17 @@
 * [1310. XOR Queries of a Subarray](#1310-xor-queries-of-a-subarray)
 * [2683. Neighboring Bitwise XOR](#2683-neighboring-bitwise-xor)
 * [1829. Maximum XOR for Each Query](#1829-maximum-xor-for-each-query)
+* [2997. Minimum Number of Operations to Make Array XOR Equal to K](#2997-minimum-number-of-operations-to-make-array-xor-equal-to-k)
 * [1442. Count Triplets That Can Form Two Arrays of Equal XOR](#1442-count-triplets-that-can-form-two-arrays-of-equal-xor)
+* [2429. Minimize XOR](#2429-minimize-xor)
 * [2527. Find Xor-Beauty of Array](#2527-find-xor-beauty-of-array)
 * [2317. Maximum XOR After Operations](#2317-maximum-xor-after-operations)
 * [2588. Count the Number of Beautiful Subarrays](#2588-count-the-number-of-beautiful-subarrays)
 * [2564. Substring XOR Queries](#2564-substring-xor-queries)
 * [1734. Decode XORed Permutation](#1734-decode-xored-permutation)
 * [2857. Count Pairs of Points With Distance k](#2857-count-pairs-of-points-with-distance-k)
+* [1803. Count Pairs With XOR in a Range](#1803-count-pairs-with-xor-in-a-range)
 * [3215. Count Triplets with Even XOR Set Bits II](#3215-count-triplets-with-even-xor-set-bits-ii)
-* [2429. Minimize XOR](#2429-minimize-xor)
-
 
 ### 3 or/and (9)
 
@@ -59,18 +91,19 @@
 * [2871. Split Array Into Maximum Number of Subarrays](#2871-split-array-into-maximum-number-of-subarrays)
 * [2401. Longest Nice Subarray](#2401-longest-nice-subarray)
 * [2680. Maximum OR](#2680-maximum-or)
-* [3125. Maximum Number That Makes Result of Bitwise AND Zero](#3215-count-triplets-with-even-xor-set-bits-ii)
 * [3133. Minimum Array End](#3133-minimum-array-end)
-* [3108. Minimum Cost Walk in Weighted Graph]() TODO:
+* [3108. Minimum Cost Walk in Weighted Graph](#3108-minimum-cost-walk-in-weighted-graph)
+* [3125. Maximum Number That Makes Result of Bitwise AND Zero](#3215-count-triplets-with-even-xor-set-bits-ii)
+* [3117. Minimum Sum of Values by Dividing Array](#3117-minimum-sum-of-values-by-dividing-array)
 
-### 4 LogTrick (7)
+### 4 LogTrick (and/or) (7)
 
-* [1521. Find a Value of a Mysterious Function Closest to Target](#1521-find-a-value-of-a-mysterious-function-closest-to-target)
-* [3171. Find Subarray With Bitwise OR Closest to K](#3171-find-subarray-with-bitwise-or-closest-to-k)
-* [3209. Number of Subarrays With AND Value of K](#3209-number-of-subarrays-with-and-value-of-k)
 * [3097. Shortest Subarray With OR at Least K II](#3097-shortest-subarray-with-or-at-least-k-ii)
-* [898. Bitwise ORs of Subarrays](#898-bitwise-ors-of-subarrays)
 * [2411. Smallest Subarrays With Maximum Bitwise OR](#2411-smallest-subarrays-with-maximum-bitwise-or)
+* [3209. Number of Subarrays With AND Value of K](#3209-number-of-subarrays-with-and-value-of-k)
+* [3171. Find Subarray With Bitwise OR Closest to K](#3171-find-subarray-with-bitwise-or-closest-to-k)
+* [1521. Find a Value of a Mysterious Function Closest to Target](#1521-find-a-value-of-a-mysterious-function-closest-to-target)
+* [898. Bitwise ORs of Subarrays](#898-bitwise-ors-of-subarrays)
 * [2654. Minimum Number of Operations to Make All Array Elements Equal to 1](#2654-minimum-number-of-operations-to-make-all-array-elements-equal-to-1)
 
 ### 5 split bit/check together
@@ -81,6 +114,7 @@
 * [2275. Largest Combination With Bitwise AND Greater Than Zero](#2275-largest-combination-with-bitwise-and-greater-than-zero)
 * [3153. Sum of Digit Differences of All Pairs](#3153-sum-of-digit-differences-of-all-pairs)
 * [1835. Find XOR Sum of All Pairs Bitwise AND](#1835-find-xor-sum-of-all-pairs-bitwise-and)
+* [2505. Bitwise OR of All Subsequence Sums](#2505-bitwise-or-of-all-subsequence-sums)
 
 ### 6 try and put
 
@@ -104,16 +138,6 @@
 ### 9 others
 
 * [136. Single Number](#136-single-number)
-
-### 136. Single Number
-
-```python
-class Solution:
-    def singleNumber(self, nums: List[int]) -> int:
-        return reduce(xor, nums)
-```
-
-* [421. Maximum XOR of Two Numbers in an Array](#421-maximum-xor-of-two-numbers-in-an-array)
 * [2275. Largest Combination With Bitwise AND Greater Than Zero](#2275-largest-combination-with-bitwise-and-greater-than-zero)
 
 
@@ -539,6 +563,55 @@ class Solution:
         return res 
 ```
 
+### 1803. Count Pairs With XOR in a Range
+
+```python
+class TrieNode:
+    __slot__ = ('children', 'cnt')
+    
+    def __init__(self):
+        self.children = [None, None]
+        self.cnt = 0
+
+class Trie:
+    
+    def __init__(self):
+        self.root = TrieNode()
+
+    def insert(self, x):
+        cur = self.root 
+        for i in range(15, -1, -1):
+            n = (x >> i) & 1
+            if cur.children[n] is None:
+                cur.children[n] = TrieNode()
+            cur = cur.children[n]
+            cur.cnt += 1
+
+    def search(self, x, limit):
+        cur = self.root 
+        res = 0
+        for i in range(15, -1, -1):
+            if not cur:
+                break 
+            n = (x >> i) & 1
+            if (limit >> i) & 1:
+                if cur.children[n]:
+                    res += cur.children[n].cnt 
+                cur = cur.children[n ^ 1]
+            else:
+                cur = cur.children[n]
+        return res 
+
+class Solution:
+    def countPairs(self, nums: List[int], low: int, high: int) -> int:
+        trie = Trie()
+        res = 0
+        for n in nums:
+            res += trie.search(n, high + 1) - trie.search(n, low)
+            trie.insert(n)
+        return res 
+```
+
 ### 3215. Count Triplets with Even XOR Set Bits II
 
 ```python
@@ -559,6 +632,27 @@ class Solution:
         res = c1[2] * c2[2] * c3[2]
         res += c1[1] * c2[1] * c3[2] + c1[1] * c2[2] * c3[1] + c1[2] * c2[1] * c3[1]
         return res
+```
+
+### 3117. Minimum Sum of Values by Dividing Array
+
+```python
+class Solution:
+    def minimumValueSum(self, nums: List[int], andValues: List[int]) -> int:
+        n, m = len(nums), len(andValues)
+        @cache
+        def dfs(i, j, and_):
+            if i == n:
+                return 0 if j == m else inf 
+            if j == m:
+                return 0 if i == n else inf 
+            and_ &= nums[i]
+            res = dfs(i + 1, j, and_)
+            if and_ == andValues[j]:
+                res = min(res, dfs(i + 1, j + 1, -1) + nums[i])
+            return res 
+        res = dfs(0, 0, -1)
+        return res if res != inf else -1
 ```
 
 ### 2429. Minimize XOR
@@ -700,6 +794,38 @@ class Solution:
             else:
                 i -= 1
         return int(''.join(a), 2)
+```
+
+### 3108. Minimum Cost Walk in Weighted Graph
+
+```python
+class UF:
+
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.and_ = [-1] * n 
+
+    def find(self, n):
+        while n != self.parent[n]:
+            self.parent[n] = self.parent[self.parent[n]]
+            n = self.parent[n]
+        return n 
+
+    def union(self, n1, n2, w):
+        p1, p2 = self.find(n1), self.find(n2)
+        self.and_[p1] &= w & self.and_[p2]
+        self.parent[p2] = p1
+
+class Solution:
+    def minimumCost(self, n: int, edges: List[List[int]], query: List[List[int]]) -> List[int]:
+        uf = UF(n)
+        for u, v, w in edges:
+            uf.union(u, v, w)
+        res = [-1] * len(query)
+        for i, (a, b) in enumerate(query):
+            if uf.find(a) == uf.find(b):
+                res[i] = uf.and_[uf.find(a)]
+        return res 
 ```
 
 ### 1521. Find a Value of a Mysterious Function Closest to Target
@@ -906,6 +1032,18 @@ class Solution:
         return res
 ```
 
+### 2505. Bitwise OR of All Subsequence Sums
+
+```python
+class Solution:
+    def subsequenceSumOr(self, nums: List[int]) -> int:
+        pre, res = 0, 0
+        for n in nums:
+            pre += n 
+            res |= n | pre 
+        return res 
+```
+
 ### 421. Maximum XOR of Two Numbers in an Array
 
 ```python
@@ -923,6 +1061,45 @@ class Solution:
                     break
                 s.add(n)
         return res 
+```
+
+```python
+class TrieNode:
+    __slots__ = ("children",)
+
+    def __init__(self):
+        self.children = [None, None]
+
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+
+    def insert(self, x):
+        cur = self.root
+        for i in range(30, -1, -1):
+            n = x >> i & 1
+            if cur.children[n] is None:
+                cur.children[n] = TrieNode()
+            cur = cur.children[n]
+
+    def search(self, x):
+        cur = self.root
+        res = 0
+        for i in range(30, -1, -1):
+            n = x >> i & 1
+            if cur.children[n ^ 1]:
+                res |= 1 << i
+                cur = cur.children[n ^ 1]
+            else:
+                cur = cur.children[n]
+        return res
+
+class Solution:
+    def findMaximumXOR(self, nums: List[int]) -> int:
+        trie = Trie()
+        for n in nums:
+            trie.insert(n)
+        return max(trie.search(n) for n in nums)
 ```
 
 ### 2935. Maximum Strong Pair XOR II
@@ -1041,6 +1218,14 @@ class Solution:
         return queries 
 ```
 
+### 136. Single Number
+
+```python
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        return reduce(xor, nums)
+```
+
 ### 292. Nim Game
 
 ```python
@@ -1068,27 +1253,6 @@ class Solution:
             if currentState[i] == '-':
                 res += 1 << i
         return dfs(res)
-```
-
-### 421. Maximum XOR of Two Numbers in an Array
-
-- start from highest bit to lowest bit, use bit mask to check, use two sum to find ans
-
-```python
-class Solution:
-    def findMaximumXOR(self, nums: List[int]) -> int:
-        res, mask = 0, 0
-        for i in range(32, -1, -1):
-            mask |= 1 << i # 10000, 11000, ..., 11111
-            ans = res | 1 << i # 10000, 11000, 11100, 11100, 11100
-            s = set()
-            for n in nums:
-                n &= mask
-                if n ^ ans in s:
-                    res = ans
-                    break
-                s.add(n)
-        return res
 ```
 
 ### 371. Sum of Two Integers

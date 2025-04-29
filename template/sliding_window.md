@@ -23,19 +23,16 @@ def fn(arr):
 * [1343. Number of Sub-arrays of Size K and Average Greater than or Equal to Threshold](#1343-number-of-sub-arrays-of-size-k-and-average-greater-than-or-equal-to-threshold)
 * [2090. K Radius Subarray Averages 1358](#2090-k-radius-subarray-averages)
 * [2379. Minimum Recolors to Get K Consecutive Black Blocks 1360](#2379-minimum-recolors-to-get-k-consecutive-black-blocks)
-
 * [1052. Grumpy Bookstore Owner 1418](#1052-grumpy-bookstore-owner)
 * [1461. Check If a String Contains All Binary Codes of Size K](#1461-check-if-a-string-contains-all-binary-codes-of-size-k)
 * [2841. Maximum Sum of Almost Unique Subarray 1546](#2841-maximum-sum-of-almost-unique-subarray)
 * [2461. Maximum Sum of Distinct Subarrays With Length K 1553](#2461-maximum-sum-of-distinct-subarrays-with-length-k)
 * [1652. Defuse the Bomb](#1652-defuse-the-bomb)
-
 * [1297. Maximum Number of Occurrences of a Substring](#1297-maximum-number-of-occurrences-of-a-substring)
 * [1176. Diet Plan Performance](#1176-diet-plan-performance)
 * [1100. Find K-Length Substrings With No Repeated Characters](#1100-find-k-length-substrings-with-no-repeated-characters)
 * [1852. Distinct Numbers in Each Subarray](#1852-distinct-numbers-in-each-subarray)
 * [1151. Minimum Swaps to Group All 1's Together](#1151-minimum-swaps-to-group-all-1s-together)
-
 * [2107. Number of Unique Flavors After Sharing K Candies](#2107-number-of-unique-flavors-after-sharing-k-candies)
 
 ### 1.2 advanced (16)
@@ -45,8 +42,12 @@ def fn(arr):
 * [1423. Maximum Points You Can Obtain from Cards 1574](#1423-maximum-points-you-can-obtain-from-cards)
 * [2134. Minimum Swaps to Group All 1's Together II 1748](#2134-minimum-swaps-to-group-all-1s-together-ii)
 * [2653. Sliding Subarray Beauty 1786](#2653-sliding-subarray-beauty)
+* [1888. Minimum Number of Flips to Make the Binary String Alternating](#1888-minimum-number-of-flips-to-make-the-binary-string-alternating)
 * [438. Find All Anagrams in a String 1750](#438-find-all-anagrams-in-a-string)
 * [567. Permutation in String 1750](#567-permutation-in-string)
+* [1016. Binary String With Substrings Representing 1 To N](#1016-binary-string-with-substrings-representing-1-to-n)
+* [683. K Empty Slots](#683-k-empty-slots)
+* [2067. Number of Equal Count Substrings](#2067-number-of-equal-count-substrings)
 
 ### 2 flexed sliding window (longest or largest)
 
@@ -507,6 +508,61 @@ class Solution:
                 d2[s2[l]] -= 1
                 l += 1
         return False
+```
+
+### 1016. Binary String With Substrings Representing 1 To N
+
+```python
+class Solution:
+    def queryString(self, s: str, n: int) -> bool:
+        L = len(s)
+        set_ = set()
+        for i in range(L):
+            for j in range(i, i + 30):
+                set_.add(int(s[i:j + 1], 2))
+        
+        for i in range(1, n + 1):
+            if i not in set_:
+                return False
+        return True
+```
+
+### 683. K Empty Slots
+
+```python
+from sortedcontainers import SortedList
+class Solution:
+    def kEmptySlots(self, bulbs: List[int], k: int) -> int:
+        sl = SortedList([-inf, inf])
+        for idx, position in enumerate(bulbs):
+            sl.add(position)
+            i = sl.bisect_left(position)
+            if sl[i] - sl[i - 1] == k + 1 or sl[i + 1] - sl[i] == k + 1:
+                return idx + 1
+        return -1
+```
+
+### 2067. Number of Equal Count Substrings
+
+```python
+class Solution:
+    def equalCountSubstrings(self, s: str, count: int) -> int:
+        n, res = len(s), 0
+        for k in range(1, 27):
+            L = count * k
+            if L > n:
+                break
+            l, d, flag = 0, Counter(), True
+            for r, c in enumerate(s):
+                d[c] += 1
+                if r - l + 1 == L:
+                    if all(n == count or n == 0 for n in d.values()):
+                        res += 1
+                    d[s[l]] -= 1
+                    if d[s[l]] == 0:
+                        d.pop(s[l])
+                    l += 1 
+        return res
 ```
 
 ### non-fixed

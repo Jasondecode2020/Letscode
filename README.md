@@ -106,10 +106,10 @@ All questions are solved by patterns, and the learning sequence is listed below.
       * [1201. Ugly Number III](#1201-ugly-number-iii)
       * [2702. Minimum Operations to Make Numbers Non-positive](#2702-minimum-operations-to-make-numbers-non-positive)
 * ### 7 Two Pointers
-  * #### Basics
-  * #### Fast Slow Pointers
-  * #### Three Pointers
-  * #### List Groups
+  * #### 7.1 Basics
+  * #### 7.2 Fast Slow Pointers
+  * #### 7.3 Three Pointers
+  * #### 7.4 List Groups
     * [1446. Consecutive Characters](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#1446-consecutive-characters)
     * [1869. Longer Contiguous Segments of Ones than Zeros](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#1869-longer-contiguous-segments-of-ones-than-zeros)
     * [1957. Delete Characters to Make Fancy String](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#1957-delete-characters-to-make-fancy-string)
@@ -163,6 +163,9 @@ All questions are solved by patterns, and the learning sequence is listed below.
     * [2981. Find Longest Special Substring That Occurs Thrice I](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#2981-find-longest-special-substring-that-occurs-thrice-i)
     * [2982. Find Longest Special Substring That Occurs Thrice II](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#2982-find-longest-special-substring-that-occurs-thrice-ii)
     * [2948. Make Lexicographically Smallest Array by Swapping Elements](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#2948-make-lexicographically-smallest-array-by-swapping-elements)
+
+    * [3456. Find Special Substring of Length K](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#3456-find-special-substring-of-length-k)
+    * [3499. Maximize Active Section with Trade I](https://github.com/Jasondecode2020/Letscode/blob/main/template/list_groups.md#3499-maximize-active-section-with-trade-i)
 * ### 8 Sliding Window
   * #### Fixed Window
   * #### Flex Window
@@ -591,6 +594,27 @@ All questions are solved by patterns, and the learning sequence is listed below.
     * [847. Shortest Path Visiting All Nodes](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/bit.md#847-Shortest-Path-Visiting-All-Nodes)
     * [1284. Minimum Number of Flips to Convert Binary Matrix to Zero Matrix](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/bit.md#1284-minimum-number-of-flips-to-convert-binary-matrix-to-zero-matrix)
     * [864. Shortest Path to Get All Keys](https://github.com/Jasondecode2020/Letscode/blob/main/template/dp/bit.md#864-shortest-path-to-get-all-keys)
+  * #### 13.10 Digit DP
+    * [2719. Count of Integers](#2719-count-of-integers)
+    * [1399. Count Largest Group](#1399-count-largest-group)
+    * [788. Rotated Digits](#788-rotated-digits)
+    * [1742. Maximum Number of Balls in a Box](#1742-maximum-number-of-balls-in-a-box)
+    * [902. Numbers At Most N Given Digit Set](#902-numbers-at-most-n-given-digit-set)
+    * [600. Non-negative Integers without Consecutive Ones](#600-non-negative-integers-without-consecutive-ones)
+    * [2376. Count Special Integers](#2376-count-special-integers)
+    * [357. Count Numbers with Unique Digits](#357-count-numbers-with-unique-digits)
+    * [1012. Numbers With Repeated Digits](#1012-numbers-with-repeated-digits)
+    * [3519. Count Numbers with Non-Decreasing Digits](#3519-count-numbers-with-non-decreasing-digits)
+    * [2827. Number of Beautiful Integers in the Range](#2827-number-of-beautiful-integers-in-the-range)
+    * [2999. Count the Number of Powerful Integers](#2999-count-the-number-of-powerful-integers)
+    * [2801. Count Stepping Numbers in Range](#2801-count-stepping-numbers-in-range)
+    * [3490. Count Beautiful Numbers](#3490-count-beautiful-numbers)
+    * [233. Number of Digit One](#233-number-of-digit-one)
+    * [1215. Stepping Numbers](#1215-stepping-numbers)
+    * [3032. Count Numbers With Unique Digits II](#3032-count-numbers-with-unique-digits-ii)
+    * [1067. Digit Count in Range](#1067-digit-count-in-range)
+    * [面试题 17.06. Number Of 2s In Range LCCI](#面试题-1706-number-of-2s-in-range-lcci)
+    * [1397. Find All Good Strings](#1397)
 * ### 14 Greedy
 * ### 15 Sweep Line(13)
   * #### 1D(12)
