@@ -45,6 +45,7 @@ def fn(q):
 * [1298. Maximum Candies You Can Get from Boxes](#1298-Maximum-Candies-You-Can-Get-from-Boxes)
 * [631. Design Excel Sum Formula](#631-design-excel-sum-formula)
 * [1377. Frog Position After T Seconds](#1377-frog-position-after-t-seconds)
+* [407. Trapping Rain Water II]()
 
 ### 542. 01 Matrix
 
@@ -714,6 +715,33 @@ class Solution:
                     else:
                         q.append((nei, prob * (1 / (len(g[node]) - 1)), time + 1))
         return 0
+```
+
+### 407. Trapping Rain Water II
+
+```python
+class Solution:
+    def trapRainWater(self, heightMap: List[List[int]]) -> int:
+        R, C = len(heightMap), len(heightMap[0])
+        directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+        pq = []
+        for r, row in enumerate(heightMap):
+            for c, h in enumerate(row):
+                if r == 0 or r == R - 1 or c == 0 or c == C - 1:
+                    pq.append((h, r, c))
+                    heightMap[r][c] = -inf 
+        heapify(pq)
+
+        res = 0
+        while pq:
+            min_height, r, c = heappop(pq)
+            for dr, dc in directions:
+                row, col = r + dr, c + dc 
+                if 0 <= row < R and 0 <= col < C and heightMap[row][col] >= 0:
+                    res += max(min_height - heightMap[row][col], 0)
+                    heappush(pq, (max(min_height, heightMap[row][col]), row, col))
+                    heightMap[row][col] = -inf
+        return res 
 ```
 
 ### 2608. Shortest Cycle in a Graph

@@ -30,41 +30,55 @@ def fn(arr1, arr2):
         j += 1
     return res
 ```
+### two pointers from 2 ends
 
 * [344. Reverse String](#344-reverse-string)
 * [125. Valid Palindrome](#125-valid-palindrome)
 * [1750. Minimum Length of String After Deleting Similar Ends](#1750-minimum-length-of-string-after-deleting-similar-ends)
-* [977. Squares of a Sorted Array](#977-squares-of-a-sorted-array)
 * [2105. Watering Plants II](#2105-watering-plants-ii)
+* [977. Squares of a Sorted Array](#977-squares-of-a-sorted-array)
 
+* [658. Find K Closest Elements](#658-find-k-closest-elements)
+* [1471. The k Strongest Values in an Array](#1471-the-k-strongest-values-in-an-array)
 * [167. Two Sum II - Input Array Is Sorted](#167-Two-Sum-II---Input-Array-Is-Sorted)
 * [633. Sum of Square Numbers](#633-sum-of-square-numbers)
-* [1471. The k Strongest Values in an Array](#1471-the-k-strongest-values-in-an-array)
-* [658. Find K Closest Elements](#658-find-k-closest-elements)
-* [15. 3Sum](#15-3Sum)
+* [2824. Count Pairs Whose Sum is Less than Target](#2824-count-pairs-whose-sum-is-less-than-target)
 
+* [2563. Count the Number of Fair Pairs](#2563-count-the-number-of-fair-pairs)
+* [15. 3Sum](#15-3Sum)
 * [16. 3Sum Closest](#16-3Sum-Closest)
 * [18. 4Sum](#18-4Sum)
+* [611. Valid Triangle Number](#611-valid-triangle-number)
+
+* [1577. Number of Ways Where Square of Number Is Equal to Product of Two Numbers](#1577-number-of-ways-where-square-of-number-is-equal-to-product-of-two-numbers)
+* [923. 3Sum With Multiplicity](#923-3sum-with-multiplicity)
 * [259. 3Sum Smaller](#259-3Sum-Smaller)
-* [2824. Count Pairs Whose Sum is Less than Target](#259-3sum-smaller)
 * [1099. Two Sum Less Than K](#1099-Two-Sum-Less-Than-K)
+* [948. Bag of Tokens](#948-bag-of-tokens)
 
 * [11. Container With Most Water](#11-Container-With-Most-Water)
+* [1616. Split Two Strings to Make Palindrome](#1616-split-two-strings-to-make-palindrome)
+* [1498. Number of Subsequences That Satisfy the Given Sum Condition](#1498-number-of-subsequences-that-satisfy-the-given-sum-condition)
+* [42. Trapping Rain Water](#42-trapping-rain-water)
 * [1679. Max Number of K-Sum Pairs](#1679-max-number-of-k-sum-pairs)
+
 * [881. Backspace String Compare](#881-boats-to-save-people)
 * [360. Sort Transformed Array](#360-sort-transformed-array)
 * [2422. Merge Operations to Turn Array Into a Palindrome](#2422-merge-operations-to-turn-array-into-a-palindrome)
-
-* [611. Valid Triangle Number](#611-valid-triangle-number)
 * [844. Backspace String Compare](#844-backspace-string-compare)
 * [1813. Sentence Similarity III](#1813-sentence-similarity-iii)
-* [1616. Split Two Strings to Make Palindrome](#1616-split-two-strings-to-make-palindrome)
-* [1498. Number of Subsequences That Satisfy the Given Sum Condition](#1498-number-of-subsequences-that-satisfy-the-given-sum-condition)
+* [1782. Count Pairs Of Nodes]() TODO:
 
-## same directon
+## two pointers same directon
 
+* [611. Valid Triangle Number](#611-valid-triangle-number)
 * [1574. Shortest Subarray to be Removed to Make Array Sorted](#1574-shortest-subarray-to-be-removed-to-make-array-sorted)
 * [2972. Count the Number of Incremovable Subarrays II](#2972-count-the-number-of-incremovable-subarrays-ii)
+* [2122. Recover the Original Array](#2122-recover-the-original-array)
+* [2234. Maximum Total Beauty of the Gardens]() TODO:
+* [581. Shortest Unsorted Continuous Subarray](#581-shortest-unsorted-continuous-subarray)
+
+## two pointers reverse directon
 
 ## in-place
 
@@ -73,6 +87,15 @@ def fn(arr1, arr2):
 * [283. Move Zeroes](#283-move-zeroes)
 * [905. Sort Array By Parity](#905-sort-array-by-parity)
 * [922. Sort Array By Parity II](#922-sort-array-by-parity-ii)
+* [1089. Duplicate Zeros](#1089-duplicate-zeros)
+* [2460. Apply Operations to an Array](#2460-apply-operations-to-an-array)
+* [3467. Transform Array by Parity](#3467-transform-array-by-parity)
+
+## two pointers two arrays
+
+* [2109. Adding Spaces to a String](#2109-adding-spaces-to-a-string)
+* [2540. Minimum Common Value](#2540-minimum-common-value)
+* [2838. Maximum Coins Heroes Can Collect]()
 
 ### 344. Reverse String
 
@@ -395,6 +418,20 @@ class Solution:
         return res 
 ```
 
+### 2563. Count the Number of Fair Pairs
+
+```python
+class Solution:
+    def countFairPairs(self, nums: List[int], lower: int, upper: int) -> int:
+        nums.sort()
+        res = 0
+        for i, n in enumerate(nums):
+            l = bisect_left(nums, lower - n, 0, i)
+            r = bisect_right(nums, upper - n, 0, i)
+            res += r - l 
+        return res 
+```
+
 ### 1099. Two Sum Less Than K
 
 ```python
@@ -409,6 +446,31 @@ class Solution:
             else:
                 res = max(res, two)
                 l += 1
+        return res
+```
+
+### 948. Bag of Tokens
+
+```python
+class Solution:
+    def bagOfTokensScore(self, tokens: List[int], power: int) -> int:
+        tokens.sort()
+        n = len(tokens)
+        l, r = 0, n - 1
+        score, res = 0, 0
+        while l <= r:
+            if power >= tokens[l]:
+                score += 1
+                power -= tokens[l]
+                l += 1
+                res = max(res, score)
+            else:
+                if score == 0:
+                    break
+                if score >= 1:
+                    score -= 1
+                    power += tokens[r]
+                    r -= 1
         return res
 ```
 
@@ -590,6 +652,51 @@ class Solution:
         return -1
 ```
 
+### 2838. Maximum Coins Heroes Can Collect
+
+```python
+class Solution:
+    def maximumCoins(self, heroes: List[int], monsters: List[int], coins: List[int]) -> List[int]:
+        heroes = sorted([(h, i) for i, h in enumerate(heroes)])
+        monsters_coins = sorted([(a, b) for a, b in zip(monsters, coins)])
+        monsters_coins.append((inf, 0))
+        n, m = len(heroes), len(monsters_coins)
+        ans = []
+        i, j = 0, 0
+        total = 0
+        while i < n and j < m:
+            if heroes[i][0] >= monsters_coins[j][0]:
+                total += monsters_coins[j][1]
+                j += 1
+            elif heroes[i][0] < monsters_coins[j][0]:
+                ans.append((total, heroes[i][1]))
+                i += 1
+        
+        res = [0] * n 
+        for v, i in ans:
+            res[i] = v 
+        return res 
+```
+
+### 1570. Dot Product of Two Sparse Vectors
+
+```python
+class SparseVector:
+    def __init__(self, nums: List[int]):
+        self.d = {}
+        for i, n in enumerate(nums):
+            if n:
+                self.d[i] = n 
+
+    # Return the dotProduct of two sparse vectors
+    def dotProduct(self, vec: 'SparseVector') -> int:
+        res = 0
+        for i, n in self.d.items():
+            if i in vec.d:
+                res += n * vec.d[i]
+        return res 
+```
+
 ### 1768. Merge Strings Alternately
 
 ```python
@@ -719,6 +826,45 @@ class Solution:
                     r -= 1
                 else:
                     l += 1
+        return res
+```
+
+### 1577. Number of Ways Where Square of Number Is Equal to Product of Two Numbers
+
+```python
+class Solution:
+    def numTriplets(self, nums1: List[int], nums2: List[int]) -> int:
+        def check(nums1, nums2):
+            c1, c2 = Counter(nums1), Counter(nums2)
+            res = 0
+            for n1 in c1:
+                for n2 in c2:
+                    if (n1 * n1) % n2 == 0:
+                        if n1 * n1 // n2 in c2 and n1 == n2:
+                            res += c1[n1] * c2[n2] * (c2[n2] - 1)
+                        if n1 * n1 // n2 in c2 and n1 != n2:
+                            res += c1[n1] * c2[n2] * c2[n1 * n1 // n2]
+            return res // 2
+        return check(nums1, nums2) + check(nums2, nums1)
+```
+
+### 923. 3Sum With Multiplicity
+
+```python
+class Solution:
+    def threeSumMulti(self, arr: List[int], target: int) -> int:
+        arr.sort(reverse = True)
+        mod = 10 ** 9 + 7 
+        n = len(arr)
+        @cache 
+        def dfs(i, t, cnt):
+            if i == n:
+                return 1 if t == target and cnt == 3 else 0
+            if cnt > 3 or t > target:
+                return 0
+            return dfs(i + 1, t, cnt) + dfs(i + 1, t + arr[i], cnt + 1)
+        res = dfs(0, 0, 0) % mod # idx, target, cnt 
+        dfs.cache_clear()
         return res
 ```
 
@@ -885,6 +1031,25 @@ class Solution:
         return res % mod
 ```
 
+### 42. Trapping Rain Water
+
+```python
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        l, r = 0, len(height) - 1
+        maxL, maxR = 0, 0
+        res = 0
+        while l <= r:
+            maxL, maxR = max(maxL, height[l]), max(maxR, height[r])
+            if maxL > maxR:
+                res += maxR - height[r]
+                r -= 1
+            else:
+                res += maxL - height[l]
+                l += 1
+        return res 
+```
+
 ### 1574. Shortest Subarray to be Removed to Make Array Sorted
 
 ```python
@@ -927,6 +1092,60 @@ class Solution:
             res += i + 2
             j -= 1
         return res 
+```
+
+### 2122. Recover the Original Array
+
+```python
+class Solution:
+    def recoverArray(self, nums: List[int]) -> List[int]:
+        nums.sort()
+        n = len(nums)
+        for i in range(1, n):
+            d = nums[i] - nums[0]
+            if d == 0 or d % 2 == 1:
+                continue
+            visited = [False] * n
+            visited[0] = visited[i] = True
+            res = [(nums[i] + nums[0]) // 2]
+            lo, hi = 1, i + 1
+            while hi < n:
+                while lo < n and visited[lo]:
+                    lo += 1
+                while hi < n and nums[hi] - nums[lo] < d:
+                    hi += 1
+                if hi == n or nums[hi] - nums[lo] > d:
+                    break
+                visited[lo] = visited[hi] = True
+                res.append((nums[lo] + nums[hi]) // 2)
+                lo += 1
+                hi += 1
+            if len(res) == n // 2:
+                return res
+        return []
+```
+
+### 581. Shortest Unsorted Continuous Subarray
+
+```python
+class Solution:
+    def findUnsortedSubarray(self, nums: List[int]) -> int:
+        sortedNums = sorted(nums)
+        n = len(nums)
+
+        l = 0
+        while l < n:
+            if nums[l] != sortedNums[l]:
+                break
+            l += 1
+
+        r = n - 1
+        while r >= 0:
+            if nums[r] != sortedNums[r]:
+                break
+            r -= 1
+
+        return r - l + 1 if r - l + 1 > 0 else 0
 ```
 
 ### 26. Remove Duplicates from Sorted Array
@@ -1006,6 +1225,102 @@ class Solution:
                 i += 2
                 j += 2
         return nums
+```
+
+### 1089. Duplicate Zeros
+
+```python
+class Solution:
+    def duplicateZeros(self, arr: List[int]) -> None:
+        """
+        Do not return anything, modify arr in-place instead.
+        """
+        n = len(arr)
+        zeros = arr.count(0)
+        i = 0
+        while i < n:
+            if arr[i] == 0:
+                arr.insert(i, 0)
+                arr.pop()
+                i += 2
+            else:
+                i += 1
+```
+
+### 2460. Apply Operations to an Array
+
+```python
+class Solution:
+    def applyOperations(self, nums: List[int]) -> List[int]:
+        n = len(nums)
+        for i in range(n - 1):
+            if nums[i] == nums[i + 1]:
+                nums[i] *= 2
+                nums[i + 1] = 0
+        res = []
+        for a in nums:
+            if a:
+                res.append(a)
+        L = len(res)
+        return res + [0] * (n - L)
+```
+
+### 3467. Transform Array by Parity
+
+```python
+class Solution:
+    def transformArray(self, nums: List[int]) -> List[int]:
+        n = len(nums)
+        for i, n in enumerate(nums):
+            if n % 2 == 0:
+                nums[i] = 0
+            else:
+                nums[i] = 1
+        nums.sort()
+        return nums
+```
+
+### 2109. Adding Spaces to a String
+
+```python
+class Solution:
+    def addSpaces(self, s: str, spaces: List[int]) -> str:
+        res = ''
+        spaces = set(spaces)
+        for i, c in enumerate(s):
+            if i in spaces:
+                res += ' ' + c 
+            else:
+                res += c 
+        return res
+
+class Solution:
+    def addSpaces(self, s: str, spaces: List[int]) -> str:
+        res = ''
+        j = 0
+        for i, c in enumerate(s):
+            if j < len(spaces) and spaces[j] == i:
+                res += ' '
+                j += 1
+            res += c 
+        return res 
+```
+
+### 2540. Minimum Common Value
+
+```python
+class Solution:
+    def getCommon(self, nums1: List[int], nums2: List[int]) -> int:
+        m, n = len(nums1), len(nums2)
+        i, j = 0, 0
+        while i < m and j < n:
+            if nums1[i] == nums2[j]:
+                return nums1[i]
+            elif nums1[i] < nums2[j]:
+                i += 1
+            else:
+                j += 1
+        return -1
 ```
 
 ### 1163. Last Substring in Lexicographical Order

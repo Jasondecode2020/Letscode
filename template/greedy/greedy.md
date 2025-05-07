@@ -13,6 +13,102 @@
 * [1262. Greatest Sum Divisible by Three](#1262-greatest-sum-divisible-by-three)
 * [948. Bag of Tokens](#948-bag-of-tokens)
 * [1775. Equal Sum Arrays With Minimum Number of Operations](#1775-equal-sum-arrays-with-minimum-number-of-operations)
+
+## prefix sum
+
+* [1788. Maximize the Beauty of the Garden](#1788-maximize-the-beauty-of-the-garden)
+* [1727. Largest Submatrix With Rearrangements](#1727-largest-submatrix-with-rearrangements)
+* [2087. Minimum Cost Homecoming of a Robot in a Grid](#2087-minimum-cost-homecoming-of-a-robot-in-a-grid)
+* [1526. Minimum Number of Increments on Subarrays to Form a Target Array](#1526-minimum-number-of-increments-on-subarrays-to-form-a-target-array)
+* [1996. The Number of Weak Characters in the Game](#1996-the-number-of-weak-characters-in-the-game)
+
+### 1788. Maximize the Beauty of the Garden
+
+```python
+class Solution:
+    def maximumBeauty(self, flowers: List[int]) -> int:
+        n = len(flowers)
+        pre = [0] * (n + 1)
+        right = {}
+        for i, v in enumerate(flowers):
+            pre[i + 1] = pre[i] + max(v, 0)
+            right[v] = i  
+    
+        ans = -inf
+        for i, v in enumerate(flowers):
+            if right[v] > i:
+                ans = max(ans, v * 2 + pre[right[v]] - pre[i + 1])
+                right[v] = i
+        return ans
+```
+
+### 1727. Largest Submatrix With Rearrangements
+
+```python
+class Solution:
+    def largestSubmatrix(self, matrix: List[List[int]]) -> int:
+        R, C = len(matrix), len(matrix[0])
+        for r in range(1, R):
+            for c in range(C):
+                if matrix[r][c]:
+                    matrix[r][c] += matrix[r - 1][c]
+        
+        def check(nums):
+            n, res = len(nums), 0
+            for i, v in enumerate(nums):
+                res = max(res, v * (n - i))
+            return res 
+
+        res = 0
+        for row in matrix:
+            row = sorted(row)
+            res = max(res, check(row))
+        return res
+```
+
+### 2087. Minimum Cost Homecoming of a Robot in a Grid
+
+```python
+class Solution:
+    def minCost(self, startPos: List[int], homePos: List[int], rowCosts: List[int], colCosts: List[int]) -> int:
+        sx, sy = startPos
+        hx, hy = homePos
+        colSum = sum(colCosts[sy + 1: hy + 1]) if sy <= hy else sum(colCosts[hy: sy])
+        rowSum = sum(rowCosts[sx + 1: hx + 1]) if sx <= hx else sum(rowCosts[hx: sx])
+        return colSum + rowSum
+```
+
+### 1526. Minimum Number of Increments on Subarrays to Form a Target Array
+
+```python
+class Solution:
+    def minNumberOperations(self, target: List[int]) -> int:
+        n = len(target)
+        f = [0 for _ in range(n)]
+        f[0] = target[0]
+        for i in range(1, n):
+            if target[i] <= target[i - 1]:
+                f[i] = f[i - 1]
+            else:
+                f[i] = f[i - 1] + target[i] - target[i - 1]
+        return f[-1]
+```
+
+### 1996. The Number of Weak Characters in the Game
+
+```python
+class Solution:
+    def numberOfWeakCharacters(self, properties: List[List[int]]) -> int:
+        properties.sort(key=lambda p: (-p[0], p[1]))
+        res = max_def = 0
+        for _, d in properties:
+            if d < max_def: 
+                res += 1
+            else: 
+                max_def = d
+        return res
+```
+
 ### 2178. Maximum Split of Positive Even Integers
 
 ```python
