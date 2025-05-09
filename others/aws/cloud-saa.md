@@ -2,8 +2,8 @@ Question 1:
 
 You have purchased mycoolcompany.com on Amazon Route 53 Registrar and would like the domain to point to your Elastic Load Balancer my-elb-1234567890.us-west-2.elb.amazonaws.com. Which Route 53 Record type must you use here?
 
-A. CNAME
-B. Alias
+> A. CNAME
+> B. Alias
 
 Answer:
 
