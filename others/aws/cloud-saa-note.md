@@ -6,10 +6,10 @@ completion. The company wants to implement a solution that would provide increas
 as cost-effectively as possible. 
 
 What should a solutions architect do to accomplish this? 
-A) Deploy On-Demand Instances during periods of high demand. 
-B) Create a second EC2 reservation for additional instances. 
-C) Deploy Spot Instances during periods of high demand. 
-D) Increase the EC2 instance size in the EC2 reservation to support the increased workload.
+- A) Deploy On-Demand Instances during periods of high demand. 
+- B) Create a second EC2 reservation for additional instances. 
+- C) Deploy Spot Instances during periods of high demand. 
+- D) Increase the EC2 instance size in the EC2 reservation to support the increased workload.
 
 A – While Spot Instances would be the least costly option, they are not suitable for jobs that cannot be 
 interrupted or must complete within a certain time period. On-Demand Instances would be billed for the number of 
