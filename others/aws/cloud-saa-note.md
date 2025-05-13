@@ -340,3 +340,155 @@ development kits (SDKs) provide an S3 encryption client that streamlines the pro
 These two options are the only ones that fully meet the requirement of using encryption keys stored exclusively on-premises while ensuring data is encrypted at rest in AWS.
 
 ------------------------------------------------------------------------------------------------------------------------------
+
+11. A company is deploying a new database on a new Amazon EC2 instance. The workload of this database requires a single Amazon Elastic Block Store (Amazon EBS) volume that can support up to 20,000 IOPS.
+
+Which type of EBS volume meets this requirement?
+
+A Provisioned IOPS SSD EBS volume provides up to 64,000 IOPS for each volume.
+
+------------------------------------------------------------------------------------------------------------------------------
+
+12. A company is transitioning its Amazon EC2 based MariaDB database to Amazon RDS. The company has already identified a database instance type that will meet the company's CPU and memory requirements. The database must provide at least 40 GiB of storage capacity and 1,000 IOPS.
+
+Which storage configuration for the Amazon RDS for MariaDB instance is MOST cost-effective?
+
+Correct. General Purpose SSD (gp3) includes 3,000 IOPS at no additional cost independent of volume size.
+
+------------------------------------------------------------------------------------------------------------------------------
+
+13. A company is developing a chat application that will be deployed on AWS. The application stores the messages by using a key-value data model. Groups of users typically read the messages multiple times. A solutions architect must select a database solution that will scale for a high rate of reads and will deliver messages with microsecond latency.
+
+Which database solution will meet these requirements?
+
+DynamoDB is a NoSQL database that supports key-value records. DAX delivers response times in microseconds.
+
+------------------------------------------------------------------------------------------------------------------------------
+
+14. A company is deploying a new application that will consist of an application layer and an online transaction processing (OLTP) relational database. The application must be available at all times. However, the application will have unpredictable traffic patterns. The company wants to pay the minimum for compute costs during these idle periods.
+
+Which solution will meet these requirements MOST cost effectively?
+
+When Amazon ECS uses Fargate for compute, it incurs minimal costs when the application is idle. Aurora Serverless also incurs no compute costs when it is idle.
+
+------------------------------------------------------------------------------------------------------------------------------
+
+15. A company is designing a disaster recovery (DR) architecture for an important application on AWS. The company has determined that the recovery time objective (RTO) is 5 minutes with a minimal running instance capacity to support the application in the AWS DR site. The company needs to minimize costs for the DR architecture.
+
+Which DR strategy will meet these requirements?
+
+Warm standby. This solution meets the requirement for an RTO of 5 minutes with a minimal running instance. The instances run at a low capacity and can scale within minutes.
+
+------------------------------------------------------------------------------------------------------------------------------
+
+16. A company is investigating services to manage vulnerability scans in Amazon EC2 instances and container images that the company stores in Amazon Elastic Container Registry (Amazon ECR). The service should identify potential software vulnerabilities and categorize the severity of the vulnerabilities.
+
+Which AWS service will meet these requirements?
+
+Amazon Inspector. Amazon Inspector removes the operational overhead that is necessary to configure a vulnerability management solution. Amazon Inspector works with both EC2 instances and container images in Amazon ECR to identify potential software vulnerabilities and to categorize the severity of the vulnerabilities.
+
+------------------------------------------------------------------------------------------------------------------------------
+
+17. A company has strict data protection requirements. A solutions architect must configure security for a VPC to ensure that backend Amazon RDS DB instances cannot be accessed from the internet. The solutions architect must ensure that the DB instances are accessible from the application tier over a specified port only.
+
+Which actions should the solutions architect take to meet these requirements? (Select TWO.)
+
+A private subnet is one component to use to secure the database tier. Internet traffic is not routed to a private subnet. When you place DB instances in a private subnet, you add a layer of security.
+
+Security groups can restrict access to the DB instances. Security groups provide access from only the application tier on only a specific port.
+
+------------------------------------------------------------------------------------------------------------------------------
+
+18. A company has an on-premises application that exports log files about users of a website. The log files range from 20 GB to 30 GB in size. A solutions architect has created an Amazon S3 bucket to store the files. The files will be uploaded directly from the application. The network connection experiences intermittent failures, and the upload sometimes fails. The solutions architect must design a solution that resolves this issue. The solution must minimize operational overhead.
+
+Which solution will meet these requirements?
+
+You can use a multipart upload to upload larger files, such as the files in this scenario. If transmission of any part fails, you can retransmit that part without affecting other parts.
+
+------------------------------------------------------------------------------------------------------------------------------
+
+19. A company needs to look up configuration details about how a Linux-based Amazon EC2 instance was launched.
+
+Which command should a solutions architect run on the EC2 instance to gather the system metadata?
+
+The only way to retrieve instance metadata is to use the link-local address, which is 169.254.169.254.
+
+------------------------------------------------------------------------------------------------------------------------------
+
+20. A company is developing a new mobile version of its popular web application in the AWS Cloud. The mobile app must be accessible to internal and external users. The mobile app must handle authorization, authentication, and user management from one central source.
+
+Which solution meets these requirements?
+
+Amazon Cognito User Pools.
+
+Amazon Cognito provides authentication, authorization, and user management for your web and mobile apps. Users can sign in directly with a user name and password, or through a trusted third party.
+
+------------------------------------------------------------------------------------------------------------------------------
+
+21. A company has an application that runs on a large general purpose Amazon EC2 instance type that is part of an EC2 Auto Scaling group. The company wants to reduce future costs associated with this application. After the company reviews metrics and logs in Amazon CloudWatch, the company notices that this application runs randomly a couple of times a day to retrieve and manage data. According to CloudWatch, the maximum runtime for each request is 10 minutes, the memory use is 4 GB, and the instances are always in the running state.
+
+Which solution will reduce costs the MOST?
+
+Lambda is a fully managed service that would automatically scale when necessary and would be highly available. A solution that deploys the application as a Lambda function reduces costs the most.
+
+------------------------------------------------------------------------------------------------------------------------------
+
+22. Which components are required to build a site-to-site VPN connection to AWS? (Select TWO.)
+
+A customer gateway is required for the VPN connection to be established. A customer gateway device is set up and configured in the customer's data center.
+
+A virtual private gateway is attached to a VPC to create a site-to-site VPN connection to AWS. You can accept private encrypted network traffic from an on-premises data center into your VPC without the need to traverse the open public internet.
+
+------------------------------------------------------------------------------------------------------------------------------
+
+23. A company needs to maintain data records for a minimum of 5 years. The data is rarely accessed after it is stored. The data must be accessible within 2 hours.
+
+Which solution will meet these requirements MOST cost-effectively?
+
+The storage of the data in an S3 bucket provides a cost-effective initial location for the data. S3 Glacier Instant Retrieval is the most cost-effective archival storage solution that meets the requirement of a 2-hour retrieval time.
+
+------------------------------------------------------------------------------------------------------------------------------
+
+24. A media company is designing a new application for graphic rendering. The application requires up to 400 GB of storage for temporary data that is discarded after the frames are rendered. The application requires approximately 40,000 random IOPS to perform the rendering.
+
+What is the MOST cost-effective storage option for this rendering application?
+
+Storage optimized instances are designed for workloads that require high, sequential read and write access to very large datasets on local storage. These instances are optimized to provide applications with tens of thousands of low-latency, random IOPS. The instance store has no additional cost.
+
+25. A reporting application runs on Amazon EC2 instances behind an Application Load Balancer. The instances run in an Amazon EC2 Auto Scaling group across multiple Availability Zones. For complex reports, the application can take up to 15 minutes to respond to a request. A solutions architect is concerned that users will receive HTTP 5xx errors if a report request is in process during a scale-in event.
+
+What should the solutions architect do to ensure that user requests will be completed before instances are terminated?
+
+y default, the Application Load Balancer waits 300 seconds before the completion of the deregistration process, which can help in-flight requests to the target become complete. To change the amount of time that the Application Load Balancer waits, update the deregistration delay value.
+
+26. A company runs its website on Amazon EC2 instances behind an Application Load Balancer that is configured as the origin for an Amazon CloudFront distribution. The company wants to protect against cross-site scripting and SQL injection attacks.
+
+Which approach should a solutions architect recommend to meet these requirements?
+
+AWS WAF can detect the presence of SQL code that is likely to be malicious (known as SQL injection). AWS WAF also can detect the presence of a script that is likely to be malicious (known as cross-site scripting).
+
+27. A company asks a solutions architect to implement a pilot light disaster recovery (DR) strategy for an existing on-premises application. The application is self contained and does not need to access any databases.
+
+Which solution will implement a pilot light DR strategy?
+
+This is a pilot light DR strategy. This solution recreates an existing application hosting environment in an AWS Region. This solution turns off most (or all) resources and uses the resources only during tests or when DR failover is necessary. RPO and RTO are usually 10s of minutes.
+
+28. A company that processes satellite images has an application that runs on AWS. The company stores the images in an Amazon S3 bucket. For compliance reasons, the company must replicate all data once a month to an on-premises location. The average amount of data that the company needs to transfer is 60 TB.
+
+What is the MOST cost-effective way to transfer this data?
+
+The base price covers the device and 10 days of usage at the on-premises location. If the company returns the device within a week, the company pays the base price and the price for data transfer out of AWS.
+
+29. A company uses one AWS account to run production workloads. The company has a separate AWS account for its security team. During periodic audits, the security team needs to view specific account settings and resource configurations in the AWS account that runs production workloads. A solutions architect must provide the required access to the security team by designing a solution that follows AWS security best practices.
+
+Which solution will meet these requirements?
+
+![alt text](image.png)
+
+This solution follows security best practices by using a role to delegate permissions that consist of least-privilege access
+
+30. An application runs on two Amazon EC2 instances behind a Network Load Balancer. The EC2 instances are in a single Availability Zone.
+
+What should a solutions architect do to make this architecture more highly available?
+
+![alt text](image-1.png)
