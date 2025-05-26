@@ -455,11 +455,15 @@ What is the MOST cost-effective storage option for this rendering application?
 
 Storage optimized instances are designed for workloads that require high, sequential read and write access to very large datasets on local storage. These instances are optimized to provide applications with tens of thousands of low-latency, random IOPS. The instance store has no additional cost.
 
+------------------------------------------------------------------------------------------------------------------------------
+
 25. A reporting application runs on Amazon EC2 instances behind an Application Load Balancer. The instances run in an Amazon EC2 Auto Scaling group across multiple Availability Zones. For complex reports, the application can take up to 15 minutes to respond to a request. A solutions architect is concerned that users will receive HTTP 5xx errors if a report request is in process during a scale-in event.
 
 What should the solutions architect do to ensure that user requests will be completed before instances are terminated?
 
 y default, the Application Load Balancer waits 300 seconds before the completion of the deregistration process, which can help in-flight requests to the target become complete. To change the amount of time that the Application Load Balancer waits, update the deregistration delay value.
+
+------------------------------------------------------------------------------------------------------------------------------
 
 26. A company runs its website on Amazon EC2 instances behind an Application Load Balancer that is configured as the origin for an Amazon CloudFront distribution. The company wants to protect against cross-site scripting and SQL injection attacks.
 
@@ -467,17 +471,23 @@ Which approach should a solutions architect recommend to meet these requirements
 
 AWS WAF can detect the presence of SQL code that is likely to be malicious (known as SQL injection). AWS WAF also can detect the presence of a script that is likely to be malicious (known as cross-site scripting).
 
+------------------------------------------------------------------------------------------------------------------------------
+
 27. A company asks a solutions architect to implement a pilot light disaster recovery (DR) strategy for an existing on-premises application. The application is self contained and does not need to access any databases.
 
 Which solution will implement a pilot light DR strategy?
 
 This is a pilot light DR strategy. This solution recreates an existing application hosting environment in an AWS Region. This solution turns off most (or all) resources and uses the resources only during tests or when DR failover is necessary. RPO and RTO are usually 10s of minutes.
 
+------------------------------------------------------------------------------------------------------------------------------
+
 28. A company that processes satellite images has an application that runs on AWS. The company stores the images in an Amazon S3 bucket. For compliance reasons, the company must replicate all data once a month to an on-premises location. The average amount of data that the company needs to transfer is 60 TB.
 
 What is the MOST cost-effective way to transfer this data?
 
 The base price covers the device and 10 days of usage at the on-premises location. If the company returns the device within a week, the company pays the base price and the price for data transfer out of AWS.
+
+------------------------------------------------------------------------------------------------------------------------------
 
 29. A company uses one AWS account to run production workloads. The company has a separate AWS account for its security team. During periodic audits, the security team needs to view specific account settings and resource configurations in the AWS account that runs production workloads. A solutions architect must provide the required access to the security team by designing a solution that follows AWS security best practices.
 
@@ -487,8 +497,91 @@ Which solution will meet these requirements?
 
 This solution follows security best practices by using a role to delegate permissions that consist of least-privilege access
 
+------------------------------------------------------------------------------------------------------------------------------
+
 30. An application runs on two Amazon EC2 instances behind a Network Load Balancer. The EC2 instances are in a single Availability Zone.
 
 What should a solutions architect do to make this architecture more highly available?
 
 ![alt text](image-1.png)
+
+------------------------------------------------------------------------------------------------------------------------------
+
+31. An Elastic Load Balancer has marked all the Amazon EC2 instances in the target group as unhealthy. Surprisingly, when a developer enters the IP address of the Amazon EC2 instances in the web browser, he can access the website.
+
+What could be the reason the instances are being marked as unhealthy? (Select two)
+
+The Amazon Elastic Block Store (Amazon EBS) volumes have been improperly mounted
+
+Your web-app has a runtime that is not supported by the Application Load Balancer
+
+The route for the health check is misconfigured
+
+You need to attach elastic IP address (EIP) to the Amazon EC2 instances
+
+The security group of the Amazon EC2 instance does not allow for traffic from the security group of the Application Load Balancer
+
+The two most likely reasons why the **EC2 instances are marked as unhealthy** by the **Elastic Load Balancer (ALB)**, even though they are accessible directly via their IP addresses, are:  
+
+### **1. The route for the health check is misconfigured**  
+   - The ALB performs **health checks** by sending requests to a specified path (e.g., `/health` or `/`).  
+   - If the **health check path is incorrect** (e.g., `/health` does not exist or returns an error), the ALB will mark the instances as **unhealthy**.  
+   - **Fix:** Verify the **health check settings** in the **Target Group** and ensure the path is correct and returns an HTTP 200 response.  
+
+### **2. The security group of the Amazon EC2 instance does not allow traffic from the security group of the Application Load Balancer**  
+   - The **ALB sends health check requests** to the EC2 instances.  
+   - If the **EC2 security group blocks traffic** from the ALB’s security group, the health checks will fail.  
+   - **Fix:** Ensure the **EC2 security group allows inbound traffic** on the health check port (usually **80 or 443**) from the **ALB’s security group** (or the ALB’s IP range).  
+
+### **Why Not the Other Options?**  
+- ❌ **EBS improperly mounted** → Would cause the app to fail entirely (not just health checks).  
+- ❌ **Unsupported runtime** → The ALB doesn’t care about the runtime (it checks HTTP responses).  
+- ❌ **Elastic IP (EIP) needed** → ALB health checks work with private IPs; EIPs are not required.  
+
+### **Solution Steps:**  
+1. **Check the ALB’s Target Group health check path** (`/health`, `/`, etc.).  
+2. **Verify the EC2 security group allows traffic from the ALB’s security group** (or the ALB’s CIDR range).  
+
+------------------------------------------------------------------------------------------------------------------------------
+
+32. The engineering team at an e-commerce company wants to migrate from Amazon Simple Queue Service (Amazon SQS) Standard queues to FIFO (First-In-First-Out) queues with batching.
+
+As a solutions architect, which of the following steps would you have in the migration checklist? (Select three)
+
+Make sure that the throughput for the target FIFO (First-In-First-Out) queue does not exceed 3,000 messages per second
+
+Make sure that the name of the FIFO (First-In-First-Out) queue is the same as the standard queue
+
+Make sure that the throughput for the target FIFO (First-In-First-Out) queue does not exceed 300 messages per second
+
+Convert the existing standard queue into a FIFO (First-In-First-Out) queue
+
+Delete the existing standard queue and recreate it as a FIFO (First-In-First-Out) queue
+
+Make sure that the name of the FIFO (First-In-First-Out) queue ends with the .fifo suffix
+
+Correct options:
+
+Delete the existing standard queue and recreate it as a FIFO (First-In-First-Out) queue
+
+Make sure that the name of the FIFO (First-In-First-Out) queue ends with the .fifo suffix
+
+Make sure that the throughput for the target FIFO (First-In-First-Out) queue does not exceed 3,000 messages per second
+
+Amazon Simple Queue Service (SQS) is a fully managed message queuing service that enables you to decouple and scale microservices, distributed systems, and serverless applications. Amazon SQS eliminates the complexity and overhead associated with managing and operating message oriented middleware, and empowers developers to focus on differentiating work. Using Amazon SQS, you can send, store, and receive messages between software components at any volume, without losing messages or requiring other services to be available.
+
+Amazon SQS offers two types of message queues. Standard queues offer maximum throughput, best-effort ordering, and at-least-once delivery. SQS FIFO queues are designed to guarantee that messages are processed exactly once, in the exact order that they are sent.
+
+By default, FIFO queues support up to 3,000 messages per second with batching, or up to 300 messages per second (300 send, receive, or delete operations per second) without batching. Therefore, using batching you can meet a throughput requirement of upto 3,000 messages per second.
+
+The name of a FIFO queue must end with the .fifo suffix. The suffix counts towards the 80-character queue name limit. To determine whether a queue is FIFO, you can check whether the queue name ends with the suffix.
+
+If you have an existing application that uses standard queues and you want to take advantage of the ordering or exactly-once processing features of FIFO queues, you need to configure the queue and your application correctly. You can't convert an existing standard queue into a FIFO queue. To make the move, you must either create a new FIFO queue for your application or delete your existing standard queue and recreate it as a FIFO queue.
+
+Incorrect options:
+
+Convert the existing standard queue into a FIFO (First-In-First-Out) queue
+
+Make sure that the name of the FIFO (First-In-First-Out) queue is the same as the standard queue - The name of a FIFO queue must end with the .fifo suffix.
+
+Make sure that the throughput for the target FIFO (First-In-First-Out) queue does not exceed 300 messages per second - By default, FIFO queues support up to 3,000 messages per second with batching.
