@@ -1,21 +1,23 @@
-## difference array(26)
+## difference array(28)
 
-- 26 questions to practise 1d and 2d difference array
+- 28 questions to practise 1d and 2d difference array
 
-### 1d difference array(contigous)(23)
+### 1d difference array(contigous)(25)
 
-#### Basics(10)
+#### Basics(12)
 
-* 1. [2848. Points That Intersect With Cars](#2848-Points-That-Intersect-With-Cars) 1230
-* 2. [1893. Check if All the Integers in a Range Are Covered](#1893-Check-if-All-the-Integers-in-a-Range-Are-Covered) 1307
-* 3. [495. Teemo Attacking](#495-teemo-attacking) 1350
-* 4. [1854. Maximum Population Year](#1854-maximum-population-year) 1370
-* 5. [370. Range Addition](#370-Range-Addition) 1400
-* 6. [1094. Car Pooling](#1094-car-pooling) 1441
-* 7. [1109. Corporate Flight Bookings](#1109-Corporate-Flight-Bookings) 1570
-* 8. [252. Meeting Rooms](#252-meeting-rooms) 1600
-* 9. [253. Meeting Rooms II](#253-meeting-rooms-ii) 1601
-* 10. [2406. Divide Intervals Into Minimum Number of Groups](#2406-Divide-Intervals-Into-Minimum-Number-of-Groups) 1731
+* [2848. Points That Intersect With Cars](#2848-Points-That-Intersect-With-Cars) 1230
+* [1893. Check if All the Integers in a Range Are Covered](#1893-Check-if-All-the-Integers-in-a-Range-Are-Covered) 1307
+* [495. Teemo Attacking](#495-teemo-attacking) 1350
+* [1854. Maximum Population Year](#1854-maximum-population-year) 1370
+* [370. Range Addition](#370-Range-Addition) 1400
+* [1094. Car Pooling](#1094-car-pooling) 1441
+* [1109. Corporate Flight Bookings](#1109-Corporate-Flight-Bookings) 1570
+* [252. Meeting Rooms](#252-meeting-rooms) 1600
+* [253. Meeting Rooms II](#253-meeting-rooms-ii) 1601
+* [2406. Divide Intervals Into Minimum Number of Groups](#2406-Divide-Intervals-Into-Minimum-Number-of-Groups) 1731
+* [3355. Zero Array Transformation I](#3355-zero-array-transformation-i)
+* [3356. Zero Array Transformation II](#3356-zero-array-transformation-ii)
 
 #### Advanced 1 (with other conditions)(3)
 
@@ -244,6 +246,50 @@ class Solution:
             else:
                 heappush(pq, e)
         return len(pq)
+```
+
+### 3355. Zero Array Transformation I
+
+```python
+class Solution:
+    def isZeroArray(self, nums: List[int], queries: List[List[int]]) -> bool:
+        n = len(nums)
+        f = [0] * (n + 1)
+        for a, b in queries:
+            f[a] += 1
+            f[b + 1] -= 1
+        pre = list(accumulate(f[:-1]))
+        for a, b in zip(pre, nums):
+            if a < b:
+                return False
+        return True
+```
+
+### 3356. Zero Array Transformation II
+
+```python
+class Solution:
+    def minZeroArray(self, nums: List[int], queries: List[List[int]]) -> int:
+        n = len(nums)
+        def check(k):
+            f = [0] * (n + 1)
+            for a, b, v in queries[:k]:
+                f[a] += v
+                f[b + 1] -= v
+            pre = list(accumulate(f))
+            if all(a >= b for a, b in zip(pre, nums)):
+                return True
+            return False
+
+        l, r, res = 0, len(queries), -1
+        while l <= r:
+            m = (l + r) // 2
+            if check(m):
+                res = m 
+                r = m - 1
+            else:
+                l = m + 1
+        return res 
 ```
 
 ### 2237. Count Positions on Street With Required Brightness

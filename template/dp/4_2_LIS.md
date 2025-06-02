@@ -76,7 +76,7 @@ class Solution:
 
 * [1187. Make Array Strictly Increasing](#1187-make-array-strictly-increasing)
 * [1713. Minimum Operations to Make a Subsequence](#1713-minimum-operations-to-make-a-subsequence)
-* [3288. Length of the Longest Increasing Path]()
+* [3288. Length of the Longest Increasing Path](#3288-length-of-the-longest-increasing-path)
 ### 300. Longest Increasing Subsequence
 
 - binary search: O(nlog(n))

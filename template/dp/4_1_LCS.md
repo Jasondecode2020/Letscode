@@ -13,7 +13,7 @@ def lcs(s1, s2):
     return f[-1][-1]
 ```
 
-### question list: (15)
+### question list: (16)
 
 * [1143. Longest Common Subsequence](#1143-longest-common-subsequence)
 * [583. Delete Operation for Two Strings](#583-delete-operation-for-two-strings)
@@ -24,14 +24,17 @@ def lcs(s1, s2):
 * [115. Distinct Subsequences](#115-distinct-subsequences)
 * [1035. Uncrossed Lines](#1035-uncrossed-lines)
 * [1458. Max Dot Product of Two Subsequences](#1458-max-dot-product-of-two-subsequences)
+* [718. Maximum Length of Repeated Subarray](#718-maximum-length-of-repeated-subarray)
 * [1092. Shortest Common Supersequence](#1092-shortest-common-supersequence)
-* [1639. Number of Ways to Form a Target String Given a Dictionary](#1639-number-of-ways-to-form-a-target-string-given-a-dictionary)
 
+* [1639. Number of Ways to Form a Target String Given a Dictionary](#1639-number-of-ways-to-form-a-target-string-given-a-dictionary)
 * [161. One Edit Distance](#161-one-edit-distance)
 * [516. Longest Palindromic Subsequence](#516-longest-palindromic-subsequence)
 * [1312. Minimum Insertion Steps to Make a String Palindrome](#1312-minimum-insertion-steps-to-make-a-string-palindrome)
 * [44. Wildcard Matching](#44-wildcard-matching)
+
 * [10. Regular Expression Matching](#10-regular-expression-matching)
+* [3290. Maximum Multiplication Score](#3290-maximum-multiplication-score)
 
 ### 1143. Longest Common Subsequence
 
@@ -179,6 +182,21 @@ class Solution:
                 f[r][c] = max(f[r - 1][c], f[r][c - 1], f[r - 1][c - 1] + nums1[r - 1] * nums2[c - 1], nums1[r - 1] * nums2[c - 1])
         return f[-1][-1]
 ```
+
+### 718. Maximum Length of Repeated Subarray
+
+```python
+class Solution:
+    def findLength(self, nums1: List[int], nums2: List[int]) -> int:
+        R, C = len(nums1) + 1, len(nums2) + 1
+        dp = [[0] * C for r in range(R)]
+        res = 0
+        for r in range(1, R):
+            for c in range(1, C):
+                if nums1[r - 1] == nums2[c - 1]:
+                    dp[r][c] = dp[r - 1][c - 1] + 1
+                    res = max(res, dp[r][c])
+        return res
 
 ### 1092. Shortest Common Supersequence 
 
@@ -358,4 +376,21 @@ class Solution:
                     many = dp[r - 1][c] and (p[c - 2] == '.' or p[c - 2] == s[r - 1])
                     dp[r][c] = zero or many 
         return dp[-1][-1]
+```
+
+### 3290. Maximum Multiplication Score
+
+```python
+class Solution:
+    def maxScore(self, a: List[int], b: List[int]) -> int:
+        @cache
+        def f(i, j):
+            if i == n:
+                return 0 if j == 4 else -inf 
+            res = f(i + 1, j)
+            if j < 4:
+                res = max(res, f(i + 1, j + 1) + a[j] * b[i])
+            return res 
+        n = len(b)
+        return f(0, 0)
 ```
