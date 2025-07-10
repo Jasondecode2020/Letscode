@@ -4,26 +4,25 @@
 
 ## Question list
 
-### 1 Next Greater or smaller (7)
-
-- next greater
+### 1 basics (6)
 
 * [739. Daily Temperatures](#739-Daily-Temperatures)
+* [1475. Final Prices With a Special Discount in a Shop](#1475-final-prices-with-a-special-discount-in-a-shop)
 * [496. Next Greater Element I](#496-next-greater-element-i)
 * [503. Next Greater Element II](#503-next-greater-element-ii)
+* [901. Online Stock Span](#901-online-stock-span)
+* [853. Car Fleet](#853-car-fleet)
+
+### 2 advanced (2)
+
 * [1019. Next Greater Node In Linked List](#1019-next-greater-node-in-linked-list)
-
-- next smaller or equal
-
-* [1475. Final Prices With a Special Discount in a Shop](#1475-final-prices-with-a-special-discount-in-a-shop)
-
-- next greater or equal
-
-* [901. Online Stock Span](#456-132-Pattern)* 
+* [654. Maximum Binary Tree](#654-maximum-binary-tree)
 * [456. 132 Pattern](#456-132-Pattern)
-
-### 2 Longest interval (2)
-
+* [3113. Find the Number of Subarrays Where Boundary Elements Are Maximum](#3113-find-the-number-of-subarrays-where-boundary-elements-are-maximum)
+* [2866. Beautiful Towers II 2071](#2866-beautiful-towers-ii)
+* [1944. Number of Visible People in a Queue](#1944-number-of-visible-people-in-a-queue)
+* [2454. Next Greater Element IV](#2454-next-greater-element-iv)
+* [2289. Steps to Make Array Non-decreasing](#2289-steps-to-make-array-non-decreasing)
 * [962. Maximum Width Ramp](#962-maximum-width-ramp)
 * [1124. Longest Well-Performing Interval](#1124-longest-well-performing-interval)
 
@@ -46,33 +45,7 @@
 * [402. Remove K Digits ~1800](#402-remove-k-digits)
 * [316. Remove Duplicate Letters](#316-remove-duplicate-letters)
 * [1081. Smallest Subsequence of Distinct Characters](#1081-smallest-subsequence-of-distinct-characters)
-* [1673. Find the Most Competitive Subsequence 1802](#1673-find-the-most-competitive-subsequence)
-
-### 6 Two monotonic stack (2)
-
-* [2866. Beautiful Towers II 2071](#2866-beautiful-towers-ii)
-* [2454. Next Greater Element IV](#2454-next-greater-element-iv)
-
-### 7 Hash + monotonic stack (2)
-
-* [1944. Number of Visible People in a Queue](#1944-number-of-visible-people-in-a-queue)
-* [3113. Find the Number of Subarrays Where Boundary Elements Are Maximum](#3113-find-the-number-of-subarrays-where-boundary-elements-are-maximum)
-
-## 8 Dp + monotonic stack (1)
-
-* [2289. Steps to Make Array Non-decreasing](#2289-steps-to-make-array-non-decreasing)
-
-## Exercise list                                                                                            
-
-
-### 1 Next Greater or smaller (7)
-
-- next greater
-
-* [739. Daily Temperatures](#739-Daily-Temperatures)
-* [496. Next Greater Element I](#496-next-greater-element-i)
-* [503. Next Greater Element II](#503-next-greater-element-ii)
-* [1019. Next Greater Node In Linked List](#1019-next-greater-node-in-linked-list)
+* [1673. Find the Most Competitive Subsequence 1802](#1673-find-the-most-competitive-subsequence)                                                                           
 
 ### 739. Daily Temperatures
 
@@ -124,22 +97,35 @@ class Solution:
 ```python
 class Solution:
     def nextLargerNodes(self, head: Optional[ListNode]) -> List[int]:
-        arr = []
+        nums = []
         while head:
-            arr.append(head.val)
+            nums.append(head.val)
             head = head.next 
-
-        n = len(arr)
-        res, stack = [0] * n, []
-        for i, x in enumerate(arr):
-            while stack and x > arr[stack[-1]]: # next great
+        res = [0] * len(nums)
+        stack = []
+        for i, n in enumerate(nums):
+            while stack and n > nums[stack[-1]]:
                 j = stack.pop()
-                res[j] = x
+                res[j] = n 
             stack.append(i)
         return res
 ```
 
-- next smaller or equal
+### 654. Maximum Binary Tree
+
+```python
+class Solution:
+    def constructMaximumBinaryTree(self, nums: List[int]) -> Optional[TreeNode]:
+        def dfs(nums):
+            if not nums:
+                return None 
+            i = nums.index(max(nums))
+            node = TreeNode(nums[i])
+            node.left = dfs(nums[:i])
+            node.right = dfs(nums[i+1:])
+            return node 
+        return dfs(nums)
+```
 
 * [1475. Final Prices With a Special Discount in a Shop](#1475-final-prices-with-a-special-discount-in-a-shop)
 
@@ -182,6 +168,20 @@ class StockSpanner:
         return res
 ```
 
+### 853. Car Fleet
+
+```python
+class Solution:
+    def carFleet(self, target: int, position: List[int], speed: List[int]) -> int:
+        time = [(target - p) / s for p, s in sorted(zip(position, speed))]
+        stack = []
+        for i, t in enumerate(time):
+            while stack and t >= time[stack[-1]]:
+                stack.pop()
+            stack.append(i)
+        return len(stack)
+```
+
 ### 456. 132 Pattern
 
 ```python
@@ -203,17 +203,14 @@ class Solution:
 ```python
 class Solution:
     def find132pattern(self, nums: List[int]) -> bool:
-        prefixMin, stack = nums[::], []
-        n = len(nums)
-        for i in range(1, n):
-            prefixMin[i] = min(prefixMin[i], prefixMin[i - 1])
-        
-        mn = nums[0]
+        prefixMin = nums[::]
+        for i in range(1, len(nums)):
+            prefixMin[i] = min(prefixMin[i - 1], nums[i])
         stack = []
-        for k in range(1, n):
+        for k in range(1, len(nums)):
             while stack and nums[k] >= nums[stack[-1]]:
                 j = stack.pop()
-            if stack and prefixMin[stack[-1] - 1] < nums[k]:
+            if stack and nums[k] > prefixMin[stack[-1] - 1]:
                 return True
             stack.append(k)
         return False
@@ -711,10 +708,6 @@ class Solution:
             stack.append(i)
         return sum(d.values())
 ```
-
-## 8 Dp + monotonic stack (1)
-
-* [2289. Steps to Make Array Non-decreasing](#2289-steps-to-make-array-non-decreasing)
 
 ### 2289. Steps to Make Array Non-decreasing
 

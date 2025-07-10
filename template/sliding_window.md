@@ -1,45 +1,35 @@
-## template
-
-```python
-def fn(arr):
-    l, res = 0, 0
-    for r, v in enumerate(arr):
-        # may need some code
-        while WINDOW_BROKEN:
-            # handle l pointer of window
-            l += 1
-        res = max(res, r - l + 1)
-    return res
-```
-
 ## Question list
 
 ### fixed sliding window
 
-### 1.1 basics (16)
+#### 1.1 basics (20)
 
 * [1456. Maximum Number of Vowels in a Substring of Given Length](#1456-maximum-number-of-vowels-in-a-substring-of-given-length)
-* [643. Maximum Average Subarray I 1350](#643-maximum-average-subarray-i)
+* [643. Maximum Average Subarray I](#643-maximum-average-subarray-i)
 * [1343. Number of Sub-arrays of Size K and Average Greater than or Equal to Threshold](#1343-number-of-sub-arrays-of-size-k-and-average-greater-than-or-equal-to-threshold)
-* [2090. K Radius Subarray Averages 1358](#2090-k-radius-subarray-averages)
-* [2379. Minimum Recolors to Get K Consecutive Black Blocks 1360](#2379-minimum-recolors-to-get-k-consecutive-black-blocks)
-* [1052. Grumpy Bookstore Owner 1418](#1052-grumpy-bookstore-owner)
+* [2090. K Radius Subarray Averages](#2090-k-radius-subarray-averages)
+* [2379. Minimum Recolors to Get K Consecutive Black Blocks](#2379-minimum-recolors-to-get-k-consecutive-black-blocks)
+
+* [2841. Maximum Sum of Almost Unique Subarray](#2841-maximum-sum-of-almost-unique-subarray)
+* [2461. Maximum Sum of Distinct Subarrays With Length K](#2461-maximum-sum-of-distinct-subarrays-with-length-k)(record)
+* [1423. Maximum Points You Can Obtain from Cards](#1423-maximum-points-you-can-obtain-from-cards)(record)
+* [1052. Grumpy Bookstore Owner 1418](#1052-grumpy-bookstore-owner)(record)
+* [1652. Defuse the Bomb](#1652-defuse-the-bomb)(record)
+
 * [1461. Check If a String Contains All Binary Codes of Size K](#1461-check-if-a-string-contains-all-binary-codes-of-size-k)
-* [2841. Maximum Sum of Almost Unique Subarray 1546](#2841-maximum-sum-of-almost-unique-subarray)
-* [2461. Maximum Sum of Distinct Subarrays With Length K 1553](#2461-maximum-sum-of-distinct-subarrays-with-length-k)
-* [1652. Defuse the Bomb](#1652-defuse-the-bomb)
-* [1297. Maximum Number of Occurrences of a Substring](#1297-maximum-number-of-occurrences-of-a-substring)
+* [2269. Find the K-Beauty of a Number 1280](#2269-find-the-k-beauty-of-a-number)(record)
+* [1984. Minimum Difference Between Highest and Lowest of K Scores](#1984-minimum-difference-between-highest-and-lowest-of-k-scores)
+* [1297. Maximum Number of Occurrences of a Substring](#1297-maximum-number-of-occurrences-of-a-substring)(record)
+* [220. Contains Duplicate III]()
+
 * [1176. Diet Plan Performance](#1176-diet-plan-performance)
 * [1100. Find K-Length Substrings With No Repeated Characters](#1100-find-k-length-substrings-with-no-repeated-characters)
 * [1852. Distinct Numbers in Each Subarray](#1852-distinct-numbers-in-each-subarray)
 * [1151. Minimum Swaps to Group All 1's Together](#1151-minimum-swaps-to-group-all-1s-together)
 * [2107. Number of Unique Flavors After Sharing K Candies](#2107-number-of-unique-flavors-after-sharing-k-candies)
 
-### 1.2 advanced (16)
+#### 1.2 advanced (16)
 
-* [2269. Find the K-Beauty of a Number 1280](#2269-find-the-k-beauty-of-a-number)
-* [1984. Minimum Difference Between Highest and Lowest of K Scores 1306](#1984-minimum-difference-between-highest-and-lowest-of-k-scores)
-* [1423. Maximum Points You Can Obtain from Cards 1574](#1423-maximum-points-you-can-obtain-from-cards)
 * [2134. Minimum Swaps to Group All 1's Together II 1748](#2134-minimum-swaps-to-group-all-1s-together-ii)
 * [2653. Sliding Subarray Beauty 1786](#2653-sliding-subarray-beauty)
 * [1888. Minimum Number of Flips to Make the Binary String Alternating](#1888-minimum-number-of-flips-to-make-the-binary-string-alternating)
@@ -175,21 +165,17 @@ class Solution:
 ```python
 class Solution:
     def maxSatisfied(self, customers: List[int], grumpy: List[int], minutes: int) -> int:
-        res = 0
-        for c, g in zip(customers, grumpy):
-            if g == 0:
-                res += c 
-
-        l, ans = 0, 0
-        for r, c in enumerate(customers):
+        res = sum([c for c, g in zip(customers, grumpy) if g == 0])
+        ans, total, l = 0, 0, 0
+        for r, n in enumerate(customers):
             if grumpy[r] == 1:
-                res += c 
+                total += n 
             if r - l + 1 == minutes:
-                ans = max(ans, res)
+                ans = max(ans, total)
                 if grumpy[l] == 1:
-                    res -= customers[l]
+                    total -= customers[l]
                 l += 1
-        return ans 
+        return res + ans
 ```
 
 ### 1461. Check If a String Contains All Binary Codes of Size K
@@ -199,8 +185,8 @@ class Solution:
     def hasAllCodes(self, s: str, k: int) -> bool:
         total = 2 ** k 
         nums = set()
-        for i in range(k, len(s) + 1):
-            nums.add(s[i - k: i])
+        for i in range(len(s) - k + 1):
+            nums.add(s[i: i + k])
         return len(nums) == total
 ```
 
@@ -243,6 +229,20 @@ class Solution:
                 d[nums[l]] -= 1
                 if d[nums[l]] == 0:
                     d.pop(nums[l])
+                l += 1
+        return res 
+```
+
+### 1423. Maximum Points You Can Obtain from Cards
+
+```python
+nums = cardPoints[-k:] + cardPoints[:k]
+        res, total, l = 0, 0, 0
+        for r, n in enumerate(nums):
+            total += n 
+            if r - l + 1 == k:
+                res = max(res, total)
+                total -= nums[l]
                 l += 1
         return res 
 ```
@@ -382,36 +382,19 @@ class Solution:
         return res
 ```
 
-### 1423. Maximum Points You Can Obtain from Cards
-
-```python
-class Solution:
-    def maxScore(self, cardPoints: List[int], k: int) -> int:
-        W = len(cardPoints) - k
-        ans = sum(cardPoints)
-        if W <= 0:
-            return ans 
-        res, total, l = inf, 0, 0
-        for r, n in enumerate(cardPoints):
-            total += n 
-            if r - l + 1 == W:
-                res = min(res, total)
-                total -= cardPoints[l]
-                l += 1
-        return ans - res 
-```
-
 ### 2269. Find the K-Beauty of a Number
 
 ```python
 class Solution:
     def divisorSubstrings(self, num: int, k: int) -> int:
         s = str(num)
-        n, res = len(s), 0
-        for i in range(n - k + 1):
-            ans = int(s[i: i + k])
-            if ans and num % ans == 0:
-                res += 1
+        n, res, l = len(s), 0, 0
+        for r in range(n):
+            if r - l + 1 == k:
+                ans = int(s[l: r + 1])
+                if ans and num % ans == 0:
+                    res += 1
+                l += 1
         return res 
 ```
 

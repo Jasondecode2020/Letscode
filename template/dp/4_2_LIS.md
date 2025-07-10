@@ -77,6 +77,8 @@ class Solution:
 * [1187. Make Array Strictly Increasing](#1187-make-array-strictly-increasing)
 * [1713. Minimum Operations to Make a Subsequence](#1713-minimum-operations-to-make-a-subsequence)
 * [3288. Length of the Longest Increasing Path](#3288-length-of-the-longest-increasing-path)
+* [368. Largest Divisible Subset](#368-largest-divisible-subset)
+
 ### 300. Longest Increasing Subsequence
 
 - binary search: O(nlog(n))
@@ -469,6 +471,26 @@ class Solution:
                 else:
                     g.append(y)
         return len(g) + 1
+```
+
+### 368. Largest Divisible Subset
+
+```python
+class Solution:
+    def largestDivisibleSubset(self, nums: List[int]) -> List[int]:
+        @cache
+        def dfs(i, prev):
+            if i == n:
+                return []
+            res = dfs(i + 1, prev)
+            if nums[i] % prev == 0:
+                ans = [nums[i]] + dfs(i + 1, nums[i])
+                if len(ans) > len(res):
+                    res = ans
+            return res 
+        n = len(nums)
+        nums.sort()
+        return dfs(0, 1)
 ```
 
 ### 2370. Longest Ideal Subsequence
