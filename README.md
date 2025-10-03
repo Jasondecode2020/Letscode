@@ -6,21 +6,6 @@ All questions are solved by patterns, and the learning sequence is listed below.
 - Rating for all questions from (https://zerotrac.github.io/leetcode_problem_rating/#/)
 - Practice with ratings (https://huxulm.github.io/lc-rating/zen)
 
-Here are the next two upcoming events: 
-1. **NQ Cowboys vs Bulldogs** 
-- Date: Saturday, 12 July 2025 
-- Gates Open: 4:30pm 
-- NRL Kick Off: 7:35pm 
-- Category: NRL 
-- Location: Queensland Country Bank Stadium 
-2. **NRL Titans vs Broncos & NRLW Titans vs Broncos** 
-- Date: Sunday, 13 July 2025 
-- Gates Open: 3:45pm 
-- Start Time: 6:15pm 
-- Category: NRL 
-- Event Series: NRL Telstra Premiership 
-- Location: Cbus Super Stadium If you'd like details on more events or other types of activities, just let me know!
-
 ## Top Coding Patterns
 
 * ### 1 Hash

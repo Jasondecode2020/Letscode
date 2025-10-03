@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="https://www.google.com">Google</a>
+    <script>
+        window.addEventListener('popstate', function(event) {
+            console.log('Browser navigation detected!');
+            console.log('State:', event.state);
+            console.log('Current URL:', window.location.href);
+            
+            // Handle the navigation
+            handleBrowserNavigation(event.state);
+        });
+
+        function handleBrowserNavigation(state) {
+            // Your logic here - restore chat state, update UI, etc.
+            console.log('update Ui')
+        }
+    </script>
+</body>
+</html>

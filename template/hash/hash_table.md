@@ -33,6 +33,50 @@ class Solution:
             d[v] = i
 ```
 
+```js
+var twoSum = function(nums, target) {
+    const m = new Map();
+    for (let i = 0; i < nums.length; i ++) {
+        const res = target - nums[i];
+        if (m.has(res)) {
+            return [m.get(res), i];
+        }
+        m.set(nums[i], i);
+    }
+    return [];
+};
+```
+
+```js
+var twoSum = function(nums, target) {
+    const obj = {};
+    for (let i = 0; i < nums.length; i++) {
+        const res = target - nums[i];
+        if (res in obj) {
+            return [obj[res], i];
+        }
+        obj[nums[i]] = i;
+    }
+    return [];
+};
+```
+
+```java
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> m = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            int res = target - nums[i];
+            if (m.containsKey(res)) {
+                return new int[]{m.get(res), i};
+            }
+            m.put(nums[i], i);
+        }
+        return new int[0];
+    }
+}
+```
+
 ### 1512. Number of Good Pairs
 
 ```python
