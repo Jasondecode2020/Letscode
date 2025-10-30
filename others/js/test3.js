@@ -1,4 +1,4 @@
-const ws = new WebSocket('wss://x8wc4qccb8.execute-api.ap-southeast-2.amazonaws.com/production');
+const ws = new WebSocket('url');
 
 ws.onopen = () => {
   console.log('✅ Connected!');
