@@ -1,8 +1,13 @@
-## Hash
+# Hash
 
-### 1. 2 sum(16)
+## 1. 2 sum(16)
 
 * [1. Two Sum](#1-two-sum)  
+* [167. Two Sum II - Input Array Is Sorted](#167-two-sum-ii---input-array-is-sorted)
+* [170. Two Sum III - Data structure design](#170-two-sum-iii---data-structure-design)
+* [653. Two Sum IV - Input is a BST](#653-two-sum-iv---input-is-a-bst)
+* [1214. Two Sum BSTs](#1214-two-sum-bsts)
+
 * [1512. Number of Good Pairs](#1512-number-of-good-pairs)
 * [2815. Max Pair Sum in an Array](#2815-max-pair-sum-in-an-array)
 * [2748. Number of Beautiful Pairs](#2748-number-of-beautiful-pairs)
@@ -14,7 +19,6 @@
 * [454. 4Sum II](#454-4sum-ii)
 * [2874. Maximum Value of an Ordered Triplet II](#2874-maximum-value-of-an-ordered-triplet-ii)
 * [1014. Best Sightseeing Pair](#1014-best-sightseeing-pair)
-* [1214. Two Sum BSTs](#1214-two-sum-bsts)
 * [2971. Find Polygon With the Largest Perimeter](#2971-find-polygon-with-the-largest-perimeter)
 * [1679. Max Number of K-Sum Pairs](#1679-max-number-of-k-sum-pairs)
 * [2964. Number of Divisible Triplet Sums](#2964-number-of-divisible-triplet-sums)
@@ -75,6 +79,92 @@ class Solution {
         return new int[0];
     }
 }
+```
+
+### 167. Two Sum II - Input Array Is Sorted
+
+```python
+class Solution:
+    def twoSum(self, numbers: List[int], target: int) -> List[int]:
+        l, r = 0, len(numbers) - 1
+        while l <= r:
+            total = numbers[l] + numbers[r]
+            if total > target:
+                r -= 1
+            elif total < target:
+                l += 1
+            else:
+                return [l + 1, r + 1]
+```
+
+### 170. Two Sum III - Data structure design
+
+Design a data structure that accepts a stream of integers and checks if it has a pair of integers that sum up to a particular value.
+
+Implement the TwoSum class:
+
+TwoSum() Initializes the TwoSum object, with an empty array initially.
+void add(int number) Adds number to the data structure.
+boolean find(int value) Returns true if there exists any pair of numbers whose sum is equal to value, otherwise, it returns false.
+ 
+
+Example 1:
+
+Input
+["TwoSum", "add", "add", "add", "find", "find"]
+[[], [1], [3], [5], [4], [7]]
+Output
+[null, null, null, null, true, false]
+
+Explanation
+TwoSum twoSum = new TwoSum();
+twoSum.add(1);   // [] --> [1]
+twoSum.add(3);   // [1] --> [1,3]
+twoSum.add(5);   // [1,3] --> [1,3,5]
+twoSum.find(4);  // 1 + 3 = 4, return true
+twoSum.find(7);  // No two integers sum up to 7, return false
+ 
+
+Constraints:
+
+-105 <= number <= 105
+-231 <= value <= 231 - 1
+At most 104 calls will be made to add and find.
+
+```python
+class TwoSum:
+
+    def __init__(self):
+        self.arr = []
+
+    def add(self, number: int) -> None:
+        self.arr.append(number)
+
+    def find(self, value: int) -> bool:
+        s = set()
+        for i, n in enumerate(self.arr):
+            res = value - n 
+            if res in s:
+                return True
+            s.add(n)
+        return False
+```
+
+### 653. Two Sum IV - Input is a BST
+
+```python
+class Solution:
+    def findTarget(self, root: Optional[TreeNode], k: int) -> bool:
+        s = set()
+        def dfs(node):
+            if node:
+                res = k - node.val
+                if res in s:
+                    return True
+                s.add(node.val)
+                return dfs(node.left) or dfs(node.right)
+            return False
+        return dfs(root)
 ```
 
 ### 1512. Number of Good Pairs
@@ -299,6 +389,27 @@ class Solution:
 
         dfs(root1)
         self.res = False
+        return dfs2(root2)
+```
+
+```python
+class Solution:
+    def twoSumBSTs(self, root1: Optional[TreeNode], root2: Optional[TreeNode], target: int) -> bool:
+        s = set()
+        def dfs(node):
+            if node:
+                s.add(node.val)
+                dfs(node.left)
+                dfs(node.right)
+        dfs(root1)
+
+        def dfs2(node):
+            if node:
+                res = target - node.val
+                return res in s or dfs2(node.left) or dfs2(node.right)
+            return False
+
+        dfs(root1)
         return dfs2(root2)
 ```
 

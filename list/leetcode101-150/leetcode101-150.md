@@ -308,6 +308,42 @@ class Solution:
         return dfs(0) - 1
 ```
 
+### 139. Word Break
+
+```python
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        wordDict = set(wordDict)
+        n = len(s)
+        @cache
+        def dfs(i):
+            if i == n:
+                return True 
+            res = False
+            for j in range(n):
+                if s[i: j + 1] in wordDict:
+                    res = res or dfs(j + 1)
+            return res 
+        return dfs(0)
+```
+
+### 140. Word Break II
+
+```python
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
+        res, wordDict = [], set(wordDict)
+        def dfs(i, ans):
+            if i == len(s):
+                res.append(' '.join(ans))
+                return
+            for j in range(i + 1, len(s) + 1):
+                if s[i: j] in wordDict:
+                    dfs(j, ans + [s[i: j]])     
+        dfs(0, [])
+        return res
+```
+
 ### 141. Linked List Cycle
 
 ```python

@@ -30,6 +30,7 @@ class Solution:
 * [1289. Minimum Falling Path Sum II](#1289-minimum-falling-path-sum-ii)
 * [2304. Minimum Path Cost in a Grid](#2304-minimum-path-cost-in-a-grid)
 * [3418. Maximum Amount of Money Robot Can Earn](#3418-maximum-amount-of-money-robot-can-earn)
+* [562. Longest Line of Consecutive One in Matrix]()
 
 ### 2.2 Advanced (13)
 
@@ -208,6 +209,28 @@ class Solution:
                 res = max(res, f(r - 1, c, k - 1), f(r, c - 1, k - 1))
             return res 
         return f(R - 1, C - 1, 2)
+```
+
+### 562. Longest Line of Consecutive One in Matrix
+
+```python
+class Solution:
+    def longestLine(self, mat: List[List[int]]) -> int:
+        R, C = len(mat), len(mat[0])
+        res = 0
+        dp_h = [[0] * C for _ in range(R)]
+        dp_v = [[0] * C for _ in range(R)]
+        dp_d = [[0] * C for _ in range(R)]
+        dp_a = [[0] * C for _ in range(R)]
+        for i in range(R):
+            for j in range(C):
+                if mat[i][j] == 1:
+                    dp_h[i][j] = dp_h[i][j-1] + 1 if j - 1 >= 0 else 1
+                    dp_v[i][j] = dp_v[i-1][j] + 1 if i - 1 >= 0 else 1
+                    dp_d[i][j] = dp_d[i-1][j-1] + 1 if i - 1 >= 0 and j - 1 >= 0 else 1
+                    dp_a[i][j] = dp_a[i-1][j+1] + 1 if i - 1 >= 0 and j + 1 < C else 1
+                    res = max(res, dp_h[i][j], dp_v[i][j], dp_d[i][j], dp_a[i][j])
+        return res
 ```
 
 ### 1594. Maximum Non Negative Product in a Matrix

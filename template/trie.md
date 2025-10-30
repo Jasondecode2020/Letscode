@@ -2,72 +2,64 @@
 
 ```python
 '''
-Leetcode 14
+Leetcode 208
 '''
-class TrieNode: # has children and endOfWord
+class TrieNode:
     def __init__(self):
-        self.children = {} # can be 26 for English letters
-        self.endOfWord = False # check if word ends with a letter
+        self.children = {}
+        self.endOfWord = False
 
-class Trie: # a tree like data structure to solve prefix problems in string
-    def __init__(self): # init the node
+class Trie:
+
+    def __init__(self):
         self.root = TrieNode()
 
-    def insert(self, word: str) -> None: # insert a word inside a Trie
-        cur = self.root
+    def insert(self, word: str) -> None:
+        cur = self.root 
         for c in word:
             if c not in cur.children:
                 cur.children[c] = TrieNode()
             cur = cur.children[c]
         cur.endOfWord = True
 
-    def search(self, word: str) -> bool: # check if a word inside trie
-        cur = self.root
+    def search(self, word: str) -> bool:
+        cur = self.root 
         for c in word:
             if c not in cur.children:
                 return False
             cur = cur.children[c]
-        return cur.endOfWord == True
+        return cur.endOfWord
 
-    def startsWith(self, prefix: str) -> bool: # check if a prefix inside a word
-        cur = self.root
+    def startsWith(self, prefix: str) -> bool:
+        cur = self.root 
         for c in prefix:
             if c not in cur.children:
                 return False
             cur = cur.children[c]
         return True
-        
-class Solution:
-    def fn(self, strs: List[str]) -> str:
-        t = Trie()
-        for word in strs:
-            t.insert(word) # insert all words to build trie for search
-            
-        res = ''
-        cur = t.root
-        while cur:
-            if len(cur.children) > 1 or cur.endOfWord: # if a word ends or has more than one children
-                break
-            c = list(cur.children.keys())[0]
-            cur = cur.children[c]
-            res += c
-        return res
 ```
 
 ### Trie(12)
 
 * [14. Longest Common Prefix](#14-Longest-Common-Prefix)
 * [208. Implement Trie](#208-Implement-Trie)
-* [720. Longest Word in Dictionary](#720-Longest-Word-in-Dictionary)
-* [1804. Implement Trie II](#1804-Implement-Trie-II)
+* [3597. Partition String](#3597-partition-string)
 * [648. Replace Words](#648-replace-words)
+* [720. Longest Word in Dictionary](#720-Longest-Word-in-Dictionary)
+
+* [2416. Sum of Prefix Scores of Strings](#2416-sum-of-prefix-scores-of-strings)
+* [677. Map Sum Pairs](#677-map-sum-pairs)
+* [1268. Search Suggestions System](#1268-search-suggestions-system)
+* [1804. Implement Trie II](#1804-Implement-Trie-II)
 * [211. Design Add and Search Words Data Structure](#211-design-add-and-search-words-data-structure)
+
 * [212. Word Search II](#212-word-search-ii)
 * [676. Implement Magic Dictionary](#676-implement-magic-dictionary)
 * [820. Short Encoding of Words](#820-short-encoding-of-words)
 * [1032. Stream of Characters](#1032-stream-of-characters)
 * [745. Prefix and Suffix Search](#745-prefix-and-suffix-search)
-* [2416. Sum of Prefix Scores of Strings](#2416-sum-of-prefix-scores-of-strings)
+
+* [425. Word Squares](#425-word-squares)
 
 ### 14. Longest Common Prefix
 
@@ -120,7 +112,7 @@ class Trie:
         self.root = TrieNode()
 
     def insert(self, word: str) -> None:
-        cur = self.root
+        cur = self.root 
         for c in word:
             if c not in cur.children:
                 cur.children[c] = TrieNode()
@@ -128,15 +120,15 @@ class Trie:
         cur.endOfWord = True
 
     def search(self, word: str) -> bool:
-        cur = self.root
+        cur = self.root 
         for c in word:
             if c not in cur.children:
                 return False
             cur = cur.children[c]
-        return cur.endOfWord == True
+        return cur.endOfWord
 
     def startsWith(self, prefix: str) -> bool:
-        cur = self.root
+        cur = self.root 
         for c in prefix:
             if c not in cur.children:
                 return False
@@ -144,96 +136,112 @@ class Trie:
         return True
 ```
 
-### 720. Longest Word in Dictionary
+### 3597. Partition String 
 
 ```python
+class Solution:
+    def partitionString(self, s: str) -> List[str]:
+        hash_set = set()
+        lst = []
+        res = ''
+        for c in s:
+            res += c 
+            if not res in hash_set:
+                hash_set.add(res)
+                lst.append(res)
+                res = ''
+        return lst 
+
+# trie
 class TrieNode:
     def __init__(self):
         self.children = {}
-        self.endOfWord = False
 
 class Trie:
     def __init__(self):
         self.root = TrieNode()
+        self.res = []
 
-    def insert(self, w):
+    def insert(self, word):
         cur = self.root 
-        for c in w:
+        left = 0
+        for i, c in enumerate(word):
             if c not in cur.children:
                 cur.children[c] = TrieNode()
-            cur = cur.children[c]
-        cur.endOfWord = True
-
-    def search(self, w):
-        cur = self.root 
-        for c in w:
-            cur = cur.children[c]
-            if not cur.endOfWord:
-                return False
-        return True
+                self.res.append(word[left: i + 1])
+                left = i + 1
+                cur = self.root 
+            else:
+                cur = cur.children[c]
 
 class Solution:
-    def longestWord(self, words: List[str]) -> str:
+    def partitionString(self, s: str) -> List[str]:
         t = Trie()
-        for w in words:
-            t.insert(w)
-        res = []
-        for w in words:
-            if t.search(w):
-                res.append(w)
-
-        if not res:
-            return ''
-        res.sort(key = lambda x: (-len(x), x))
-        return res[0]
+        t.insert(s)
+        return t.res
 ```
 
-### 1804. Implement Trie II
+```java
+class Solution {
+    public List<String> partitionString(String s) {
+        Set seen = new HashSet<>();
+        List res = new ArrayList<>();
+        StringBuilder cur = new StringBuilder();
+        for (char c: s.toCharArray()) {
+            cur.append(c);
+            String str = cur.toString();
+            if (!seen.contains(str)) {
+                seen.add(str);
+                res.add(str);
+                cur = new StringBuilder();
 
-```python
-class TrieNode:
-    def __init__(self):
-        self.children = {}
-        self.count_word = 0
-        self.count_prefix = 0
+            }
+        }
+        return res;
+    }
+}
+// trie
+class TrieNode {
+    Map<Character, TrieNode> children = new HashMap<>();
+}
 
-class Trie:
+class Trie {
+    private TrieNode root = new TrieNode();
+    private List<String> result = new ArrayList<>();
+    
+    public void insert(String word) {
+        TrieNode current = root;
+        int left = 0;
+        
+        for (int i = 0; i < word.length(); i++) {
+            char c = word.charAt(i);
+            
+            if (!current.children.containsKey(c)) {
+                current.children.put(c, new TrieNode());
+                result.add(word.substring(left, i + 1));
+                left = i + 1;
+                current = root;
+            } else {
+                current = current.children.get(c);
+            }
+        }
+    }
+    
+    public List<String> getResult() {
+        return result;
+    }
+}
 
-    def __init__(self):
-        self.root = TrieNode()
-
-    def insert(self, word: str) -> None:
-        cur = self.root 
-        for c in word:
-            if c not in cur.children:
-                cur.children[c] = TrieNode()
-            cur = cur.children[c]
-            cur.count_prefix += 1
-        cur.count_word += 1
-
-    def countWordsEqualTo(self, word: str) -> int:
-        cur = self.root
-        for c in word:
-            if c not in cur.children:
-                return 0
-            cur = cur.children[c]
-        return cur.count_word
-
-    def countWordsStartingWith(self, prefix: str) -> int:
-        cur = self.root
-        for c in prefix:
-            if c not in cur.children:
-                return 0
-            cur = cur.children[c]
-        return cur.count_prefix
-
-    def erase(self, word: str) -> None:
-        cur = self.root
-        for c in word:
-            cur = cur.children[c]
-            cur.count_prefix -= 1
-        cur.count_word -= 1
+class Solution {
+    
+    public List<String> partitionString(String s) {
+        Trie trie = new Trie();
+        trie.insert(s);
+        return trie.getResult();
+    }
+}
 ```
+
 
 ### 648. Replace Words
 
@@ -255,28 +263,27 @@ class Trie:
             cur = cur.children[c]
         cur.endOfWord = True
 
-    def search(self, word):
+    def find_prefix(self, word):
         cur = self.root
-        for c in word:
-            if c not in cur.children:
-                return False
-            cur = cur.children[c]
-        return cur.endOfWord == True
+        for i in range(len(word)):
+            if cur.endOfWord:
+                return word[: i]
+            if word[i] in cur.children:
+                cur = cur.children[word[i]]
+            else:
+                break 
+        return word
 
 class Solution:
     def replaceWords(self, dictionary: List[str], sentence: str) -> str:
+        sentence = sentence.split(' ')
         t = Trie()
         for word in dictionary:
             t.insert(word)
 
-        words = sentence.split(' ')
-        dictionary = set(dictionary)
-        for i, w in enumerate(words):
-            for j in range(len(w)):
-                if t.search(w[:j+1]):
-                    words[i] = w[:j+1]
-                    break
-        return ' '.join(words)
+        for i, word in enumerate(sentence):
+            sentence[i] = t.find_prefix(word)
+        return ' '.join(sentence)
 ```
 
 - set
@@ -284,14 +291,235 @@ class Solution:
 ```python
 class Solution:
     def replaceWords(self, dictionary: List[str], sentence: str) -> str:
-        words = sentence.split(' ')
         dictionary = set(dictionary)
-        for i, w in enumerate(words):
-            for j in range(len(w)):
-                if w[:j+1] in dictionary:
-                    words[i] = w[:j+1]
+        sentence = sentence.split(' ')
+        for i, word in enumerate(sentence):
+            for j in range(len(word)):
+                if word[:j + 1] in dictionary:
+                    sentence[i] = word[: j + 1]
                     break
-        return ' '.join(words)
+        return ' '.join(sentence)
+```
+
+### 720. Longest Word in Dictionary
+
+```python
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.endOfWord = False
+
+class Trie:
+
+    def __init__(self):
+        self.root = TrieNode()
+
+    def insert(self, word: str) -> None:
+        cur = self.root 
+        for c in word:
+            if c not in cur.children:
+                cur.children[c] = TrieNode()
+            cur = cur.children[c]
+        cur.endOfWord = True
+
+    def search(self, word: str) -> bool:
+        cur = self.root 
+        for c in word:
+            cur = cur.children[c]
+            if not cur.endOfWord:
+                return False
+        return True
+
+class Solution:
+    def longestWord(self, words: List[str]) -> str:
+        words.sort(key=lambda x: (-len(x), x))
+        t = Trie()
+        for word in words:
+            t.insert(word)
+
+        res = ''
+        for word in words:
+            if t.search(word):
+                res = word 
+                break
+        return res
+```
+
+### 2416. Sum of Prefix Scores of Strings
+
+```python
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.count = 0
+
+class Trie:
+
+    def __init__(self):
+        self.root = TrieNode()
+
+    def insert(self, word: str) -> None:
+        cur = self.root 
+        for c in word:
+            if c not in cur.children:
+                cur.children[c] = TrieNode()
+            cur = cur.children[c]
+            cur.count += 1
+
+    def search(self, word: str) -> bool:
+        cur = self.root 
+        res = 0
+        for c in word:
+            if c not in cur.children:
+                return False
+            cur = cur.children[c]
+            res += cur.count 
+        return res
+
+class Solution:
+    def sumPrefixScores(self, words: List[str]) -> List[int]:
+        t = Trie()
+        for word in words:
+            t.insert(word)
+
+        res = []
+        cur = t.root 
+        for word in words:
+            res.append(t.search(word))
+        return res 
+```
+
+### 677. Map Sum Pairs
+
+```python
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.count = 0
+
+class Trie:
+
+    def __init__(self):
+        self.root = TrieNode()
+        self.d = {}
+
+    def insert(self, word, val):
+        origin = val 
+        if word in self.d:
+            val = val - self.d[word]
+        cur = self.root 
+        for c in word:
+            if c not in cur.children:
+                cur.children[c] = TrieNode()
+            cur = cur.children[c]
+            cur.count += val 
+        self.d[word] = origin
+
+    def search(self, word: str) -> bool:
+        cur = self.root 
+        for c in word:
+            if c not in cur.children:
+                return 0
+            cur = cur.children[c]
+        return cur.count
+
+class MapSum:
+
+    def __init__(self):
+        self.t = Trie()
+
+    def insert(self, key: str, val: int) -> None:
+        self.t.insert(key, val)
+
+    def sum(self, prefix: str) -> int:
+        return self.t.search(prefix)
+```
+
+### 1268. Search Suggestions System
+
+```python
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.words = []
+
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+    
+    def insert(self, word):
+        cur = self.root 
+        for c in word:
+            if c not in cur.children:
+                cur.children[c] = TrieNode()
+            cur = cur.children[c]
+            cur.words.append(word)
+            cur.words.sort()
+            if len(cur.words) > 3:
+                cur.words.pop()
+
+class Solution:
+    def suggestedProducts(self, products: List[str], searchWord: str) -> List[List[str]]:
+        t = Trie()
+        for product in products:
+            t.insert(product)
+        cur = t.root 
+        res = [[] for _ in range(len(searchWord))]
+        for i, c in enumerate(searchWord):
+            if c not in cur.children:
+                break
+            cur = cur.children[c]
+            res[i] = cur.words
+        return res 
+```
+
+### 1804. Implement Trie II
+
+```python
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.prefix_count = 0
+        self.word_count = 0
+
+class Trie:
+
+    def __init__(self):
+        self.root = TrieNode()
+
+    def insert(self, word: str) -> None:
+        cur = self.root 
+        for c in word:
+            if c not in cur.children:
+                cur.children[c] = TrieNode()
+            cur = cur.children[c]
+            cur.prefix_count += 1
+        cur.word_count += 1
+
+    def countWordsEqualTo(self, word: str) -> int:
+        cur = self.root 
+        for c in word:
+            if c not in cur.children:
+                return 0
+            cur = cur.children[c]
+        return cur.word_count 
+
+    def countWordsStartingWith(self, prefix: str) -> int:
+        cur = self.root 
+        for c in prefix:
+            if c not in cur.children:
+                return 0
+            cur = cur.children[c]
+        return cur.prefix_count
+
+    def erase(self, word: str) -> None:
+        cur = self.root 
+        for c in word:
+            if c not in cur.children:
+                break
+            cur = cur.children[c]
+            cur.prefix_count -= 1
+        cur.word_count -= 1
 ```
 
 ### 211. Design Add and Search Words Data Structure
@@ -382,16 +610,16 @@ class WordDictionary:
 ### 212. Word Search II
 
 ```python
-class TrieNode: # has children and endOfWord
+class TrieNode: 
     def __init__(self):
-        self.children = {} # can be 26 for English letters
-        self.endOfWord = False # check if word ends with a letter
+        self.children = {} 
+        self.endOfWord = False 
 
-class Trie: # a tree like data structure to solve prefix problems in string
-    def __init__(self): # init the node
+class Trie: 
+    def __init__(self):
         self.root = TrieNode()
 
-    def insert(self, word: str) -> None: # insert a word inside a Trie
+    def insert(self, word: str) -> None:
         cur = self.root
         for c in word:
             if c not in cur.children:
@@ -419,7 +647,7 @@ class Solution:
             board[r][c] = "#"
             for dr, dc in directions:
                 row, col = r + dr, c + dc
-                if 0 <= row < R and 0 <= col < C:
+                if 0 <= row < R and 0 <= col < C and board[row][col] != '#':
                     dfs(row, col, child, path + char)
             board[r][c] = char
 
@@ -642,42 +870,55 @@ class WordFilter:
 # Your WordFilter object will be instantiated and called as such:
 # obj = WordFilter(words)
 # param_1 = obj.f(pref,suff)
-```
 
-### 2416. Sum of Prefix Scores of Strings
+```
+### 425. Word Squares
 
 ```python
-class TrieNode: # has children and endOfWord
+class TrieNode:
     def __init__(self):
-        self.children = {} # can be 26 for English letters
-        self.endOfWord = False # check if word ends with a letter
-        self.count = 0
+        self.children = {}
+        self.words = []
 
-class Trie: # a tree like data structure to solve prefix problems in string
-    def __init__(self): # init the node
+class Trie:
+    def __init__(self):
         self.root = TrieNode()
 
-    def insert(self, word: str) -> None: # insert a word inside a Trie
-        cur = self.root
+    def insert(self, word):
+        cur = self.root 
         for c in word:
             if c not in cur.children:
                 cur.children[c] = TrieNode()
             cur = cur.children[c]
-            cur.count += 1
-        cur.endOfWord = True
+            cur.words.append(word)
+        
+    def search(self, prefix):
+        cur = self.root 
+        for c in prefix:
+            if c not in cur.children:
+                return []
+            cur = cur.children[c]
+        return cur.words
 
 class Solution:
-    def sumPrefixScores(self, words: List[str]) -> List[int]:
+    def wordSquares(self, words: List[str]) -> List[List[str]]:
         t = Trie()
         for word in words:
             t.insert(word)
-        res = [0] * len(words)
-        for i, word in enumerate(words):
-            cur = t.root 
-            ans = 0
-            for c in word:
-                cur = cur.children[c]
-                ans += cur.count
-            res[i] = ans 
+
+        res = []
+        n = len(words[0])
+        def backtrack(i, cur_words):
+            if i == n:
+                res.append(cur_words)
+                return 
+
+            prefix = ''.join(word[i] for word in cur_words)
+            words = t.search(prefix)
+            for word in words:
+                backtrack(i + 1, cur_words + [word])
+        
+        for word in words:
+            backtrack(1, [word])
         return res
 ```
