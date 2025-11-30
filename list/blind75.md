@@ -139,6 +139,19 @@ class Solution:
         return max(d.values()) if d.values() else 0
 ```
 
+```python
+class Solution:
+    def longestConsecutive(self, nums: List[int]) -> int:
+        nums, res = set(nums), 0
+        for n in nums:
+            if n - 1 not in nums:
+                i = n + 1
+                while i in nums:
+                    i += 1
+                res = max(res, i - n)
+        return res 
+```
+
 ## 2 Two Pointers: 3
 
 ### 125. Valid Palindrome

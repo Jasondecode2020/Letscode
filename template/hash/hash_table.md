@@ -1,28 +1,53 @@
 # Hash
 
-## 1. 2 sum(16)
+## 2 sum
+- The idea is 2 sum, enumerate right index and check left index, and use s hash table to store the checked state.
 
 * [1. Two Sum](#1-two-sum)  
+* [2441. Largest Positive Integer That Exists With Its Negative](#2441-largest-positive-integer-that-exists-with-its-negative)
+* [1512. Number of Good Pairs](#1512-number-of-good-pairs)
+* [2001. Number of Pairs of Interchangeable Rectangles](#2001-number-of-pairs-of-innterchangeable-rectangles)
+* [1128. Number of Equivalent Domino Pairs](#1128-number-of-equivalent-domino-pairs)
+
+* [219. Contains Duplicate II](#219-contains-duplicate-ii)
+* [121. Best Time to Buy and Sell Stock](#121-best-time-to-buy-and-sell-stock)
+* [2016. Maximum Difference Between Increasing Elements](#2016-maximum-difference-between-increasing-elements)
+* [2260. Minimum Consecutive Cards to Pick Up](#2260-minimum-consecutive-cards-to-pick-up)
+* [2815. Max Pair Sum in an Array](#2815-max-pair-sum-in-an-array)
+
 * [167. Two Sum II - Input Array Is Sorted](#167-two-sum-ii---input-array-is-sorted)
 * [170. Two Sum III - Data structure design](#170-two-sum-iii---data-structure-design)
 * [653. Two Sum IV - Input is a BST](#653-two-sum-iv---input-is-a-bst)
 * [1214. Two Sum BSTs](#1214-two-sum-bsts)
+* [2964. Number of Divisible Triplet Sums](#2964-number-of-divisible-triplet-sums)
 
-* [1512. Number of Good Pairs](#1512-number-of-good-pairs)
-* [2815. Max Pair Sum in an Array](#2815-max-pair-sum-in-an-array)
-* [2748. Number of Beautiful Pairs](#2748-number-of-beautiful-pairs)
-* [219. Contains Duplicate II](#219-contains-duplicate-ii)
-* [121. Best Time to Buy and Sell Stock](#121-best-time-to-buy-and-sell-stock)
 * [2342. Max Sum of a Pair With Equal Sum of Digits](#2342-max-sum-of-a-pair-with-equal-sum-of-digits)
+* [1679. Max Number of K-Sum Pairs](#1679-max-number-of-k-sum-pairs)
+* [16-24. Pairs With Sum LCCI](#16-24-pairs-with-sum-lcci)
+* [3623. Count Number of Trapezoids I](#3623-count-number-of-trapezoids-i)
+* [624. Maximum Distance in Arrays](#624-maximum-distance-in-arrays)
+
+* [2364. Count Number of Bad Pairs](#2364-count-number-of-bad-pairs)
+* [1014. Best Sightseeing Pair](#1014-best-sightseeing-pair)
+* [3371. Identify the Largest Outlier in an Array]()
+* [2748. Number of Beautiful Pairs](#2748-number-of-beautiful-pairs)
+* [1814. Count Nice Pairs in an Array](#1814-count-nice-pairs-in-an-array)
+
+* [3584. Maximum Product of First and Last Elements of a Subsequence](#3584-maximum-product-of-first-and-last-elements-of-a-subsequence)
+* [2905. Find Indices With Index and Value Difference II](#2905-find-indices-with-index-and-value-difference-ii)
 * [1010. Pairs of Songs With Total Durations Divisible by 60](#1010-pairs-of-songs-with-total-durations-divisible-by-60)
 * [3185. Count Pairs That Form a Complete Day II](#3185-count-pairs-that-form-a-complete-day-ii)
 * [454. 4Sum II](#454-4sum-ii)
+
 * [2874. Maximum Value of an Ordered Triplet II](#2874-maximum-value-of-an-ordered-triplet-ii)
-* [1014. Best Sightseeing Pair](#1014-best-sightseeing-pair)
 * [2971. Find Polygon With the Largest Perimeter](#2971-find-polygon-with-the-largest-perimeter)
-* [1679. Max Number of K-Sum Pairs](#1679-max-number-of-k-sum-pairs)
-* [2964. Number of Divisible Triplet Sums](#2964-number-of-divisible-triplet-sums)
 * [533. Lonely Pixel II](#533-lonely-pixel-ii)
+
+## Diagonal
+
+* [1329. Sort the Matrix Diagonally]()
+* [3446. Sort Matrix by Diagonals](#3446-sort-matrix-by-diagonals)
+* [498. Diagonal Traverse](#498-diagonal-traverse)
 
 ### 1. Two Sum
 
@@ -79,6 +104,124 @@ class Solution {
         return new int[0];
     }
 }
+```
+
+### 2441. Largest Positive Integer That Exists With Its Negative
+
+```python
+class Solution:
+    def findMaxK(self, nums: List[int]) -> int:
+        s, res = set(), -1
+        for i, n in enumerate(nums):
+            ans = -n 
+            if ans in s:
+                res = max(res, abs(ans))
+            s.add(n)
+        return res 
+```
+
+
+### 1512. Number of Good Pairs
+
+```python
+class Solution:
+    def numIdenticalPairs(self, nums: List[int]) -> int:
+        d, res = defaultdict(int), 0
+        for i, n in enumerate(nums):
+            res += d[n]
+            d[n] += 1
+        return res 
+```
+
+### 2001. Number of Pairs of Interchangeable Rectangles
+
+```python
+class Solution:
+    def interchangeableRectangles(self, rectangles: List[List[int]]) -> int:
+        d, res = defaultdict(int), 0
+        for w, h in rectangles:
+            res += d[w / h]
+            d[w / h] += 1
+        return res 
+```
+
+### 1128. Number of Equivalent Domino Pairs
+
+```python
+class Solution:
+    def numEquivDominoPairs(self, dominoes: List[List[int]]) -> int:
+        d, res = defaultdict(int), 0
+        for a, b in dominoes:
+            if a > b:
+                a, b = b, a 
+            res += d[(a, b)]
+            d[(a, b)] += 1
+        return res 
+```
+
+### 219. Contains Duplicate II
+
+```python
+class Solution:
+    def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
+        d = defaultdict(int)
+        for i, n in enumerate(nums):
+            if n in d and i - d[n] <= k:
+                return True
+            d[n] = i 
+        return False
+```
+
+
+### 121. Best Time to Buy and Sell Stock
+
+```python
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        res, lowest = 0, prices[0]
+        for p in prices:
+            lowest = min(lowest, p)
+            res = max(res, p - lowest)
+        return res 
+```
+
+### 2016. Maximum Difference Between Increasing Elements
+
+```python
+class Solution:
+    def maximumDifference(self, nums: List[int]) -> int:
+        res, lowest = -1, inf 
+        for i, n in enumerate(nums):
+            lowest = min(lowest, n)
+            res = max(res, n - lowest)
+        return res if res != 0 else -1
+```
+
+### 2260. Minimum Consecutive Cards to Pick Up
+
+```python
+class Solution:
+    def minimumCardPickup(self, cards: List[int]) -> int:
+        d, res = defaultdict(int), -1
+        for i, n in enumerate(cards):
+            if n in d:
+                res = max(res, i - d[n] + 1)
+            d[n] = i 
+        return res 
+```
+
+### 2815. Max Pair Sum in an Array
+
+```python
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        res = -1
+        d = defaultdict(lambda: -inf)
+        for v in nums:
+            mx_d = max(map(int, str(v)))
+            res = max(res, v + d[mx_d])
+            d[mx_d] = max(d[mx_d], v)
+        return res 
 ```
 
 ### 167. Two Sum II - Input Array Is Sorted
@@ -167,34 +310,6 @@ class Solution:
         return dfs(root)
 ```
 
-### 1512. Number of Good Pairs
-
-```python
-class Solution:
-    def numIdenticalPairs(self, nums: List[int]) -> int:
-        d = defaultdict(int)
-        res = 0
-        for v in nums:
-            if v in d:
-                res += d[v]
-            d[v] += 1
-        return res
-```
-
-### 2815. Max Pair Sum in an Array
-
-```python
-class Solution:
-    def maxSum(self, nums: List[int]) -> int:
-        res = -1
-        d = defaultdict(lambda: -inf)
-        for v in nums:
-            mx_d = max(map(int, str(v)))
-            res = max(res, v + d[mx_d])
-            d[mx_d] = max(d[mx_d], v)
-        return res 
-```
-
 ### 2748. Number of Beautiful Pairs
 
 ```python
@@ -210,20 +325,6 @@ class Solution:
         return res 
 ```
 
-### 219. Contains Duplicate II
-
-```python
-class Solution:
-    def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
-        d = defaultdict(int)
-        for i, n in enumerate(nums):
-            if n in d:
-                if i - d[n] <= k:
-                    return True
-            d[n] = i
-        return False
-```
-
 ### 121. Best Time to Buy and Sell Stock
 
 ```python
@@ -237,36 +338,17 @@ class Solution:
         return profit
 ```
 
-### 2342. Max Sum of a Pair With Equal Sum of Digits
-
-```python
-class Solution:
-    def maximumSum(self, nums: List[int]) -> int:
-        d = defaultdict(int)
-        res = -1
-        for n in nums:
-            total = sum(map(int, str(n)))
-            if total in d:
-                res = max(res, n + d[total])
-            d[total] = max(d[total], n)
-        return res
-```
-
 ### 1010. Pairs of Songs With Total Durations Divisible by 60
 
 ```python
 class Solution:
     def numPairsDivisibleBy60(self, time: List[int]) -> int:
-        d = defaultdict(int)
-        res = 0
-        for t in time:
-            ans = 60 - (t % 60)
-            if ans in d:
-                res += d[ans]
-            d[t % 60] += 1
-        m = d[0]
-        res += m * (m - 1) // 2
-        return res
+        d, res = defaultdict(int), 0
+        for i, n in enumerate(time):
+            ans = 60 - n % 60
+            res += d[ans] + d[ans - 60]
+            d[n % 60] += 1
+        return res 
 ```
 
 ### 3185. Count Pairs That Form a Complete Day II
@@ -274,16 +356,12 @@ class Solution:
 ```python
 class Solution:
     def countCompleteDayPairs(self, hours: List[int]) -> int:
-        d = defaultdict(int)
-        res = 0
-        for h in hours:
-            ans = 24 - (h % 24)
-            if ans in d:
-                res += d[ans]
-            d[h % 24] += 1
-        m = d[0]
-        res += m * (m - 1) // 2
-        return res
+        d, res = defaultdict(int), 0
+        for i, n in enumerate(hours):
+            ans = 24 - n % 24
+            res += d[ans] + d[ans - 24]
+            d[n % 24] += 1
+        return res 
 ```
 
 ### 454. 4Sum II
@@ -333,6 +411,23 @@ class Solution:
         return res
 ```
 
+### 3371. Identify the Largest Outlier in an Array
+
+```python
+class Solution:
+    def getLargestOutlier(self, nums: List[int]) -> int:
+        # x + 2y = total
+        res, total = -inf, sum(nums)
+        d = Counter(nums)
+        for i, x in enumerate(nums):
+            d[x] -= 1
+            y = (total - x) / 2
+            if y in d and d[y] > 0:    
+                res = max(res, x)
+            d[x] += 1
+        return res 
+```
+
 ### 1814. Count Nice Pairs in an Array
 
 ```python
@@ -350,10 +445,44 @@ class Solution:
         res = 0
         for i, n in enumerate(nums):
             val = n - reversePosNum(n)
-            if val in d:
-                res += d[val]
+            res += d[val]
             d[val] += 1
         return res % mod
+```
+
+### 3584. Maximum Product of First and Last Elements of a Subsequence
+
+```python
+class Solution:
+    def maximumProduct(self, nums: List[int], m: int) -> int:
+        res = mx = -inf
+        mn = inf
+        for i in range(m - 1, len(nums)):
+            y = nums[i - m + 1]
+            mn = min(mn, y)
+            mx = max(mx, y)
+            x = nums[i]
+            res = max(res, x * mx, x * mn)
+        return res 
+```
+
+### 2905. Find Indices With Index and Value Difference II
+
+```python
+class Solution:
+    def findIndices(self, nums: List[int], indexDifference: int, valueDifference: int) -> List[int]:
+        max_idx = min_idx = 0
+        for j in range(indexDifference, len(nums)):
+            i = j - indexDifference
+            if nums[i] > nums[max_idx]:
+                max_idx = i 
+            elif nums[i] < nums[min_idx]:
+                min_idx = i 
+            if nums[max_idx] - nums[j] >= valueDifference:
+                return [max_idx, j]
+            if nums[j] - nums[min_idx] >= valueDifference:
+                return [min_idx, j]
+        return [-1, -1]
 ```
 
 ### 1214. Two Sum BSTs
@@ -429,28 +558,34 @@ class Solution:
         return res
 ```
 
-### 1679. Max Number of K-Sum Pairs
-
-```python
-class Solution:
-    def maxOperations(self, nums: List[int], k: int) -> int:
-        nums.sort()
-        l, r = 0, len(nums) - 1
-        res = 0
-        while l < r:
-            two = nums[l] + nums[r]
-            if two == k:
-                res += 1
-                l += 1
-                r -= 1
-            elif two > k:
-                r -= 1
-            else:
-                l += 1
-        return res 
-```
-
 ### 2964. Number of Divisible Triplet Sums
+
+Given a 0-indexed integer array nums and an integer d, return the number of triplets (i, j, k) such that i < j < k and (nums[i] + nums[j] + nums[k]) % d == 0.
+ 
+
+Example 1:
+
+Input: nums = [3,3,4,7,8], d = 5
+Output: 3
+Explanation: The triplets which are divisible by 5 are: (0, 1, 2), (0, 2, 4), (1, 2, 4).
+It can be shown that no other triplet is divisible by 5. Hence, the answer is 3.
+Example 2:
+
+Input: nums = [3,3,3,3], d = 3
+Output: 4
+Explanation: Any triplet chosen here has a sum of 9, which is divisible by 3. Hence, the answer is the total number of triplets which is 4.
+Example 3:
+
+Input: nums = [3,3,3,3], d = 6
+Output: 0
+Explanation: Any triplet chosen here has a sum of 9, which is not divisible by 6. Hence, the answer is 0.
+ 
+
+Constraints:
+
+1 <= nums.length <= 1000
+1 <= nums[i] <= 109
+1 <= d <= 109
 
 ```python
 class Solution:
@@ -469,6 +604,116 @@ class Solution:
                 two = nums[i] + nums[j]
                 two %= d
                 c[two] += 1
+        return res 
+```
+
+### 2342. Max Sum of a Pair With Equal Sum of Digits
+
+```python
+class Solution:
+    def maximumSum(self, nums: List[int]) -> int:
+        d = defaultdict(int)
+        res = -1
+        for n in nums:
+            total = sum(map(int, str(n)))
+            if total in d:
+                res = max(res, n + d[total])
+            d[total] = max(d[total], n)
+        return res
+```
+
+### 1679. Max Number of K-Sum Pairs
+
+```python
+class Solution:
+    def maxOperations(self, nums: List[int], k: int) -> int:
+        d, res = defaultdict(int), 0
+        for i, n in enumerate(nums):
+            ans = k - n 
+            if ans in d and d[ans] > 0:
+                res += 1
+                d[ans] -= 1
+            else:
+                d[n] += 1
+        return res 
+```
+
+### 16-24. Pairs With Sum LCCI
+
+```python
+class Solution:
+    def pairSums(self, nums: List[int], target: int) -> List[List[int]]:
+        d, res = defaultdict(int), []
+        for n in nums:
+            ans = target - n 
+            if ans in d and d[ans] > 0:
+                res.append([ans, n])
+                d[ans] -= 1
+            else:
+                d[n] += 1
+        return res 
+```
+
+### 3623. Count Number of Trapezoids I
+
+```python
+class Solution:
+    def countTrapezoids(self, points: List[List[int]]) -> int:
+        mod = 10 ** 9 + 7
+        d = defaultdict(int)
+        for x, y in points:
+            d[y] += 1
+
+        res = 0
+        b = [v for v in d.values() if v >= 2]
+        b = [x * (x - 1) // 2 for x in b]
+        total = sum(b)
+        for a in b:
+            x = total - a 
+            res += a * x
+            total -= a
+        return res % mod
+
+class Solution:
+    def countTrapezoids(self, points: List[List[int]]) -> int:
+        mod = 10 ** 9 + 7
+        d = Counter(y for x, y in points)
+        res = s = 0
+        for x in d.values():
+            y = x * (x - 1) // 2
+            res += s * y 
+            s += y
+        return res % mod
+```
+
+### 624. Maximum Distance in Arrays
+
+```python
+class Solution:
+    def maxDistance(self, arrays: List[List[int]]) -> int:
+        res = 0
+        mn, mx = inf, -inf 
+        for a in arrays:
+            res = max(res, mx - a[0], a[-1] - mn)
+            mn = min(mn, a[0])
+            mx = max(mx, a[-1])
+        return res 
+```
+
+### 2364. Count Number of Bad Pairs
+
+```python
+class Solution:
+    def countBadPairs(self, nums: List[int]) -> int:
+        # j - i != nums[j] - nums[i] => i - nums[i] = j - nums[j]
+        d, res = defaultdict(int), 0
+        for i, n in enumerate(nums):
+            ans = i - n 
+            if ans not in d:
+                res += i 
+            else:
+                res += i - d[ans]
+            d[ans] += 1
         return res 
 ```
 
@@ -687,4 +932,62 @@ class Solution:
             if f - 1 > 0:
                 countFreq[f - 1] += 1
         return 2
+```
+
+### 1329. Sort the Matrix Diagonally
+
+```python
+class Solution:
+    def diagonalSort(self, mat: List[List[int]]) -> List[List[int]]:
+        R, C, d = len(mat), len(mat[0]), defaultdict(list)
+        for r in range(R):
+            for c in range(C):
+                d[r - c].append(mat[r][c])
+        for k, v in d.items():
+            d[k].sort()
+        
+        for r in range(R):
+            for c in range(C):
+                mat[r][c] = d[r - c].pop(0)
+        return mat
+```
+
+### 3446. Sort Matrix by Diagonals
+
+```python
+class Solution:
+    def sortMatrix(self, grid: List[List[int]]) -> List[List[int]]:
+        n, d = len(grid), defaultdict(list)
+        for r in range(n):
+            for c in range(n):
+                d[r - c].append(grid[r][c])
+        for k, v in d.items():
+            d[k].sort()
+        
+        for r in range(n):
+            for c in range(n):
+                if r < c:
+                    grid[r][c] = d[r - c].pop(0)
+                else:
+                    grid[r][c] = d[r - c].pop()
+        return grid
+```
+
+### 498. Diagonal Traverse
+
+```python
+class Solution:
+    def findDiagonalOrder(self, mat: List[List[int]]) -> List[int]:
+        R, C, d = len(mat), len(mat[0]), defaultdict(list)
+        for r in range(R):
+            for c in range(C):
+                d[r + c].append(mat[r][c])
+        
+        res = []
+        for k, v in d.items():
+            if k % 2 == 0:
+                res.extend(v[::-1])
+            else:
+                res.extend(v)
+        return res 
 ```

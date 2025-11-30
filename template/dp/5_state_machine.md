@@ -23,6 +23,18 @@ class Solution:
         return res 
 ```
 
+### 2016. Maximum Difference Between Increasing Elements
+
+```python
+class Solution:
+    def maximumDifference(self, nums: List[int]) -> int:
+        res, lowest = -1, inf 
+        for i, n in enumerate(nums):
+            lowest = min(lowest, n)
+            res = max(res, n - lowest)
+        return res if res != 0 else -1
+```
+
 ### 122. Best Time to Buy and Sell Stock II
 
 ```python

@@ -2,13 +2,101 @@
 
 ### basics
 
-* [1441. Build an Array With Stack Operations](#1441-build-an-array-with-stack-operations) 1180
+* [20. Valid Parentheses](#20-valid-parentheses)
+* [921. Minimum Add to Make Parentheses Valid](#921-minimum-add-to-make-parentheses-valid)
+* [1021. Remove Outermost Parentheses](#1021-remove-outermost-parentheses)
+* [1614. Maximum Nesting Depth of the Parentheses](#1614-maximum-nesting-depth-of-the-parentheses)
+* [1190. Reverse Substrings Between Each Pair of Parentheses]()
+
+* [1441. Build an Array With Stack Operations](#1441-build-an-array-with-stack-operations)
 * [844. Backspace String Compare](#844-Backspace-String-Compare) 1228
 * [682. Baseball Game](#682-baseball-game) 1250
 * [2390. Removing Stars From a String](#2390-removing-stars-from-a-string) 1348
 * [1472. Design Browser History](#1472-design-browser-history) 1454
 * [946. Validate Stack Sequences](#946-validate-stack-sequences) 1462
 * [71. Simplify Path](#71-simplify-path) 1500
+
+
+### 20. Valid Parentheses
+
+```python
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack, valid = [], ['{}', '[]', '()']
+        for c in s:
+            if stack and any([c == valid[i][1] and stack[-1] == valid[i][0] for i in range(len(valid))]):
+                stack.pop()
+            else:
+                stack.append(c)
+        return not stack
+```
+
+### 921. Minimum Add to Make Parentheses Valid
+
+```python
+class Solution:
+    def minAddToMakeValid(self, s: str) -> int:
+        stack = []
+        for c in s:
+            if stack and stack[-1] == '(' and c == ')':
+                stack.pop()
+            else:
+                stack.append(c)
+        return len(stack)
+```
+
+### 1021. Remove Outermost Parentheses
+
+```python
+class Solution:
+    def removeOuterParentheses(self, s: str) -> str:
+        res, ans = '', ''
+        openP, closedP = 0, 0
+        for c in s:
+            if c == '(':
+                openP += 1
+            else:
+                closedP += 1
+            ans += c 
+            if openP == closedP:
+                res += ans[1:-1]
+                ans = ''
+        return res 
+```
+
+### 1614. Maximum Nesting Depth of the Parentheses
+
+```python
+class Solution:
+    def maxDepth(self, s: str) -> int:
+        res, stack = 0, []
+        for c in s:
+            if c == '(':
+                stack.append(c)
+            elif stack and stack[-1] == '(' and c == ')':
+                stack.pop()
+            res = max(res, len(stack))
+        return res 
+```
+
+### 1190. Reverse Substrings Between Each Pair of Parentheses
+
+```python
+class Solution:
+    def reverseParentheses(self, s: str) -> str:
+        stack = []
+        res = []
+        for c in s:
+            if c == ')':
+                while stack[-1] != '(':
+                    res.append(stack.pop())
+                stack.pop()
+                stack.extend(res)
+                res = []
+            else:
+                stack.append(c)
+        return ''.join(stack)
+```
 
 ### 1441. Build an Array With Stack Operations
 
