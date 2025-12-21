@@ -83,8 +83,8 @@
 
 ## Monotonic stack (2)
 
-* [739. Daily Temperatures](#739-Daily-Temperatures) 1700
-* [84. Largest Rectangle in Histogram](#84-Largest-Rectangle-in-Histogram) 1900
+* [739. Daily Temperatures](#739-Daily-Temperatures)
+* [84. Largest Rectangle in Histogram](#84-Largest-Rectangle-in-Histogram)
 
 ## Linked list (14)
 
@@ -512,30 +512,26 @@ class Solution:
         Do not return anything, modify matrix in-place instead.
         """
         R, C = len(matrix), len(matrix[0])
+        first_row_has_zero = 0 in matrix[0]
+        first_col_has_zero = any(row[0] == 0 for row in matrix)
         for r in range(1, R):
             for c in range(1, C):
                 if matrix[r][c] == 0:
-                    matrix[0][c] = -matrix[0][c]
-                    matrix[r][0] = -matrix[r][0]
+                    matrix[r][0] = 0
+                    matrix[0][c] = 0
 
         for r in range(1, R):
             for c in range(1, C):
-                if matrix[r][0] < 0 or matrix[0][c] < 0:
+                if matrix[r][0] == 0 or matrix[0][c] == 0:
                     matrix[r][c] = 0
 
-        for r in range(R):
-            if matrix[r][0] == 0:
-                for r in range(R):
-                    matrix[r][0] = 0
-                break
-        for c in range(C):
-            if matrix[0][c] == 0:
-                for c in range(C):
-                    matrix[0][c] = 0
-                break
-        for r in range(R):
+        if first_row_has_zero:
             for c in range(C):
-                matrix[r][c] = abs(matrix[r][c])
+                matrix[0][c] = 0
+
+        if first_col_has_zero:
+            for row in matrix:
+                row[0] = 0
 ```
 
 ### 54. Spiral Matrix
@@ -576,8 +572,8 @@ class Solution:
         """
         Do not return anything, modify matrix in-place instead.
         """
-        matrix.reverse()
         R, C = len(matrix), len(matrix[0])
+        matrix.reverse()
         for r in range(R):
             for c in range(r):
                 matrix[r][c], matrix[c][r] = matrix[c][r], matrix[r][c]
@@ -787,21 +783,22 @@ class Solution:
 
 ```python
 class Solution:
-    def partition(self, s: str) -> List[List[str]]:
-        def valid(s):
-            return s == s[::-1]
-        def backtrack(i, ans):
-            if ans and not valid(ans[-1]):
-                return 
-            if i == n:
-                res.append(ans)
-                return 
-            for j in range(i, n):
-                backtrack(j + 1, ans + [s[i: j + 1]])
+    def numIslands(self, grid: List[List[str]]) -> int:
+        def dfs(r, c):
+            grid[r][c] = '0'
+            for dr, dc in directions:
+                row, col = r + dr, c + dc 
+                if 0 <= row < R and 0 <= col < C and grid[row][col] == '1':
+                    dfs(row, col)
 
-        n = len(s)
-        res = []
-        backtrack(0, [])
+        R, C = len(grid), len(grid[0])
+        directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+        res = 0
+        for r in range(R):
+            for c in range(C):
+                if grid[r][c] == '1':
+                    dfs(r, c)
+                    res += 1
         return res 
 ```
 
@@ -809,22 +806,25 @@ class Solution:
 
 ```python
 class Solution:
-    def partition(self, s: str) -> List[List[str]]:
-        def valid(s):
-            return s == s[::-1]
-        def backtrack(i, ans):
-            if ans and not valid(ans[-1]):
-                return 
-            if i == n:
-                res.append(ans)
-                return 
-            for j in range(i, n):
-                backtrack(j + 1, ans + [s[i: j + 1]])
+    def orangesRotting(self, grid: List[List[int]]) -> int:
+        R, C = len(grid), len(grid[0])
+        q = deque()
+        directions = [[0, 1], [1, 0], [-1, 0], [0, -1]]
+        for r in range(R):
+            for c in range(C):
+                if grid[r][c] == 2:
+                    q.append((r, c, 0))
 
-        n = len(s)
-        res = []
-        backtrack(0, [])
-        return res 
+        res = 0
+        while q:
+            r, c, d = q.popleft()
+            res = max(res, d)
+            for dr, dc in directions:
+                row, col = r + dr, c + dc 
+                if 0 <= row < R and 0 <= col < C and grid[row][col] == 1:
+                    grid[row][col] = 2
+                    q.append((row, col, d + 1))
+        return res if all(grid[r][c] != 1 for r in range(R) for c in range(C)) else -1
 ```
 
 ### 207. Course Schedule
@@ -832,14 +832,12 @@ class Solution:
 ```python
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        indegree = [0] * numCourses
-        g = defaultdict(list)
-        for u, v in prerequisites:
-            indegree[u] += 1
-            g[v].append(u)
-
-        q = deque([i for i, v in enumerate(indegree) if v == 0])
-        res = 0
+        g, indegree = defaultdict(list), [0] * numCourses
+        for a, b in prerequisites:
+            g[b].append(a)
+            indegree[a] += 1
+        
+        q, res = deque([i for i, v in enumerate(indegree) if v == 0]), 0
         while q:
             node = q.popleft()
             res += 1
@@ -1025,10 +1023,9 @@ class Solution:
 ```python
 class Solution:
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
-        n = len(temperatures)
-        res, stack = [0] * n, []
-        for i, t in enumerate(temperatures):
-            while stack and t > temperatures[stack[-1]]:
+        res, stack = [0] * len(temperatures), []
+        for i, n in enumerate(temperatures):
+            while stack and n > temperatures[stack[-1]]:
                 j = stack.pop()
                 res[j] = i - j
             stack.append(i)
@@ -1328,6 +1325,35 @@ class Solution:
             p.next = ListNode(n)
             p = p.next 
         return dummy.next 
+
+# S(1)
+
+class Solution:
+    def sortList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        def merge(left, right):
+            p = dummy = ListNode()
+            while left and right:
+                if left.val > right.val:
+                    p.next = right
+                    right = right.next 
+                else:
+                    p.next = left 
+                    left = left.next 
+                p = p.next 
+            p.next = left or right 
+            return dummy.next 
+
+        def sort(head):
+            if not head or not head.next:
+                return head 
+            slow, fast = head, head.next 
+            while fast and fast.next:
+                slow = slow.next 
+                fast = fast.next.next 
+            mid, slow.next = slow.next, None 
+            left, right = sort(head), sort(mid)
+            return merge(left, right)
+        return sort(head)
 ```
 
 ### 146. LRU Cache
@@ -2178,21 +2204,18 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        n = len(nums)
-        k = k % n 
-        nums.reverse()
-        l, r = 0, k - 1
-        while l < r:
-            nums[l], nums[r] = nums[r], nums[l]
-            l += 1
-            r -= 1
-        l, r = k, n - 1
-        while l < r:
-            nums[l], nums[r] = nums[r], nums[l]
-            l += 1
-            r -= 1
-```
+        def reverse(l, r):
+            while l < r:
+                nums[l], nums[r] = nums[r], nums[l]
+                l += 1
+                r -= 1
 
+        n = len(nums)
+        k %= n 
+        reverse(0, n - 1)
+        reverse(0, k - 1)
+        reverse(k, n - 1)
+```
 
 ### 169. Majority Element
 
