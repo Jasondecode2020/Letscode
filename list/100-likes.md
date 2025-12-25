@@ -464,14 +464,29 @@ class Solution:
 ### 287. Find the Duplicate Number
 
 ```python
+# wrong solution: modify the nums array
 class Solution:
     def findDuplicate(self, nums: List[int]) -> int:
         for i, n in enumerate(nums):
             n = abs(n)
-            if nums[n - 1] == -abs(nums[n - 1]):
+            if nums[n] < 0:
                 return n 
             else:
-                nums[n - 1] = -abs(nums[n - 1])
+                nums[n] = -abs(nums[n])
+
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        slow = fast = 0
+        while True:
+            slow = nums[slow]
+            fast = nums[nums[fast]]
+            if slow == fast:
+                break 
+        head = 0
+        while slow != head:
+            slow = nums[slow]
+            head = nums[head]
+        return head 
 ```
 
 ### 41. First Missing Positive
@@ -667,14 +682,14 @@ class Solution:
 ```python
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
-        def backtrack(idx, ans, total):
+        def backtrack(i, ans, total):
+            if i >= n or total > target:
+                return
             if total == target:
                 res.append(ans)
                 return 
-            if total > target:
-                return 
-            for i in range(idx, n):
-                backtrack(i, ans + [candidates[i]], total + candidates[i])
+            backtrack(i, ans + [candidates[i]], total + candidates[i])
+            backtrack(i + 1, ans, total)
         res, n = [], len(candidates)
         backtrack(0, [], 0)
         return res
@@ -703,19 +718,15 @@ class Solution:
 ```python
 class Solution:
     def partition(self, s: str) -> List[List[str]]:
-        def valid(s):
-            return s == s[::-1]
         def backtrack(i, ans):
-            if ans and not valid(ans[-1]):
-                return 
             if i == n:
                 res.append(ans)
                 return 
             for j in range(i, n):
-                backtrack(j + 1, ans + [s[i: j + 1]])
-
-        n = len(s)
-        res = []
+                if s[i: j + 1] == s[i: j + 1][::-1]:
+                    backtrack(j + 1, ans + [s[i: j + 1]])
+        
+        n, res = len(s), []
         backtrack(0, [])
         return res 
 ```
@@ -725,25 +736,23 @@ class Solution:
 ```python
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
-        R, C, n, visited = len(board), len(board[0]), len(word), set()
-        s = ''.join([''.join(item) for item in board])
-        if any(s.count(c) < word.count(c) for c in word):
-            return False
-        def dfs(i, r, c):
-            if i == len(word):
-                return True
-            if 0 <= r < R and 0 <= c < C and (r, c) not in visited and board[r][c] == word[i]:
-                visited.add((r, c))
-                res = dfs(i + 1, r + 1, c) or dfs(i + 1, r, c + 1) or dfs(i + 1, r - 1, c) or dfs(i + 1, r, c - 1)
-                visited.remove((r, c))
-                return res 
+        cnt = Counter(c for row in board for c in row)
+        if not cnt >= Counter(word):
             return False
 
-        for r in range(R):
-            for c in range(C):
-                if board[r][c] == word[0] and dfs(0, r, c):
-                    return True
-        return False
+        R, C = len(board), len(board[0])
+        def dfs(i, r, c):
+            if board[r][c] != word[i]:
+                return False
+            if i == len(word) - 1:
+                return True 
+            board[r][c] = ''
+            for row, col in (r, c - 1), (r, c + 1), (r - 1, c), (r + 1, c):
+                if 0 <= row < R and 0 <= col < C and dfs(i + 1, row, col):
+                    return True 
+            board[r][c] = word[i]
+            return False 
+        return any(dfs(0, r, c) for r in range(R) for c in range(C))
 ```
 
 ### 51. N-Queens
@@ -1709,12 +1718,12 @@ class Solution:
         def dfs(node):
             if not node:
                 return 0
-            l, r = max(dfs(node.left), 0), max(dfs(node.right), 0)
-            self.res = max(self.res, node.val + l + r)
-            return node.val + max(l, r)
-        self.res = -inf
+            left, right = max(dfs(node.left), 0), max(dfs(node.right), 0)
+            self.res = max(self.res, node.val + left + right)
+            return max(left, right) + node.val 
+        self.res = -inf 
         dfs(root)
-        return self.res 
+        return self.res
 ```
 
 ## Binary Search (6)
@@ -1804,7 +1813,7 @@ class Solution:
     def search(self, nums: List[int], target: int) -> int:
         l, r = 0, len(nums) - 1
         while l <= r:
-            m = l + (r - l) // 2
+            m = (l + r) // 2
             if nums[m] == target:
                 return m 
             if nums[m] >= nums[l]:
@@ -1910,23 +1919,15 @@ class Solution:
 ```python
 class Solution:
     def partitionLabels(self, s: str) -> List[int]:
-        d = defaultdict(list)
-        for i, c in enumerate(s):
-            d[c].append(i)
-
-        furthest = 0
-        n = len(s)
-        i = 0
+        last = {c: i for i, c in enumerate(s)}
+        start = end = 0
         res = []
-        while i < n:
-            furthest = d[s[i]][-1]
-            j = i 
-            while j < furthest:
-                furthest = max(furthest, d[s[j]][-1])
-                j += 1
-            res.append(furthest - i + 1)
-            i = furthest + 1
-        return res
+        for i, c in enumerate(s):
+            end = max(end, last[s[i]])
+            if i == end:
+                res.append(end - start + 1)
+                start = end + 1
+        return res 
 ```
 
 ## DP
@@ -1934,7 +1935,7 @@ class Solution:
 ### DP 1D (5)
 
 * [70. Climbing Stairs](#70-Climbing-Stairs)
-* [118. Pascal's Triangle](#118-Pascal's-Triangle)
+* [118. Pascal's Triangle](#118-pascals-triangle)
 * [53. Maximum Subarray](#53-Maximum-Subarray)
 * [198. House Robber](#198-House-Robber)
 * [152. Maximum Product Subarray](#152-Maximum-Product-Subarray)
@@ -1994,14 +1995,14 @@ class Solution:
 ```python
 class Solution:
     def maxProduct(self, nums: List[int]) -> int:
-        res = mx = mn = nums[0]
         n = len(nums)
+        f_max, f_min = [0] * n, [0] * n 
+        f_max[0], f_min[0] = nums[0], nums[0]
         for i in range(1, n):
-            temp = mx 
-            mx = max(mx * nums[i], mn * nums[i], nums[i])
-            mn = min(temp * nums[i], mn * nums[i], nums[i])
-            res = max(res, mx)
-        return res
+            x = nums[i]
+            f_max[i] = max(f_max[i - 1] * x, f_min[i - 1] * x, x)
+            f_min[i] = min(f_max[i - 1] * x, f_min[i - 1] * x, x)
+        return max(f_max)
 ```
 
 
@@ -2121,14 +2122,13 @@ class Solution:
 ```python
 class Solution:
     def longestPalindrome(self, s: str) -> str:
-        n, res = len(s), s[0]
-        dp = [[False] * n for r in range(n)]
-        for r in range(1, n):
-            for l in range(r):
-                if s[r] == s[l] and (r - l + 1 <= 3 or dp[l + 1][r - 1]):
-                    dp[l][r] = True
-                    if r - l + 1 > len(res):
-                        res = s[l: r + 1]
+        res, n = s[0], len(s)
+        f = [[False] * n for _ in range(n)]
+        for j in range(n):
+            for i in range(j):
+                if s[i] == s[j] and (j - i <= 2 or f[i + 1][j - 1]):
+                    f[i][j] = True 
+                    res = max(res, s[i: j + 1], key = len)
         return res 
 ```
 
@@ -2139,16 +2139,16 @@ class Solution:
     def minDistance(self, word1: str, word2: str) -> int:
         R, C = len(word1) + 1, len(word2) + 1
         dp = [[0] * C for r in range(R)]
-        for c in range(1, C):
-            dp[0][c] = dp[0][c - 1] + 1
-        for r in range(1, R):
-            dp[r][0] = dp[r - 1][0] + 1
+        for r in range(R):
+            dp[r][0] = r
+        for c in range(C):
+            dp[0][c] = c 
         for r in range(1, R):
             for c in range(1, C):
-                if word1[r - 1] == word2[c - 1]:
-                    dp[r][c] = dp[r - 1][c - 1]
+                if word1[r - 1] != word2[c - 1]:
+                    dp[r][c] = min(dp[r - 1][c], dp[r][c - 1], dp[r - 1][c - 1]) + 1
                 else:
-                    dp[r][c] = min(dp[r][c - 1], dp[r - 1][c], dp[r - 1][c - 1]) + 1
+                    dp[r][c] = dp[r - 1][c - 1]
         return dp[-1][-1]
 ```
 
