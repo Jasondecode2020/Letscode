@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta id="viewport-meta" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Pinch Zoom Image Only</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .image-container {
+      overflow: hidden;
+      touch-action: none; /* we handle touch manually */
+      cursor: grab;
+    }
+    .image-container:active {
+      cursor: grabbing;
+    }
+    .zoomable-image {
+      transform-origin: center center;
+      transition: transform 0.1s ease;
+      will-change: transform;
+      user-select: none;
+      -webkit-user-drag: none;
+      display: block;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="p-8">
+      <button
+        @click="openModal"
+        class="bg-blue-500 text-white px-4 py-2 rounded"
+      >
+        Open Gallery Modal
+      </button>
+    </div>
+
+    <Teleport to="body">
+      <!-- Overlay -->
+      <div
+        v-if="isOpen"
+        class="fixed z-50 top-0 left-0 w-screen h-screen bg-black bg-opacity-80"
+        @click.self="closeModal"
+      >
+        <!-- Modal -->
+        <div
+          class="bg-black fixed w-full md:w-3/4 max-w-[1024px]
+                 h-[100dvh] md:h-auto
+                 top-0 left-0
+                 md:top-1/2 md:left-1/2
+                 z-10
+                 md:-translate-x-1/2 md:-translate-y-1/2
+                 flex flex-col"
+        >
+
+          <!-- ── Zoomable Image Area ── -->
+          <div
+            class="image-container flex-1 flex items-center justify-center bg-black"
+            ref="imageContainer"
+            @touchstart="onTouchStart"
+            @touchmove="onTouchMove"
+            @touchend="onTouchEnd"
+          >
+            <img
+              ref="zoomImage"
+              src="https://picsum.photos/1200/800"
+              alt="Gallery image"
+              class="zoomable-image"
+              :style="{
+                transform: `scale(${scale}) translate(${translateX}px, ${translateY}px)`,
+                transition: isDragging ? 'none' : 'transform 0.2s ease'
+              }"
+              draggable="false"
+            />
+          </div>
+
+          <!-- ── Bottom Info Bar ── -->
+          <div class="bg-black px-6 py-4 flex-shrink-0">
+            <p class="text-white font-semibold">Image Title</p>
+            <p class="text-gray-400 text-sm mt-1">
+              Pinch to zoom image only
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Close Button — truly fixed, outside modal ── -->
+      <button
+        v-if="isOpen"
+        @click="closeModal"
+        class="fixed top-3 right-3 z-[9999]
+               bg-white bg-opacity-90
+               border border-gray-300
+               rounded-full w-10 h-10
+               flex items-center justify-center
+               shadow-lg text-lg font-bold
+               hover:bg-gray-100"
+      >
+        ✕
+      </button>
+    </Teleport>
+  </div>
+
+  <script>
+    const { createApp } = Vue
+
+    createApp({
+      data() {
+        return {
+          isOpen: false,
+
+          // Zoom state
+          scale: 1,
+          minScale: 1,
+          maxScale: 4,
+
+          // Pan state
+          translateX: 0,
+          translateY: 0,
+
+          // Touch tracking
+          isDragging: false,
+          lastTouchDistance: null,
+          lastTouchX: null,
+          lastTouchY: null,
+          startScale: 1,
+        }
+      },
+
+      methods: {
+        openModal() {
+          this.isOpen = true
+          this.resetZoom()
+        },
+
+        closeModal() {
+          this.isOpen = false
+          this.resetZoom()
+        },
+
+        resetZoom() {
+          this.scale = 1
+          this.translateX = 0
+          this.translateY = 0
+          this.isDragging = false
+          this.lastTouchDistance = null
+        },
+
+        // ── Get distance between two fingers ──
+        getTouchDistance(touches) {
+          const dx = touches[0].clientX - touches[1].clientX
+          const dy = touches[0].clientY - touches[1].clientY
+          return Math.sqrt(dx * dx + dy * dy)
+        },
+
+        // ── Get midpoint between two fingers ──
+        getTouchMidpoint(touches) {
+          return {
+            x: (touches[0].clientX + touches[1].clientX) / 2,
+            y: (touches[0].clientY + touches[1].clientY) / 2,
+          }
+        },
+
+        onTouchStart(e) {
+          if (e.touches.length === 2) {
+            // Pinch start — record initial distance
+            this.lastTouchDistance = this.getTouchDistance(e.touches)
+            this.startScale = this.scale
+            this.isDragging = false
+          } else if (e.touches.length === 1 && this.scale > 1) {
+            // Single finger pan (only when zoomed in)
+            this.isDragging = true
+            this.lastTouchX = e.touches[0].clientX
+            this.lastTouchY = e.touches[0].clientY
+          }
+        },
+
+        onTouchMove(e) {
+          e.preventDefault() // prevent page scroll/zoom
+
+          if (e.touches.length === 2) {
+            // ── Pinch zoom ──
+            const distance = this.getTouchDistance(e.touches)
+            const scaleChange = distance / this.lastTouchDistance
+            const newScale = Math.min(
+              this.maxScale,
+              Math.max(this.minScale, this.startScale * scaleChange)
+            )
+            this.scale = newScale
+
+            // Reset pan when zooming back to normal
+            if (newScale <= 1) {
+              this.translateX = 0
+              this.translateY = 0
+            }
+
+          } else if (e.touches.length === 1 && this.isDragging && this.scale > 1) {
+            // ── Single finger pan ──
+            const dx = e.touches[0].clientX - this.lastTouchX
+            const dy = e.touches[0].clientY - this.lastTouchY
+
+            // Limit pan based on zoom level
+            const maxPan = (this.scale - 1) * 150
+            this.translateX = Math.min(maxPan, Math.max(-maxPan, this.translateX + dx))
+            this.translateY = Math.min(maxPan, Math.max(-maxPan, this.translateY + dy))
+
+            this.lastTouchX = e.touches[0].clientX
+            this.lastTouchY = e.touches[0].clientY
+          }
+        },
+
+        onTouchEnd(e) {
+          if (e.touches.length < 2) {
+            this.lastTouchDistance = null
+            this.startScale = this.scale
+          }
+          if (e.touches.length === 0) {
+            this.isDragging = false
+
+            // Snap back if zoomed out below minimum
+            if (this.scale < 1) {
+              this.scale = 1
+              this.translateX = 0
+              this.translateY = 0
+            }
+          }
+        },
+      }
+    }).mount('#app')
+  </script>
+</body>
+</html>
