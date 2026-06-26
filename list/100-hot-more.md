@@ -1,47 +1,348 @@
 # Top 100 likes
 
-- Question list 100 likes
+## 1 Hash table (3)
 
-## Hash table (4)
+* [1. Two Sum](#1-Two-Sum)
+* [49. Group Anagrams](#49-Group-Anagrams)
+* [128. Longest Consecutive Sequence](#128-Longest-Consecutive-Sequence) 
 
-* [1. Two Sum](#1-Two-Sum) 1500
-* [49. Group Anagrams](#49-Group-Anagrams) 1600
-* [128. Longest Consecutive Sequence](#128-Longest-Consecutive-Sequence) 1700
-* [560. Subarray Sum Equals K](#560-Subarray-Sum-Equals-K) 1750
+### 1. Two Sum
 
-## Two pointers (4)
+```python
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        d = {}
+        for i, v in enumerate(nums):
+            res = target - v
+            if res in d:
+                return [d[res], i]
+            d[v] = i
+```
 
-* [11. Container With Most Water](#11-Container-With-Most-Water) 1600
-* [15. 3Sum](#15-3Sum) 1700
-* [283. Move Zeroes](#283-Move-Zeroes) 1500
-* [42. Trapping Rain Water](#42-Trapping-Rain-Water) 1800
+### 49. Group Anagrams
 
-## Sliding window (3)
+```python
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        d = defaultdict(list)
+        for word in strs:
+            d[''.join(sorted(list(word)))].append(word)
+        return list(d.values())
+```
 
-* [3. Longest Substring Without Repeating Characters](#3-Longest-Substring-Without-Repeating-Characters) 1600
-* [438. Find All Anagrams in a String](#438-Find-All-Anagrams-in-a-String) 1700
+### 128. Longest Consecutive Sequence
+
+```python
+class Solution:
+    def longestConsecutive(self, nums: List[int]) -> int:
+        nums = set(nums)
+        res = 0
+        for n in nums:
+            if n - 1 not in nums:
+                j = n
+                while j in nums:
+                    j += 1
+                res = max(res, j - n)
+        return res
+```
+
+## 1.1 Hash table (3)
+
+## 2 Two pointers (4)
+
+* [283. Move Zeroes](#283-Move-Zeroes) 
+* [11. Container With Most Water](#11-Container-With-Most-Water)
+* [15. 3Sum](#15-3Sum)
+* [42. Trapping Rain Water](#42-Trapping-Rain-Water)
+
+### 283. Move Zeroes
+
+```python
+class Solution:
+    def moveZeroes(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        k = 0
+        for i in range(len(nums)):
+            if nums[i] != 0:
+                nums[i], nums[k] = nums[k], nums[i]
+                k += 1
+```
+
+### 11. Container With Most Water
+
+```python
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
+        l, r = 0, len(height) - 1
+        res = 0
+        while l < r:
+            a, b = height[l], height[r]
+            res = max(res, min(a, b) * (r - l))
+            if a < b:
+                l += 1
+            else:
+                r -= 1
+        return res
+```
+
+### 15. 3Sum
+
+```python
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        s = set()
+        n = len(nums)
+        for i in range(n):
+            if i > 0 and nums[i] == nums[i - 1]:
+                continue
+            l, r = i + 1, n - 1
+            while l < r:
+                three = nums[i] + nums[l] + nums[r]
+                if three == 0:
+                    s.add((nums[i], nums[l], nums[r]))
+                    l += 1
+                    r -= 1
+                elif three > 0:
+                    r -= 1
+                else:
+                    l += 1
+        return list(s)
+```
+
+### 42. Trapping Rain Water
+
+```python
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        prefix, suffix = height[:], height[:]
+        n = len(height)
+        for i in range(1, len(height)):
+            prefix[i] = max(prefix[i], prefix[i - 1])
+        for i in range(n - 2, -1, -1):
+            suffix[i] = max(suffix[i], suffix[i + 1])
+        res = 0
+        for i in range(1, n - 1):
+            res += max(0, min(prefix[i - 1], suffix[i + 1]) - height[i])
+        return res 
+```
+
+## 3 Sliding window (2)
+
+* [3. Longest Substring Without Repeating Characters](#3-Longest-Substring-Without-Repeating-Characters)
+* [438. Find All Anagrams in a String](#438-Find-All-Anagrams-in-a-String)
+
+### 3. Longest Substring Without Repeating Characters
+
+```python
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        d = defaultdict(int)
+        res = 0
+        l = 0
+        for r, c in enumerate(s):
+            d[c] += 1
+            while d[c] > 1:
+                d[s[l]] -= 1
+                l += 1
+            res = max(res, r - l + 1)
+        return res 
+```
+
+### 438. Find All Anagrams in a String
+
+```python
+class Solution:
+    def findAnagrams(self, s: str, p: str) -> List[int]:
+        S, P = Counter(), Counter(p)
+        res = []
+        l = 0
+        for r, c in enumerate(s):
+            S[c] += 1
+            if r - l + 1 == len(p):
+                if S == P:
+                    res.append(l)
+                S[s[l]] -= 1
+                l += 1
+        return res 
+```
+
+## 4 Sub String (3)
+
+* [560. Subarray Sum Equals K](#560-Subarray-Sum-Equals-K) 
 * [76. Minimum Window Substring](#76-Minimum-Window-Substring)
+* [239. Sliding Window Maximum](#239-Sliding-Window-Maximum)
 
-## Monotonic queue (1)
+### 560. Subarray Sum Equals K
 
-* [239. Sliding Window Maximum](#239-Sliding-Window-Maximum) 1900
+```python
+class Solution:
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        d = defaultdict(int)
+        d[0] = 1
+        total = 0
+        res = 0
+        for n in nums:
+            total += n 
+            res += d[total - k]
+            d[total] += 1
+        return res 
+```
 
-## Sweep line (1)
+### 76. Minimum Window Substring
 
-* [56. Merge Intervals](#56-Merge-Intervals)
+```python
+class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+        S, T, res, l = Counter(), Counter(t), s + t, 0
+        for r, c in enumerate(s):
+            S[c] += 1
+            while S >= T:
+                res = min(res, s[l: r + 1], key = len)
+                S[s[l]] -= 1
+                l += 1
+        return res if res != s + t else ''
+        
+class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+        S, T, res, l = Counter(), Counter(t), s + t, 0
+        counter = 0
+        for r, c in enumerate(s):
+            S[c] += 1
+            if S[c] == T[c]:
+                counter += 1
+            while counter == len(T):
+                res = min(res, s[l: r + 1], key = len)
+                S[s[l]] -= 1
+                if S[s[l]] < T[s[l]]:
+                    counter -= 1
+                l += 1
+        return res if res != s + t else ''
+```
 
-## Prefix sum (1)
+### 239. Sliding Window Maximum
 
+```python
+from collections import deque
+class Solution:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        res, q = [], deque()
+        for r, n in enumerate(nums):
+            while q and n > nums[q[-1]]:
+                q.pop()
+            q.append(r)
+            if r - q[0] + 1 > k:
+                q.popleft()
+            if r >= k - 1:
+                res.append(nums[q[0]])
+        return res 
+```
+
+# #########################################################################################################
+# 4 Normal Array                                                                                          #
+# #########################################################################################################
+
+## Normal Array (4)
+
+* [53. Maximum Subarray](#53-Maximum-Subarray)
+* [56. Merge Intervals](#56-Merge-Intervals])
+* [189. Rotate Array](#189-Rotate-Array)
 * [238. Product of Array Except Self](#238-Product-of-Array-Except-Self)
-
-## Array Hash (2)
-
-* [287. Find the Duplicate Number](#287-Find-the-Duplicate-Number)
 * [41. First Missing Positive](#41-First-Missing-Positive)
 
-- exercise
 
-* [442. Find All Duplicates in an Array](#442-Find-All-Duplicates-in-an-Array)
+### 53. Maximum Subarray
+
+```python
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        n = len(nums)
+        dp = [0] * n 
+        dp[0] = nums[0]
+        for i in range(1, n):
+            dp[i] = max(nums[i], nums[i] + dp[i - 1])
+        return max(dp)
+```
+
+### 56. Merge Intervals
+
+```python
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        intervals += [[inf, inf]]
+        intervals.sort()
+        start, end = intervals[0]
+        res = []
+        for s, e in intervals[1:]:
+            if s > end:
+                res.append((start, end))
+                start, end = s, e 
+            else:
+                end = max(end, e)
+        return res 
+```
+
+### 189. Rotate Array
+
+- reverse
+
+```python
+class Solution:
+    def rotate(self, nums: List[int], k: int) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        def reverse(l, r):
+            while l < r:
+                nums[l], nums[r] = nums[r], nums[l]
+                l += 1
+                r -= 1
+
+        n = len(nums)
+        k %= n 
+        reverse(0, n - 1)
+        reverse(0, k - 1)
+        reverse(k, n - 1)
+```
+
+### 238. Product of Array Except Self
+
+```python
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        n = len(nums)
+        res, tmp = [1] * n, 1
+        for i in range(1, n):
+            res[i] = res[i - 1] * nums[i - 1]
+        for i in range(n - 2, -1, -1):
+            tmp *= nums[i + 1]
+            res[i] *= tmp
+        return res
+```
+
+### 41. First Missing Positive
+
+```python
+class Solution:
+    def firstMissingPositive(self, nums: List[int]) -> int:
+        n = len(nums)
+        for i in range(n):
+            if nums[i] <= 0 or nums[i] > n:
+                nums[i] = n + 1
+        for i in range(n):
+            v = abs(nums[i])
+            if v <= n:
+                nums[v - 1] = -abs(nums[v - 1])
+
+        for i in range(n):
+            if nums[i] > 0:
+                return i + 1
+        return n + 1
+```
+
+* [287. Find the Duplicate Number](#287-Find-the-Duplicate-Number)
 
 ## Matrix (4)
 
@@ -50,27 +351,390 @@
 * [48. Rotate Image](#48-Rotate-Image)
 * [240. Search a 2D Matrix II](#240-Search-a-2D-Matrix-II)
 
+### 73. Set Matrix Zeroes
+
+```python
+class Solution:
+    def setZeroes(self, matrix: List[List[int]]) -> None:
+        """
+        Do not return anything, modify matrix in-place instead.
+        """
+        R, C = len(matrix), len(matrix[0])
+        first_row_has_zero = any(n == 0 for n in matrix[0])
+        first_col_has_zero = any(matrix[r][0] == 0 for r in range(R))
+        for r in range(1, R):
+            for c in range(1, C):
+                if matrix[r][c] == 0:
+                    matrix[0][c], matrix[r][0] = 0, 0
+        for r in range(1, R):
+            for c in range(1, C):
+                if matrix[r][0] == 0 or matrix[0][c] == 0:
+                    matrix[r][c] = 0
+        if first_row_has_zero:
+            for c in range(C):
+                matrix[0][c] = 0
+        if first_col_has_zero:
+            for r in range(R):
+                matrix[r][0] = 0
+```
+
+### 54. Spiral Matrix
+
+```python
+class Solution:
+    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+        R, C = len(matrix), len(matrix[0])
+        top, bottom, left, right = 0, R - 1, 0, C - 1
+        res = []
+        while top <= bottom and left <= right:
+            for i in range(left, right + 1):
+                res.append(matrix[top][i])
+            top += 1
+            for i in range(top, bottom + 1):
+                res.append(matrix[i][right])
+            right -= 1
+            if top <= bottom:
+                for i in range(right, left - 1, -1):
+                    res.append(matrix[bottom][i])
+                bottom -= 1
+            if left <= right:
+                for i in range(bottom, top - 1, -1):
+                    res.append(matrix[i][left])
+                left += 1
+        return res
+```
+
+### 48. Rotate Image
+
+```python
+class Solution:
+    def rotate(self, matrix: List[List[int]]) -> None:
+        """
+        Do not return anything, modify matrix in-place instead.
+        """
+        R, C = len(matrix), len(matrix[0])
+        matrix.reverse()
+        for r in range(R):
+            for c in range(r):
+                matrix[r][c], matrix[c][r] = matrix[c][r], matrix[r][c]
+        return matrix
+```
+
+### 240. Search a 2D Matrix II
+
+```python
+class Solution:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        R, C = len(matrix), len(matrix[0])
+        r, c = 0, C - 1
+        while r < R and c >= 0:
+            if matrix[r][c] > target:
+                c -= 1
+            elif matrix[r][c] < target:
+                r += 1
+            else:
+                return True 
+        return False
+```
+
 ## Backtracking (8)
 
-* [46. Permutations](#46-Permutations) 1600
-* [78. Subsets](#78-Subsets) 1700
-* [17. Letter Combinations of a Phone Number](#17-Letter-Combinations-of-a-Phone-Number) 1700
-* [39. Combination Sum](#39-Combination-Sum) 1700
-* [22. Generate Parentheses](#22-Generate-Parentheses) 1700
+* [46. Permutations](#46-Permutations)
+* [78. Subsets](#78-Subsets)
+* [17. Letter Combinations of a Phone Number](#17-Letter-Combinations-of-a-Phone-Number)
+* [39. Combination Sum](#39-Combination-Sum)
 
-* [131. Palindrome Partitioning](#131-Palindrome-Partitioning) 1700
+* [22. Generate Parentheses](#22-Generate-Parentheses)
+* [131. Palindrome Partitioning](#131-Palindrome-Partitioning)
 * [79. Word Search](#79-Word-Search) 1800
 * [51. N-Queens](#51-N-Queens) 1800
 
-## Graph (3)
+### 46. Permutations
 
-* [200. Number of Islands](#200-Number-of-Islands) 1500
-* [994. Rotting Oranges](#994-Rotting-Oranges) 1432
-* [207. Course Schedule](#207-Course-Schedule) 1700
+```python
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        def backtrack(nums, path):
+            if not nums:
+                res.append(path)
+                return 
+            for i in range(len(nums)):
+                backtrack(nums[ :i] + nums[i + 1:], path + [nums[i]])
+        res = []
+        backtrack(nums, [])
+        return res
+```
 
-## Trie (1)
+### 78. Subsets
 
-* [208. Implement Trie (Prefix Tree)](#208-Implement-Trie) 1700
+```python
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        def backtrack(i, ans):
+            if i == n:
+                res.append(ans)
+                return 
+            backtrack(i + 1, ans + [nums[i]])
+            backtrack(i + 1, ans)
+                
+        res, n = [], len(nums)
+        backtrack(0, [])
+        return res 
+```
+
+### 17. Letter Combinations of a Phone Number
+
+```python
+class Solution:
+    def letterCombinations(self, digits: str) -> List[str]:
+        d = {
+            '2': 'abc',
+            '3': 'def',
+            '4': 'ghi',
+            '5': 'jkl',
+            '6': 'mno',
+            '7': 'pqrs',
+            '8': 'tuv',
+            '9': 'wxyz'
+        }
+        def backtrack(i, ans):
+            if i == n:
+                res.append(ans)
+                return 
+            for c in d[digits[i]]:
+                backtrack(i + 1, ans + c)
+        
+        res, n = [], len(digits)
+        backtrack(0, '')
+        return res 
+```
+
+### 39. Combination Sum
+
+```python
+class Solution:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        def backtrack(i, ans, total):
+            if i == n or total > target:
+                return 
+            if total == target:
+                res.append(ans)
+                return 
+            backtrack(i + 1, ans, total)
+            backtrack(i, ans + [candidates[i]], total + candidates[i])
+        res, n = [], len(candidates)
+        backtrack(0, [], 0)
+        return res
+```
+
+### 22. Generate Parentheses
+
+```python
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        def backtrack(openN, closeN, ans):
+            if closeN == n:
+                res.append(ans)
+                return 
+            if openN < n:
+                backtrack(openN + 1, closeN, ans + '(')
+            if closeN < openN:
+                backtrack(openN, closeN + 1, ans + ')')
+        res = []
+        backtrack(0, 0, '')
+        return res 
+```
+
+### 131. Palindrome Partitioning
+
+```python
+class Solution:
+    def partition(self, s: str) -> List[List[str]]:
+        def backtrack(i, ans):
+            if i == n:
+                res.append(ans)
+                return 
+            for j in range(i, n):
+                if s[i: j + 1] == s[i: j + 1][::-1]:
+                    backtrack(j + 1, ans + [s[i: j + 1]])
+        
+        n, res = len(s), []
+        backtrack(0, [])
+        return res 
+```
+
+### 79. Word Search
+
+```python
+class Solution:
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        cnt = Counter(c for row in board for c in row)
+        if not cnt >= Counter(word):
+            return False
+
+        R, C = len(board), len(board[0])
+        def dfs(i, r, c):
+            if board[r][c] != word[i]:
+                return False
+            if i == len(word) - 1:
+                return True 
+            board[r][c] = ''
+            for row, col in (r, c - 1), (r, c + 1), (r - 1, c), (r + 1, c):
+                if 0 <= row < R and 0 <= col < C and dfs(i + 1, row, col):
+                    return True 
+            board[r][c] = word[i]
+            return False 
+        return any(dfs(0, r, c) for r in range(R) for c in range(C))
+```
+
+### 51. N-Queens
+
+```python
+class Solution:
+    def solveNQueens(self, n: int) -> List[List[str]]:
+        col, posDiag, negDiag = set(), set(), set()
+        res, board = [], [['.'] * n for i in range(n)]
+        def backtrack(r):
+            if r == n:
+                res.append([''.join(row) for row in board])
+                return
+            for c in range(n):
+                if c not in col and (r + c) not in posDiag and (r - c) not in negDiag:
+                    col.add(c)
+                    posDiag.add(r + c)
+                    negDiag.add(r - c)
+                    board[r][c] = 'Q'
+                    backtrack(r + 1)
+                    col.remove(c)
+                    posDiag.remove(r + c)
+                    negDiag.remove(r - c)
+                    board[r][c] = '.'
+        backtrack(0)
+        return res
+```
+
+## Graph (4)
+
+* [200. Number of Islands](#200-Number-of-Islands) DFS
+* [994. Rotting Oranges](#994-Rotting-Oranges) BFS
+* [207. Course Schedule](#207-Course-Schedule) Topoligical sort
+* [208. Implement Trie (Prefix Tree)](#208-Implement-Trie) Trie
+
+### 200. Number of Islands
+
+```python
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        R, C = len(grid), len(grid[0])
+        directions = [(-1, 0), (1, 0), (0, 1), (0, -1)]
+        def dfs(r, c):
+            grid[r][c] = '0'
+            for dr, dc in directions:
+                row, col = r + dr, c + dc 
+                if 0 <= row < R and 0 <= col < C and grid[row][col] == '1':
+                    dfs(row, col)
+
+
+        res = 0
+        for r in range(R):
+            for c in range(C):
+                if grid[r][c] == '1':
+                    dfs(r, c)
+                    res += 1
+        return res 
+```
+
+### 994. Rotting Oranges
+
+```python
+class Solution:
+    def orangesRotting(self, grid: List[List[int]]) -> int:
+        R, C = len(grid), len(grid[0])
+        directions = [(-1, 0), (1, 0), (0, 1), (0, -1)]
+        q = deque()
+        for r in range(R):
+            for c in range(C):
+                if grid[r][c] == 2:
+                    q.append((r, c, 0))
+
+        res = 0   
+        while q:
+            r, c, d = q.popleft()
+            res = max(res, d)
+            for dr, dc in directions:
+                row, col = r + dr, c + dc 
+                if 0 <= row < R and 0 <= col < C and grid[row][col] == 1:
+                    q.append((row, col, d + 1))
+                    grid[row][col] = 2 
+        return -1 if any(grid[r][c] == 1 for r in range(R) for c in range(C)) else res
+```
+
+### 207. Course Schedule
+
+```python
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        g, indegree = defaultdict(list), [0] * numCourses
+        for a, b in prerequisites:
+            g[b].append(a)
+            indegree[a] += 1
+        
+        q, res = deque([i for i, v in enumerate(indegree) if v == 0]), 0
+        while q:
+            node = q.popleft()
+            res += 1
+            for nei in g[node]:
+                indegree[nei] -= 1
+                if indegree[nei] == 0:
+                    q.append(nei)
+        return res == numCourses
+```
+
+### 208. Implement Trie
+
+```python
+class TrieNode:
+
+    def __init__(self):
+        self.children = {}
+        self.endOfWord = False
+
+class Trie:
+
+    def __init__(self):
+        self.root = TrieNode()
+
+    def insert(self, word: str) -> None:
+        cur = self.root 
+        for c in word:
+            if c not in cur.children:
+                cur.children[c] = TrieNode()
+            cur = cur.children[c]
+        cur.endOfWord = True
+
+    def search(self, word: str) -> bool:
+        cur = self.root 
+        for c in word:
+            if c not in cur.children:
+                return False
+            cur = cur.children[c]
+        return cur.endOfWord
+
+    def startsWith(self, prefix: str) -> bool:
+        cur = self.root 
+        for c in prefix:
+            if c not in cur.children:
+                return False
+            cur = cur.children[c]
+        return True
+
+
+# Your Trie object will be instantiated and called as such:
+# obj = Trie()
+# obj.insert(word)
+# param_2 = obj.search(word)
+# param_3 = obj.startsWith(prefix)
+```
 
 ## Heap (3)
 
@@ -87,8 +751,8 @@
 
 ## Monotonic stack (2)
 
-* [739. Daily Temperatures](#739-Daily-Temperatures) 1700
-* [84. Largest Rectangle in Histogram](#84-Largest-Rectangle-in-Histogram) 1900
+* [739. Daily Temperatures](#739-Daily-Temperatures)
+* [84. Largest Rectangle in Histogram](#84-Largest-Rectangle-in-Histogram)
 
 ## Linked list (14)
 
@@ -144,7 +808,6 @@
 
 * [70. Climbing Stairs](#70-Climbing-Stairs)
 * [118. Pascal's Triangle](#118-Pascal's-Triangle)
-* [53. Maximum Subarray](#53-Maximum-Subarray)
 * [198. House Robber](#198-House-Robber)
 * [152. Maximum Product Subarray](#152-Maximum-Product-Subarray)
 
@@ -163,11 +826,6 @@
 * [72. Edit Distance](#72-Edit-Distance)
 * [139. Word Break](#139-Word-Break)
 
-### exercise (2)
-
-* [132. Palindrome Partitioning II](#132-Palindrome-Partitioning-II)
-* [3144. Minimum Substring Partition of Equal Character Frequency](#3144-minimum-substring-partition-of-equal-character-frequency)
-
 ## greedy (4)
 
 * [121. Best Time to Buy and Sell Stock](#121-Best-Time-to-Buy-and-Sell-Stock)
@@ -178,160 +836,10 @@
 ## Tricks (5)
 
 * [136. Single Number](#136-Single-Number)
-* [189. Rotate Array](#189-Rotate-Array)
+
 * [169. Majority Element](#169-Majority-Element)
 * [31. Next Permutation](#31-Next-Permutation)
 * [75. Sort Colors](#75-Sort-Colors)
-
-# #########################################################################################################
-# Question tags                                                                                           #
-# #########################################################################################################
-
-## Hash table (4)
-
-* [1. Two Sum](#1-Two-Sum) 1500
-* [49. Group Anagrams](#49-Group-Anagrams) 1600
-* [128. Longest Consecutive Sequence](#128-Longest-Consecutive-Sequence) 1700
-* [560. Subarray Sum Equals K](#560-Subarray-Sum-Equals-K) 1750
-
-### 1. Two Sum
-
-```python
-class Solution:
-    def twoSum(self, nums: List[int], target: int) -> List[int]:
-        d = {}
-        for i, v in enumerate(nums):
-            res = target - v
-            if res in d:
-                return [d[res], i]
-            d[v] = i
-```
-
-### 49. Group Anagrams
-
-```python
-class Solution:
-    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        d = defaultdict(list)
-        for word in strs:
-            d[''.join(sorted(list(word)))].append(word)
-        return list(d.values())
-```
-
-### 128. Longest Consecutive Sequence
-
-```python
-class Solution:
-    def longestConsecutive(self, nums: List[int]) -> int:
-        nums = set(nums)
-        res = 0
-        for n in nums:
-            if n - 1 not in nums:
-                j = n
-                while j in nums:
-                    j += 1
-                res = max(res, j - n)
-        return res
-```
-
-### 560. Subarray Sum Equals K
-
-```python
-class Solution:
-    def subarraySum(self, nums: List[int], k: int) -> int:
-        # [1,1,1], k = 2
-        # [0, 1, 2, 3] n - x = k => n - k = x
-        d, res = Counter(), 0
-        pre = list(accumulate(nums, initial = 0))
-        for n in pre:
-            ans = n - k
-            if ans in d:
-                res += d[ans]
-            d[n] += 1
-        return res
-```
-
-## Two pointers (4)
-
-* [11. Container With Most Water](#11-Container-With-Most-Water) 1600
-* [15. 3Sum](#15-3Sum) 1700
-* [283. Move Zeroes](#283-Move-Zeroes) 1500
-* [42. Trapping Rain Water](#42-Trapping-Rain-Water) 1800
-
-### 11. Container With Most Water
-
-```python
-class Solution:
-    def maxArea(self, height: List[int]) -> int:
-        l, r = 0, len(height) - 1
-        res = 0
-        while l < r:
-            res = max(res, min(height[l], height[r]) * (r - l))
-            if height[l] < height[r]:
-                l += 1
-            else:
-                r -= 1
-        return res
-```
-
-### 15. 3Sum
-
-```python
-class Solution:
-    def threeSum(self, nums: List[int]) -> List[List[int]]:
-        nums.sort()
-        s = set()
-        n = len(nums)
-        for i in range(n):
-            if i > 0 and nums[i] == nums[i - 1]:
-                continue
-            l, r = i + 1, n - 1
-            while l < r:
-                three = nums[i] + nums[l] + nums[r]
-                if three == 0:
-                    s.add((nums[i], nums[l], nums[r]))
-                    l += 1
-                    r -= 1
-                elif three > 0:
-                    r -= 1
-                else:
-                    l += 1
-        return list(s)
-```
-
-### 283. Move Zeroes
-
-```python
-class Solution:
-    def moveZeroes(self, nums: List[int]) -> None:
-        """
-        Do not return anything, modify nums in-place instead.
-        """
-        l = 0
-        for r, n in enumerate(nums):
-            if n:
-                nums[l] = n 
-                l += 1
-        for i in range(l, len(nums)):
-            nums[i] = 0
-```
-
-### 42. Trapping Rain Water
-
-```python
-class Solution:
-    def moveZeroes(self, nums: List[int]) -> None:
-        """
-        Do not return anything, modify nums in-place instead.
-        """
-        l = 0
-        for r, n in enumerate(nums):
-            if n:
-                nums[l] = n 
-                l += 1
-        for i in range(l, len(nums)):
-            nums[i] = 0
-```
 
 ## Sliding window (3)
 
@@ -339,131 +847,6 @@ class Solution:
 * [438. Find All Anagrams in a String](#438-Find-All-Anagrams-in-a-String) 1700
 * [76. Minimum Window Substring](#76-Minimum-Window-Substring) 1800
 
-### 3. Longest Substring Without Repeating Characters
-
-```python
-class Solution:
-    def lengthOfLongestSubstring(self, s: str) -> int:
-        l, res = 0, 0
-        d = defaultdict(int)
-        for r, c in enumerate(s):
-            d[c] += 1
-            while d[c] > 1:
-                d[s[l]] -= 1
-                l += 1
-            res = max(res, r - l + 1)
-        return res 
-```
-
-### 438. Find All Anagrams in a String
-
-```python
-class Solution:
-    def findAnagrams(self, s: str, p: str) -> List[int]:
-        countP = Counter(p)
-        res, l = [], 0
-        d = Counter()
-        P = len(p)
-        for r, c in enumerate(s):
-            d[c] += 1
-            if r - l + 1 == P:
-                if d == countP:
-                    res.append(l)
-                d[s[l]] -= 1
-                l += 1
-        return res 
-```
-
-### 76. Minimum Window Substring
-
-```python
-class Solution:
-    def minWindow(self, s: str, t: str) -> str:
-        d, d_t = Counter(), Counter(t)
-        res, l = s + '#', 0
-        have, need = 0, len(d_t)
-        for r, c in enumerate(s):
-            d[c] += 1
-            if d[c] == d_t[c]:
-                have += 1
-            while have == need:
-                res = min(res, s[l: r + 1], key = len)
-                d[s[l]] -= 1
-                if s[l] in d_t and d[s[l]] < d_t[s[l]]:
-                    have -= 1
-                l += 1
-        return res if res != s + '#' else ''
-```
-
-## monotonic queue (1)
-
-* [239. Sliding Window Maximum](#239-Sliding-Window-Maximum) 1900
-
-### 239. Sliding Window Maximum
-
-```python
-class Solution:
-    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
-        res, q = [], deque()
-        for r, n in enumerate(nums):
-            while q and n > nums[q[-1]]:
-                q.pop()
-            q.append(r)
-            if r - q[0] + 1 > k:
-                q.popleft()
-            if r >= k - 1:
-                res.append(nums[q[0]])
-        return res
-```
-
-## sweep line
-
-* [56. Merge Intervals](#56-Merge-Intervals)
-
-### 56. Merge Intervals
-
-```python
-class Solution:
-    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
-        events = []
-        for s, e in intervals:
-            events.append((s, -1))
-            events.append((e, 1))
-        events.sort()
-
-        res = []
-        start = inf
-        count = 0
-        for t, sign in events:
-            if sign == -1:
-                count += 1
-                start = min(start, t)
-            else:
-                count -= 1
-                if count == 0:
-                    res.append([start, t])
-                    start = inf
-        return res
-```
-
-## Prefix sum
-
-* [238. Product of Array Except Self](#238-Product-of-Array-Except-Self)
-
-### 238. Product of Array Except Self
-
-```python
-class Solution:
-    def productExceptSelf(self, nums: List[int]) -> List[int]:
-        n = len(nums)
-        res, tmp = [1] * n, 1
-        for i in range(1, n):
-            res[i] = res[i - 1] * nums[i - 1]
-        for i in range(n - 2, -1, -1):
-            tmp *= nums[i + 1]
-            res[i] *= tmp
-        return res
-```
 
 ## Array Hash (2)
 
@@ -473,432 +856,32 @@ class Solution:
 ### 287. Find the Duplicate Number
 
 ```python
+# wrong solution: modify the nums array
 class Solution:
     def findDuplicate(self, nums: List[int]) -> int:
         for i, n in enumerate(nums):
             n = abs(n)
-            if nums[n - 1] == -abs(nums[n - 1]):
+            if nums[n] < 0:
                 return n 
             else:
-                nums[n - 1] = -abs(nums[n - 1])
-```
+                nums[n] = -abs(nums[n])
 
-### 41. First Missing Positive
-
-```python
 class Solution:
-    def firstMissingPositive(self, nums: List[int]) -> int:
-        n = len(nums)
-        # set inf 
-        for i in range(n):
-            if nums[i] <= 0 or nums[i] > n:
-                nums[i] = inf 
-        # set negative
-        for i in range(n):
-            if abs(nums[i]) != inf:
-                v = abs(nums[i])
-                nums[v - 1] = -abs(nums[v - 1])
-        # find out
-        for i in range(n):
-            if nums[i] > 0:
-                return i + 1
-        return n + 1
+    def findDuplicate(self, nums: List[int]) -> int:
+        slow = fast = 0
+        while True:
+            slow = nums[slow]
+            fast = nums[nums[fast]]
+            if slow == fast:
+                break 
+        head = 0
+        while slow != head:
+            slow = nums[slow]
+            head = nums[head]
+        return head 
 ```
 
-### 442 All Duplicates in an Array
 
-```python
-class Solution:
-    def findDuplicates(self, nums: List[int]) -> List[int]:
-        res = []
-        for i, n in enumerate(nums):
-            n = abs(n)
-            if nums[n - 1] == -abs(nums[n - 1]):
-                res.append(n)
-            else:
-                nums[n - 1] = -abs(nums[n - 1])
-        return res 
-```
-
-## Matrix (4)
-
-* [73. Set Matrix Zeroes](#73-Set-Matrix-Zeroes)
-* [54. Spiral Matrix](#54-Spiral-Matrix)
-* [48. Rotate Image](#48-Rotate-Image)
-* [240. Search a 2D Matrix II](#240-Search-a-2D-Matrix-II)
-
-### 73. Set Matrix Zeroes
-
-```python
-class Solution:
-    def setZeroes(self, matrix: List[List[int]]) -> None:
-        """
-        Do not return anything, modify matrix in-place instead.
-        """
-        R, C = len(matrix), len(matrix[0])
-        for r in range(1, R):
-            for c in range(1, C):
-                if matrix[r][c] == 0:
-                    matrix[0][c] = -matrix[0][c]
-                    matrix[r][0] = -matrix[r][0]
-
-        for r in range(1, R):
-            for c in range(1, C):
-                if matrix[r][0] < 0 or matrix[0][c] < 0:
-                    matrix[r][c] = 0
-
-        for r in range(R):
-            if matrix[r][0] == 0:
-                for r in range(R):
-                    matrix[r][0] = 0
-                break
-        for c in range(C):
-            if matrix[0][c] == 0:
-                for c in range(C):
-                    matrix[0][c] = 0
-                break
-        for r in range(R):
-            for c in range(C):
-                matrix[r][c] = abs(matrix[r][c])
-```
-
-### 54. Spiral Matrix
-
-```python
-class Solution:
-    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
-        R, C = len(matrix), len(matrix[0])
-        top, bottom, left, right = 0, R - 1, 0, C - 1
-        res = []
-        while top <= bottom and left <= right:
-            # top
-            for c in range(left, right + 1):
-                res.append(matrix[top][c])
-            top += 1
-            # right
-            for r in range(top, bottom + 1):
-                res.append(matrix[r][right])
-            right -= 1
-            if left > right or top > bottom:
-                continue
-            # bottom
-            for c in range(right, left - 1, -1):
-                res.append(matrix[bottom][c])
-            bottom -= 1
-            # left
-            for r in range(bottom, top - 1, -1):
-                res.append(matrix[r][left])
-            left += 1
-        return res 
-```
-
-### 48. Rotate Image
-
-```python
-class Solution:
-    def rotate(self, matrix: List[List[int]]) -> None:
-        """
-        Do not return anything, modify matrix in-place instead.
-        """
-        matrix.reverse()
-        R, C = len(matrix), len(matrix[0])
-        for r in range(R):
-            for c in range(r):
-                matrix[r][c], matrix[c][r] = matrix[c][r], matrix[r][c]
-        return matrix
-```
-
-### 240. Search a 2D Matrix II
-
-```python
-class Solution:
-    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
-        for m in matrix:
-            i = bisect_left(m, target)
-            if i < len(m) and m[i] == target:
-                return True
-        return False
-```
-
-## Backtracking (8)
-
-* [46. Permutations](#46-Permutations) 1600
-* [78. Subsets](#78-Subsets) 1700
-* [17. Letter Combinations of a Phone Number](#17-Letter-Combinations-of-a-Phone-Number) 1700
-* [39. Combination Sum](#39-Combination-Sum) 1700
-* [22. Generate Parentheses](#22-Generate-Parentheses) 1700
-* [131. Palindrome Partitioning](#131-Palindrome-Partitioning) 1700
-* [79. Word Search](#79-Word-Search) 1800
-* [51. N-Queens](#51-N-Queens) 1800
-
-### 46. Permutations
-
-```python
-class Solution:
-    def permute(self, nums: List[int]) -> List[List[int]]:
-        def backtrack(nums, path):
-            if not nums:
-                res.append(path)
-                return 
-            for i in range(len(nums)):
-                backtrack(nums[ :i] + nums[i + 1:], path + [nums[i]])
-        res = []
-        backtrack(nums, [])
-        return res
-```
-
-### 78. Subsets
-
-```python
-class Solution:
-    def subsets(self, nums: List[int]) -> List[List[int]]:
-        def backtrack(i, ans):
-            if i == n:
-                res.append(ans)
-                return 
-            backtrack(i + 1, ans + [nums[i]])
-            backtrack(i + 1, ans)
-        res, n = [], len(nums)
-        backtrack(0, [])
-        return res 
-```
-
-### 17. Letter Combinations of a Phone Number
-
-```python
-class Solution:
-    def letterCombinations(self, digits: str) -> List[str]:
-        d = {
-            '2': 'abc',
-            '3': 'def',
-            '4': 'ghi',
-            '5': 'jkl',
-            '6': 'mno',
-            '7': 'pqrs',
-            '8': 'tuv',
-            '9': 'wxyz'
-        }
-        
-        def backtrack(i, cur):
-            if len(cur) == n:
-                res.append(cur)
-                return
-            for c in d[digits[i]]:
-                backtrack(i + 1, cur + c)
-        res, n = [], len(digits)
-        backtrack(0, '')
-        return res if digits else []
-```
-
-### 39. Combination Sum
-
-```python
-class Solution:
-    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
-        def backtrack(idx, ans, total):
-            if total == target:
-                res.append(ans)
-                return 
-            if total > target:
-                return 
-            for i in range(idx, n):
-                backtrack(i, ans + [candidates[i]], total + candidates[i])
-        res, n = [], len(candidates)
-        backtrack(0, [], 0)
-        return res
-```
-
-### 22. Generate Parentheses
-
-```python
-class Solution:
-    def generateParenthesis(self, n: int) -> List[str]:
-        res = []
-        def backtrack(open, close, ans):
-            if open == close == n:
-                res.append(ans)
-                return 
-            if open < n:
-                backtrack(open + 1, close, ans + '(')
-            if close < open:
-                backtrack(open, close + 1, ans + ')')
-        backtrack(0, 0, '')
-        return res
-```
-
-### 131. Palindrome Partitioning
-
-```python
-class Solution:
-    def partition(self, s: str) -> List[List[str]]:
-        def valid(s):
-            return s == s[::-1]
-        def backtrack(i, ans):
-            if ans and not valid(ans[-1]):
-                return 
-            if i == n:
-                res.append(ans)
-                return 
-            for j in range(i, n):
-                backtrack(j + 1, ans + [s[i: j + 1]])
-
-        n = len(s)
-        res = []
-        backtrack(0, [])
-        return res 
-```
-
-### 79. Word Search
-
-```python
-class Solution:
-    def exist(self, board: List[List[str]], word: str) -> bool:
-        R, C, n, visited = len(board), len(board[0]), len(word), set()
-        s = ''.join([''.join(item) for item in board])
-        if any(s.count(c) < word.count(c) for c in word):
-            return False
-        def dfs(i, r, c):
-            if i == len(word):
-                return True
-            if 0 <= r < R and 0 <= c < C and (r, c) not in visited and board[r][c] == word[i]:
-                visited.add((r, c))
-                res = dfs(i + 1, r + 1, c) or dfs(i + 1, r, c + 1) or dfs(i + 1, r - 1, c) or dfs(i + 1, r, c - 1)
-                visited.remove((r, c))
-                return res 
-            return False
-
-        for r in range(R):
-            for c in range(C):
-                if board[r][c] == word[0] and dfs(0, r, c):
-                    return True
-        return False
-```
-
-### 51. N-Queens
-
-```python
-class Solution:
-    def solveNQueens(self, n: int) -> List[List[str]]:
-        col, posDiag, negDiag = set(), set(), set()
-        res, board = [], [['.'] * n for i in range(n)]
-        def backtrack(r):
-            if r == n:
-                res.append([''.join(row) for row in board])
-                return
-            for c in range(n):
-                if c not in col and (r + c) not in posDiag and (r - c) not in negDiag:
-                    col.add(c)
-                    posDiag.add(r + c)
-                    negDiag.add(r - c)
-                    board[r][c] = 'Q'
-                    backtrack(r + 1)
-                    col.remove(c)
-                    posDiag.remove(r + c)
-                    negDiag.remove(r - c)
-                    board[r][c] = '.'
-        backtrack(0)
-        return res
-```
-
-## Graph
-
-* [200. Number of Islands](#200-Number-of-Islands) 1500
-* [994. Rotting Oranges](#994-Rotting-Oranges) 1432
-* [207. Course Schedule](#207-Course-Schedule) 1700
-* [208. Implement Trie (Prefix Tree)](#208-Implement-Trie) 1700
-
-### 200. Number of Islands
-
-```python
-class Solution:
-    def partition(self, s: str) -> List[List[str]]:
-        def valid(s):
-            return s == s[::-1]
-        def backtrack(i, ans):
-            if ans and not valid(ans[-1]):
-                return 
-            if i == n:
-                res.append(ans)
-                return 
-            for j in range(i, n):
-                backtrack(j + 1, ans + [s[i: j + 1]])
-
-        n = len(s)
-        res = []
-        backtrack(0, [])
-        return res 
-```
-
-### 994. Rotting Oranges
-
-```python
-class Solution:
-    def partition(self, s: str) -> List[List[str]]:
-        def valid(s):
-            return s == s[::-1]
-        def backtrack(i, ans):
-            if ans and not valid(ans[-1]):
-                return 
-            if i == n:
-                res.append(ans)
-                return 
-            for j in range(i, n):
-                backtrack(j + 1, ans + [s[i: j + 1]])
-
-        n = len(s)
-        res = []
-        backtrack(0, [])
-        return res 
-```
-
-### 207. Course Schedule
-
-```python
-class Solution:
-    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        indegree = [0] * numCourses
-        g = defaultdict(list)
-        for u, v in prerequisites:
-            indegree[u] += 1
-            g[v].append(u)
-
-        q = deque([i for i, v in enumerate(indegree) if v == 0])
-        res = 0
-        while q:
-            node = q.popleft()
-            res += 1
-            for nei in g[node]:
-                indegree[nei] -= 1
-                if indegree[nei] == 0:
-                    q.append(nei)
-        return res == numCourses
-```
-
-## Trie (1)
-
-* [208. Implement Trie (Prefix Tree)](#208-Implement-Trie) 1700
-
-### 208. Implement Trie
-
-```python
-class Solution:
-    def partition(self, s: str) -> List[List[str]]:
-        def valid(s):
-            return s == s[::-1]
-        def backtrack(i, ans):
-            if ans and not valid(ans[-1]):
-                return 
-            if i == n:
-                res.append(ans)
-                return 
-            for j in range(i, n):
-                backtrack(j + 1, ans + [s[i: j + 1]])
-
-        n = len(s)
-        res = []
-        backtrack(0, [])
-        return res 
-```
 
 ## Heap (3)
 
@@ -982,20 +965,21 @@ class MinStack:
 
     def __init__(self):
         self.stack = []
-        self.mn = [inf]
 
-    def push(self, val: int) -> None:
-        self.stack.append(val)
-        self.mn.append(min(self.mn[-1], val))
+    def push(self, value: int) -> None:
+        if self.stack:
+            self.stack.append((value, min(value, self.stack[-1][-1])))
+        else:
+            self.stack.append((value, value))
 
     def pop(self) -> None:
         self.stack.pop()
-        self.mn.pop()
+
     def top(self) -> int:
-        return self.stack[-1]
+        return self.stack[-1][0]
 
     def getMin(self) -> int:
-        return self.mn[-1]
+        return self.stack[-1][-1]
 ```
 
 ### 394. Decode String
@@ -1049,10 +1033,9 @@ class Solution:
 ```python
 class Solution:
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
-        n = len(temperatures)
-        res, stack = [0] * n, []
-        for i, t in enumerate(temperatures):
-            while stack and t > temperatures[stack[-1]]:
+        res, stack = [0] * len(temperatures), []
+        for i, n in enumerate(temperatures):
+            while stack and n > temperatures[stack[-1]]:
                 j = stack.pop()
                 res[j] = i - j
             stack.append(i)
@@ -1352,63 +1335,81 @@ class Solution:
             p.next = ListNode(n)
             p = p.next 
         return dummy.next 
+
+# S(1)
+
+class Solution:
+    def sortList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        def merge(left, right):
+            p = dummy = ListNode()
+            while left and right:
+                if left.val > right.val:
+                    p.next = right
+                    right = right.next 
+                else:
+                    p.next = left 
+                    left = left.next 
+                p = p.next 
+            p.next = left or right 
+            return dummy.next 
+
+        def sort(head):
+            if not head or not head.next:
+                return head 
+            slow, fast = head, head.next 
+            while fast and fast.next:
+                slow = slow.next 
+                fast = fast.next.next 
+            mid, slow.next = slow.next, None 
+            left, right = sort(head), sort(mid)
+            return merge(left, right)
+        return sort(head)
 ```
 
 ### 146. LRU Cache
 
 ```python
 class ListNode:
+
     def __init__(self, key = 0, value = 0):
-        self.key = key
+        self.key = key 
         self.value = value
 
 class LRUCache:
 
     def __init__(self, capacity: int):
+        self.capacity = capacity
         self.cache = {}
         self.head = self.tail = ListNode()
-        self.head.next = self.tail
-        self.tail.prev = self.head
-        self.capacity = capacity
+        self.head.next, self.tail.prev = self.tail, self.head 
 
     def get(self, key: int) -> int:
-        if key not in self.cache:
-            return -1
-        node = self.cache[key]
-        self.moveToHead(node)
-        return node.value
+        if key in self.cache:
+            node = self.cache[key]
+            self.remove(node)
+            self.insert(node)
+            return node.value 
+        return -1
 
     def put(self, key: int, value: int) -> None:
-        if key not in self.cache:
-            node = ListNode(key, value)
-            self.cache[key] = node
-            self.addToHead(node)
-            self.capacity -= 1
-            if self.capacity < 0:
-                removed = self.removeTail(self.tail.prev)
-                self.cache.pop(removed.key)
-        else:
-            node = self.cache[key]
-            node.value = value
-            self.moveToHead(node)
+        if key in self.cache:
+            self.remove(self.cache[key])
+        node = ListNode(key, value)
+        self.insert(node)
+        self.cache[key] = node 
+        if self.capacity < len(self.cache):
+            lru_node = self.head.next 
+            self.remove(lru_node)
+            self.cache.pop(lru_node.key)
 
-    def moveToHead(self, node):
-        self.removeNode(node)
-        self.addToHead(node)
+    def remove(self, node):
+        prev, nxt = node.prev, node.next 
+        prev.next, nxt.prev = nxt, prev 
 
-    def removeNode(self, node):
-        node.prev.next = node.next
-        node.next.prev = node.prev
-
-    def addToHead(self, node):
-        node.prev = self.head
-        node.next = self.head.next
-        self.head.next.prev = node
-        self.head.next = node
-
-    def removeTail(self, node):
-        self.removeNode(node)
-        return node
+    def insert(self, node):
+        prev = self.tail.prev 
+        node.prev, node.next = prev, self.tail 
+        prev.next = self.tail.prev = node
 ```
 
 ## Tree (15)
@@ -1669,15 +1670,12 @@ class Solution:
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         def dfs(node):
-            if not node or node in [p, q]:
-                return node 
+            if node in [p, q] or not node:
+                return node
             left, right = dfs(node.left), dfs(node.right)
             if left and right:
                 return node 
-            elif left:
-                return left 
-            else:
-                return right 
+            return left or right 
         return dfs(root)
 ```
 
@@ -1685,18 +1683,18 @@ class Solution:
 
 ```python
 class Solution:
+    head = None
     def flatten(self, root: Optional[TreeNode]) -> None:
         """
         Do not return anything, modify root in-place instead.
         """
-        def dfs(node, p):
-            if node:
-                node.left = None
-                dfs(node.left, p)
-                dfs(node.right, p)
-        p = temp = root
-        dfs(root, p)
-        return temp
+        if not root:
+            return 
+        self.flatten(root.right)
+        self.flatten(root.left)
+        root.left = None 
+        root.right = self.head 
+        self.head = root 
 ```
 
 ### 124. Binary Tree Maximum Path Sum
@@ -1707,12 +1705,12 @@ class Solution:
         def dfs(node):
             if not node:
                 return 0
-            l, r = max(dfs(node.left), 0), max(dfs(node.right), 0)
-            self.res = max(self.res, node.val + l + r)
-            return node.val + max(l, r)
-        self.res = -inf
+            left, right = max(dfs(node.left), 0), max(dfs(node.right), 0)
+            self.res = max(self.res, node.val + left + right)
+            return max(left, right) + node.val 
+        self.res = -inf 
         dfs(root)
-        return self.res 
+        return self.res
 ```
 
 ## Binary Search (6)
@@ -1723,12 +1721,6 @@ class Solution:
 * [33. Search in Rotated Sorted Array](#33-Search-in-Rotated-Sorted-Array)
 * [153. Find Minimum in Rotated Sorted Array](#153-Find-Minimum-in-Rotated-Sorted-Array)
 * [4. Median of Two Sorted Arrays](#4-Median-of-Two-Sorted-Arrays)
-
-## Binary Search practice (1)
-
-* [81. Search in Rotated Sorted Array II](#81-Search-in-Rotated-Sorted-Array-II)
-* [154. Find Minimum in Rotated Sorted Array II](#154-find-minimum-in-rotated-sorted-array-ii)
-- similar to 33
 
 ### 35. Search Insert Position
 
@@ -1752,9 +1744,18 @@ class Solution:
 ```python
 class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
-        nums = sum(matrix, [])
-        i = bisect_left(nums, target)
-        return i < len(nums) and nums[i] == target
+        R, C = len(matrix), len(matrix[0])
+        l, r = 0, R * C - 1
+        while l <= r:
+            m = (l + r) // 2
+            x = matrix[m // C][m % C]
+            if x == target:
+                return True 
+            elif x < target:
+                l = m + 1
+            else:
+                r = m - 1
+        return False
 ```
 
 ### 34. Find First and Last Position of Element in Sorted Array
@@ -1808,7 +1809,7 @@ class Solution:
     def search(self, nums: List[int], target: int) -> int:
         l, r = 0, len(nums) - 1
         while l <= r:
-            m = l + (r - l) // 2
+            m = (l + r) // 2
             if nums[m] == target:
                 return m 
             if nums[m] >= nums[l]:
@@ -1854,48 +1855,6 @@ class Solution:
                 l = m1 + 1
 ```
 
-### 81. Search in Rotated Sorted Array II
-
-```python
-class Solution:
-    def search(self, nums: List[int], target: int) -> bool:
-        l, r = 0, len(nums) - 1
-        while l <= r:
-            m = l + (r - l) // 2
-            if nums[m] == target:
-                return True
-            if nums[m] > nums[l]:
-                if nums[l] <= target < nums[m]:
-                    r = m - 1
-                else:
-                    l = m + 1
-            elif nums[m] < nums[l]:
-                if nums[m] < target <= nums[r]:
-                    l = m + 1
-                else:
-                    r = m - 1
-            else:
-                l += 1
-        return False
-```
-
-### 154. Find Minimum in Rotated Sorted Array II
-
-```python
-class Solution:
-    def findMin(self, nums: List[int]) -> int:
-        l, r = 0, len(nums) - 1
-        while l < r:
-            m = l + (r - l) // 2
-            if nums[m] > nums[r]:
-                l = m + 1
-            elif nums[m] < nums[r]:
-                r = m  
-            else:
-                r -= 1
-        return nums[l]
-```
-
 ## greedy
 
 ### 121. Best Time to Buy and Sell Stock
@@ -1915,11 +1874,10 @@ class Solution:
 ```python
 class Solution:
     def canJump(self, nums: List[int]) -> bool:
-        n = len(nums)
-        furthest = 0
-        for i in range(n):
-            if i <= furthest:
-                furthest = max(i + nums[i], furthest)
+        n, furthest = len(nums), nums[0]
+        for i in range(1, n):
+            if furthest >= i:
+                furthest = max(furthest, i + nums[i])
         return furthest >= n - 1
 ```
 
@@ -1928,27 +1886,14 @@ class Solution:
 ```python
 class Solution:
     def jump(self, nums: List[int]) -> int:
-        # method 1: dp
-        dp = [0] * len(nums) # last number of dp is the value
-        for i in range(1, len(nums)):
-            res = inf
-            for j in range(i):
-                if j + nums[j] >= i:
-                    res = min(res, dp[j] + 1)    
-                    dp[i] = res
-        return dp[-1] # time too long
-        
-        # method 2: greedy
-        # res = 0
-        # l, r = 0, 0 # window of indexes
-        # while r < len(nums) - 1:
-        #     farthest = 0
-        #     for i in range(l, r + 1):
-        #         farthest = max(farthest, i + nums[i])
-        #     l = r + 1
-        #     r = farthest
-        #     res += 1
-        # return res
+        res, l, r, n = 0, 0, 0, len(nums)
+        while r < n - 1:
+            furthest = 0
+            for i in range(l, r + 1):
+                furthest = max(furthest, i + nums[i])
+            l, r = r + 1, furthest
+            res += 1
+        return res 
 ```
 
 ### 763. Partition Labels
@@ -1956,23 +1901,14 @@ class Solution:
 ```python
 class Solution:
     def partitionLabels(self, s: str) -> List[int]:
-        d = defaultdict(list)
+        last = {c : i for i, c in enumerate(s)}
+        start, end, res = 0, 0, []
         for i, c in enumerate(s):
-            d[c].append(i)
-
-        furthest = 0
-        n = len(s)
-        i = 0
-        res = []
-        while i < n:
-            furthest = d[s[i]][-1]
-            j = i 
-            while j < furthest:
-                furthest = max(furthest, d[s[j]][-1])
-                j += 1
-            res.append(furthest - i + 1)
-            i = furthest + 1
-        return res
+            end = max(end, last[c])
+            if end == i:
+                res.append(end - start + 1)
+                start = end + 1
+        return res 
 ```
 
 ## DP
@@ -1980,7 +1916,7 @@ class Solution:
 ### DP 1D (5)
 
 * [70. Climbing Stairs](#70-Climbing-Stairs)
-* [118. Pascal's Triangle](#118-Pascal's-Triangle)
+* [118. Pascal's Triangle](#118-pascals-triangle)
 * [53. Maximum Subarray](#53-Maximum-Subarray)
 * [198. House Robber](#198-House-Robber)
 * [152. Maximum Product Subarray](#152-Maximum-Product-Subarray)
@@ -2010,18 +1946,6 @@ class Solution:
         return res
 ```
 
-### 53. Maximum Subarray
-
-```python
-class Solution:
-    def maxSubArray(self, nums: List[int]) -> int:
-        n = len(nums)
-        dp = [0] * n 
-        dp[0] = nums[0]
-        for i in range(1, n):
-            dp[i] = max(nums[i], nums[i] + dp[i - 1])
-        return max(dp)
-```
 
 ### 198. House Robber
 
@@ -2040,14 +1964,14 @@ class Solution:
 ```python
 class Solution:
     def maxProduct(self, nums: List[int]) -> int:
-        res = mx = mn = nums[0]
         n = len(nums)
+        f_max, f_min = [0] * n, [0] * n 
+        f_max[0], f_min[0] = nums[0], nums[0]
         for i in range(1, n):
-            temp = mx 
-            mx = max(mx * nums[i], mn * nums[i], nums[i])
-            mn = min(temp * nums[i], mn * nums[i], nums[i])
-            res = max(res, mx)
-        return res
+            x = nums[i]
+            f_max[i] = max(f_max[i - 1] * x, f_min[i - 1] * x, x)
+            f_min[i] = min(f_max[i - 1] * x, f_min[i - 1] * x, x)
+        return max(f_max)
 ```
 
 
@@ -2117,11 +2041,6 @@ class Solution:
 * [72. Edit Distance](#72-Edit-Distance)
 * [139. Word Break](#139-Word-Break)
 
-- exercise
-
-* [132. Palindrome Partitioning II](#132-palindrome-partitioning-ii)
-* [3144. Minimum Substring Partition of Equal Character Frequency](#3144-minimum-substring-partition-of-equal-character-frequency)
-
 ### 62. Unique Paths
 
 ```python
@@ -2172,14 +2091,13 @@ class Solution:
 ```python
 class Solution:
     def longestPalindrome(self, s: str) -> str:
-        n, res = len(s), s[0]
-        dp = [[False] * n for r in range(n)]
-        for r in range(1, n):
-            for l in range(r):
-                if s[r] == s[l] and (r - l + 1 <= 3 or dp[l + 1][r - 1]):
-                    dp[l][r] = True
-                    if r - l + 1 > len(res):
-                        res = s[l: r + 1]
+        res, n = s[0], len(s)
+        f = [[False] * n for _ in range(n)]
+        for j in range(n):
+            for i in range(j):
+                if s[i] == s[j] and (j - i <= 2 or f[i + 1][j - 1]):
+                    f[i][j] = True 
+                    res = max(res, s[i: j + 1], key = len)
         return res 
 ```
 
@@ -2190,16 +2108,16 @@ class Solution:
     def minDistance(self, word1: str, word2: str) -> int:
         R, C = len(word1) + 1, len(word2) + 1
         dp = [[0] * C for r in range(R)]
-        for c in range(1, C):
-            dp[0][c] = dp[0][c - 1] + 1
-        for r in range(1, R):
-            dp[r][0] = dp[r - 1][0] + 1
+        for r in range(R):
+            dp[r][0] = r
+        for c in range(C):
+            dp[0][c] = c 
         for r in range(1, R):
             for c in range(1, C):
-                if word1[r - 1] == word2[c - 1]:
-                    dp[r][c] = dp[r - 1][c - 1]
+                if word1[r - 1] != word2[c - 1]:
+                    dp[r][c] = min(dp[r - 1][c], dp[r][c - 1], dp[r - 1][c - 1]) + 1
                 else:
-                    dp[r][c] = min(dp[r][c - 1], dp[r - 1][c], dp[r - 1][c - 1]) + 1
+                    dp[r][c] = dp[r - 1][c - 1]
         return dp[-1][-1]
 ```
 
@@ -2216,49 +2134,6 @@ class Solution:
                 if dp[i] and s[i:j] in wordDict:
                     dp[j] = True
         return dp[-1]
-```
-
-### 132. Palindrome Partitioning II
-
-```python
-class Solution:
-    def minCut(self, s: str) -> int:
-        @cache
-        def dfs(i):
-            if i == n:
-                return 0
-            res = inf 
-            for j in range(i, n):
-                if dp[i][j]:
-                    res = min(res, dfs(j + 1) + 1)
-            return res
-        n = len(s)
-        dp = [[False] * n for c in range(n)]
-        for j in range(n):
-            for i in range(j + 1):
-                if s[i] == s[j] and (j - i <= 2 or dp[i + 1][j - 1]):
-                    dp[i][j] = True
-        return dfs(0) - 1
-```
-
-### 3144. Minimum Substring Partition of Equal Character Frequency
-
-```python
-class Solution:
-    def minimumSubstringsInPartition(self, s: str) -> int:
-        @cache
-        def dfs(i):
-            if i >= len(s):
-                return 0
-            c = Counter()
-            res = inf
-            for j in range(i, n):
-                c[s[j]] += 1
-                if len(set(c.values())) == 1:
-                    res = min(res, dfs(j + 1) + 1)
-            return res
-        n = len(s)
-        return dfs(0)
 ```
 
 ## greedy (4)
@@ -2278,8 +2153,6 @@ class Solution:
 
 ### 136. Single Number
 
-- bit manipulation
-
 ```python
 class Solution:
     def singleNumber(self, nums: List[int]) -> int:
@@ -2288,31 +2161,6 @@ class Solution:
             res ^= n 
         return res
 ```
-### 189. Rotate Array
-
-- reverse
-
-```python
-class Solution:
-    def rotate(self, nums: List[int], k: int) -> None:
-        """
-        Do not return anything, modify nums in-place instead.
-        """
-        n = len(nums)
-        k = k % n 
-        nums.reverse()
-        l, r = 0, k - 1
-        while l < r:
-            nums[l], nums[r] = nums[r], nums[l]
-            l += 1
-            r -= 1
-        l, r = k, n - 1
-        while l < r:
-            nums[l], nums[r] = nums[r], nums[l]
-            l += 1
-            r -= 1
-```
-
 
 ### 169. Majority Element
 
