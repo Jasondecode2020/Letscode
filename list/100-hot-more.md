@@ -46,8 +46,6 @@ class Solution:
         return res
 ```
 
-## 1.1 Hash table (3)
-
 ## 2 Two pointers (4)
 
 * [283. Move Zeroes](#283-Move-Zeroes) 
