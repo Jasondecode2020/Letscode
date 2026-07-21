@@ -2,10 +2,16 @@
 
 review:
 
-* [32. Longest Valid Parentheses](#32-Longest-Valid-Parentheses)
-* [153. Find Minimum in Rotated Sorted Array](#153-Find-Minimum-in-Rotated-Sorted-Array)
-* [33. Search in Rotated Sorted Array](#33-Search-in-Rotated-Sorted-Array)
-* [4. Median of Two Sorted Arrays](#4-Median-of-Two-Sorted-Arrays)
+* [438. Find All Anagrams in a String](#438-Find-All-Anagrams-in-a-String)
+- optimize the 26 letters
+* [239. Sliding Window Maximum](#239-Sliding-Window-Maximum)
+- wrong, q[-1] not q[0]
+* [76. Minimum Window Substring](#76-Minimum-Window-Substring)
+- optimize the 26 letters
+* [53. Maximum Subarray](#53-Maximum-Subarray)
+- use d & q
+* [238. Product of Array Except Self](#238-Product-of-Array-Except-Self)
+- use O(1) space 
 
 ## 1 Hash Table (3)
 
