@@ -2,12 +2,6 @@
 
 review:
 
-* [438. Find All Anagrams in a String](#438-Find-All-Anagrams-in-a-String)
-- optimize the 26 letters
-* [239. Sliding Window Maximum](#239-Sliding-Window-Maximum)
-- wrong, q[-1] not q[0]
-* [76. Minimum Window Substring](#76-Minimum-Window-Substring)
-- optimize the 26 letters
 * [53. Maximum Subarray](#53-Maximum-Subarray)
 - use d & q
 * [238. Product of Array Except Self](#238-Product-of-Array-Except-Self)
@@ -180,6 +174,30 @@ class Solution:
         return res 
 ```
 
+- add need/count method
+
+```python
+class Solution:
+    def findAnagrams(self, s: str, p: str) -> List[int]:
+        S, P = Counter(), Counter(p)
+        res = []
+        l = 0
+        need = len(P)
+        count = 0
+        for r, c in enumerate(s):
+            S[c] += 1
+            if S[c] == P[c]:
+                count += 1
+            if r - l + 1 == len(p):
+                if count == need:
+                    res.append(l)
+                if S[s[l]] == P[s[l]]:
+                    count -= 1
+                S[s[l]] -= 1
+                l += 1
+        return res 
+```
+
 ## 4 Substring (3)
 
 * [560. Subarray Sum Equals K](#560-Subarray-Sum-Equals-K) 
@@ -218,19 +236,21 @@ class Solution:
         
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
-        S, T, res, l = Counter(), Counter(t), s + t, 0
-        counter = 0
+        S, T = Counter(), Counter(t)
+        l, res = 0, s + '#'
+        need = len(T)
+        count = 0
         for r, c in enumerate(s):
             S[c] += 1
             if S[c] == T[c]:
-                counter += 1
-            while counter == len(T):
+                count += 1
+            while need == count:
                 res = min(res, s[l: r + 1], key = len)
+                if S[s[l]] == T[s[l]]:
+                    count -= 1
                 S[s[l]] -= 1
-                if S[s[l]] < T[s[l]]:
-                    counter -= 1
                 l += 1
-        return res if res != s + t else ''
+        return res if res != s + '#' else ''
 ```
 
 ### 239. Sliding Window Maximum
@@ -271,6 +291,24 @@ class Solution:
         for i in range(1, n):
             dp[i] = max(nums[i], nums[i] + dp[i - 1])
         return max(dp)
+
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        @cache 
+        def dfs(l, r):
+            if l == r:
+                return nums[l]
+            m = (l + r) // 2
+            left, res = -inf, 0
+            for i in range(m, l - 1, -1):
+                res += nums[i]
+                left = max(left, res)
+            right, res = -inf, 0
+            for i in range(m + 1, r + 1):
+                res += nums[i]
+                right = max(right, res)
+            return max(dfs(l, m), dfs(m + 1, r), left + right)
+        return dfs(0, len(nums) - 1)
 ```
 
 ### 56. Merge Intervals
@@ -327,6 +365,22 @@ class Solution:
             tmp *= nums[i + 1]
             res[i] *= tmp
         return res
+```
+
+- O(1)
+
+```python
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        n = len(nums)
+        suffix = [1] * n 
+        for i in range(n - 2, -1, -1):
+            suffix[i] = suffix[i + 1] * nums[i + 1]
+        pre = 1
+        for i, x in enumerate(nums):
+            suffix[i] *= pre 
+            pre *= x 
+        return suffix
 ```
 
 ### 41. First Missing Positive
